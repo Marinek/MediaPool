@@ -1,4 +1,5 @@
 #summary commit rules specification.
+#labels Featured
 
 = Introduction =
 
@@ -13,5 +14,8 @@ This rules may change in time. Please stay tuned.
 
   # Create an Issue
   # Create a branch for the issue   
-      /branches/issue_number_6 (e.g. brahches/issue_000212
-  # ...
+      /branches/issue_number_6 (e.g. brahches/issue_000212)
+  # Make your modifications
+  # Commit your modifications
+  # Call for a code review
+  # Your code will be merged in designates releases by an owner.
