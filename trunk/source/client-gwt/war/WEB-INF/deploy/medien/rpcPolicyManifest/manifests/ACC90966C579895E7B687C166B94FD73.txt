@@ -1,0 +1,2 @@
+serviceClass: de.ompd.medien.client.GreetingService
+path: E24804EF1993A98AA6F2C695AB952716.gwt.rpc
