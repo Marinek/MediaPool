@@ -1,8 +1,8 @@
-package de.mediapool.business;
+package de.mediapool.coreapi.business;
 
 import java.util.List;
 
-import de.mediapool.beans.Film;
+import de.mediapool.coreapi.beans.Film;
 
 
 public interface FilmService {

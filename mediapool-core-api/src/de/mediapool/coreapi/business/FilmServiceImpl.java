@@ -1,9 +1,9 @@
-package de.mediapool.business;
+package de.mediapool.coreapi.business;
 
 import java.util.List;
 
-import de.mediapool.beans.Film;
-import de.mediapool.persistence.FilmDao;
+import de.mediapool.coreapi.beans.Film;
+import de.mediapool.coreapi.persistence.FilmDao;
 
 public class FilmServiceImpl implements FilmService {
 	private FilmDao filmDao;

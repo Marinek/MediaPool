@@ -1,4 +1,4 @@
-package de.mediapool.beans;
+package de.mediapool.coreapi.beans;
 
 import java.io.Serializable;
 
