@@ -10,7 +10,6 @@ import de.mediapool.business.FilmService;
 
 public class Application {
 	
-	private static boolean callInnerTransaction = false;
 	
 	public static void main(String[] args) {
 
