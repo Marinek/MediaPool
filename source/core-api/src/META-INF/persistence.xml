@@ -12,8 +12,6 @@
 			
 			<property name="javax.persistence.validation.mode" value="none" />
     		<property name="hibernate.validator.autoregister_listeners" value="false" />
-    		
-			
 
 		</properties>
 		<validation-mode>NONE</validation-mode>
