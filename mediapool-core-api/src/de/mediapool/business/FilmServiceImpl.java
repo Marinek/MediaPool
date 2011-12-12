@@ -1,5 +1,7 @@
 package de.mediapool.business;
 
+import java.util.List;
+
 import de.mediapool.beans.Film;
 import de.mediapool.persistence.FilmDao;
 
@@ -11,11 +13,14 @@ public class FilmServiceImpl implements FilmService {
 	public void createFilm() {
 		this.filmDao.insert(new Film());
 	}
-	public void deleteFilm(int number) {
-		this.filmDao.delete(number);
+	public void deleteFilm(int id) {
+		this.filmDao.delete(id);
 	}
-	public Film getFilm(int number) {
-		return this.filmDao.get(number);
+	public Film getFilm(int id) {
+		return this.filmDao.get(id);
+	}
+	public List<Film> getAll() {
+		return this.filmDao.getAll();
 	}
 
 }

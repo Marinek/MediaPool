@@ -21,7 +21,7 @@ public class Film implements Serializable
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id = null;
+    private int id;
  
 
     @Column(name = "Name")
@@ -31,7 +31,7 @@ public class Film implements Serializable
 		this.name = name;
 	}
 
-	public Long getId()
+	public int getId()
     {
         return id;
     }
