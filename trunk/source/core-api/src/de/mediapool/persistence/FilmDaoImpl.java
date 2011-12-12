@@ -1,4 +1,4 @@
-package de.mediapool.coreapi.persistence;
+package de.mediapool.persistence;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.Hibernate;
-import org.springframework.stereotype.Repository;
 
-import de.mediapool.coreapi.beans.Film;
+import de.mediapool.beans.Film;
+
 
 @Repository
 public class FilmDaoImpl implements FilmDao {

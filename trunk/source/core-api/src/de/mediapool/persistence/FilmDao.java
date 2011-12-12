@@ -1,8 +1,9 @@
-package de.mediapool.coreapi.persistence;
+package de.mediapool.persistence;
 
 import java.util.List;
 
-import de.mediapool.coreapi.beans.Film;
+import de.mediapool.beans.Film;
+
 
 public interface FilmDao {
 	public abstract void insert(Film film);
