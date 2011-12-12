@@ -1,5 +1,7 @@
 package de.mediapool.persistence;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -30,16 +32,24 @@ public class FilmDaoImpl implements FilmDao {
 			SessionTracer.trace("update", session);
 		session.update(film);
 	}
-	public void delete(int number) {
+	public void delete(int id) {
 		Session session = this.factory.getCurrentSession();
 		if (this.trace)
 			SessionTracer.trace("delete", session);
-		session.delete(new Film());
+		session.delete(id);
 	}
-	public Film get(int number) {
+	public Film get(int id) {
 		Session session = this.factory.getCurrentSession();
 		if (this.trace)
 			SessionTracer.trace("get", session);
-		return (Film) session.get(Film.class, number);
+		return (Film) session.get(Film.class, id);
+	}
+	
+	public List<Film> getAll() {
+		Session session = this.factory.getCurrentSession();
+		if (this.trace)
+			SessionTracer.trace("get", session);
+		List<Film> filme = session.createQuery("from Film").list();
+		return filme;
 	}
 }

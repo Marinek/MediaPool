@@ -1,5 +1,7 @@
 package de.mediapool.appl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -20,13 +22,13 @@ public class Application {
 		final BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("spring.xml"));
 		final PlatformTransactionManager tm = 
 			(PlatformTransactionManager) beanFactory.getBean("transactionManager");
-		final FilmService service = (FilmService) beanFactory.getBean("accountService");
+		final FilmService service = (FilmService) beanFactory.getBean("filmService");
 
 		transaction1(tm, service);
 		if (! callInnerTransaction)
 			transaction2(tm, service);
 		Film film = transaction3(tm, service);
-		System.out.println(film);
+		System.out.println(film.getName());
 	}
 	
 	private static void transaction1(PlatformTransactionManager tm, FilmService service) {
@@ -66,10 +68,9 @@ public class Application {
 		td.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
 		TransactionStatus ts = tm.getTransaction(td);
 		try {
-//			Film film = service.getAccount(4711);
-//			tm.commit(ts);
-//			return film;
-			return null;
+			List<Film> filme = service.getAll();
+			tm.commit(ts);
+			return filme.get(0);
 		}
 		catch(RuntimeException e) {
 			tm.rollback(ts);
