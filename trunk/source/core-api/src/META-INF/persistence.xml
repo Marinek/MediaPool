@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
 	<persistence-unit name="manager1" transaction-type="RESOURCE_LOCAL">
-		<class>de.mediapool.coreapi.business.Film</class>
+		<class>de.mediapool.beans.Film</class>
 		<properties>
 
 			<property name="hibernate.max_fetch_depth" value="5" />
@@ -10,13 +10,10 @@
 			<property name="hibernate.search.default.indexBase" value="/srv/tomcat6/webapps/index" />
 
 			
-			<property name="javax.persistence.validation.mode" value="none" />
     		<property name="hibernate.validator.autoregister_listeners" value="false" />
 
 		</properties>
-		<validation-mode>NONE</validation-mode>
 	</persistence-unit>
 	
-	<validation-mode>NONE</validation-mode>
 	
 </persistence>
