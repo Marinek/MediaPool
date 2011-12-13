@@ -2,8 +2,7 @@ package de.mediapool.appl;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import de.mediapool.beans.Film;
 import de.mediapool.business.FilmService;
@@ -13,8 +12,9 @@ public class Application {
 	
 	public static void main(String[] args) {
 
-		final BeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("spring.xml"));
-		final FilmService service = (FilmService) beanFactory.getBean("filmService");
+		BeanFactory beanFactory = new ClassPathXmlApplicationContext(
+		        new String[] {"spring.xml"});
+		FilmService service = (FilmService) beanFactory.getBean("filmService");
 
 
 		Film film = test(service);
