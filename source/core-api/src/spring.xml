@@ -13,7 +13,10 @@
 			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
-	
+ <bean id="myPmf" class="org.jpox.PersistenceManagerFactoryImpl" >
+   <property name="connectionFactory" ref="dataSource"/>
+   <property name="nontransactionalRead" value="true"/>
+ </bean>
 	
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
@@ -59,6 +62,7 @@
 	<context:mbean-export />
 	
 	<bean id="filmDao" class="de.mediapool.persistence.FilmDaoImpl">
+		<property name="sessionFactory" ref="entityManagerFactory"/>
 	</bean>
 
 	<bean id="filmService" class="de.mediapool.business.FilmServiceImpl">

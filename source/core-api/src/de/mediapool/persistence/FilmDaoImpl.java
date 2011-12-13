@@ -16,7 +16,7 @@ import de.mediapool.beans.Film;
 public class FilmDaoImpl implements FilmDao {
 	
 	@PersistenceContext
-	private EntityManager em;
+	public EntityManager em;
 
 	
 	public void insert(Film film) {
