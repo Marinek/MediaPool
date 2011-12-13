@@ -2,40 +2,50 @@ package de.mediapool.persistence;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.hibernate.Hibernate;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Repository;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import de.mediapool.beans.Film;
 
 
-@Repository
+@Repository("filmDao")
+@Transactional
 public class FilmDaoImpl implements FilmDao {
 	
-	@PersistenceContext
-	public EntityManager em;
-
+	private HibernateTemplate hibernateTemplate;
 	
+
+	@Autowired
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		hibernateTemplate = new HibernateTemplate(sessionFactory);
+	}
+
+	@Transactional(readOnly = false)
 	public void insert(Film film) {
-		em.persist(film);
+		hibernateTemplate.persist(film);
 	}
+	@Transactional(readOnly = false)
 	public void update(Film film) {
-		em.merge(film);
+		hibernateTemplate.merge(film);
 	}
+	@Transactional(readOnly = false)
 	public void delete(int id) {
-		em.remove(id);
+		hibernateTemplate.delete(id);
 	}
+	
 	public Film get(int id) {
-		Film film = em.find(Film.class, id);
+		Film film = (Film) hibernateTemplate.get(Film.class, id);
 		Hibernate.initialize(film);
 		return film ;
 	}
 	
 	public List<Film> getAll() {
-		List<Film> filme = em.createQuery("from Film").getResultList();
+		System.out.println("FilmDaoImpl.getAll()");
+		List<Film> filme = hibernateTemplate.find("from Film");
 		return filme;
 	}
 }

@@ -1,73 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Application context definition for PetClinic on Hibernate. -->
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xmlns:p="http://www.springframework.org/schema/p"
-		xmlns:context="http://www.springframework.org/schema/context" 
-		xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-		xmlns:util="http://www.springframework.org/schema/util"
-		xmlns:tx="http://www.springframework.org/schema/tx"
-		xsi:schemaLocation="
-			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-			http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-			http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
-			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-	
- <bean id="myPmf" class="org.jpox.PersistenceManagerFactoryImpl" >
-   <property name="connectionFactory" ref="dataSource"/>
-   <property name="nontransactionalRead" value="true"/>
- </bean>
-	
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mediapool"/>
 		<property name="user" value="root"/>
 		<property name="password" value=""/>
 	</bean>
-	
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="persistenceUnitName" value="manager1" /> 
-        <property name="jpaVendorAdapter">
-                <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                        <property name="generateDdl" value="true" />
-                        <property name="showSql" value="false" />
-                        <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
-                        
-                </bean>
-        </property>
-	</bean>
-	
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-	    <property name="entityManagerFactory" ref="entityManagerFactory"/>
-	</bean>
-	
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-	
-	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-	
-		<!-- ========================= BUSINESS OBJECT DEFINITIONS ========================= -->
 
-	<!-- Activates various annotations to be detected in bean classes: Spring's 
-		@Required and @Autowired, as well as JSR 250's @Resource. -->
-	<context:annotation-config />
-
-	<!-- Instruct Spring to perform declarative transaction management automatically 
-		on annotated classes. -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
-
-	<!-- Exporter that exposes the Hibernate statistics service via JMX. Autodetects 
-		the service MBean, using its bean name as JMX object name. -->
-	<context:mbean-export />
-	
-	<bean id="filmDao" class="de.mediapool.persistence.FilmDaoImpl">
-		<property name="sessionFactory" ref="entityManagerFactory"/>
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>de.mediapool.beans.Film</value>
+			</list>
+		</property>
 	</bean>
 
 	<bean id="filmService" class="de.mediapool.business.FilmServiceImpl">
 		<property name="filmDao" ref="filmDao"/>
 	</bean>
 	
+	<bean id="filmDao" class="de.mediapool.persistence.FilmDaoImpl">
+	 <property name="sessionFactory" ref="entityManagerFactory" />
+	</bean>
+	
+
 </beans>
 
