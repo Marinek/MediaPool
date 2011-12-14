@@ -4,8 +4,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import de.mediapool.beans.Film;
 import de.mediapool.business.FilmService;
+import de.mediapool.persistence.vo.FilmVO;
 
 public class Application {
 	
@@ -17,12 +17,12 @@ public class Application {
 		FilmService service = (FilmService) beanFactory.getBean("filmService");
 
 
-		Film film = test(service);
+		FilmVO film = test(service);
 		System.out.println(film.getName());
 	}
 	
 	@Autowired
-	private static Film test(FilmService service){
+	private static FilmVO test(FilmService service){
 		
 		return service.getAll().get(0);
 		

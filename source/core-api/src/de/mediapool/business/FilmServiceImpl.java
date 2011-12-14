@@ -2,27 +2,24 @@ package de.mediapool.business;
 
 import java.util.List;
 
-import de.mediapool.beans.Film;
-import de.mediapool.persistence.FilmDao;
-
-
-
+import de.mediapool.persistence.dao.interfaces.IFilmDAO;
+import de.mediapool.persistence.vo.FilmVO;
 
 public class FilmServiceImpl implements FilmService {
-	private FilmDao filmDao;
-	public void setFilmDao(FilmDao filmDao) {
+	private IFilmDAO filmDao;
+	public void setFilmDao(IFilmDAO filmDao) {
 		this.filmDao = filmDao;
 	}
 	public void createFilm() {
-		this.filmDao.insert(new Film());
+		this.filmDao.insert(new FilmVO());
 	}
-	public void deleteFilm(int id) {
+	public void deleteFilm(FilmVO id) {
 		this.filmDao.delete(id);
 	}
-	public Film getFilm(int id) {
+	public FilmVO getFilm(int id) {
 		return this.filmDao.get(id);
 	}
-	public List<Film> getAll() {
+	public List<FilmVO> getAll() {
 		return this.filmDao.getAll();
 	}
 
