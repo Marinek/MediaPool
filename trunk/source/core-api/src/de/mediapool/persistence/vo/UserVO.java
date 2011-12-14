@@ -5,11 +5,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-import de.mediapool.persistence.core.AbstractVO;
+import de.mediapool.persistence.core.interfaces.IValueObject;
 
 @Entity
 @Table(name="user")
-public class UserVO extends AbstractVO {
+public class UserVO implements IValueObject {
 	
 	private static final long serialVersionUID = 1L;
 

@@ -15,7 +15,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>de.mediapool.beans.Film</value>
+				<value>de.mediapool.persistence.vo.FilmVO</value>
 			</list>
 		</property>
 	</bean>
@@ -24,7 +24,7 @@
 		<property name="filmDao" ref="filmDao"/>
 	</bean>
 	
-	<bean id="filmDao" class="de.mediapool.persistence.FilmDaoImpl">
+	<bean id="filmDao" class="de.mediapool.persistence.dao.FilmDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
