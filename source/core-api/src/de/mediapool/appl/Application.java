@@ -30,6 +30,12 @@ public class Application {
 		
 		service.createFilm(lVO);
 		
+		MovieVO storedMovie = service.getFilm(lVO.getId());
+		
+		if(storedMovie != null) {
+			//service.deleteFilm(storedMovie);
+		}
+		
 		return lVO;
 	}
 
