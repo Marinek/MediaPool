@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import de.mediapool.business.FilmService;
-import de.mediapool.persistence.vo.FilmVO;
+import de.mediapool.persistence.vo.MovieVO;
 
 public class Application {
 	
@@ -17,15 +17,20 @@ public class Application {
 		FilmService service = (FilmService) beanFactory.getBean("filmService");
 
 
-		FilmVO film = test(service);
-		System.out.println(film.getName());
+		MovieVO film = test(service);
+		System.out.println(film.getId());
 	}
 	
 	@Autowired
-	private static FilmVO test(FilmService service){
+	private static MovieVO test(FilmService service){
+		MovieVO lVO = new MovieVO();
 		
-		return service.getAll().get(0);
+		lVO.setName("Piraten ;)");
+		lVO.setLengthMinutes(1);
 		
+		service.createFilm(lVO);
+		
+		return lVO;
 	}
 
 }
