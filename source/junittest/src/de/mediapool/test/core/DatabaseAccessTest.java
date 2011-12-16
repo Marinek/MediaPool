@@ -1,13 +1,22 @@
 package de.mediapool.test.core;
 
-import org.junit.Test;
+import org.junit.Before;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 
-public class DatabaseAccessTest {
+public abstract class DatabaseAccessTest {
 
-	@Test
-	public void test() {
-		System.out.println("DatabaseAccessTest.test()");
+	protected BeanFactory beanFactory;
+	
+	@Before
+	public void initTest() {
+	
+		beanFactory = new ClassPathXmlApplicationContext(
+		        new String[] {"spring.xml"});
+	}
+	
+	public void closeTest() {
 	}
 }
