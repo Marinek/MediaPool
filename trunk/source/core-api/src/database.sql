@@ -1,4 +1,4 @@
-CREATE TABLE `Filme` (
+CREATE TABLE IF NOT EXISTS `media` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Fach` int(4) unsigned zerofill DEFAULT NULL,
   `Name` varchar(100) NOT NULL,
@@ -11,4 +11,9 @@ CREATE TABLE `Filme` (
   `coverUrl` varchar(255) DEFAULT NULL,
   `jdoDetachedState` tinyblob,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1071 DEFAULT CHARSET=latin1
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `movies` (
+  `id` int(11) NOT NULL,
+  `lengthMinutes` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

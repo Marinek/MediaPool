@@ -15,7 +15,8 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>de.mediapool.persistence.vo.FilmVO</value>
+				<value>de.mediapool.persistence.vo.MovieVO</value>
+				<value>de.mediapool.persistence.vo.MediaVO</value>
 			</list>
 		</property>
 	</bean>
