@@ -15,17 +15,17 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>de.mediapool.persistence.vo.MovieVO</value>
-				<value>de.mediapool.persistence.vo.MediaVO</value>
+				<value>de.mediapool.persistence.vo.media.MovieVO</value>
+				<value>de.mediapool.persistence.vo.media.MediaVO</value>
 			</list>
 		</property>
 	</bean>
 
-	<bean id="filmService" class="de.mediapool.business.FilmServiceImpl">
-		<property name="filmDao" ref="filmDao"/>
+	<bean id="movieService" class="de.mediapool.business.media.MovieServiceImpl">
+		<property name="contextMediaDAO" ref="movieDAO"/>
 	</bean>
 	
-	<bean id="filmDao" class="de.mediapool.persistence.dao.FilmDAOImpl">
+	<bean id="movieDAO" class="de.mediapool.persistence.dao.media.MovieDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	

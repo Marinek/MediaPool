@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
-
 public abstract class DatabaseAccessTest {
 
 	protected BeanFactory beanFactory;
@@ -13,8 +11,7 @@ public abstract class DatabaseAccessTest {
 	@Before
 	public void initTest() {
 	
-		beanFactory = new ClassPathXmlApplicationContext(
-		        new String[] {"spring.xml"});
+		beanFactory = new ClassPathXmlApplicationContext(new String[] {"spring.xml"});
 	}
 	
 	public void closeTest() {
