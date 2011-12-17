@@ -1,4 +1,4 @@
-package de.mediapool.persistence.vo;
+package de.mediapool.persistence.vo.media;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
