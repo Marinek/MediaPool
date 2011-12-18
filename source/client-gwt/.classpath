@@ -2,7 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" output="test-classes" path="test"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mediapool-core-api"/>
+	<classpathentry exported="true" kind="lib" path="/mediapool-third-party/libs/org.springframework.web.servlet-3.1.0.RC2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/mediapool-third-party/libs/org.springframework.web-3.1.0.RC2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/mediapool-third-party"/>
 	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/hibernate-annotations-3.4.0.GA.jar"/>
@@ -18,5 +21,18 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/javassist-3.9.0.GA.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/mysql-connector-java-5.1.18-bin.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.beans-3.1.0.RC2.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.context-3.1.0.RC2.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.core-3.1.0.RC2.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/mediapool-core.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/geronimo-jpa_3.0_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/hibernate-annotations-3.4.0.GA.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/hibernate-commons-annotations-3.3.0.ga.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/hibernate-core-3.3.2.GA.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/hibernate-entitymanager-3.4.0.GA.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.aop-3.1.0.RC2.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.asm-3.1.0.RC2.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.jdbc-3.1.0.RC2.jar"/>
+	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.transaction-3.1.0.RC2.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

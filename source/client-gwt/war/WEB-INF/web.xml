@@ -4,12 +4,15 @@
               http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5"
          xmlns="http://java.sun.com/xml/ns/javaee">
+         
 
-  <!-- Servlets -->
+ 
   <servlet>
     <servlet-name>greetServlet</servlet-name>
     <servlet-class>de.ompd.medien.server.service.GreetingServiceImpl</servlet-class>
   </servlet>
+  
+
   
   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>

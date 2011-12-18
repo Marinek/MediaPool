@@ -4,12 +4,19 @@ import java.util.List;
 
 import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+
+import de.mediapool.beans.media.AbstractMediaBean;
+import de.mediapool.business.interfaces.IMovieService;
+import de.mediapool.business.media.MovieServiceImpl;
+import de.mediapool.exceptions.MPExeption;
 import de.ompd.medien.client.GreetingService;
 import de.ompd.medien.server.dto.Film;
 import de.ompd.medien.server.util.HibernateUtil;
 import de.ompd.medien.shared.FieldVerifier;
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * The server side implementation of the RPC service.
@@ -17,6 +24,20 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
+	
+    ApplicationContext context = new ClassPathXmlApplicationContext(
+            "spring.xml");
+
+	
+	public IMovieService movieService;
+
+	public IMovieService getMovieService() {
+		return movieService;
+	}
+
+	public void setMovieService(IMovieService movieService) {
+		this.movieService = movieService;
+	}
 
 	public String greetServer(String input) throws IllegalArgumentException {
 		// Verify that the input is valid. 
@@ -33,7 +54,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		// Escape data from the client to avoid cross-site script vulnerabilities.
 		input = escapeHtml(input);
 		userAgent = escapeHtml(userAgent);
-		String name = "" + getMockObject().getName();
+		String name = "" + getMovie();
 		return "Hello, " + input + "!<br><br>I am running " + serverInfo
 				+ ".<br><br>It looks like you are using:<br>" + userAgent + "id: " + name;
 	}
@@ -79,5 +100,26 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 //        System.out.println("Generated ID is: " + object1.getId());
 //        System.out.println("Generated Version is: " + object1.getVersion());
         return object0;
+	}
+	
+	public String getMovie()
+	{
+		AbstractMediaBean media = null;
+				
+				try {
+					media = getMedia(1);
+				} catch (MPExeption e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return media != null ? media.toString() : "No Media found";
+	}
+
+	@Override
+	public AbstractMediaBean getMedia(int mediaId) throws MPExeption {
+		MovieServiceImpl movieService = (MovieServiceImpl) context.getBean("movieService");
+
+		
+		return movieService.getMedia(mediaId);
 	}
 }
