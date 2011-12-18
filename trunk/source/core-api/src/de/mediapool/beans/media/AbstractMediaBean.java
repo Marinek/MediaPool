@@ -1,6 +1,8 @@
 package de.mediapool.beans.media;
 
-public abstract class AbstractMediaBean {
+import de.mediapool.beans.AbstractBean;
+
+public abstract class AbstractMediaBean extends AbstractBean {
 
 	private int id;
 	private String name;

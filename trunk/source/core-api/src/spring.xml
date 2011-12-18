@@ -21,7 +21,7 @@
 		</property>
 	</bean>
 
-	<bean id="movieService" class="de.mediapool.business.media.MovieServiceImpl">
+	<bean id="movieService" class="de.mediapool.services.media.MovieServiceImpl">
 		<property name="contextMediaDAO" ref="movieDAO"/>
 	</bean>
 	
