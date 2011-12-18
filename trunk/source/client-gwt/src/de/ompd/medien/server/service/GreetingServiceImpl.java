@@ -10,12 +10,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.mediapool.beans.media.AbstractMediaBean;
+import de.mediapool.beans.media.MovieBean;
 import de.mediapool.business.interfaces.IMovieService;
 import de.mediapool.business.media.MovieServiceImpl;
 import de.mediapool.exceptions.MPExeption;
 import de.ompd.medien.client.GreetingService;
-import de.ompd.medien.server.dto.Film;
-import de.ompd.medien.server.util.HibernateUtil;
 import de.ompd.medien.shared.FieldVerifier;
 
 /**
@@ -74,33 +73,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				.replaceAll(">", "&gt;");
 	}
 	
-	public Film getMockObject()
-	{
- 
-        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-
- 
-        //Film object0 = new Film();
-        //Film object1 = new Film();
-        //session.save(object0);
-        //session.save(object1);
-        List filme = session.createQuery("from Film").list();
-        
-        Film object0 = (Film) filme.get(0);
-        Film object1 = (Film) filme.get(1);
- 
-        transaction.commit();
- 
-//        System.out.println("Object 0");
-//        System.out.println("Generated ID is: " + object0.getId());
-//        System.out.println("Generated Version is: " + object0.getVersion());
-// 
-//        System.out.println("Object 1");
-//        System.out.println("Generated ID is: " + object1.getId());
-//        System.out.println("Generated Version is: " + object1.getVersion());
-        return object0;
-	}
 	
 	public String getMovie()
 	{
@@ -118,8 +90,10 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public AbstractMediaBean getMedia(int mediaId) throws MPExeption {
 		MovieServiceImpl movieService = (MovieServiceImpl) context.getBean("movieService");
-
+		MovieBean mediaBean = new MovieBean();
+		mediaBean.setName("TestService");
+		movieService.createMedia(mediaBean);
 		
-		return movieService.getMedia(mediaId);
+		return mediaBean;
 	}
 }
