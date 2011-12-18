@@ -3,10 +3,10 @@ package de.mediapool.test.core;
 import org.junit.Assert;
 import org.junit.Test;
 
-import de.mediapool.beans.media.MovieBean;
-import de.mediapool.exceptions.MPExeption;
-import de.mediapool.services.interfaces.IMediaService;
-import de.mediapool.services.interfaces.IMovieService;
+import de.mediapool.core.beans.media.MovieBean;
+import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.services.interfaces.IMediaService;
+import de.mediapool.core.services.interfaces.IMovieService;
 
 public class MovieDataAccessTest extends DatabaseAccessTest {
 
