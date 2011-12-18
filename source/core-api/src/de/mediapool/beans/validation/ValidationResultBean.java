@@ -43,4 +43,8 @@ public class ValidationResultBean extends AbstractBean {
 	public ValidationErrorType getValidationErrorType() {
 		return validationErrorType;
 	}
+	
+	public boolean isPersistent () {
+		return false;
+	}
 }
