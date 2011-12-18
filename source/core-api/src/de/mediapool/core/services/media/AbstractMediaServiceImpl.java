@@ -1,5 +1,7 @@
 package de.mediapool.core.services.media;
 
+import java.util.List;
+
 import de.mediapool.core.beans.media.AbstractMediaBean;
 import de.mediapool.core.beans.media.MovieBean;
 import de.mediapool.core.exceptions.MPExeption;
@@ -18,6 +20,16 @@ public abstract class AbstractMediaServiceImpl extends AbstractServiceImpl imple
 
 	public void deleteMedia() throws MPExeption {
 		this.getCurrentContextualDAO().delete(this.getCurrentContextualVO());
+	}
+
+	public void getAllMedia() throws MPExeption {
+		List<MediaVO> mediaVOList =  this.getCurrentContextualDAO().getAll();
+	}
+
+	public void getMedia(int id) throws MPExeption {
+		
+		MediaVO mediaVO = this.getCurrentContextualDAO().get(id);
+		this.setCurrentContextualVO(mediaVO);
 	}
 	
 	protected void init() {
