@@ -1,4 +1,4 @@
-package de.ompd.medien.server.service;
+package de.mediapool.web.server.service;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import de.mediapool.beans.media.MovieBean;
 import de.mediapool.business.interfaces.IMovieService;
 import de.mediapool.business.media.MovieServiceImpl;
 import de.mediapool.exceptions.MPExeption;
-import de.ompd.medien.client.GreetingService;
-import de.ompd.medien.shared.FieldVerifier;
+import de.mediapool.web.client.GreetingService;
+import de.mediapool.web.shared.FieldVerifier;
 
 /**
  * The server side implementation of the RPC service.
