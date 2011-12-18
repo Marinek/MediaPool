@@ -2,7 +2,8 @@ package de.ompd.medien.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-import de.ompd.medien.server.dto.Film;
+import de.mediapool.beans.media.AbstractMediaBean;
+import de.mediapool.exceptions.MPExeption;
 
 /**
  * The async counterpart of <code>GreetingService</code>.
@@ -10,4 +11,6 @@ import de.ompd.medien.server.dto.Film;
 public interface GreetingServiceAsync {
 	void greetServer(String input, AsyncCallback<String> callback)
 			throws IllegalArgumentException;
+	void getMedia(int mediaId, AsyncCallback<AbstractMediaBean> callback) throws MPExeption;
 }
+
