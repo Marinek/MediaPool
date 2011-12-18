@@ -4,7 +4,7 @@ import de.mediapool.core.beans.media.AbstractMediaBean;
 import de.mediapool.core.beans.media.MovieBean;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.persistence.dao.interfaces.IMediaDAO;
-import de.mediapool.core.persistence.dao.media.MediaVO;
+import de.mediapool.core.persistence.vo.media.MediaVO;
 import de.mediapool.core.services.AbstractServiceImpl;
 import de.mediapool.core.services.interfaces.IMediaService;
 
