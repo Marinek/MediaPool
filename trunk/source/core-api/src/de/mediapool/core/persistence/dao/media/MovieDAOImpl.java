@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.mediapool.core.persistence.dao.interfaces.IMovieDAO;
+import de.mediapool.core.persistence.vo.media.MovieVO;
 
 @Repository("movieDAO")
 @Transactional
