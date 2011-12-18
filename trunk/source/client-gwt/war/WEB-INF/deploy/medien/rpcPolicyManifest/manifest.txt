@@ -1,3 +1,2 @@
 # Module medien
 # RPC service class, partial path of RPC policy file
-de.ompd.medien.client.GreetingService, E24804EF1993A98AA6F2C695AB952716.gwt.rpc
