@@ -33,7 +33,7 @@ public class MovieDataAccessTest extends DatabaseAccessTest {
 //			Assert.assertTrue(media == null);
 			
 		} catch (MPExeption e) {
-			Assert.assertTrue("Exception beim Serviceaufruff", 1 == 2);
+			Assert.assertTrue("Exception beim Serviceaufruf", 1 == 2);
 		}
 		
 	}
