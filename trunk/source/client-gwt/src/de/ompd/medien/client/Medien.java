@@ -1,11 +1,5 @@
 package de.ompd.medien.client;
 
-import org.hibernate.Transaction;
-import org.hibernate.classic.Session;
-
-import de.ompd.medien.server.dto.Film;
-import de.ompd.medien.server.util.HibernateUtil;
-import de.ompd.medien.shared.FieldVerifier;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -21,6 +15,8 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+
+import de.ompd.medien.shared.FieldVerifier;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
