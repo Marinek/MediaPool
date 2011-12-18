@@ -1,4 +1,4 @@
-package de.ompd.medien.shared;
+package de.mediapool.web.shared;
 
 /**
  * <p>

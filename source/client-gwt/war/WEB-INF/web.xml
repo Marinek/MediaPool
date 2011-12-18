@@ -9,7 +9,7 @@
  
   <servlet>
     <servlet-name>greetServlet</servlet-name>
-    <servlet-class>de.ompd.medien.server.service.GreetingServiceImpl</servlet-class>
+    <servlet-class>de.mediapool.web.server.service.GreetingServiceImpl</servlet-class>
   </servlet>
   
 

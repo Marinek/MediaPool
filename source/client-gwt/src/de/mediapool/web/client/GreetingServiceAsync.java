@@ -1,4 +1,4 @@
-package de.ompd.medien.client;
+package de.mediapool.web.client;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
