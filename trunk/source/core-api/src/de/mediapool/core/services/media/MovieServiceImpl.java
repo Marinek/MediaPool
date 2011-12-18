@@ -1,7 +1,7 @@
 package de.mediapool.core.services.media;
 
 import de.mediapool.core.beans.media.MovieBean;
-import de.mediapool.core.persistence.dao.media.MovieVO;
+import de.mediapool.core.persistence.vo.media.MovieVO;
 import de.mediapool.core.services.interfaces.IMovieService;
 
 public class MovieServiceImpl extends AbstractMediaServiceImpl implements IMovieService {
