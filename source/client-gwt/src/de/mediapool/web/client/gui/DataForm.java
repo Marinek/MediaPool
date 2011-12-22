@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.Grid;
@@ -31,7 +32,7 @@ public class DataForm extends FormPanel {
 
 		setMovie(movie);
 
-		refreshData();
+		refreshForm();
 
 		grid.setWidget(0, 0, textLabel);
 		grid.setWidget(0, 1, textBox);
@@ -48,9 +49,13 @@ public class DataForm extends FormPanel {
 
 	}
 
-	public void refreshData() {
+	public void refreshForm() {
 		textLabel.setText("Titel");
 		textBox.setText(getMovie().getTitle());
+	}
+
+	public void refreshObject() {
+		getMovie().setTitle(textBox.getText());
 	}
 
 	class MyHandler implements ClickHandler, KeyUpHandler {
@@ -58,6 +63,8 @@ public class DataForm extends FormPanel {
 		 * Fired when the user clicks on the sendButton.
 		 */
 		public void onClick(ClickEvent event) {
+			refreshObject();
+			Window.alert(getMovie().getTitle());
 		}
 
 		/**
