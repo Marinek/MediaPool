@@ -34,6 +34,5 @@
 	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.asm-3.1.0.RC2.jar"/>
 	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.jdbc-3.1.0.RC2.jar"/>
 	<classpathentry kind="lib" path="/mediapool-third-party/libs/org.springframework.transaction-3.1.0.RC2.jar"/>
-	<classpathentry kind="lib" path="/mediapool-third-party/libs/vaadin-6.7.3.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
