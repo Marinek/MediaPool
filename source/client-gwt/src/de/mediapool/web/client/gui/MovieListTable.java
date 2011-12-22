@@ -27,7 +27,6 @@ public class MovieListTable extends CellTable<Movie> {
 		this.setStyleName("list_view_table");
 
 		this.setSelectionModel(new SingleSelectionModel<Movie>());
-
 		buildAllColumns();
 		fillMovieTable();
 	}
