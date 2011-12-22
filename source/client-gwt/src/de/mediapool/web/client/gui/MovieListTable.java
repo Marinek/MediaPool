@@ -7,6 +7,7 @@ import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.view.client.ListDataProvider;
+import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.mediapool.web.client.dto.Movie;
@@ -25,7 +26,6 @@ public class MovieListTable extends CellTable<Movie> {
 
 	public MovieListTable(List<Movie> movieList) {
 		this.setStyleName("list_view_table");
-
 		this.setSelectionModel(new SingleSelectionModel<Movie>());
 		buildAllColumns();
 		fillMovieTable();
@@ -103,6 +103,9 @@ public class MovieListTable extends CellTable<Movie> {
 			list.add(dummy);
 		}
 		addSortable(list);
+		int max = getMovieList() != null ? getMovieList().size() : 0;
+		Range range = new Range(0, max);
+		this.setVisibleRange(range);
 
 		this.redraw();
 	}

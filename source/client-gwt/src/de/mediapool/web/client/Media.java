@@ -53,7 +53,11 @@ public class Media implements EntryPoint {
 
 		MovieListTable movieTable = new MovieListTable(getMovieList());
 		ScrollPanel scroll = new ScrollPanel();
+		scroll.setStyleName("list_view_panel");
+
 		scroll.add(movieTable);
+		scroll.setAlwaysShowScrollBars(true);
+
 		RootPanel.get(LIST_VIEW).add(scroll);
 
 		getMoviesForTable(movieTable);
