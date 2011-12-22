@@ -32,3 +32,68 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+#page_all {
+	margin: auto;
+	height: 801px;
+	width: 1026px;
+	font-family:Verdana;
+	border:1px solid black;
+}
+
+#header {
+	height: 50px;
+	width: 1024px;
+	float: left;
+	border:1px solid black;
+}
+
+#search_view {
+	height: 100px;
+	width: 1024px;
+	border:1px solid black;
+	float: left;
+}
+
+#list_view {
+	height: 622px;
+	width: 600px;
+	float: left;
+	text-align: left;
+	position: relative;
+	border:1px solid black;
+}
+
+#image_view {
+	height: 280px;
+	width: 422px;
+	text-align:left;
+	float: left;
+	border:1px solid black;
+	position: relative;
+}
+
+#data_view {
+	height: 340px;
+	width: 422px;
+	text-align:left;
+	float: left;
+	border:1px solid black;
+	position: relative;
+}
+
+#footer {
+	height: 23px;
+	width: 1024px;
+	border:1px solid black;
+	float: left;
+}
+
+table.list_view_table {
+	height: 422px;
+	width: 600px;
+}
+
+.align_right {
+	align: right;
+}
