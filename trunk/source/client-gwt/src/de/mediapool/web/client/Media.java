@@ -93,7 +93,7 @@ public class Media implements EntryPoint {
 
 	private void refreshLeftSide(DataForm dataMovieForm, Image image) {
 		dataMovieForm.setMovie(getSelectedMovie());
-		dataMovieForm.refreshData();
+		dataMovieForm.refreshForm();
 		image.setUrl(getSelectedMovie().getImageUrl());
 	}
 
