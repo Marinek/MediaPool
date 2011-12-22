@@ -42,14 +42,14 @@ h1 {
 }
 
 #header {
-	height: 50px;
+	height: 20px;
 	width: 1024px;
 	float: left;
 	border:1px solid black;
 }
 
 #search_view {
-	height: 100px;
+	height: 133px;
 	width: 1024px;
 	border:1px solid black;
 	float: left;
@@ -83,15 +83,19 @@ h1 {
 }
 
 #footer {
-	height: 23px;
+	height: 20px;
 	width: 1024px;
 	border:1px solid black;
 	float: left;
 }
 
 table.list_view_table {
-	height: 422px;
-	width: 600px;
+	width: 583px;
+}
+
+.list_view_panel {
+	width: 600px ;
+    height: 622px;
 }
 
 .align_right {
