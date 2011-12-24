@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.ColumnSortEvent.ListHandler;
 import com.google.gwt.user.cellview.client.TextColumn;
+import com.google.gwt.view.client.CellPreviewEvent;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.Range;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -17,7 +18,7 @@ public class MovieListTable extends CellTable<Movie> {
 	List<Movie> movieList;
 
 	public List<Movie> getMovieList() {
-		return movieList;
+		return getMfw().getMovieList();
 	}
 
 	public void setMovieList(List<Movie> movieList) {
@@ -27,6 +28,18 @@ public class MovieListTable extends CellTable<Movie> {
 	public MovieListTable(List<Movie> movieList) {
 		this.setStyleName("list_view_table");
 		this.setSelectionModel(new SingleSelectionModel<Movie>());
+
+		this.addCellPreviewHandler(new CellPreviewEvent.Handler<Movie>() {
+			public void onCellPreview(CellPreviewEvent<Movie> event) {
+				String type = event.getNativeEvent().getType();
+				if (type.equals("click")) {
+					getMfw().setSelectedMovie(event.getValue());
+					((DataForm) getMfw().getWidget("DataForm")).refreshForm();
+					((ImageForm) getMfw().getWidget("ImageForm")).refreshForm();
+				}
+			}
+		});
+
 		buildAllColumns();
 		fillMovieTable();
 	}
@@ -108,5 +121,9 @@ public class MovieListTable extends CellTable<Movie> {
 		this.setVisibleRange(range);
 
 		this.redraw();
+	}
+
+	public MediaFormWidgets getMfw() {
+		return MediaFormWidgets.getInstance();
 	}
 }

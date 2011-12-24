@@ -4,19 +4,14 @@ import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.ScrollPanel;
-import com.google.gwt.view.client.CellPreviewEvent;
 
 import de.mediapool.web.client.dto.Movie;
 import de.mediapool.web.client.gui.DataForm;
-import de.mediapool.web.client.gui.ImageDialogBox;
 import de.mediapool.web.client.gui.ImageForm;
-import de.mediapool.web.client.gui.MovieListTable;
+import de.mediapool.web.client.gui.ListForm;
+import de.mediapool.web.client.gui.MediaFormWidgets;
 import de.mediapool.web.client.gui.SearchForm;
 
 /**
@@ -40,9 +35,6 @@ public class Media implements EntryPoint {
 	 */
 	private final MediaServiceAsync mediaService = GWT.create(MediaService.class);
 
-	List<Movie> movieList;
-	Movie selectedMovie;
-
 	/**
 	 * This is the entry point method.
 	 */
@@ -51,84 +43,41 @@ public class Media implements EntryPoint {
 
 		RootPanel.get().setSize("1024", "768");
 
-		MovieListTable movieTable = new MovieListTable(getMovieList());
-		ScrollPanel scroll = new ScrollPanel();
-		scroll.setStyleName("list_view_panel");
+		getMovieListForTable();
 
-		scroll.add(movieTable);
-		scroll.setAlwaysShowScrollBars(true);
+		getMfw().addWidget("ListForm", new ListForm());
+		getMfw().addWidget("SearchForm", new SearchForm());
+		getMfw().addWidget("DataForm", new DataForm());
+		getMfw().addWidget("ImageForm", new ImageForm());
 
-		RootPanel.get(LIST_VIEW).add(scroll);
+		RootPanel.get(LIST_VIEW).add(getMfw().getWidget("ListForm"));
 
-		getMoviesForTable(movieTable);
+		RootPanel.get(SEARCH_VIEW).add(getMfw().getWidget("SearchForm"));
 
-		final SearchForm searchMovieForm = new SearchForm(mediaService, getMovieList());
-		RootPanel.get(SEARCH_VIEW).add(searchMovieForm);
+		RootPanel.get(DATA_VIEW).add(getMfw().getWidget("DataForm"));
 
-		final DataForm dataMovieForm = new DataForm(getSelectedMovie());
-		RootPanel.get(DATA_VIEW).add(dataMovieForm);
+		RootPanel.get(IMAGE_VIEW).add(getMfw().getWidget("ImageForm"));
 
-		final ImageForm image = new ImageForm(getSelectedMovie());
-		RootPanel.get(IMAGE_VIEW).add(image);
-
-		final ImageDialogBox popup = new ImageDialogBox(getSelectedMovie());
-
-		image.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				popup.setMovie(getSelectedMovie());
-				popup.refreshAndShowBox();
-			}
-		});
-
-		movieTable.addCellPreviewHandler(new CellPreviewEvent.Handler<Movie>() {
-			public void onCellPreview(CellPreviewEvent<Movie> event) {
-				String type = event.getNativeEvent().getType();
-				if (type.equals("click")) {
-					setSelectedMovie(event.getValue());
-					refreshLeftSide(dataMovieForm, image);
-				}
-			}
-		});
 	}
 
-	private void refreshLeftSide(DataForm dataMovieForm, Image image) {
-		dataMovieForm.setMovie(getSelectedMovie());
-		dataMovieForm.refreshForm();
-		image.setUrl(getSelectedMovie().getImageUrl());
-	}
-
-	private void getMoviesForTable(MovieListTable table) {
-		final MovieListTable movieTable = table;
+	private void getMovieListForTable() {
 		mediaService.getAllMovies(new AsyncCallback<List<Movie>>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				setMovieList(null);
+				// getMfw().setMovieList(null);
 			}
 
 			@Override
 			public void onSuccess(List<Movie> list) {
-				setMovieList(list);
-				movieTable.setMovieList(list);
-				movieTable.fillMovieTable();
-				setSelectedMovie(getMovieList().get(0));
+				getMfw().setMovieList(list);
+				((ListForm) getMfw().getWidget("ListForm")).getMovieTable().fillMovieTable();
+				getMfw().setSelectedMovie(list.get(0));
 			}
 		});
 	}
 
-	public List<Movie> getMovieList() {
-		return movieList;
-	}
-
-	public void setMovieList(List<Movie> movieList) {
-		this.movieList = movieList;
-	}
-
-	public Movie getSelectedMovie() {
-		return selectedMovie;
-	}
-
-	public void setSelectedMovie(Movie selectedMovie) {
-		this.selectedMovie = selectedMovie;
+	public MediaFormWidgets getMfw() {
+		return MediaFormWidgets.getInstance();
 	}
 
 }

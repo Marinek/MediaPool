@@ -11,28 +11,14 @@ import de.mediapool.web.client.dto.Movie;
 
 public class ImageDialogBox extends DialogBox {
 
-	private Movie movie;
 	private Image image;
 
-	public ImageDialogBox(Movie movie) {
-		setMovie(movie);
-		String titel = "";
-		if (getMovie() != null) {
-			titel = getMovie().getTitle();
-		}
-		String url = "";
-		if (getMovie() != null) {
-			url = getMovie().getImageUrl();
-		}
-
-		this.setText(titel);
+	public ImageDialogBox() {
 
 		// Create a table to layout the content
 		VerticalPanel dialogContents = new VerticalPanel();
 		dialogContents.setSpacing(4);
-		image = new Image(url);
-		image.setSize("1024", "");
-
+		image = new Image();
 		dialogContents.add(image);
 		this.setWidget(dialogContents);
 		hideDialogBox();
@@ -53,15 +39,16 @@ public class ImageDialogBox extends DialogBox {
 	public void refreshAndShowBox() {
 		this.setText(getMovie().getTitle());
 		image.setUrl(getMovie().getImageUrl());
+		image.setSize("1024", "");
 		this.setPopupPosition(10, 10);
 		this.show();
 	}
 
 	public Movie getMovie() {
-		return movie;
+		return getMfw().getSelectedMovie();
 	}
 
-	public void setMovie(Movie movie) {
-		this.movie = movie;
+	public MediaFormWidgets getMfw() {
+		return MediaFormWidgets.getInstance();
 	}
 }

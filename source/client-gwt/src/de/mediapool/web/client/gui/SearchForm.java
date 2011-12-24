@@ -1,30 +1,22 @@
 package de.mediapool.web.client.gui;
 
-import java.util.List;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
 import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
-import de.mediapool.web.client.MediaServiceAsync;
-import de.mediapool.web.client.dto.Movie;
-
 public class SearchForm extends FormPanel {
 
-	MediaServiceAsync mediaService;
-	List<Movie> movieList;
+	// MediaServiceAsync mediaService;
 
-	public SearchForm(MediaServiceAsync mediaService, List<Movie> movieList) {
+	public SearchForm() {
 
-		this.mediaService = mediaService;
-		setMovieList(movieList);
+		// this.mediaService = GWT.create(MediaService.class);
 		Button sendButton = new Button("Send");
 		RootPanel.get("search_view").add(sendButton);
 		sendButton.setText("Suche");
@@ -67,28 +59,22 @@ public class SearchForm extends FormPanel {
 		 * response.
 		 */
 		private void searchForMovies() {
-			mediaService.getAllMovies(new AsyncCallback<List<Movie>>() {
-				public void onFailure(Throwable caught) {
-					setMovieList(null);
-				}
-
-				@Override
-				public void onSuccess(List<Movie> list) {
-					setMovieList(list);
-				}
-			});
+			// mediaService.getAllMovies(new AsyncCallback<List<Movie>>() {
+			// public void onFailure(Throwable caught) {
+			// getMfw().setMovieList(null);
+			// }
+			//
+			// @Override
+			// public void onSuccess(List<Movie> list) {
+			// getMfw().setMovieList(list);
+			// }
+			// });
 
 		}
 	}
 
-	public List<Movie> getMovieList() {
-		return movieList;
+	public MediaFormWidgets getMfw() {
+		return MediaFormWidgets.getInstance();
 	}
-
-	public void setMovieList(List<Movie> movieList) {
-		this.movieList = movieList;
-	}
-
-	// Add a handler to send the name to the server
 
 }

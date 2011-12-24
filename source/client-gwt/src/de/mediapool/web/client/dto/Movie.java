@@ -25,6 +25,12 @@ public class Movie implements Serializable {
 		this.genre = genre;
 	}
 
+	public Movie(String title, String imageUrl) {
+		super();
+		this.title = title;
+		this.imageUrl = imageUrl;
+	}
+
 	public int getId() {
 		return id;
 	}
