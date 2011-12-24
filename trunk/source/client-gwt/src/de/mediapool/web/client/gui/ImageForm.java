@@ -1,28 +1,48 @@
 package de.mediapool.web.client.gui;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Image;
 
 import de.mediapool.web.client.dto.Movie;
 
-public class ImageForm extends Image {
+public class ImageForm extends Image implements ClickHandler {
+	private ImageDialogBox popup;
 
-	private Movie movie;
-
-	public ImageForm(Movie movie) {
-		setMovie(movie);
+	public ImageForm() {
 		String url = "";
 		if (getMovie() != null) {
 			url = getMovie().getImageUrl();
 		}
-		this.setUrl(url);
+
+		popup = new ImageDialogBox();
+
+		this.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				popup.refreshAndShowBox();
+			}
+		});
+		//
+		// this.setUrl(url);
+		// this.setSize("422px", "");
+	}
+
+	public void refreshForm() {
+		this.setUrl(getMovie().getImageUrl());
 		this.setSize("422px", "");
 	}
 
 	public Movie getMovie() {
-		return movie;
+		return getMfw().getSelectedMovie();
 	}
 
-	public void setMovie(Movie movie) {
-		this.movie = movie;
+	public MediaFormWidgets getMfw() {
+		return MediaFormWidgets.getInstance();
+	}
+
+	@Override
+	public void onClick(ClickEvent event) {
+		popup.refreshAndShowBox();
+
 	}
 }
