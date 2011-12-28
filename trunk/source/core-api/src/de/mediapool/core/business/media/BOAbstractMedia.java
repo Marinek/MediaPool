@@ -3,6 +3,7 @@ package de.mediapool.core.business.media;
 import java.util.List;
 
 import de.mediapool.core.beans.media.AbstractMediaBean;
+import de.mediapool.core.beans.media.MediaType;
 import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.exceptions.MPExeption;
