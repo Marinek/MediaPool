@@ -1,7 +1,6 @@
 package de.mediapool.core.beans.media;
 
 import de.mediapool.core.beans.AbstractBean;
-import de.mediapool.core.business.media.MediaType;
 
 public abstract class AbstractMediaBean extends AbstractBean {
 

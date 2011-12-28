@@ -3,8 +3,8 @@ package de.mediapool.test.core;
 import org.junit.Assert;
 import org.junit.Test;
 
+import de.mediapool.core.beans.media.MediaType;
 import de.mediapool.core.beans.media.MovieBean;
-import de.mediapool.core.business.media.MediaType;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 

@@ -2,6 +2,7 @@ package de.mediapool.core.business.media;
 
 import de.mediapool.core.beans.PersistentStatus;
 import de.mediapool.core.beans.media.AbstractMediaBean;
+import de.mediapool.core.beans.media.MediaType;
 import de.mediapool.core.beans.media.MovieBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;

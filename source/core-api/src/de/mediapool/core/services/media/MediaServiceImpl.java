@@ -1,9 +1,9 @@
 package de.mediapool.core.services.media;
 
 import de.mediapool.core.beans.media.AbstractMediaBean;
+import de.mediapool.core.beans.media.MediaType;
 import de.mediapool.core.business.media.BOAbstractMedia;
 import de.mediapool.core.business.media.BOMediaTypeManager;
-import de.mediapool.core.business.media.MediaType;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 
