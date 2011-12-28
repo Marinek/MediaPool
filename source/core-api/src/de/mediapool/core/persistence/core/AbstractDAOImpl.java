@@ -15,8 +15,10 @@ public abstract class AbstractDAOImpl<T extends IValueObject> implements IDataAc
 		hibernateTemplate = new HibernateTemplate(sessionFactory);
 	}
 	
-	public void insert(T valueObject) {
+	public T insert(T valueObject) {
 		hibernateTemplate.persist(valueObject);
+		
+		return valueObject;
 	}
 
 	public void update(T valueObject) {

@@ -1,11 +1,14 @@
 package de.mediapool.core.beans.media;
 
 import de.mediapool.core.beans.AbstractBean;
+import de.mediapool.core.business.media.MediaType;
 
 public abstract class AbstractMediaBean extends AbstractBean {
 
 	private int id;
 	private String name;
+	
+	private MediaType mediaType = null;
 	
 	public void setId(int id) {
 		this.id = id;
@@ -21,6 +24,14 @@ public abstract class AbstractMediaBean extends AbstractBean {
 
 	public String getName() {
 		return name;
+	}
+
+	public void setMediaType(MediaType mediaType) {
+		this.mediaType = mediaType;
+	}
+
+	public MediaType getMediaType() {
+		return mediaType;
 	}
 
 }

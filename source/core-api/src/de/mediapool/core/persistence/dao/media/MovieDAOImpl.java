@@ -10,13 +10,11 @@ import de.mediapool.core.persistence.vo.media.MovieVO;
 
 @Repository("movieDAO")
 @Transactional
-public class MovieDAOImpl extends AbstractMediaDAOImpl<MovieVO> implements IMovieDAO<MovieVO> {
+public class MovieDAOImpl extends AbstractMediaDAOImpl<MovieVO> implements IMovieDAO {
 
 	public List<MovieVO> getAll() {
-		return (List<MovieVO>)hibernateTemplate.find("from Movies");
+		return hibernateTemplate.find("from Movies");
 	}
-	
-	
 
 	public Class<MovieVO> getValueObjectClass() {
 		return MovieVO.class;
