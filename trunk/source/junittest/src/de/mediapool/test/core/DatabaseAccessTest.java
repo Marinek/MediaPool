@@ -15,5 +15,6 @@ public abstract class DatabaseAccessTest {
 	}
 	
 	public void closeTest() {
+		
 	}
 }

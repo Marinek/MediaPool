@@ -4,15 +4,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import de.mediapool.core.beans.media.MovieBean;
+import de.mediapool.core.business.media.MediaType;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
-import de.mediapool.core.services.interfaces.IMovieService;
 
 public class MovieDataAccessTest extends DatabaseAccessTest {
 
 	@Test
 	public void createFilm() {
-		IMediaService lService = beanFactory.getBean(IMovieService.class);
+		IMediaService lService = beanFactory.getBean(IMediaService.class);
 
 		Assert.assertTrue(lService != null);
 		
@@ -20,19 +20,20 @@ public class MovieDataAccessTest extends DatabaseAccessTest {
 		
 		lVO.setName("Piraten ;)");
 		lVO.setLength(132);
+		lVO.setMediaType(MediaType.MOVIE);
 		
 		try {
-			lService.setCurrentContextualBean(lVO);
-			lService.createMedia();
+			lVO = (MovieBean) lService.createMedia(lVO);
 			Assert.assertTrue(lVO.getId() !=  0);
-			lService.deleteMedia();
+			lService.deleteMedia(lVO);
 			
 			
-//			MovieBean media = (MovieBean)lService.getMedia(lVO.getId());
+		MovieBean media = (MovieBean)lService.getMedia(lVO.getId(), lVO.getMediaType());
 			
-//			Assert.assertTrue(media == null);
+		Assert.assertTrue(media == null);
 			
 		} catch (MPExeption e) {
+			e.printStackTrace();
 			Assert.assertTrue("Exception beim Serviceaufruf", 1 == 2);
 		}
 		

@@ -5,7 +5,11 @@ public enum ExeptionErrorCode {
 	// Databaseerror 1000 - 1999
 	DB_READ(1000, "Konnte nicht auf Datenbank lesen."),
 	DB_INSERT(1100, "Konnte neuen Datensatz nicht erzeugen."),
-	DB_UPDATE(1200, "Konnte vorhandenen Datensatz nicht aktualisieren");
+	DB_UPDATE(1200, "Konnte vorhandenen Datensatz nicht aktualisieren."),
+	DB_DELETE(1300, "Konnte vorhandenen Datensatz nicht löschen."),
+	
+	// Auto Instance Creator
+	MANAGER_CREATE (2000, "Es konnte keine neue Instanz erstellt werden.");
 	
 	private int errorCode = -1;
 	
