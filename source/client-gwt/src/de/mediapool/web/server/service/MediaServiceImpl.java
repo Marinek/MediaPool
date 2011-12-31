@@ -11,17 +11,14 @@ import de.mediapool.core.services.interfaces.IMovieService;
 import de.mediapool.web.client.MediaService;
 import de.mediapool.web.client.dto.Movie;
 import de.mediapool.web.server.core.MovieService;
-import de.mediapool.web.shared.FieldVerifier;
 
 /**
  * The server side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
-public class MediaServiceImpl extends RemoteServiceServlet implements
-		MediaService {
+public class MediaServiceImpl extends RemoteServiceServlet implements MediaService {
 
-	ApplicationContext context = new ClassPathXmlApplicationContext(
-			"spring.xml");
+	ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
 
 	public IMovieService movieService;
 
@@ -33,68 +30,25 @@ public class MediaServiceImpl extends RemoteServiceServlet implements
 		this.movieService = movieService;
 	}
 
-	public List<Movie> getAllMovies() throws IllegalArgumentException {
-		// Verify that the input is valid.
-		String input = "test";
-
-		if (!FieldVerifier.isValidName(input)) {
-			// If the input is not valid, throw an IllegalArgumentException back
-			// to
-			// the client.
-			throw new IllegalArgumentException(
-					"Name must be at least 4 characters long");
-		}
-
-		String serverInfo = getServletContext().getServerInfo();
-		String userAgent = getThreadLocalRequest().getHeader("User-Agent");
-
-		// Escape data from the client to avoid cross-site script
-		// vulnerabilities.
-		input = escapeHtml(input);
-		userAgent = escapeHtml(userAgent);
-		String name = "";
-		// name = name + getMovie();
-		return MovieService.getallMovies();
+	@Override
+	public List<Movie> searchMedia(Movie movie) throws IllegalArgumentException {
+		return MovieService.searchMedia(movie);
 	}
 
-	/**
-	 * Escape an html string. Escaping data received from the client helps to
-	 * prevent cross-site script vulnerabilities.
-	 * 
-	 * @param html
-	 *            the html string to escape
-	 * @return the escaped string
-	 */
-	private String escapeHtml(String html) {
-		if (html == null) {
-			return null;
-		}
-		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
-				.replaceAll(">", "&gt;");
+	@Override
+	public List<Movie> createMedia(Movie movie) throws IllegalArgumentException {
+		return MovieService.createMedia(movie);
 	}
 
-	// public String getMovie()
-	// {
-	// MovieBean media = null;
-	//
-	// try {
-	// media = getMedia(1);
-	// } catch (MPExeption e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// return media != null ? media.getName() : "No Media found";
-	// }
-	//
-	// @Override
-	// public MovieBean getMedia(int mediaId) throws MPExeption {
-	// MovieServiceImpl movieService = (MovieServiceImpl)
-	// context.getBean("movieService");
-	// MovieBean mediaBean = new MovieBean();
-	// //mediaBean.setName("TestService");
-	// movieService.getMedia(mediaId);
-	// mediaBean = movieService.getCurrentContextualBean();
-	//
-	// return mediaBean;
-	// }
+	@Override
+	public List<Movie> deleteMedia(Movie movie) throws IllegalArgumentException {
+		return MovieService.deleteMedia(movie);
+
+	}
+
+	@Override
+	public List<Movie> updateMedia(Movie movie) throws IllegalArgumentException {
+		return MovieService.updateMedia(movie);
+	}
+
 }

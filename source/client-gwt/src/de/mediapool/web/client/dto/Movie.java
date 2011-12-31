@@ -31,6 +31,11 @@ public class Movie implements Serializable {
 		this.imageUrl = imageUrl;
 	}
 
+	public Movie(String title) {
+		super();
+		this.title = title;
+	}
+
 	public int getId() {
 		return id;
 	}
