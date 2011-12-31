@@ -10,7 +10,12 @@ import de.mediapool.web.client.dto.Movie;
  * The async counterpart of <code>MediaServiceAsync</code>.
  */
 public interface MediaServiceAsync {
-	void getAllMovies(AsyncCallback<List<Movie>> callback);
-	
-}
+	void searchMedia(Movie movie, AsyncCallback<List<Movie>> callback);
 
+	void updateMedia(Movie movie, AsyncCallback<List<Movie>> callback);
+
+	void createMedia(Movie movie, AsyncCallback<List<Movie>> callback);
+
+	void deleteMedia(Movie movie, AsyncCallback<List<Movie>> callback);
+
+}

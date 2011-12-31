@@ -3,7 +3,7 @@ package de.mediapool.web.client;
 import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.RootPanel;
 
@@ -30,10 +30,8 @@ public class Media implements EntryPoint {
 	private static final String IMAGE_VIEW = "image_view";
 
 	/**
-	 * Create a remote service proxy to talk to the server-side Greeting
-	 * service.
+	 * Create a remote service proxy to talk to the server-side service.
 	 */
-	private final MediaServiceAsync mediaService = GWT.create(MediaService.class);
 
 	/**
 	 * This is the entry point method.
@@ -61,19 +59,23 @@ public class Media implements EntryPoint {
 	}
 
 	private void getMovieListForTable() {
-		mediaService.getAllMovies(new AsyncCallback<List<Movie>>() {
+		getMfw().getMediaService().searchMedia(new Movie(""), new AsyncCallback<List<Movie>>() {
 			@Override
 			public void onFailure(Throwable caught) {
-				// getMfw().setMovieList(null);
+				Window.alert(caught.getLocalizedMessage());
 			}
 
 			@Override
 			public void onSuccess(List<Movie> list) {
-				getMfw().setMovieList(list);
-				((ListForm) getMfw().getWidget("ListForm")).getMovieTable().fillMovieTable();
-				getMfw().setSelectedMovie(list.get(0));
+				updateListView(list);
 			}
 		});
+	}
+
+	private void updateListView(List<Movie> list) {
+		getMfw().setMovieList(list);
+		getMfw().setSelectedMovie(list.get(0));
+		((ListForm) getMfw().getWidget("ListForm")).getMovieTable().fillMovieTable();
 	}
 
 	public MediaFormWidgets getMfw() {

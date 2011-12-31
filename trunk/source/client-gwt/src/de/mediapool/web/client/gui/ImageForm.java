@@ -22,9 +22,7 @@ public class ImageForm extends Image implements ClickHandler {
 				popup.refreshAndShowBox();
 			}
 		});
-		//
-		// this.setUrl(url);
-		// this.setSize("422px", "");
+
 	}
 
 	public void refreshForm() {

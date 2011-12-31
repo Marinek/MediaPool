@@ -12,6 +12,12 @@ import de.mediapool.web.client.dto.Movie;
  */
 @RemoteServiceRelativePath("media")
 public interface MediaService extends RemoteService {
-	List<Movie> getAllMovies() throws IllegalArgumentException;
+	List<Movie> searchMedia(Movie movie) throws IllegalArgumentException;
+
+	List<Movie> createMedia(Movie movie) throws IllegalArgumentException;
+
+	List<Movie> deleteMedia(Movie movie) throws IllegalArgumentException;
+
+	List<Movie> updateMedia(Movie movie) throws IllegalArgumentException;
 
 }
