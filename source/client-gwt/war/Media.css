@@ -101,3 +101,21 @@ table.list_view_table {
 .align_right {
 	align: right;
 }
+
+.titleField{
+   height: 25px;
+    margin-left: 40px;
+    margin-right: 15px;
+    margin-top: 10px;
+    width: 250px;
+}
+
+.searchButton{
+	width:  80px;
+    margin-top: 10px !important;
+}
+
+.dataForm{
+	margin-right: 15px;
+    margin-top: 10px;
+}
