@@ -9,7 +9,7 @@ import com.vaadin.data.Container;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.spring.roo.addon.annotations.RooVaadinAbstractEntityView;
+import com.vaadin.data.Validator.InvalidValueException;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
@@ -20,8 +20,7 @@ import com.vaadin.ui.themes.Reindeer;
 /**
  * Base class for that defines the common layout and some UI logic for all
  * entity views. This class is not specific to any entity class.
- */
-@RooVaadinAbstractEntityView()
+ */
 public abstract class AbstractEntityView<E> extends CustomComponent implements Navigator.View {
 
     private VerticalSplitPanel mainLayout;
@@ -335,4 +334,20 @@ public abstract class AbstractEntityView<E> extends CustomComponent implements N
 
     protected abstract void configureTable(Table table);
 
+
+	public boolean doCommit() {
+        try {
+            getForm().commit();
+            saveEntity(getEntityForItem(getForm().getItemDataSource()));
+            return true;
+        } catch (InvalidValueException e) {
+            // show validation error also on the save button
+            getForm().setCommitErrorMessage(e.getMessage());
+            return false;
+        }
+    }
+
+	public void doDelete() {
+        deleteEntity(getEntityForItem(getForm().getItemDataSource()));
+    }
 }
