@@ -1,17 +1,13 @@
 package entity.user;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Version;
 
@@ -27,9 +23,6 @@ public class MUser {
 	private String email;
 
 	private String username;
-
-	@OneToMany(cascade = CascadeType.ALL)
-	private Set<MRelated> mrelated = new HashSet<MRelated>();
 
 	@PersistenceContext
 	transient EntityManager entityManager;
@@ -160,14 +153,6 @@ public class MUser {
 
 	public void setUsername(String username) {
 		this.username = username;
-	}
-
-	public Set<MRelated> getMrelated() {
-		return mrelated;
-	}
-
-	public void setMrelated(Set<MRelated> mrelated) {
-		this.mrelated = mrelated;
 	}
 
 }

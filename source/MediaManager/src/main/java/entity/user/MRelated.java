@@ -1,18 +1,15 @@
 package entity.user;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Version;
 
@@ -27,8 +24,8 @@ public class MRelated {
 
 	private Date msince;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	private Set<MUser> muser = new HashSet<MUser>();
+	@ManyToOne
+	private MUser muser;
 
 	@PersistenceContext
 	transient EntityManager entityManager;
@@ -150,11 +147,11 @@ public class MRelated {
 		this.msince = msince;
 	}
 
-	public Set<MUser> getMuser() {
+	public MUser getMuser() {
 		return muser;
 	}
 
-	public void setMuser(Set<MUser> muser) {
+	public void setMuser(MUser muser) {
 		this.muser = muser;
 	}
 
