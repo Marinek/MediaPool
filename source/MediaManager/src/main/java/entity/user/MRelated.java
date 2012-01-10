@@ -1,5 +1,6 @@
 package entity.user;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,16 +21,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Configurable
 @Entity
-public class MUser {
+public class MRelated {
 
-	private String password;
+	private String type;
 
-	private String email;
-
-	private String username;
+	private Date msince;
 
 	@OneToMany(cascade = CascadeType.ALL)
-	private Set<MRelated> mrelated = new HashSet<MRelated>();
+	private Set<MUser> muser = new HashSet<MUser>();
 
 	@PersistenceContext
 	transient EntityManager entityManager;
@@ -73,7 +72,7 @@ public class MUser {
 		if (this.entityManager.contains(this)) {
 			this.entityManager.remove(this);
 		} else {
-			MUser attached = MUser.findMUser(this.id);
+			MRelated attached = MRelated.findMUser(this.id);
 			this.entityManager.remove(attached);
 		}
 	}
@@ -93,16 +92,16 @@ public class MUser {
 	}
 
 	@Transactional
-	public MUser merge() {
+	public MRelated merge() {
 		if (this.entityManager == null)
 			this.entityManager = entityManager();
-		MUser merged = this.entityManager.merge(this);
+		MRelated merged = this.entityManager.merge(this);
 		this.entityManager.flush();
 		return merged;
 	}
 
 	public static final EntityManager entityManager() {
-		EntityManager em = new MUser().entityManager;
+		EntityManager em = new MRelated().entityManager;
 		if (em == null)
 			throw new IllegalStateException(
 					"Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
@@ -113,61 +112,50 @@ public class MUser {
 		return entityManager().createQuery("SELECT COUNT(o) FROM MUser o", Long.class).getSingleResult();
 	}
 
-	public static List<MUser> findAllMUsers() {
-		return entityManager().createQuery("SELECT o FROM MUser o", MUser.class).getResultList();
+	public static List<MRelated> findAllMUsers() {
+		return entityManager().createQuery("SELECT o FROM MUser o", MRelated.class).getResultList();
 	}
 
-	public static MUser findMUser(Long id) {
+	public static MRelated findMUser(Long id) {
 		if (id == null)
 			return null;
-		return entityManager().find(MUser.class, id);
+		return entityManager().find(MRelated.class, id);
 	}
 
-	public static List<MUser> findMUserEntries(int firstResult, int maxResults) {
-		return entityManager().createQuery("SELECT o FROM MUser o", MUser.class).setFirstResult(firstResult)
+	public static List<MRelated> findMUserEntries(int firstResult, int maxResults) {
+		return entityManager().createQuery("SELECT o FROM MUser o", MRelated.class).setFirstResult(firstResult)
 				.setMaxResults(maxResults).getResultList();
 	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Email: ").append(getEmail()).append(", ");
 		sb.append("Id: ").append(getId()).append(", ");
-		sb.append("Password: ").append(getPassword()).append(", ");
-		sb.append("Username: ").append(getUsername()).append(", ");
 		sb.append("Version: ").append(getVersion());
 		return sb.toString();
 	}
 
-	public String getPassword() {
-		return this.password;
+	public String getType() {
+		return type;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getEmail() {
-		return this.email;
+	public Date getMsince() {
+		return msince;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setMsince(Date msince) {
+		this.msince = msince;
 	}
 
-	public String getUsername() {
-		return this.username;
+	public Set<MUser> getMuser() {
+		return muser;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public Set<MRelated> getMrelated() {
-		return mrelated;
-	}
-
-	public void setMrelated(Set<MRelated> mrelated) {
-		this.mrelated = mrelated;
+	public void setMuser(Set<MUser> muser) {
+		this.muser = muser;
 	}
 
 }
