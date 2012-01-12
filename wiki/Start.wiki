@@ -4,24 +4,30 @@
 
 == Mediapool Technologien ==
 
-*Maven
+*Maven - Debendency Management, Buildtool 
 
-*Tomcat
+*Tomcat - Servlet Container
 
-*Eclipse
+*Eclipse - IDE for the whole Project
 
-*SVN
+*SVN - Version Control
 
-*Java
+*Java - Base Programm Language
 
-*Vaadin
+*Vaadin - Web Framework
 
-*Spring
+*Spring - Framework for Injektion
 
-*Spring Roo
+*Spring Roo - Framework to set up the Project
 
-*Spring Security
+*Spring Security - Framework for Security Management
 
-*Lucene Index
+*Lucene Index - Index for better Datasearch
 
-*JSOUP
+*JSOUP - Crawler for Data from other Pages
+
+*MySQL - open Database
+
+*Hibernate - Persistence Framework
+
+*Android App SDK - Application on Mobile Phone
