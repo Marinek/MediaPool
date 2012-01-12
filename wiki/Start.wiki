@@ -5,14 +5,23 @@
 Mediapool Technologien
 
 *Maven
-*Tomcat
-*Eclipse
-*SVN
-*Java
-*Vaadin
-*Spring
-*Spring Roo
-*Spring Security
-*Lucene Index
-*JSOUP
 
+*Tomcat
+
+*Eclipse
+
+*SVN
+
+*Java
+
+*Vaadin
+
+*Spring
+
+*Spring Roo
+
+*Spring Security
+
+*Lucene Index
+
+*JSOUP
