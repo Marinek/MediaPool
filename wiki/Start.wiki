@@ -2,7 +2,7 @@
 
 = Introduction =
 
-Mediapool Technologien
+*Mediapool Technologien*
 
 *Maven
 
