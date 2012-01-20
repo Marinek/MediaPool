@@ -1,0 +1,4 @@
+
+= Wichtige Urls =
+
+ * http://code.google.com/p/zxing/wiki/ScanningViaIntent
