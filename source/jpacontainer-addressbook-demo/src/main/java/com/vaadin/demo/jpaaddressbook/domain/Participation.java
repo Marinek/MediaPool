@@ -14,6 +14,15 @@ public class Participation {
 
 	private PMember pmember;
 
+	public Participation() {
+
+	}
+
+	public Participation(String part, PMember pmember) {
+		this.part = part;
+		this.pmember = pmember;
+	}
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(getPart());

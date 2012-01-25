@@ -1,9 +1,22 @@
 package com.vaadin.demo.jpaaddressbook.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 
 @Entity
 public class Movie extends Media {
+
+	public Movie() {
+
+	}
+
+	public Movie(Participation participation) {
+		Set<Participation> participations = new HashSet<Participation>();
+		participations.add(participation);
+		setParticipation(participations);
+	}
 
 	private String productionland;
 

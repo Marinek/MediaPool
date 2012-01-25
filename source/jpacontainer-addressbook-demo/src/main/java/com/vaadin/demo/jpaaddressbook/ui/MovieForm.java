@@ -2,11 +2,9 @@ package com.vaadin.demo.jpaaddressbook.ui;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
-import com.vaadin.demo.jpaaddressbook.DepartmentSelector;
 import com.vaadin.demo.jpaaddressbook.domain.Movie;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -77,9 +75,9 @@ public class MovieForm extends HorizontalLayout implements Button.ClickListener,
 	 */
 	@Override
 	public Field createField(Item item, Object propertyId, Component uiContext) {
-		if ("department".equals(propertyId)) {
-			return new DepartmentSelector();
-		}
+		// if ("participation".equals(propertyId)) {
+		// return new ParticipationSelector();
+		// }
 
 		Field field = DefaultFieldFactory.get().createField(item, propertyId, uiContext);
 		if (field instanceof TextField) {
@@ -126,7 +124,8 @@ public class MovieForm extends HorizontalLayout implements Button.ClickListener,
 	}
 
 	public void setMovieItem(Item movieItem) {
-		editorForm.setItemDataSource(movieItem, Arrays.asList("title", "genre"));
+		// , Arrays.asList("title", "genre")
+		editorForm.setItemDataSource(movieItem);
 		this.movieItem = movieItem;
 	}
 
