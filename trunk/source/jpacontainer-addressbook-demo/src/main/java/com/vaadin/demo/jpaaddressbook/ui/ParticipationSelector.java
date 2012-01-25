@@ -4,13 +4,12 @@ import org.vaadin.addon.customfield.CustomField;
 
 import com.vaadin.addon.jpacontainer.EntityItem;
 import com.vaadin.addon.jpacontainer.JPAContainer;
-import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.filter.Compare.Equal;
-import com.vaadin.demo.jpaaddressbook.JpaAddressbookApplication;
 import com.vaadin.demo.jpaaddressbook.domain.Department;
 import com.vaadin.demo.jpaaddressbook.domain.PMember;
 import com.vaadin.demo.jpaaddressbook.domain.Participation;
+import com.vaadin.demo.jpaaddressbook.service.MediaService;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
 
@@ -18,20 +17,22 @@ import com.vaadin.ui.CssLayout;
  * A custom field that allows selection of a department.
  */
 public class ParticipationSelector extends CustomField {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private ComboBox partBox = new ComboBox();
-	private ComboBox memberBox = new ComboBox();
+	// private ComboBox memberBox = new ComboBox();
 
 	private JPAContainer<Participation> participations;
 	private JPAContainer<PMember> members;
 
 	public ParticipationSelector() {
-		participations = JPAContainerFactory.make(Participation.class, JpaAddressbookApplication.PERSISTENCE_UNIT);
-		members = JPAContainerFactory.make(PMember.class, JpaAddressbookApplication.PERSISTENCE_UNIT);
+		participations = MediaService.getAllParticipation();
+		// members = MediaService.getAllPMember();
 
 		setCaption("Participations");
-		// Only list "roots" which are in our example geographical super
-		// departments
-		// geoContainer.addContainerFilter(new IsNull("parent"));
 
 		partBox.setContainerDataSource(participations);
 		partBox.setItemCaptionPropertyId("part");
@@ -39,9 +40,9 @@ public class ParticipationSelector extends CustomField {
 
 		// container.setApplyFiltersImmediately(false);
 
-		filterDepartments(null);
-		memberBox.setContainerDataSource(members);
-		memberBox.setItemCaptionPropertyId("person");
+		// filterDepartments(null);
+		// memberBox.setContainerDataSource(members);
+		// memberBox.setItemCaptionPropertyId("person");
 
 		partBox.addListener(new Property.ValueChangeListener() {
 			@Override
@@ -51,27 +52,28 @@ public class ParticipationSelector extends CustomField {
 				 */
 				EntityItem<Participation> item = participations.getItem(partBox.getValue());
 				Participation entity = item.getEntity();
-				filterDepartments(entity);
+				// filterDepartments(entity);
 			}
 		});
-		memberBox.addListener(new Property.ValueChangeListener() {
-			@Override
-			public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
-				/*
-				 * Modify the actual value of the custom field.
-				 */
-				if (memberBox.getValue() == null) {
-					setValue(null, false);
-				} else {
-					PMember entity = members.getItem(memberBox.getValue()).getEntity();
-					setValue(entity, false);
-				}
-			}
-		});
+		// memberBox.addListener(new Property.ValueChangeListener() {
+		// @Override
+		// public void valueChange(com.vaadin.data.Property.ValueChangeEvent
+		// event) {
+		// /*
+		// * Modify the actual value of the custom field.
+		// */
+		// if (memberBox.getValue() == null) {
+		// setValue(null, false);
+		// } else {
+		// PMember entity = members.getItem(memberBox.getValue()).getEntity();
+		// setValue(entity, false);
+		// }
+		// }
+		// });
 
 		CssLayout cssLayout = new CssLayout();
 		cssLayout.addComponent(partBox);
-		cssLayout.addComponent(memberBox);
+		// cssLayout.addComponent(memberBox);
 		setCompositionRoot(cssLayout);
 	}
 
@@ -82,14 +84,14 @@ public class ParticipationSelector extends CustomField {
 	 */
 	private void filterDepartments(Participation participation) {
 		if (participation == null) {
-			memberBox.setValue(null);
-			memberBox.setEnabled(false);
+			// memberBox.setValue(null);
+			// memberBox.setEnabled(false);
 		} else {
 			participations.removeAllContainerFilters();
 			participations.addContainerFilter(new Equal("parent", participation));
 			participations.applyFilters();
-			memberBox.setValue(null);
-			memberBox.setEnabled(true);
+			// memberBox.setValue(null);
+			// memberBox.setEnabled(true);
 		}
 	}
 
@@ -107,7 +109,7 @@ public class ParticipationSelector extends CustomField {
 	private void setParticipation(Object newValue) {
 		Participation value = (Participation) newValue;
 		partBox.setValue(value != null ? value.getId() : null);
-		memberBox.setValue(value != null ? value.getId() : null);
+		// memberBox.setValue(value != null ? value.getId() : null);
 	}
 
 	@Override

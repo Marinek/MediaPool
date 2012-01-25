@@ -3,6 +3,7 @@ package com.vaadin.demo.jpaaddressbook.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,7 +45,7 @@ public class Media {
 	@Column(name = "version")
 	private Integer version;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Participation> participation = new HashSet<Participation>();
 
 	public String getTitle() {

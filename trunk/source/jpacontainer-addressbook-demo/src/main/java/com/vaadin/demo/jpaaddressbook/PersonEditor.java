@@ -2,7 +2,6 @@ package com.vaadin.demo.jpaaddressbook;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
@@ -31,7 +30,8 @@ public class PersonEditor extends Window implements Button.ClickListener, FormFi
 		editorForm.setFormFieldFactory(this);
 		editorForm.setWriteThrough(false);
 		editorForm.setImmediate(true);
-		editorForm.setItemDataSource(personItem, Arrays.asList("title", "genre"));
+		// editorForm.setItemDataSource(personItem, Arrays.asList("title",
+		// "genre", "participation"));
 
 		saveButton = new Button("Save", this);
 		cancelButton = new Button("Cancel", this);
@@ -48,7 +48,7 @@ public class PersonEditor extends Window implements Button.ClickListener, FormFi
 	 */
 	private String buildCaption() {
 		return String.format("%s %s", personItem.getItemProperty("title").getValue(),
-				personItem.getItemProperty("genre").getValue());
+				personItem.getItemProperty("genre").getValue(), personItem.getItemProperty("participation").getValue());
 	}
 
 	/*
@@ -76,7 +76,7 @@ public class PersonEditor extends Window implements Button.ClickListener, FormFi
 	 */
 	@Override
 	public Field createField(Item item, Object propertyId, Component uiContext) {
-		if ("department".equals(propertyId)) {
+		if ("participation".equals(propertyId)) {
 			return new DepartmentSelector();
 		}
 

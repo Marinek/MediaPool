@@ -7,6 +7,8 @@ import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.demo.jpaaddressbook.domain.Movie;
+import com.vaadin.demo.jpaaddressbook.domain.PMember;
+import com.vaadin.demo.jpaaddressbook.domain.Participation;
 import com.vaadin.demo.jpaaddressbook.ui.MovieForm.EditorSavedEvent;
 import com.vaadin.demo.jpaaddressbook.ui.MovieForm.EditorSavedListener;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
@@ -57,7 +59,9 @@ public class MovieView extends VerticalSplitPanel implements ValueChangeListener
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				final BeanItem<Movie> newMovieItem = new BeanItem<Movie>(new Movie());
+				final BeanItem<Movie> newMovieItem = new BeanItem<Movie>(new Movie(new Participation("actor",
+						new PMember("test"))));
+
 				movieForm.setMovieItem(newMovieItem);
 				movieForm.addListener(new EditorSavedListener() {
 					@Override
