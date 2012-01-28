@@ -2,10 +2,12 @@ package com.vaadin.demo.jpaaddressbook.ui;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
-import com.vaadin.demo.jpaaddressbook.domain.Movie;
+import com.vaadin.demo.jpaaddressbook.domain.MovieEntry;
+import com.vaadin.demo.jpaaddressbook.service.MediaService;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
@@ -19,14 +21,14 @@ import com.vaadin.ui.TextField;
 @SuppressWarnings("serial")
 public class MovieForm extends HorizontalLayout implements Button.ClickListener, FormFieldFactory {
 
-	private Item movieItem;
+	private Item item;
 	private Form editorForm;
 	private Button saveButton;
 	private Button cancelButton;
 
-	public MovieForm(Item movieItem) {
-		editorForm = new BeanValidationForm<Movie>(Movie.class);
-		setMovieItem(movieItem);
+	public MovieForm(Item item) {
+		editorForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
+		setItem(item);
 		editorForm.setFormFieldFactory(this);
 		editorForm.setWriteThrough(false);
 		editorForm.setImmediate(true);
@@ -61,7 +63,8 @@ public class MovieForm extends HorizontalLayout implements Button.ClickListener,
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton() == saveButton) {
 			editorForm.commit();
-			fireEvent(new EditorSavedEvent(this, movieItem));
+			MediaService.saveMovieEntry(item);
+			// fireEvent(new EditorSavedEvent(this, item));
 		} else if (event.getButton() == cancelButton) {
 			editorForm.discard();
 		}
@@ -119,14 +122,16 @@ public class MovieForm extends HorizontalLayout implements Button.ClickListener,
 		public void editorSaved(EditorSavedEvent event);
 	}
 
-	public Item getMovieItem() {
-		return movieItem;
+	public Item getItem() {
+		return item;
 	}
 
-	public void setMovieItem(Item movieItem) {
+	public static final Object[] NATURAL_COL_ORDER = new Object[] { "title", "username", "carrier", "rating" };
+
+	public void setItem(Item item) {
 		// , Arrays.asList("title", "genre")
-		editorForm.setItemDataSource(movieItem);
-		this.movieItem = movieItem;
+		editorForm.setItemDataSource(item, Arrays.asList(NATURAL_COL_ORDER));
+		this.item = item;
 	}
 
 }

@@ -10,24 +10,23 @@ import javax.persistence.Version;
 @Entity
 public class Participation {
 
-	private String part;
-
-	private PMember pmember;
+	private String mpart;
+	private String name;
 
 	public Participation() {
 
 	}
 
-	public Participation(String part, PMember pmember) {
-		this.part = part;
-		this.pmember = pmember;
+	public Participation(String part, String name) {
+		this.mpart = part;
+		this.name = name;
 	}
 
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getPart());
+		sb.append(getMpart());
 		sb.append(":");
-		sb.append(getPmember());
+		sb.append(getName());
 		return sb.toString();
 	}
 
@@ -56,20 +55,20 @@ public class Participation {
 		this.version = version;
 	}
 
-	public String getPart() {
-		return part;
+	public String getMpart() {
+		return mpart;
 	}
 
-	public void setPart(String part) {
-		this.part = part;
+	public void setMpart(String part) {
+		this.mpart = part;
 	}
 
-	public PMember getPmember() {
-		return pmember;
+	public String getName() {
+		return name;
 	}
 
-	public void setPmember(PMember pmember) {
-		this.pmember = pmember;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

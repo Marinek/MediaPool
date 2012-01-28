@@ -1,19 +1,26 @@
 package com.vaadin.demo.jpaaddressbook.ui;
 
-import com.vaadin.addon.jpacontainer.JPAContainer;
-import com.vaadin.demo.jpaaddressbook.domain.Movie;
+import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.demo.jpaaddressbook.domain.MovieEntry;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Table;
 
 @SuppressWarnings("serial")
 public class MovieList extends Table {
-	public MovieList(JPAContainer<Movie> movies, MovieView view) {
+	public static final Object[] NATURAL_COL_ORDER = new Object[] { "title", "username", "carrier", "rating" };
+
+	public static final String[] COL_HEADERS_GERMAN = new String[] { "Titel", "Besitzer", "Medium", "Wertung" };
+
+	public MovieList(BeanItemContainer<MovieEntry> movies, MovieView view) {
 		setSizeFull();
 		setContainerDataSource(movies);
 
 		setColumnCollapsingAllowed(true);
 		setColumnReorderingAllowed(true);
+
+		// setVisibleColumns(NATURAL_COL_ORDER);
+		// setColumnHeaders(COL_HEADERS_GERMAN);
 
 		setSelectable(true);
 		addListener(new ItemClickListener() {

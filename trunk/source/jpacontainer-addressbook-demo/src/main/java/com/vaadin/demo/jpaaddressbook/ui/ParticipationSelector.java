@@ -7,7 +7,6 @@ import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.demo.jpaaddressbook.domain.Department;
-import com.vaadin.demo.jpaaddressbook.domain.PMember;
 import com.vaadin.demo.jpaaddressbook.domain.Participation;
 import com.vaadin.demo.jpaaddressbook.service.MediaService;
 import com.vaadin.ui.ComboBox;
@@ -26,7 +25,6 @@ public class ParticipationSelector extends CustomField {
 	// private ComboBox memberBox = new ComboBox();
 
 	private JPAContainer<Participation> participations;
-	private JPAContainer<PMember> members;
 
 	public ParticipationSelector() {
 		participations = MediaService.getAllParticipation();
