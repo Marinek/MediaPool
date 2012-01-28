@@ -12,7 +12,7 @@ import com.vaadin.demo.jpaaddressbook.domain.Department;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
 
-import de.mediapool.web.JpaAddressbookApplication;
+import de.mediapool.web.MediapoolApplication;
 
 /**
  * A custom field that allows selection of a department.
@@ -25,8 +25,8 @@ public class DepartmentSelector extends CustomField {
 	private JPAContainer<Department> geoContainer;
 
 	public DepartmentSelector() {
-		container = JPAContainerFactory.make(Department.class, JpaAddressbookApplication.PERSISTENCE_UNIT);
-		geoContainer = JPAContainerFactory.make(Department.class, JpaAddressbookApplication.PERSISTENCE_UNIT);
+		container = JPAContainerFactory.make(Department.class, MediapoolApplication.PERSISTENCE_UNIT);
+		geoContainer = JPAContainerFactory.make(Department.class, MediapoolApplication.PERSISTENCE_UNIT);
 		setCaption("Department");
 		// Only list "roots" which are in our example geographical super
 		// departments

@@ -5,7 +5,7 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.addon.jpacontainer.provider.CachingLocalEntityProvider;
 import com.vaadin.demo.jpaaddressbook.domain.Department;
 
-import de.mediapool.web.JpaAddressbookApplication;
+import de.mediapool.web.MediapoolApplication;
 
 public class HierarchicalDepartmentContainer extends JPAContainer<Department> {
 
@@ -14,7 +14,7 @@ public class HierarchicalDepartmentContainer extends JPAContainer<Department> {
         setEntityProvider(new CachingLocalEntityProvider<Department>(
                 Department.class,
                 JPAContainerFactory
-                        .createEntityManagerForPersistenceUnit(JpaAddressbookApplication.PERSISTENCE_UNIT)));
+                        .createEntityManagerForPersistenceUnit(MediapoolApplication.PERSISTENCE_UNIT)));
         setParentProperty("parent");
     }
 
