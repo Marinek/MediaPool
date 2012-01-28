@@ -1,14 +1,12 @@
 package com.vaadin.demo.jpaaddressbook;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
-import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.util.filter.Compare.Equal;
-import com.vaadin.data.util.filter.Like;
-import com.vaadin.data.util.filter.Or;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.demo.jpaaddressbook.domain.Department;
 import com.vaadin.demo.jpaaddressbook.domain.Movie;
+import com.vaadin.demo.jpaaddressbook.service.MediaService;
 import com.vaadin.demo.jpaaddressbook.ui.MovieView;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
@@ -21,7 +19,7 @@ import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalSplitPanel;
 
 @SuppressWarnings("serial")
-public class AddressBookMainView extends VerticalSplitPanel implements ComponentContainer {
+public class MediaMainView extends VerticalSplitPanel implements ComponentContainer {
 
 	private Tree groupTree;
 
@@ -29,7 +27,8 @@ public class AddressBookMainView extends VerticalSplitPanel implements Component
 
 	private JPAContainer<Department> departments;
 
-	private JPAContainer<Movie> movies;
+	private BeanItemContainer<Movie> movies;
+	// private BeanItemContainer<MovieEntry> movieEntrys;
 
 	private HorizontalLayout toolbar;
 
@@ -40,9 +39,10 @@ public class AddressBookMainView extends VerticalSplitPanel implements Component
 
 	private Button search = new Button("Search");
 
-	public AddressBookMainView() {
+	public MediaMainView() {
 		departments = new HierarchicalDepartmentContainer();
-		movies = JPAContainerFactory.make(Movie.class, JpaAddressbookApplication.PERSISTENCE_UNIT);
+		movies = MediaService.searchMovieEntry("Matrix");
+		// movieEntrys = MediaService.getAllMovieEntries();
 		buildMainArea();
 
 	}
@@ -107,21 +107,22 @@ public class AddressBookMainView extends VerticalSplitPanel implements Component
 	}
 
 	private void updateFilters() {
-		movies.setApplyFiltersImmediately(false);
-		movies.removeAllContainerFilters();
-		if (departmentFilter != null) {
-			// two level hierarchy at max in our demo
-			if (departmentFilter.getParent() == null) {
-				movies.addContainerFilter(new Equal("department.parent", departmentFilter));
-			} else {
-				movies.addContainerFilter(new Equal("department", departmentFilter));
-			}
-		}
-		if (textFilter != null && !textFilter.equals("")) {
-			Or or = new Or(new Like("firstName", textFilter + "%", false),
-					new Like("lastName", textFilter + "%", false));
-			movies.addContainerFilter(or);
-		}
-		movies.applyFilters();
+		// movies.setApplyFiltersImmediately(false);
+		// movies.removeAllContainerFilters();
+		// if (departmentFilter != null) {
+		// // two level hierarchy at max in our demo
+		// if (departmentFilter.getParent() == null) {
+		// movies.addContainerFilter(new Equal("department.parent",
+		// departmentFilter));
+		// } else {
+		// movies.addContainerFilter(new Equal("department", departmentFilter));
+		// }
+		// }
+		// if (textFilter != null && !textFilter.equals("")) {
+		// Or or = new Or(new Like("firstName", textFilter + "%", false),
+		// new Like("lastName", textFilter + "%", false));
+		// movies.addContainerFilter(or);
+		// }
+		// movies.applyFilters();
 	}
 }

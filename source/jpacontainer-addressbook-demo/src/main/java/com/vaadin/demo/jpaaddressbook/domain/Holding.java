@@ -2,14 +2,13 @@ package com.vaadin.demo.jpaaddressbook.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -30,18 +29,15 @@ public class Holding {
 
 	private String situation;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Product product;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private MUser muser;
 
 	private String inventoryplace;
 
 	private String inventorynumber;
-
-	@PersistenceContext
-	transient EntityManager entityManager;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

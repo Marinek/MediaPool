@@ -1,14 +1,15 @@
 package com.vaadin.demo.jpaaddressbook.domain;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PersistenceContext;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 @Entity
@@ -20,8 +21,8 @@ public class MUser {
 
 	private String username;
 
-	@PersistenceContext
-	transient EntityManager entityManager;
+	@OneToMany(cascade = CascadeType.ALL)
+	private Set<MRelated> mrelated = new HashSet<MRelated>();
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,33 +47,6 @@ public class MUser {
 
 	public void setVersion(Integer version) {
 		this.version = version;
-	}
-
-	public static final EntityManager entityManager() {
-		EntityManager em = new MUser().entityManager;
-		if (em == null)
-			throw new IllegalStateException(
-					"Entity manager has not been injected (is the Spring Aspects JAR configured as an AJC/AJDT aspects library?)");
-		return em;
-	}
-
-	public static long countMUsers() {
-		return entityManager().createQuery("SELECT COUNT(o) FROM MUser o", Long.class).getSingleResult();
-	}
-
-	public static List<MUser> findAllMUsers() {
-		return entityManager().createQuery("SELECT o FROM MUser o", MUser.class).getResultList();
-	}
-
-	public static MUser findMUser(Long id) {
-		if (id == null)
-			return null;
-		return entityManager().find(MUser.class, id);
-	}
-
-	public static List<MUser> findMUserEntries(int firstResult, int maxResults) {
-		return entityManager().createQuery("SELECT o FROM MUser o", MUser.class).setFirstResult(firstResult)
-				.setMaxResults(maxResults).getResultList();
 	}
 
 	public String toString() {
@@ -107,6 +81,14 @@ public class MUser {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public Set<MRelated> getMrelated() {
+		return mrelated;
+	}
+
+	public void setMrelated(Set<MRelated> mrelated) {
+		this.mrelated = mrelated;
 	}
 
 }

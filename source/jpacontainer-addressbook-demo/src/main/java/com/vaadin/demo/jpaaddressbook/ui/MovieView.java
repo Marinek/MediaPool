@@ -1,16 +1,11 @@
 package com.vaadin.demo.jpaaddressbook.ui;
 
-import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.util.BeanItem;
-import com.vaadin.demo.jpaaddressbook.domain.Movie;
-import com.vaadin.demo.jpaaddressbook.domain.PMember;
-import com.vaadin.demo.jpaaddressbook.domain.Participation;
-import com.vaadin.demo.jpaaddressbook.ui.MovieForm.EditorSavedEvent;
-import com.vaadin.demo.jpaaddressbook.ui.MovieForm.EditorSavedListener;
+import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.demo.jpaaddressbook.domain.MovieEntry;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.ui.Alignment;
@@ -24,7 +19,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 @SuppressWarnings("serial")
 public class MovieView extends VerticalSplitPanel implements ValueChangeListener {
 
-	JPAContainer<Movie> movies;
+	BeanItemContainer<MovieEntry> movies;
 
 	HorizontalLayout toolbar;
 	MovieForm movieForm;
@@ -36,7 +31,7 @@ public class MovieView extends VerticalSplitPanel implements ValueChangeListener
 	private Button deleteButton;
 	private Button editButton;
 
-	public MovieView(JPAContainer<Movie> movies) {
+	public MovieView(BeanItemContainer movies) {
 		this.movies = movies;
 		// addStyleName("view");
 		createToolbar();
@@ -55,23 +50,24 @@ public class MovieView extends VerticalSplitPanel implements ValueChangeListener
 	private void createToolbar() {
 
 		newButton = new Button("Add");
-		newButton.addListener(new Button.ClickListener() {
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				final BeanItem<Movie> newMovieItem = new BeanItem<Movie>(new Movie(new Participation("actor",
-						new PMember("test"))));
-
-				movieForm.setMovieItem(newMovieItem);
-				movieForm.addListener(new EditorSavedListener() {
-					@Override
-					public void editorSaved(EditorSavedEvent event) {
-						movies.addEntity(newMovieItem.getBean());
-					}
-				});
-
-			}
-		});
+		// newButton.addListener(new Button.ClickListener() {
+		//
+		// @Override
+		// public void buttonClick(ClickEvent event) {
+		// final BeanItem<Movie> newMovieItem = new BeanItem<Movie>(new
+		// Movie(new Participation("actor",
+		// new PMember("test"))));
+		//
+		// movieForm.setMovieItem(newMovieItem);
+		// movieForm.addListener(new EditorSavedListener() {
+		// @Override
+		// public void editorSaved(EditorSavedEvent event) {
+		// movies.addEntity(newMovieItem.getBean());
+		// }
+		// });
+		//
+		// }
+		// });
 
 		deleteButton = new Button("Delete");
 		deleteButton.addListener(new Button.ClickListener() {
@@ -88,7 +84,7 @@ public class MovieView extends VerticalSplitPanel implements ValueChangeListener
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				movieForm.setMovieItem(movieList.getItem(movieList.getValue()));
+				movieForm.setItem(movieList.getItem(movieList.getValue()));
 			}
 		});
 		editButton.setEnabled(false);
@@ -120,8 +116,8 @@ public class MovieView extends VerticalSplitPanel implements ValueChangeListener
 		if (property == movieList) {
 			setModificationsEnabled(movieList.getValue() != null);
 			Item item = movieList.getItem(movieList.getValue());
-			if (item != movieForm.getMovieItem()) {
-				movieForm.setMovieItem(item);
+			if (item != movieForm.getItem()) {
+				movieForm.setItem(item);
 			}
 		}
 	}
