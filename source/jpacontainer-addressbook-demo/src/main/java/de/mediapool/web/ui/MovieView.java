@@ -1,11 +1,10 @@
-package com.vaadin.demo.jpaaddressbook.ui;
+package de.mediapool.web.ui;
 
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.demo.jpaaddressbook.domain.MovieEntry;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.ui.Alignment;
@@ -15,6 +14,8 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
+
+import de.mediapool.core.domain.container.MovieEntry;
 
 @SuppressWarnings("serial")
 public class MovieView extends VerticalSplitPanel implements ValueChangeListener {

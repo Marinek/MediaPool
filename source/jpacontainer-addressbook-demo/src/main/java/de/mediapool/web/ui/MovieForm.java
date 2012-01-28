@@ -1,4 +1,4 @@
-package com.vaadin.demo.jpaaddressbook.ui;
+package de.mediapool.web.ui;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
@@ -6,8 +6,6 @@ import java.util.Arrays;
 
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
-import com.vaadin.demo.jpaaddressbook.domain.MovieEntry;
-import com.vaadin.demo.jpaaddressbook.service.MediaService;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
@@ -17,6 +15,9 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
+
+import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.core.service.MediaService;
 
 @SuppressWarnings("serial")
 public class MovieForm extends HorizontalLayout implements Button.ClickListener, FormFieldFactory {

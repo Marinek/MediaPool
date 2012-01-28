@@ -1,4 +1,4 @@
-package com.vaadin.demo.jpaaddressbook.service;
+package de.mediapool.core.service;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,14 +13,15 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.demo.jpaaddressbook.JpaAddressbookApplication;
-import com.vaadin.demo.jpaaddressbook.domain.Holding;
-import com.vaadin.demo.jpaaddressbook.domain.MRelated;
-import com.vaadin.demo.jpaaddressbook.domain.MUser;
-import com.vaadin.demo.jpaaddressbook.domain.Movie;
-import com.vaadin.demo.jpaaddressbook.domain.MovieEntry;
-import com.vaadin.demo.jpaaddressbook.domain.Participation;
-import com.vaadin.demo.jpaaddressbook.domain.Product;
+
+import de.mediapool.core.domain.Holding;
+import de.mediapool.core.domain.MRelated;
+import de.mediapool.core.domain.MUser;
+import de.mediapool.core.domain.Movie;
+import de.mediapool.core.domain.Participation;
+import de.mediapool.core.domain.Product;
+import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.web.JpaAddressbookApplication;
 
 public class MediaService {
 

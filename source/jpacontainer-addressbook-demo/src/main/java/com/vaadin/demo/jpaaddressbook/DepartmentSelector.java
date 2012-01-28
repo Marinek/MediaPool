@@ -12,6 +12,8 @@ import com.vaadin.demo.jpaaddressbook.domain.Department;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
 
+import de.mediapool.web.JpaAddressbookApplication;
+
 /**
  * A custom field that allows selection of a department.
  */

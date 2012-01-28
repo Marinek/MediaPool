@@ -1,4 +1,4 @@
-package com.vaadin.demo.jpaaddressbook.domain;
+package de.mediapool.core.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
+
 
 @Entity
 public class MUser {

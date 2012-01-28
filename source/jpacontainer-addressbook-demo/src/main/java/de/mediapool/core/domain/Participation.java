@@ -1,4 +1,4 @@
-package com.vaadin.demo.jpaaddressbook.domain;
+package de.mediapool.core.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,8 +1,14 @@
-package com.vaadin.demo.jpaaddressbook.domain;
+package de.mediapool.core.domain.container;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+
+import de.mediapool.core.domain.Holding;
+import de.mediapool.core.domain.MUser;
+import de.mediapool.core.domain.Movie;
+import de.mediapool.core.domain.Participation;
+import de.mediapool.core.domain.Product;
 
 @SuppressWarnings("serial")
 public class MovieEntry implements Serializable {

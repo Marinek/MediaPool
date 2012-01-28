@@ -1,13 +1,11 @@
-package com.vaadin.demo.jpaaddressbook;
+package de.mediapool.web;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.demo.jpaaddressbook.HierarchicalDepartmentContainer;
 import com.vaadin.demo.jpaaddressbook.domain.Department;
-import com.vaadin.demo.jpaaddressbook.domain.Movie;
-import com.vaadin.demo.jpaaddressbook.service.MediaService;
-import com.vaadin.demo.jpaaddressbook.ui.MovieView;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -17,6 +15,10 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalSplitPanel;
+
+import de.mediapool.core.domain.Movie;
+import de.mediapool.core.service.MediaService;
+import de.mediapool.web.ui.MovieView;
 
 @SuppressWarnings("serial")
 public class MediaMainView extends VerticalSplitPanel implements ComponentContainer {

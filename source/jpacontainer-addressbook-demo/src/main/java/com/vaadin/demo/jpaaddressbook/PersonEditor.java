@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
-import com.vaadin.demo.jpaaddressbook.domain.Movie;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
@@ -15,6 +14,8 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
+
+import de.mediapool.core.domain.Movie;
 
 @SuppressWarnings("serial")
 public class PersonEditor extends Window implements Button.ClickListener, FormFieldFactory {

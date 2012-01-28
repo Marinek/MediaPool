@@ -1,10 +1,11 @@
-package com.vaadin.demo.jpaaddressbook.ui;
+package de.mediapool.web.ui;
 
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.demo.jpaaddressbook.domain.MovieEntry;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Table;
+
+import de.mediapool.core.domain.container.MovieEntry;
 
 @SuppressWarnings("serial")
 public class MovieList extends Table {

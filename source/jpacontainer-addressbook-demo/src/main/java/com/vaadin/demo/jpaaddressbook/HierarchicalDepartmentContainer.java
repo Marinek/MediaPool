@@ -5,6 +5,8 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.addon.jpacontainer.provider.CachingLocalEntityProvider;
 import com.vaadin.demo.jpaaddressbook.domain.Department;
 
+import de.mediapool.web.JpaAddressbookApplication;
+
 public class HierarchicalDepartmentContainer extends JPAContainer<Department> {
 
     public HierarchicalDepartmentContainer() {
