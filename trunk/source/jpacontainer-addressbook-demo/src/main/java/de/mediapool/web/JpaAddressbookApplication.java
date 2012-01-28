@@ -1,4 +1,4 @@
-package com.vaadin.demo.jpaaddressbook;
+package de.mediapool.web;
 
 import com.vaadin.Application;
 import com.vaadin.ui.Window;

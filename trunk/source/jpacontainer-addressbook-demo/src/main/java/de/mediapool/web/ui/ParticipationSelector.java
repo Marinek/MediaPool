@@ -1,4 +1,4 @@
-package com.vaadin.demo.jpaaddressbook.ui;
+package de.mediapool.web.ui;
 
 import org.vaadin.addon.customfield.CustomField;
 
@@ -7,10 +7,11 @@ import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.demo.jpaaddressbook.domain.Department;
-import com.vaadin.demo.jpaaddressbook.domain.Participation;
-import com.vaadin.demo.jpaaddressbook.service.MediaService;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
+
+import de.mediapool.core.domain.Participation;
+import de.mediapool.core.service.MediaService;
 
 /**
  * A custom field that allows selection of a department.

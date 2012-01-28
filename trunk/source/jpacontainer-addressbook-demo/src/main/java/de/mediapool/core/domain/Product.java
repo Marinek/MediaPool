@@ -1,4 +1,4 @@
-package com.vaadin.demo.jpaaddressbook.domain;
+package de.mediapool.core.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Version;
+
 
 @Entity
 public class Product {

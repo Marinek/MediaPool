@@ -1,4 +1,4 @@
-package com.vaadin.demo.jpaaddressbook.domain;
+package de.mediapool.core.domain;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,6 +13,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
+
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

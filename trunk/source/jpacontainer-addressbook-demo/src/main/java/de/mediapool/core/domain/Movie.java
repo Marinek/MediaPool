@@ -1,9 +1,11 @@
-package com.vaadin.demo.jpaaddressbook.domain;
+package de.mediapool.core.domain;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+
+
 
 @Entity
 public class Movie extends Media {
