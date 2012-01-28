@@ -21,18 +21,18 @@ import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Participation;
 import de.mediapool.core.domain.Product;
 import de.mediapool.core.domain.container.MovieEntry;
-import de.mediapool.web.JpaAddressbookApplication;
+import de.mediapool.web.MediapoolApplication;
 
 public class MediaService {
 
 	public static JPAContainer<Participation> getAllParticipation() {
-		return JPAContainerFactory.make(Participation.class, JpaAddressbookApplication.PERSISTENCE_UNIT);
+		return JPAContainerFactory.make(Participation.class, MediapoolApplication.PERSISTENCE_UNIT);
 	}
 
 	public static BeanItemContainer<MovieEntry> getAllMovieEntries() {
 		BeanItemContainer<MovieEntry> movieEntrys = new BeanItemContainer<MovieEntry>(MovieEntry.class);
 		JPAContainer<Holding> holdings = JPAContainerFactory.make(Holding.class,
-				JpaAddressbookApplication.PERSISTENCE_UNIT);
+				MediapoolApplication.PERSISTENCE_UNIT);
 		for (Object itemId : holdings.getItemIds()) {
 			EntityItem<Holding> holdingItem = holdings.getItem(itemId);
 

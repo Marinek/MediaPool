@@ -4,7 +4,7 @@ import com.vaadin.Application;
 import com.vaadin.ui.Window;
 
 @SuppressWarnings("serial")
-public class JpaAddressbookApplication extends Application {
+public class MediapoolApplication extends Application {
 
 	public static final String PERSISTENCE_UNIT = "mediamanager";
 
