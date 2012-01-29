@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
 import com.vaadin.ui.Button;
@@ -19,13 +22,18 @@ import com.vaadin.ui.TextField;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.service.MediaService;
 
-@SuppressWarnings("serial")
+@Configurable
 public class MediaForm extends HorizontalLayout implements Button.ClickListener, FormFieldFactory {
+
+	private static final long serialVersionUID = 1L;
 
 	private Item item;
 	private Form editorForm;
 	private Button saveButton;
 	private Button cancelButton;
+
+	@Autowired
+	private MediaService mediaService;
 
 	public MediaForm(Item item) {
 		editorForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
@@ -64,7 +72,7 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton() == saveButton) {
 			editorForm.commit();
-			MediaService.saveMovieEntry(item);
+			getMediaService().saveMovieEntry(item);
 			// fireEvent(new EditorSavedEvent(this, item));
 		} else if (event.getButton() == cancelButton) {
 			editorForm.discard();
@@ -133,6 +141,14 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		// , Arrays.asList("title", "genre")
 		editorForm.setItemDataSource(item, Arrays.asList(NATURAL_COL_ORDER));
 		this.item = item;
+	}
+
+	public MediaService getMediaService() {
+		return mediaService;
+	}
+
+	public void setMediaService(MediaService mediaService) {
+		this.mediaService = mediaService;
 	}
 
 }

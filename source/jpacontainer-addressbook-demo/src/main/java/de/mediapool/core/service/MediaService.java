@@ -36,7 +36,7 @@ public class MediaService implements Serializable {
 		return JPAContainerFactory.make(Participation.class, MediapoolApplication.PERSISTENCE_UNIT);
 	}
 
-	public static BeanItemContainer<MovieEntry> getAllMovieEntries() {
+	public BeanItemContainer<MovieEntry> getAllMovieEntries() {
 		BeanItemContainer<MovieEntry> movieEntrys = new BeanItemContainer<MovieEntry>(MovieEntry.class);
 		JPAContainer<Holding> holdings = JPAContainerFactory.make(Holding.class, MediapoolApplication.PERSISTENCE_UNIT);
 		for (Object itemId : holdings.getItemIds()) {
@@ -52,7 +52,7 @@ public class MediaService implements Serializable {
 
 	}
 
-	public static BeanItemContainer<Movie> searchMovieEntry(String name) {
+	public BeanItemContainer<Movie> searchMovieEntry(String name) {
 		BeanItemContainer<Movie> movieItems = new BeanItemContainer<Movie>(Movie.class);
 		EntityManager em = Persistence.createEntityManagerFactory("mediamanager").createEntityManager();
 		em.getTransaction().begin();
@@ -66,7 +66,7 @@ public class MediaService implements Serializable {
 
 	}
 
-	public static void saveMovieEntry(Item item) {
+	public void saveMovieEntry(Item item) {
 		BeanItem<MovieEntry> newMovieEntryItem = (BeanItem<MovieEntry>) item;
 		Holding holding = newMovieEntryItem.getBean().getHolding();
 		EntityManager em = Persistence.createEntityManagerFactory("mediamanager").createEntityManager();
@@ -78,7 +78,7 @@ public class MediaService implements Serializable {
 	final static String actors[] = { "Al Pacino", "Rober DeNiro", "Keanu Reeves", "Laurence Fishbourne" };
 	final static String movies[] = { "Der Pate I", "Der Pate II", "Matrix", "Matrix II" };
 
-	public static void create() {
+	public void createTestData() {
 
 		EntityManager em = Persistence.createEntityManagerFactory("mediamanager").createEntityManager();
 

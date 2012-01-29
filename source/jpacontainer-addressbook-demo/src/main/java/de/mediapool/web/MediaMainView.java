@@ -1,7 +1,5 @@
 package de.mediapool.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -29,8 +27,9 @@ import de.mediapool.web.ui.login.LoginForm;
 import de.mediapool.web.ui.login.LoginForm.LoggedinEvent;
 import de.mediapool.web.ui.login.LoginForm.LoggedinListener;
 
-@SuppressWarnings("serial")
 public class MediaMainView extends VerticalSplitPanel implements ComponentContainer, LoggedinListener, ClickListener {
+
+	private static final long serialVersionUID = 1L;
 
 	private Tree groupTree;
 
@@ -58,12 +57,12 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private TextField searchField;
 
-	@Autowired
 	private MediaService mediaService;
 
-	public MediaMainView() {
+	public MediaMainView(MediaService mediaService) {
+		setMediaService(mediaService);
 		departments = new HierarchicalDepartmentContainer();
-		movieEntrys = MediaService.getAllMovieEntries();
+		movieEntrys = getMediaService().getAllMovieEntries();
 		buildMainArea();
 
 	}
@@ -194,7 +193,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		} else if (source == musicButton) {
 
 		} else if (source == movieButton) {
-			movies = MediaService.searchMovieEntry((String) searchField.getValue());
+			movies = getMediaService().searchMovieEntry((String) searchField.getValue());
 		} else if (source == bookButton) {
 
 		} else if (source == gameButton) {
