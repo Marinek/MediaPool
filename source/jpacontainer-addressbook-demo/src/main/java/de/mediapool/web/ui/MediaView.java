@@ -18,13 +18,13 @@ import com.vaadin.ui.VerticalSplitPanel;
 import de.mediapool.core.domain.container.MovieEntry;
 
 @SuppressWarnings("serial")
-public class MovieView extends VerticalSplitPanel implements ValueChangeListener {
+public class MediaView extends VerticalSplitPanel implements ValueChangeListener {
 
 	BeanItemContainer<MovieEntry> movies;
 
 	HorizontalLayout toolbar;
-	MovieForm movieForm;
-	MovieList movieList;
+	MediaForm movieForm;
+	MediaList movieList;
 
 	private TextField searchField;
 
@@ -32,12 +32,12 @@ public class MovieView extends VerticalSplitPanel implements ValueChangeListener
 	private Button deleteButton;
 	private Button editButton;
 
-	public MovieView(BeanItemContainer movies) {
+	public MediaView(BeanItemContainer movies) {
 		this.movies = movies;
 		// addStyleName("view");
 		createToolbar();
-		movieForm = new MovieForm(null);
-		movieList = new MovieList(movies, this);
+		movieForm = new MediaForm(null);
+		movieList = new MediaList(movies, this);
 
 		VerticalLayout first = new VerticalLayout();
 		first.addComponent(toolbar);

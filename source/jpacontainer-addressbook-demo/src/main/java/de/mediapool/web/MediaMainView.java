@@ -9,42 +9,56 @@ import com.vaadin.demo.jpaaddressbook.domain.Department;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComponentContainer;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalSplitPanel;
 
 import de.mediapool.core.domain.Movie;
+import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.service.MediaService;
-import de.mediapool.web.ui.MovieView;
+import de.mediapool.web.ui.MediaView;
+import de.mediapool.web.ui.login.LoginForm;
+import de.mediapool.web.ui.login.LoginForm.LoggedinEvent;
+import de.mediapool.web.ui.login.LoginForm.LoggedinListener;
 
 @SuppressWarnings("serial")
-public class MediaMainView extends VerticalSplitPanel implements ComponentContainer {
+public class MediaMainView extends VerticalSplitPanel implements ComponentContainer, LoggedinListener, ClickListener {
 
 	private Tree groupTree;
 
-	private MovieView movieView;
+	private MediaView mediaView;
 
 	private JPAContainer<Department> departments;
 
 	private BeanItemContainer<Movie> movies;
-	// private BeanItemContainer<MovieEntry> movieEntrys;
+	private BeanItemContainer<MovieEntry> movieEntrys;
 
-	private HorizontalLayout toolbar;
-
-	private HorizontalSplitPanel mainhoSplit = new HorizontalSplitPanel();
+	private HorizontalSplitPanel contentView;
 
 	private Department departmentFilter;
 	private String textFilter;
 
-	private Button search = new Button("Search");
+	private LoginForm loginForm;
+
+	private HorizontalLayout toolbar;
+	private Button searchButton;
+	private Button movieButton;
+	private Button gameButton;
+	private Button boardgameButton;
+	private Button musicButton;
+	private Button bookButton;
+
+	private TextField searchField;
 
 	public MediaMainView() {
 		departments = new HierarchicalDepartmentContainer();
-		movies = MediaService.searchMovieEntry("Matrix");
-		// movieEntrys = MediaService.getAllMovieEntries();
+		movieEntrys = MediaService.getAllMovieEntries();
 		buildMainArea();
 
 	}
@@ -53,37 +67,67 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 		buildTree();
 		createToolbar();
-		setSplitPosition(10);
 
-		movieView = new MovieView(movies);
-		mainhoSplit = new HorizontalSplitPanel();
-		mainhoSplit.setSecondComponent(movieView);
-		setSecondComponent(mainhoSplit);
+		mediaView = new MediaView(movieEntrys);
 
+		contentView = new HorizontalSplitPanel();
+		contentView.setSplitPosition(200, HorizontalSplitPanel.UNITS_PIXELS);
+		contentView.setSecondComponent(mediaView);
+		contentView.setFirstComponent(groupTree);
+
+		setSplitPosition(15);
+		setSecondComponent(contentView);
 		setFirstComponent(toolbar);
-
-		mainhoSplit.setFirstComponent(groupTree);
-		mainhoSplit.setSplitPosition(200, HorizontalSplitPanel.UNITS_PIXELS);
 
 	}
 
 	private void createToolbar() {
 		toolbar = new HorizontalLayout();
-		toolbar.addComponent(search);
-		// search.addListener((ClickListener) this);
-		search.setIcon(new ThemeResource("icons/32/folder-add.png"));
 
 		toolbar.setMargin(true);
 		toolbar.setSpacing(true);
-
 		toolbar.setStyleName("toolbar");
-
 		toolbar.setWidth("100%");
+		toolbar.setExpandRatio(loginForm, 1);
 
-		Embedded em = new Embedded("", new ThemeResource("images/logo.png"));
-		toolbar.addComponent(em);
-		toolbar.setComponentAlignment(em, Alignment.MIDDLE_RIGHT);
-		toolbar.setExpandRatio(em, 1);
+		searchButton = new Button("Search");
+		movieButton = new Button("Movies");
+		gameButton = new Button("Game");
+		boardgameButton = new Button("Boardgame");
+		musicButton = new Button("Music");
+		bookButton = new Button("Book");
+
+		toolbar.addComponent(movieButton);
+		toolbar.addComponent(gameButton);
+		toolbar.addComponent(boardgameButton);
+		toolbar.addComponent(musicButton);
+		toolbar.addComponent(bookButton);
+		toolbar.addComponent(searchButton);
+
+		movieButton.setIcon(new ThemeResource("icons/types/movie_small.png"));
+		gameButton.setIcon(new ThemeResource("icons/types/game_small.png"));
+		boardgameButton.setIcon(new ThemeResource("icons/types/boardgame_small.png"));
+		musicButton.setIcon(new ThemeResource("icons/types/music_small.png"));
+		bookButton.setIcon(new ThemeResource("icons/types/book_small.png"));
+		searchButton.setIcon(new ThemeResource("icons/types/all_small.png"));
+
+		movieButton.addListener((ClickListener) this);
+		gameButton.addListener((ClickListener) this);
+		boardgameButton.addListener((ClickListener) this);
+		musicButton.addListener((ClickListener) this);
+		bookButton.addListener((ClickListener) this);
+		searchButton.addListener((ClickListener) this);
+
+		// Embedded em = new Embedded("", new ThemeResource("images/logo.png"));
+
+		searchField = new TextField();
+		toolbar.addComponent(searchField);
+
+		loginForm = new LoginForm();
+		loginForm.addLoginListener(this);
+
+		toolbar.addComponent(loginForm);
+		toolbar.setComponentAlignment(loginForm, Alignment.TOP_RIGHT);
 	}
 
 	private void buildTree() {
@@ -126,5 +170,32 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		// movies.addContainerFilter(or);
 		// }
 		// movies.applyFilters();
+	}
+
+	@Override
+	public void loggedin(LoggedinEvent event) {
+		toolbar.addComponent(new Label("loggedin"));
+		toolbar.removeComponent(loginForm);
+
+	}
+
+	@Override
+	public void buttonClick(ClickEvent event) {
+		final Button source = event.getButton();
+
+		if (source == searchButton) {
+
+		} else if (source == musicButton) {
+
+		} else if (source == movieButton) {
+			movies = MediaService.searchMovieEntry((String) searchField.getValue());
+		} else if (source == bookButton) {
+
+		} else if (source == gameButton) {
+
+		} else if (source == boardgameButton) {
+
+		}
+
 	}
 }
