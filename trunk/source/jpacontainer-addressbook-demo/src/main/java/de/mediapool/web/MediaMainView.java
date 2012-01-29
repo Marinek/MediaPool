@@ -88,7 +88,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		toolbar.setSpacing(true);
 		toolbar.setStyleName("toolbar");
 		toolbar.setWidth("100%");
-		toolbar.setExpandRatio(loginForm, 1);
 
 		searchButton = new Button("Search");
 		movieButton = new Button("Movies");
@@ -120,14 +119,16 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 		// Embedded em = new Embedded("", new ThemeResource("images/logo.png"));
 
-		searchField = new TextField();
+		searchField = new TextField("Search");
 		toolbar.addComponent(searchField);
+		toolbar.setComponentAlignment(searchField, Alignment.TOP_CENTER);
 
 		loginForm = new LoginForm();
 		loginForm.addLoginListener(this);
 
 		toolbar.addComponent(loginForm);
-		toolbar.setComponentAlignment(loginForm, Alignment.TOP_RIGHT);
+		toolbar.setComponentAlignment(loginForm, Alignment.MIDDLE_RIGHT);
+		toolbar.setExpandRatio(loginForm, 1);
 	}
 
 	private void buildTree() {
