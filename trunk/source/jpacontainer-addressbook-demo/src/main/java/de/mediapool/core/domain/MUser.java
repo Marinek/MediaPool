@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
-
 @Entity
 public class MUser {
 
@@ -33,6 +32,17 @@ public class MUser {
 	@Version
 	@Column(name = "version")
 	private Integer version;
+
+	public MUser authenticate() throws BadCredentialsException {
+		if (("test").equals(password)) {
+			return this;
+		}
+		throw new BadCredentialsException();
+	}
+
+	public class BadCredentialsException extends Exception {
+		private static final long serialVersionUID = 1L;
+	}
 
 	public Long getId() {
 		return this.id;

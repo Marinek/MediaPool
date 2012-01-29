@@ -8,12 +8,12 @@ import com.vaadin.ui.Table;
 import de.mediapool.core.domain.container.MovieEntry;
 
 @SuppressWarnings("serial")
-public class MovieList extends Table {
+public class MediaList extends Table {
 	public static final Object[] NATURAL_COL_ORDER = new Object[] { "title", "username", "carrier", "rating" };
 
 	public static final String[] COL_HEADERS_GERMAN = new String[] { "Titel", "Besitzer", "Medium", "Wertung" };
 
-	public MovieList(BeanItemContainer<MovieEntry> movies, MovieView view) {
+	public MediaList(BeanItemContainer<MovieEntry> movies, MediaView view) {
 		setSizeFull();
 		setContainerDataSource(movies);
 

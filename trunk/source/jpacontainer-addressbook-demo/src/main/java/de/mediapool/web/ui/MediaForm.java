@@ -20,14 +20,14 @@ import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.service.MediaService;
 
 @SuppressWarnings("serial")
-public class MovieForm extends HorizontalLayout implements Button.ClickListener, FormFieldFactory {
+public class MediaForm extends HorizontalLayout implements Button.ClickListener, FormFieldFactory {
 
 	private Item item;
 	private Form editorForm;
 	private Button saveButton;
 	private Button cancelButton;
 
-	public MovieForm(Item item) {
+	public MediaForm(Item item) {
 		editorForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
 		setItem(item);
 		editorForm.setFormFieldFactory(this);
