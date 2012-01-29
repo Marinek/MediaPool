@@ -1,5 +1,7 @@
 package de.mediapool.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -55,6 +57,9 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	private Button bookButton;
 
 	private TextField searchField;
+
+	@Autowired
+	private MediaService mediaService;
 
 	public MediaMainView() {
 		departments = new HierarchicalDepartmentContainer();
@@ -198,5 +203,13 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 		}
 
+	}
+
+	public MediaService getMediaService() {
+		return mediaService;
+	}
+
+	public void setMediaService(MediaService mediaService) {
+		this.mediaService = mediaService;
 	}
 }

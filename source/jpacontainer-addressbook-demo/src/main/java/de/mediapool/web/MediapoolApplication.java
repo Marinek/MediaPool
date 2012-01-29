@@ -24,6 +24,7 @@ public class MediapoolApplication extends Application implements LoggedinListene
 		setTheme("media");
 		mainWindow = new MediaMainView();
 		window.setContent(mainWindow);
+
 	}
 
 	@Override

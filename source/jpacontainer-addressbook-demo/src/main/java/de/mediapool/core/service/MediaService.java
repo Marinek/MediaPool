@@ -1,5 +1,6 @@
 package de.mediapool.core.service;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +24,13 @@ import de.mediapool.core.domain.Product;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.web.MediapoolApplication;
 
-public class MediaService {
+public class MediaService implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	public MediaService() {
+
+	}
 
 	public static JPAContainer<Participation> getAllParticipation() {
 		return JPAContainerFactory.make(Participation.class, MediapoolApplication.PERSISTENCE_UNIT);
@@ -31,8 +38,7 @@ public class MediaService {
 
 	public static BeanItemContainer<MovieEntry> getAllMovieEntries() {
 		BeanItemContainer<MovieEntry> movieEntrys = new BeanItemContainer<MovieEntry>(MovieEntry.class);
-		JPAContainer<Holding> holdings = JPAContainerFactory.make(Holding.class,
-				MediapoolApplication.PERSISTENCE_UNIT);
+		JPAContainer<Holding> holdings = JPAContainerFactory.make(Holding.class, MediapoolApplication.PERSISTENCE_UNIT);
 		for (Object itemId : holdings.getItemIds()) {
 			EntityItem<Holding> holdingItem = holdings.getItem(itemId);
 
