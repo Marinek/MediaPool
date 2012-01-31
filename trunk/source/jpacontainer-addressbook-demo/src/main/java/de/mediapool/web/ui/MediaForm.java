@@ -9,10 +9,13 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
+import com.vaadin.data.Property;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DefaultFieldFactory;
+import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
@@ -31,13 +34,17 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	private Form editorForm;
 	private Button saveButton;
 	private Button cancelButton;
+	private Embedded image;
 
 	@Autowired
 	private MediaService mediaService;
 
-	public MediaForm(Item item) {
+	public MediaForm() {
+		image = new Embedded("", new ThemeResource("cover/Cover.jpg"));
+		image.setWidth("200px");
+		addComponent(image);
+
 		editorForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
-		setItem(item);
 		editorForm.setFormFieldFactory(this);
 		editorForm.setWriteThrough(false);
 		editorForm.setImmediate(true);
@@ -115,6 +122,7 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 
 	public static class EditorSavedEvent extends Component.Event {
 
+		private static final long serialVersionUID = 1L;
 		private Item savedItem;
 
 		public EditorSavedEvent(Component source, Item savedItem) {
@@ -141,6 +149,18 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		// , Arrays.asList("title", "genre")
 		editorForm.setItemDataSource(item, Arrays.asList(NATURAL_COL_ORDER));
 		this.item = item;
+		changeImage();
+
+	}
+
+	private void changeImage() {
+		Property cover = item.getItemProperty("cover");
+		if (cover != null) {
+			String imageUrl = (String) cover.getValue();
+			image.requestRepaint();
+			image.setSource(new ThemeResource("cover/" + imageUrl));
+		}
+
 	}
 
 	public MediaService getMediaService() {

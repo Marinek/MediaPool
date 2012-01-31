@@ -11,10 +11,12 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalSplitPanel;
@@ -33,8 +35,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private Tree groupTree;
 
-	private MediaView mediaView;
-
 	private JPAContainer<Department> departments;
 
 	private BeanItemContainer<Movie> movies;
@@ -44,6 +44,8 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private Department departmentFilter;
 	private String textFilter;
+
+	private TabSheet tabsheet;
 
 	private LoginForm loginForm;
 
@@ -67,16 +69,22 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	}
 
+	private void setMainArea(Component c) {
+		contentView.setSecondComponent(c);
+	}
+
 	private void buildMainArea() {
 
 		buildTree();
 		createToolbar();
-
-		mediaView = new MediaView(movieEntrys);
+		tabsheet = new TabSheet();
+		tabsheet.setHeight("100%");
+		tabsheet.setStyleName("tabsheet");
+		addListTab(movieEntrys, "Filme");
 
 		contentView = new HorizontalSplitPanel();
 		contentView.setSplitPosition(200, HorizontalSplitPanel.UNITS_PIXELS);
-		contentView.setSecondComponent(mediaView);
+		setMainArea(tabsheet);
 		contentView.setFirstComponent(groupTree);
 
 		setSplitPosition(15);
@@ -120,8 +128,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		musicButton.addListener((ClickListener) this);
 		bookButton.addListener((ClickListener) this);
 		searchButton.addListener((ClickListener) this);
-
-		// Embedded em = new Embedded("", new ThemeResource("images/logo.png"));
 
 		searchField = new TextField("Search");
 		toolbar.addComponent(searchField);
@@ -184,6 +190,12 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	}
 
+	private void addListTab(BeanItemContainer beanitems, String caption) {
+		MediaView searchView = new MediaView(beanitems);
+		tabsheet.addTab(searchView, caption);
+		tabsheet.setSelectedTab(searchView);
+	}
+
 	@Override
 	public void buttonClick(ClickEvent event) {
 		final Button source = event.getButton();
@@ -194,6 +206,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 		} else if (source == movieButton) {
 			movies = getMediaService().searchMovieEntry((String) searchField.getValue());
+			addListTab(movies, "Suche " + searchField.getValue());
 		} else if (source == bookButton) {
 
 		} else if (source == gameButton) {

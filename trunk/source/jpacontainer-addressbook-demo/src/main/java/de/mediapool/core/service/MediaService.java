@@ -77,6 +77,7 @@ public class MediaService implements Serializable {
 
 	final static String actors[] = { "Al Pacino", "Rober DeNiro", "Keanu Reeves", "Laurence Fishbourne" };
 	final static String movies[] = { "Der Pate I", "Der Pate II", "Matrix", "Matrix II" };
+	final static String covers[] = { "Cover.jpg", "Cover1.jpg", "Cover2.jpg", "Cover3.jpg" };
 
 	public void createTestData() {
 
@@ -111,6 +112,7 @@ public class MediaService implements Serializable {
 
 			Movie movie = new Movie();
 			movie.setTitle(movies[i]);
+			movie.setCover(covers[i]);
 
 			Set<Participation> participations = new HashSet<Participation>();
 			participations.add(part);
