@@ -1,3 +1,9 @@
 http://www.java.net/forum/topic/glassfish/glassfish/referring-external-resource-images-files-file-system-glassfish-server
 
 https://github.com/SpringSource/spring-data-neo4j/tree/master/spring-data-neo4j-examples/cineasts
+
+#Mobile
+
+https://vaadin.com/book/-/page/mobile.html#mobile.overview
+
+http://code.google.com/p/zxing/wiki/ScanningViaIntent
