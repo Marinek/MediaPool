@@ -34,7 +34,7 @@ public class MediaView extends VerticalSplitPanel implements ValueChangeListener
 		this.beanItems = beanItems;
 		// addStyleName("view");
 		createToolbar();
-		movieForm = new MediaForm(null);
+		movieForm = new MediaForm();
 		movieList = new MediaList(beanItems, this);
 
 		VerticalLayout first = new VerticalLayout();
