@@ -11,7 +11,7 @@ import de.mediapool.core.domain.Participation;
 import de.mediapool.core.domain.Product;
 
 @SuppressWarnings("serial")
-public class MovieEntry implements Serializable {
+public class MovieEntry implements Serializable, MediaInterface {
 	private Movie movie;
 	private Product product;
 	private MUser muser;
@@ -19,6 +19,21 @@ public class MovieEntry implements Serializable {
 
 	public MovieEntry() {
 
+	}
+
+	@Override
+	public String[] header_names() {
+		return new String[] { "Titel", "Besitzer", "Medium", "Wertung" };
+	}
+
+	@Override
+	public Object[] header_order() {
+		return new Object[] { "title", "username", "carrier", "rating" };
+	}
+
+	@Override
+	public Object[] form_fields() {
+		return new Object[] { "title", "username", "carrier", "rating" };
 	}
 
 	public MovieEntry(Holding holding) {
@@ -275,4 +290,5 @@ public class MovieEntry implements Serializable {
 	public Movie getMovie() {
 		return movie;
 	}
+
 }

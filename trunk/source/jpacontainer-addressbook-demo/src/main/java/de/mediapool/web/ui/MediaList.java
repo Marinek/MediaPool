@@ -9,19 +9,17 @@ import de.mediapool.core.domain.container.MovieEntry;
 
 @SuppressWarnings("serial")
 public class MediaList extends Table {
-	public static final Object[] NATURAL_COL_ORDER = new Object[] { "title", "username", "carrier", "rating" };
 
-	public static final String[] COL_HEADERS_GERMAN = new String[] { "Titel", "Besitzer", "Medium", "Wertung" };
+	public MediaList(BeanItemContainer<MovieEntry> movies, MediaView view, Object[] header_order, String[] header_names) {
 
-	public MediaList(BeanItemContainer<MovieEntry> movies, MediaView view) {
 		setSizeFull();
 		setContainerDataSource(movies);
 
 		setColumnCollapsingAllowed(true);
 		setColumnReorderingAllowed(true);
 
-		// setVisibleColumns(NATURAL_COL_ORDER);
-		// setColumnHeaders(COL_HEADERS_GERMAN);
+		setVisibleColumns(header_order);
+		setColumnHeaders(header_names);
 
 		setSelectable(true);
 		addListener(new ItemClickListener() {

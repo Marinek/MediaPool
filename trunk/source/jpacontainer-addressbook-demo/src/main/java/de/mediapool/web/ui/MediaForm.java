@@ -35,12 +35,24 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	private Button saveButton;
 	private Button cancelButton;
 	private Embedded image;
+	private Object[] formfields;
 
 	@Autowired
 	private MediaService mediaService;
 
-	public MediaForm() {
-		image = new Embedded("", new ThemeResource("cover/Cover.jpg"));
+	public MediaForm(Object[] formfields) {
+		this.formfields = formfields;
+
+		saveButton = new Button("Save", this);
+		cancelButton = new Button("Cancel", this);
+
+		HorizontalLayout footer = new HorizontalLayout();
+		footer.setSpacing(true);
+		footer.addComponent(saveButton);
+		footer.addComponent(cancelButton);
+		footer.setVisible(false);
+
+		image = new Embedded();
 		image.setWidth("200px");
 		addComponent(image);
 
@@ -49,11 +61,7 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		editorForm.setWriteThrough(false);
 		editorForm.setImmediate(true);
 
-		saveButton = new Button("Save", this);
-		cancelButton = new Button("Cancel", this);
-
-		editorForm.getFooter().addComponent(saveButton);
-		editorForm.getFooter().addComponent(cancelButton);
+		editorForm.setFooter(footer);
 		addComponent(editorForm);
 
 		setCaption(buildCaption());
@@ -143,11 +151,9 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		return item;
 	}
 
-	public static final Object[] NATURAL_COL_ORDER = new Object[] { "title", "username", "carrier", "rating" };
-
 	public void setItem(Item item) {
-		// , Arrays.asList("title", "genre")
-		editorForm.setItemDataSource(item, Arrays.asList(NATURAL_COL_ORDER));
+		editorForm.setItemDataSource(item, Arrays.asList(formfields));
+		editorForm.getFooter().setVisible(true);
 		this.item = item;
 		changeImage();
 
