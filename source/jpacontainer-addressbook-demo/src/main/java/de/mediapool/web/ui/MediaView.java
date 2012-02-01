@@ -1,5 +1,8 @@
 package de.mediapool.web.ui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -15,9 +18,11 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 
+import de.mediapool.core.domain.container.MediaInterface;
+
 @SuppressWarnings("serial")
 public class MediaView extends VerticalSplitPanel implements ValueChangeListener {
-
+	private static final Logger logger = LoggerFactory.getLogger(MediaView.class);
 	BeanItemContainer beanItems;
 
 	HorizontalLayout toolbar;
@@ -32,10 +37,23 @@ public class MediaView extends VerticalSplitPanel implements ValueChangeListener
 
 	public MediaView(BeanItemContainer beanItems) {
 		this.beanItems = beanItems;
-		// addStyleName("view");
+		String[] header_names = null;
+		Object[] header_order = null;
+		Object[] form_fields = null;
+		try {
+			Object mediaItem = beanItems.getBeanType().newInstance();
+			header_names = ((MediaInterface) mediaItem).header_names();
+			header_order = ((MediaInterface) mediaItem).header_order();
+			form_fields = ((MediaInterface) mediaItem).form_fields();
+		} catch (InstantiationException e) {
+			logger.error(e.getMessage());
+		} catch (IllegalAccessException e) {
+			logger.error(e.getMessage());
+		}
+		addStyleName("view");
 		createToolbar();
-		movieForm = new MediaForm();
-		movieList = new MediaList(beanItems, this);
+		movieForm = new MediaForm(form_fields);
+		movieList = new MediaList(beanItems, this, header_order, header_names);
 
 		VerticalLayout first = new VerticalLayout();
 		first.addComponent(toolbar);
