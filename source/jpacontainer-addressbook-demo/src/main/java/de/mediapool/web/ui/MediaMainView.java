@@ -1,10 +1,9 @@
-package de.mediapool.web;
+package de.mediapool.web.ui;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.demo.jpaaddressbook.HierarchicalDepartmentContainer;
 import com.vaadin.demo.jpaaddressbook.domain.Department;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
@@ -24,7 +23,6 @@ import com.vaadin.ui.VerticalSplitPanel;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.service.MediaService;
-import de.mediapool.web.ui.MediaView;
 import de.mediapool.web.ui.login.LoginForm;
 import de.mediapool.web.ui.login.LoginForm.LoggedinEvent;
 import de.mediapool.web.ui.login.LoginForm.LoggedinListener;
@@ -57,16 +55,16 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	private Button musicButton;
 	private Button bookButton;
 
+	private NewMediaForm newMediaForm;
+
 	private TextField searchField;
 
 	private MediaService mediaService;
 
 	public MediaMainView(MediaService mediaService) {
 		setMediaService(mediaService);
-		departments = new HierarchicalDepartmentContainer();
 		movieEntrys = getMediaService().getAllMovieEntries();
 		buildMainArea();
-
 	}
 
 	private void setMainArea(Component c) {
@@ -77,6 +75,9 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 		buildTree();
 		createToolbar();
+
+		newMediaForm = new NewMediaForm();
+
 		tabsheet = new TabSheet();
 		tabsheet.setHeight("100%");
 		tabsheet.setStyleName("tabsheet");
@@ -203,12 +204,12 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		if (source == searchButton) {
 
 		} else if (source == musicButton) {
-
+			setMainArea(tabsheet);
 		} else if (source == movieButton) {
 			movies = getMediaService().searchMovieEntry((String) searchField.getValue());
 			addListTab(movies, "Suche " + searchField.getValue());
 		} else if (source == bookButton) {
-
+			setMainArea(newMediaForm);
 		} else if (source == gameButton) {
 
 		} else if (source == boardgameButton) {

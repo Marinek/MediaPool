@@ -22,23 +22,24 @@ import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Participation;
 import de.mediapool.core.domain.Product;
 import de.mediapool.core.domain.container.MovieEntry;
-import de.mediapool.web.MediapoolApplication;
 
 public class MediaService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	public static final String PERSISTENCE_UNIT = "mediamanager";
 
 	public MediaService() {
 
 	}
 
 	public static JPAContainer<Participation> getAllParticipation() {
-		return JPAContainerFactory.make(Participation.class, MediapoolApplication.PERSISTENCE_UNIT);
+		return JPAContainerFactory.make(Participation.class, PERSISTENCE_UNIT);
 	}
 
 	public BeanItemContainer<MovieEntry> getAllMovieEntries() {
 		BeanItemContainer<MovieEntry> movieEntrys = new BeanItemContainer<MovieEntry>(MovieEntry.class);
-		JPAContainer<Holding> holdings = JPAContainerFactory.make(Holding.class, MediapoolApplication.PERSISTENCE_UNIT);
+		JPAContainer<Holding> holdings = JPAContainerFactory.make(Holding.class, PERSISTENCE_UNIT);
 		for (Object itemId : holdings.getItemIds()) {
 			EntityItem<Holding> holdingItem = holdings.getItem(itemId);
 
@@ -54,7 +55,7 @@ public class MediaService implements Serializable {
 
 	public BeanItemContainer<Movie> searchMovieEntry(String name) {
 		BeanItemContainer<Movie> movieItems = new BeanItemContainer<Movie>(Movie.class);
-		EntityManager em = Persistence.createEntityManagerFactory("mediamanager").createEntityManager();
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
 		Query q = em.createQuery("SELECT m FROM Movie m where m.title=:title");
 		q.setParameter("title", name);
@@ -69,7 +70,7 @@ public class MediaService implements Serializable {
 	public void saveMovieEntry(Item item) {
 		BeanItem<MovieEntry> newMovieEntryItem = (BeanItem<MovieEntry>) item;
 		Holding holding = newMovieEntryItem.getBean().getHolding();
-		EntityManager em = Persistence.createEntityManagerFactory("mediamanager").createEntityManager();
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
 		em.merge(holding);
 		em.getTransaction().commit();
@@ -81,7 +82,7 @@ public class MediaService implements Serializable {
 
 	public void createTestData() {
 
-		EntityManager em = Persistence.createEntityManagerFactory("mediamanager").createEntityManager();
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 
 		em.getTransaction().begin();
 

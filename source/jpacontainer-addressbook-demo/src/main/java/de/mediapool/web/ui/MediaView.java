@@ -23,7 +23,7 @@ import de.mediapool.core.domain.container.MediaInterface;
 @SuppressWarnings("serial")
 public class MediaView extends VerticalSplitPanel implements ValueChangeListener {
 	private static final Logger logger = LoggerFactory.getLogger(MediaView.class);
-	BeanItemContainer beanItems;
+	BeanItemContainer<MediaInterface> beanItems;
 
 	HorizontalLayout toolbar;
 	MediaForm movieForm;
@@ -35,7 +35,7 @@ public class MediaView extends VerticalSplitPanel implements ValueChangeListener
 	private Button deleteButton;
 	private Button editButton;
 
-	public MediaView(BeanItemContainer beanItems) {
+	public MediaView(BeanItemContainer<MediaInterface> beanItems) {
 		this.beanItems = beanItems;
 		String[] header_names = null;
 		Object[] header_order = null;

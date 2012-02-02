@@ -67,11 +67,11 @@ public class MovieEntry implements Serializable, MediaInterface {
 		movie.setOriginaltitle(originaltitle);
 	}
 
-	public String getLaunchyear() {
+	public int getLaunchyear() {
 		return movie.getLaunchyear();
 	}
 
-	public void setLaunchyear(String launchyear) {
+	public void setLaunchyear(int launchyear) {
 		movie.setLaunchyear(launchyear);
 	}
 

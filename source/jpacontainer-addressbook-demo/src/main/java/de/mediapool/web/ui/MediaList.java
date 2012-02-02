@@ -5,12 +5,13 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Table;
 
-import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.core.domain.container.MediaInterface;
 
 @SuppressWarnings("serial")
 public class MediaList extends Table {
 
-	public MediaList(BeanItemContainer<MovieEntry> movies, MediaView view, Object[] header_order, String[] header_names) {
+	public MediaList(BeanItemContainer<MediaInterface> movies, MediaView view, Object[] header_order,
+			String[] header_names) {
 
 		setSizeFull();
 		setContainerDataSource(movies);

@@ -21,4 +21,5 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 <!-- user functions -->
 
 	<bean id="mediaService" class="de.mediapool.core.service.MediaService" />
+	<bean id="dataGrabber" class="de.mediapool.core.service.grab.DataGrabber" />
 </beans>

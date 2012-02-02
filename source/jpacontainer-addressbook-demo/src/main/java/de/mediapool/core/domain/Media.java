@@ -14,7 +14,6 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Media {
@@ -28,7 +27,7 @@ public class Media {
 
 	private String originaltitle;
 
-	private String launchyear;
+	private int launchyear;
 
 	private String cover;
 
@@ -41,6 +40,10 @@ public class Media {
 	private String genre;
 
 	private String mlanguage;
+
+	private int duration;
+
+	private int approvedage;
 
 	@Version
 	@Column(name = "version")
@@ -65,11 +68,11 @@ public class Media {
 		this.originaltitle = originaltitle;
 	}
 
-	public String getLaunchyear() {
+	public int getLaunchyear() {
 		return this.launchyear;
 	}
 
-	public void setLaunchyear(String launchyear) {
+	public void setLaunchyear(int launchyear) {
 		this.launchyear = launchyear;
 	}
 
@@ -159,6 +162,22 @@ public class Media {
 		sb.append("Title: ").append(getTitle()).append(", ");
 		sb.append("Version: ").append(getVersion());
 		return sb.toString();
+	}
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public int getApprovedage() {
+		return approvedage;
+	}
+
+	public void setApprovedage(int approvedage) {
+		this.approvedage = approvedage;
 	}
 
 }
