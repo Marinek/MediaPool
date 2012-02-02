@@ -7,6 +7,7 @@ import com.vaadin.Application;
 import com.vaadin.ui.Window;
 
 import de.mediapool.core.service.MediaService;
+import de.mediapool.web.ui.MediaMainView;
 import de.mediapool.web.ui.login.LoginForm.LoggedinEvent;
 import de.mediapool.web.ui.login.LoginForm.LoggedinListener;
 
@@ -17,8 +18,6 @@ public class MediapoolApplication extends Application implements LoggedinListene
 	private MediaService mediaService;
 
 	private static final long serialVersionUID = 1L;
-
-	public static final String PERSISTENCE_UNIT = "mediamanager";
 
 	private MediaMainView mainWindow;
 

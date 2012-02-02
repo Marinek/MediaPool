@@ -5,8 +5,6 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 
-
-
 @Entity
 public class Movie extends Media {
 
@@ -21,6 +19,7 @@ public class Movie extends Media {
 	}
 
 	private String productionland;
+	private int mlenght;
 
 	public String getProductionland() {
 		return productionland;
@@ -45,6 +44,14 @@ public class Movie extends Media {
 		sb.append("Title: ").append(getTitle()).append(", ");
 		sb.append("Version: ").append(getVersion());
 		return sb.toString();
+	}
+
+	public int getMlenght() {
+		return mlenght;
+	}
+
+	public void setMlenght(int mlenght) {
+		this.mlenght = mlenght;
 	}
 
 }
