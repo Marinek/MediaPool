@@ -6,6 +6,8 @@ https://github.com/SpringSource/spring-data-neo4j/tree/master/spring-data-neo4j-
 
 http://magi.virtuallypreinstalled.com/book-examples/book/?restartApplication#component.select.listselect.basic
 
+http://vaadin.com/directory#addon/flexibleoptiongroup
+
 #Mobile
 
 https://vaadin.com/book/-/page/mobile.html#mobile.overview
