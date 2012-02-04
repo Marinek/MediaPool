@@ -38,6 +38,10 @@
       background: #ccc url(images/gradient.png) repeat-x bottom left;
 }
 
+.toolbar .v-splitpanel-first-container {
+      height: 60px;
+}
+
 .v-panel-caption-view {
       color: #004b98;
 }

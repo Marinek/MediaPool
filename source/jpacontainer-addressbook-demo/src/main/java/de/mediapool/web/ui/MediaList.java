@@ -5,7 +5,7 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Table;
 
-import de.mediapool.core.domain.container.MediaInterface;
+import de.mediapool.core.domain.MediaInterface;
 
 @SuppressWarnings("serial")
 public class MediaList extends Table {

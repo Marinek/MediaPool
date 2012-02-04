@@ -16,12 +16,13 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.VerticalSplitPanel;
 
-import de.mediapool.core.domain.container.MediaInterface;
+import de.mediapool.core.domain.MediaInterface;
+import de.mediapool.web.ui.impl.SplitPanelImpl;
+import de.mediapool.web.ui.impl.SplitPanelImpl.SplitterPositionChangedListener;
 
 @SuppressWarnings("serial")
-public class MediaView extends VerticalSplitPanel implements ValueChangeListener {
+public class MediaView extends SplitPanelImpl implements ValueChangeListener, SplitterPositionChangedListener {
 	private static final Logger logger = LoggerFactory.getLogger(MediaView.class);
 	BeanItemContainer<MediaInterface> beanItems;
 
@@ -35,23 +36,19 @@ public class MediaView extends VerticalSplitPanel implements ValueChangeListener
 	private Button deleteButton;
 	private Button editButton;
 
+	private String[] header_names;
+	private Object[] header_order;
+	private Object[] form_fields;
+
 	public MediaView(BeanItemContainer<MediaInterface> beanItems) {
 		this.beanItems = beanItems;
-		String[] header_names = null;
-		Object[] header_order = null;
-		Object[] form_fields = null;
-		try {
-			Object mediaItem = beanItems.getBeanType().newInstance();
-			header_names = ((MediaInterface) mediaItem).header_names();
-			header_order = ((MediaInterface) mediaItem).header_order();
-			form_fields = ((MediaInterface) mediaItem).form_fields();
-		} catch (InstantiationException e) {
-			logger.error(e.getMessage());
-		} catch (IllegalAccessException e) {
-			logger.error(e.getMessage());
-		}
+
+		initHeaders();
 		addStyleName("view");
 		createToolbar();
+
+		this.addListener((SplitterPositionChangedListener) this);
+
 		movieForm = new MediaForm(form_fields);
 		movieList = new MediaList(beanItems, this, header_order, header_names);
 
@@ -62,6 +59,23 @@ public class MediaView extends VerticalSplitPanel implements ValueChangeListener
 		setFirstComponent(first);
 		setSecondComponent(movieForm);
 		setSplitPosition(40);
+
+		setImmediate(true);
+
+		movieList.setHeightUnits(getFirstComponent().getHeightUnits());
+	}
+
+	private void initHeaders() {
+		try {
+			Object mediaItem = beanItems.getBeanType().newInstance();
+			header_names = ((MediaInterface) mediaItem).header_names();
+			header_order = ((MediaInterface) mediaItem).header_order();
+			form_fields = ((MediaInterface) mediaItem).form_fields();
+		} catch (InstantiationException e) {
+			logger.error(e.getMessage());
+		} catch (IllegalAccessException e) {
+			logger.error(e.getMessage());
+		}
 	}
 
 	private void createToolbar() {
@@ -137,6 +151,11 @@ public class MediaView extends VerticalSplitPanel implements ValueChangeListener
 				movieForm.setItem(item);
 			}
 		}
+	}
+
+	public void splitterPositionChanged(SplitterPositionChangedEvent event) {
+		movieList.setHeightUnits(getFirstComponent().getHeightUnits());
+		movieList.requestRepaint();
 	}
 
 	private void setModificationsEnabled(boolean b) {

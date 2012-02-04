@@ -1,47 +1,40 @@
 package de.mediapool.core.domain.container;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
-import de.mediapool.core.domain.Holding;
-import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Participation;
 import de.mediapool.core.domain.Product;
 
 @SuppressWarnings("serial")
-public class MovieEntry implements Serializable, MediaInterface {
+public class MovieProductEntry implements Serializable, MediaInterface {
 	private Movie movie;
 	private Product product;
-	private MUser muser;
-	private Holding holding;
 
-	public MovieEntry() {
+	public MovieProductEntry() {
 
 	}
 
 	@Override
 	public String[] header_names() {
-		return new String[] { "Titel", "Besitzer", "Medium", "Wertung" };
+		return new String[] { "Titel", "Medium", "Wertung" };
 	}
 
 	@Override
 	public Object[] header_order() {
-		return new Object[] { "title", "username", "carrier", "rating" };
+		return new Object[] { "title", "carrier", "rating" };
 	}
 
 	@Override
 	public Object[] form_fields() {
-		return new Object[] { "title", "username", "carrier", "rating" };
+		return new Object[] { "title", "carrier", "rating" };
 	}
 
-	public MovieEntry(Holding holding) {
-		this.product = holding.getProduct();
+	public MovieProductEntry(Product product) {
+		this.product = product;
 		this.movie = product.getMovie();
-		this.muser = holding.getMuser();
-		this.holding = holding;
 	}
 
 	public String getProductionland() {
@@ -188,104 +181,12 @@ public class MovieEntry implements Serializable, MediaInterface {
 		product.setMovie(movie);
 	}
 
-	public String getUsername() {
-		return muser.getUsername();
-	}
-
-	public void setUsername(String username) {
-		muser.setUsername(username);
-	}
-
-	public void setVersion(Integer version) {
-		holding.setVersion(version);
-	}
-
-	public String getKnowm() {
-		return holding.getKnowm();
-	}
-
-	public void setKnowm(String knowm) {
-		holding.setKnowm(knowm);
-	}
-
-	public String getSince() {
-		return holding.getSince();
-	}
-
-	public void setSince(String since) {
-		holding.setSince(since);
-	}
-
-	public String getRating() {
-		return holding.getRating();
-	}
-
-	public void setRating(String rating) {
-		holding.setRating(rating);
-	}
-
-	public Boolean getVisible() {
-		return holding.getVisible();
-	}
-
-	public void setVisible(Boolean visible) {
-		holding.setVisible(visible);
-	}
-
-	public String getSituation() {
-		return holding.getSituation();
-	}
-
-	public void setSituation(String situation) {
-		holding.setSituation(situation);
-	}
-
-	public String getInventoryplace() {
-		return holding.getInventoryplace();
-	}
-
-	public void setInventoryplace(String inventoryplace) {
-		holding.setInventoryplace(inventoryplace);
-	}
-
-	public String getInventorynumber() {
-		return holding.getInventorynumber();
-	}
-
-	public void setInventorynumber(String inventorynumber) {
-		holding.setInventorynumber(inventorynumber);
-	}
-
-	public Date getLastUsed() {
-		return holding.getLastUsed();
-	}
-
-	public void setLastUsed(Date lastUsed) {
-		holding.setLastUsed(lastUsed);
-	}
-
 	public Product getProduct() {
 		return product;
 	}
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	public MUser getMuser() {
-		return muser;
-	}
-
-	public void setMuser(MUser muser) {
-		this.muser = muser;
-	}
-
-	public Holding getHolding() {
-		return holding;
-	}
-
-	public void setHolding(Holding holding) {
-		this.holding = holding;
 	}
 
 	public Movie getMovie() {

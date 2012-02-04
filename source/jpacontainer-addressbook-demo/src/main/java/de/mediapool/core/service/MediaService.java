@@ -22,6 +22,7 @@ import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Participation;
 import de.mediapool.core.domain.Product;
 import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.core.domain.migration.Filme;
 
 public class MediaService implements Serializable {
 
@@ -35,6 +36,18 @@ public class MediaService implements Serializable {
 
 	public static JPAContainer<Participation> getAllParticipation() {
 		return JPAContainerFactory.make(Participation.class, PERSISTENCE_UNIT);
+	}
+
+	public static BeanItemContainer<Filme> getFilme() {
+		BeanItemContainer<Filme> filmEntrys = new BeanItemContainer<Filme>(Filme.class);
+		JPAContainer<Filme> filme = JPAContainerFactory.make(Filme.class, PERSISTENCE_UNIT);
+
+		for (Object itemId : filme.getItemIds()) {
+			EntityItem<Filme> filmItem = filme.getItem(itemId);
+			filmEntrys.addItem(filmItem.getEntity());
+		}
+
+		return filmEntrys;
 	}
 
 	public BeanItemContainer<MovieEntry> getAllMovieEntries() {

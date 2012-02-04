@@ -22,6 +22,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.core.domain.migration.Filme;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.login.LoginForm;
 import de.mediapool.web.ui.login.LoginForm.LoggedinEvent;
@@ -37,6 +38,8 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private BeanItemContainer<Movie> movies;
 	private BeanItemContainer<MovieEntry> movieEntrys;
+
+	private BeanItemContainer<Filme> filme;
 
 	private HorizontalSplitPanel contentView;
 
@@ -64,6 +67,8 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	public MediaMainView(MediaService mediaService) {
 		setMediaService(mediaService);
 		movieEntrys = getMediaService().getAllMovieEntries();
+
+		// filme = getMediaService().getFilme();
 		buildMainArea();
 	}
 
@@ -83,12 +88,14 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		tabsheet.setStyleName("tabsheet");
 		addListTab(movieEntrys, "Filme");
 
+		// addListTab(filme, "Migration");
 		contentView = new HorizontalSplitPanel();
 		contentView.setSplitPosition(200, HorizontalSplitPanel.UNITS_PIXELS);
 		setMainArea(tabsheet);
 		contentView.setFirstComponent(groupTree);
 
-		setSplitPosition(15);
+		this.setLocked(true);
+		setSplitPosition(20);
 		setSecondComponent(contentView);
 		setFirstComponent(toolbar);
 
@@ -192,9 +199,13 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	}
 
 	private void addListTab(BeanItemContainer beanitems, String caption) {
-		MediaView searchView = new MediaView(beanitems);
-		tabsheet.addTab(searchView, caption);
-		tabsheet.setSelectedTab(searchView);
+		if (beanitems != null) {
+			MediaView searchView = new MediaView(beanitems);
+			String newCaption = caption + " (" + beanitems.getItemIds().size() + ")";
+			tabsheet.addTab(searchView, newCaption);
+			tabsheet.setSelectedTab(searchView);
+			tabsheet.getTab(searchView).setClosable(true);
+		}
 	}
 
 	@Override

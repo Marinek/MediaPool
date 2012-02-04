@@ -1,5 +1,6 @@
 package de.mediapool.core.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,9 +13,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
-
+@SuppressWarnings("serial")
 @Entity
-public class MRelated {
+public class MRelated implements Serializable {
 
 	private String type;
 

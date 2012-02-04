@@ -18,18 +18,23 @@ package de.mediapool.web.ui.login;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
+import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.terminal.UserError;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
+import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.TextField;
 
 import de.mediapool.core.domain.MUser;
 
-public class LoginForm extends Form implements ClickListener {
+public class LoginForm extends Form implements FormFieldFactory, ClickListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,8 +48,7 @@ public class LoginForm extends Form implements ClickListener {
 		getFooter().addComponent(buttonBar);
 		loginButton = new Button("Login", (ClickListener) this);
 		buttonBar.addComponent(loginButton);
-		setFormFieldFactory(new LoginFormFieldFactory());
-
+		setFormFieldFactory(this);
 		BeanItem<MUser> userItem = new BeanItem<MUser>(user);
 		setItemDataSource(userItem);
 	}
@@ -75,6 +79,21 @@ public class LoginForm extends Form implements ClickListener {
 			// This should never happen
 			throw new java.lang.RuntimeException("Internal error finding methods in Button");
 		}
+	}
+
+	@Override
+	public Field createField(Item item, Object propertyId, Component uiContext) {
+		String pid = (String) propertyId;
+		if (pid.equals("password")) {
+			PasswordField passwordField = new PasswordField("password");
+			passwordField.setNullRepresentation("");
+			return passwordField;
+		} else if (pid.equals("email")) {
+			TextField tf = new TextField("email");
+			tf.setNullRepresentation("");
+			return tf;
+		}
+		return null;
 	}
 
 	public class LoggedinEvent extends Component.Event {
