@@ -1,4 +1,4 @@
-package de.mediapool.core.domain.container;
+package de.mediapool.core.domain;
 
 public interface MediaInterface {
 	public String[] header_names();

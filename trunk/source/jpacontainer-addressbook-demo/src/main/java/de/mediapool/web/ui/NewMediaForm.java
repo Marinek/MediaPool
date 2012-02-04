@@ -57,6 +57,8 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 		nextButton.addListener((ClickListener) this);
 		addComponent(nextButton);
 
+		setImmediate(true);
+
 	}
 
 	@Override

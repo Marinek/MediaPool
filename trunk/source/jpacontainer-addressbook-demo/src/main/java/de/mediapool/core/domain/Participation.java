@@ -1,5 +1,7 @@
 package de.mediapool.core.domain;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,8 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Version;
 
+@SuppressWarnings("serial")
 @Entity
-public class Participation {
+public class Participation implements Serializable {
 
 	private String mpart;
 	private String name;

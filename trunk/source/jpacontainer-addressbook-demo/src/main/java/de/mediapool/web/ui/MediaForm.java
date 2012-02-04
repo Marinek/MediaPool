@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Configurable;
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
-import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DefaultFieldFactory;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
@@ -24,6 +22,7 @@ import com.vaadin.ui.TextField;
 
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.service.MediaService;
+import de.mediapool.web.ui.impl.MediaImage;
 
 @Configurable
 public class MediaForm extends HorizontalLayout implements Button.ClickListener, FormFieldFactory {
@@ -34,13 +33,19 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	private Form editorForm;
 	private Button saveButton;
 	private Button cancelButton;
-	private Embedded image;
+	private MediaImage image;
 	private Object[] formfields;
 
 	@Autowired
 	private MediaService mediaService;
 
 	public MediaForm(Object[] formfields) {
+
+		editorForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
+		editorForm.setFormFieldFactory(this);
+		editorForm.setWriteThrough(false);
+		editorForm.setImmediate(true);
+
 		this.formfields = formfields;
 
 		saveButton = new Button("Save", this);
@@ -52,29 +57,13 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		footer.addComponent(cancelButton);
 		footer.setVisible(false);
 
-		image = new Embedded();
-		image.setWidth("200px");
+		image = new MediaImage();
+
 		addComponent(image);
-
-		editorForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
-		editorForm.setFormFieldFactory(this);
-		editorForm.setWriteThrough(false);
-		editorForm.setImmediate(true);
-
-		editorForm.setFooter(footer);
 		addComponent(editorForm);
 
-		setCaption(buildCaption());
-	}
+		editorForm.setFooter(footer);
 
-	/**
-	 * @return the caption of the editor window
-	 */
-	private String buildCaption() {
-		return "test";
-		// String.format("%s %s", movieItem.getItemProperty("title").getValue(),
-		// movieItem.getItemProperty("genre")
-		// .getValue());
 	}
 
 	/*
@@ -161,12 +150,17 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 
 	private void changeImage() {
 		Property cover = item.getItemProperty("cover");
-		if (cover != null) {
-			String imageUrl = (String) cover.getValue();
-			image.requestRepaint();
-			image.setSource(new ThemeResource("cover/" + imageUrl));
-		}
+		Property title = item.getItemProperty("title");
+		image.setFilename(nullCheck(cover), nullCheck(title));
 
+	}
+
+	private String nullCheck(Property check) {
+		String string = "";
+		if (check != null) {
+			string = (String) check.getValue();
+		}
+		return string;
 	}
 
 	public MediaService getMediaService() {

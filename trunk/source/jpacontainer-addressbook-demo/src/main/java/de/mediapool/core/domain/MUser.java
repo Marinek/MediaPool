@@ -1,5 +1,6 @@
 package de.mediapool.core.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
+@SuppressWarnings("serial")
 @Entity
-public class MUser {
+public class MUser implements Serializable {
 
 	private String password;
 

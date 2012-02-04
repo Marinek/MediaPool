@@ -1,5 +1,6 @@
 package de.mediapool.core.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,9 +15,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
+@SuppressWarnings("serial")
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Media {
+public class Media implements Serializable, MediaInterface {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,6 +53,21 @@ public class Media {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Participation> participation = new HashSet<Participation>();
+
+	@Override
+	public String[] header_names() {
+		return new String[] { "Titel", "Medium", "Inhalt", "Genre" };
+	}
+
+	@Override
+	public Object[] header_order() {
+		return new String[] { "title", "mediatype", "contenttype", "genre" };
+	}
+
+	@Override
+	public Object[] form_fields() {
+		return new String[] { "title", "mediatype", "contenttype", "genre" };
+	}
 
 	public String getTitle() {
 		return this.title;

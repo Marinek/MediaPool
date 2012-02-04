@@ -1,5 +1,6 @@
 package de.mediapool.core.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -13,9 +14,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
-
+@SuppressWarnings("serial")
 @Entity
-public class Holding {
+public class Holding implements Serializable {
 
 	private String knowm;
 
