@@ -34,7 +34,7 @@ import com.vaadin.ui.TextField;
 
 import de.mediapool.core.domain.MUser;
 
-public class LoginForm extends Form implements FormFieldFactory, ClickListener {
+public class MediaLoginForm extends Form implements FormFieldFactory, ClickListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,7 @@ public class LoginForm extends Form implements FormFieldFactory, ClickListener {
 
 	private MUser user = new MUser();
 
-	public LoginForm() {
+	public MediaLoginForm() {
 
 		getFooter().addComponent(buttonBar);
 		loginButton = new Button("Login", (ClickListener) this);

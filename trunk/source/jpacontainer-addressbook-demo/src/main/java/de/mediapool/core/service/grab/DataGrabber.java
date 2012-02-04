@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,7 +23,8 @@ import org.slf4j.LoggerFactory;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Participation;
 
-public class DataGrabber {
+@SuppressWarnings("serial")
+public class DataGrabber implements Serializable {
 	private final Logger logger = LoggerFactory.getLogger(DataGrabber.class);
 
 	private String DEUTSCHERTITEL = "Deutscher Titel";

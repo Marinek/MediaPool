@@ -89,9 +89,9 @@ public class MediaService implements Serializable {
 		em.getTransaction().commit();
 	}
 
-	final static String actors[] = { "Al Pacino", "Rober DeNiro", "Keanu Reeves", "Laurence Fishbourne" };
-	final static String movies[] = { "Der Pate I", "Der Pate II", "Matrix", "Matrix II" };
-	final static String covers[] = { "Cover.jpg", "Cover1.jpg", "Cover2.jpg", "Cover3.jpg" };
+	final static String actors[] = { "Marlon Brando", "Al Pacino", "Robert DeNiro", "Leonardo DiCaprio" };
+	final static String movies[] = { "Der Pate I", "Der Pate II", "Der Pate III", "Inception" };
+	final static String covers[] = { "Pate.jpg", "Pate_II.jpg", "Pate_III.jpg", "Inception.jpg" };
 
 	public void createTestData() {
 
@@ -102,12 +102,12 @@ public class MediaService implements Serializable {
 		MUser muser = new MUser();
 		muser.setEmail("test@test.de");
 		muser.setPassword("testpass");
-		muser.setUsername("testuser");
+		muser.setUsername("matthias");
 
 		MUser muser2 = new MUser();
 		muser2.setEmail("test2@test2.de");
 		muser2.setPassword("test2pass");
-		muser2.setUsername("test2user");
+		muser2.setUsername("martin");
 		em.persist(muser2);
 
 		Set<MRelated> mrelatedSet = new HashSet<MRelated>();
@@ -152,6 +152,7 @@ public class MediaService implements Serializable {
 
 			Movie movie = new Movie();
 			movie.setTitle(movies[i]);
+			movie.setCover(covers[i]);
 
 			Set<Participation> participations = new HashSet<Participation>();
 			participations.add(part);
