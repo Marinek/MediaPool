@@ -11,18 +11,14 @@ import de.mediapool.web.ui.MediaMainView;
 import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
 import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
 
+@SuppressWarnings("serial")
 @Configurable
 public class MediapoolApplication extends Application implements LoggedinListener {
 
 	@Autowired
 	private MediaService mediaService;
 
-	private static final long serialVersionUID = 1L;
-
 	private MediaMainView mainWindow;
-
-	static {
-	}
 
 	@Override
 	public void init() {
@@ -30,11 +26,11 @@ public class MediapoolApplication extends Application implements LoggedinListene
 
 		Window window = new Window();
 		setMainWindow(window);
+
 		setTheme("media");
+
 		mainWindow = new MediaMainView(getMediaService());
 		window.setContent(mainWindow);
-		getMediaService().getAllMovieEntries();
-
 	}
 
 	@Override
