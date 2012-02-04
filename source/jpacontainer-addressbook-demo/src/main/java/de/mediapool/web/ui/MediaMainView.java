@@ -1,10 +1,8 @@
 package de.mediapool.web.ui;
 
-import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.demo.jpaaddressbook.domain.Department;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -24,17 +22,15 @@ import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.migration.Filme;
 import de.mediapool.core.service.MediaService;
-import de.mediapool.web.ui.login.LoginForm;
-import de.mediapool.web.ui.login.LoginForm.LoggedinEvent;
-import de.mediapool.web.ui.login.LoginForm.LoggedinListener;
+import de.mediapool.web.ui.login.MediaLoginForm;
+import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
+import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
 
 public class MediaMainView extends VerticalSplitPanel implements ComponentContainer, LoggedinListener, ClickListener {
 
 	private static final long serialVersionUID = 1L;
 
 	private Tree groupTree;
-
-	private JPAContainer<Department> departments;
 
 	private BeanItemContainer<Movie> movies;
 	private BeanItemContainer<MovieEntry> movieEntrys;
@@ -43,12 +39,11 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private HorizontalSplitPanel contentView;
 
-	private Department departmentFilter;
 	private String textFilter;
 
 	private TabSheet tabsheet;
 
-	private LoginForm loginForm;
+	private MediaLoginForm loginForm;
 
 	private HorizontalLayout toolbar;
 	private Button searchButton;
@@ -141,7 +136,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		toolbar.addComponent(searchField);
 		toolbar.setComponentAlignment(searchField, Alignment.TOP_CENTER);
 
-		loginForm = new LoginForm();
+		loginForm = new MediaLoginForm();
 		loginForm.addLoginListener(this);
 
 		toolbar.addComponent(loginForm);
@@ -150,7 +145,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	}
 
 	private void buildTree() {
-		groupTree = new Tree(null, departments);
+		groupTree = new Tree(null, null);
 		groupTree.setItemCaptionPropertyId("name");
 
 		groupTree.setImmediate(true);
@@ -160,12 +155,12 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				Object id = event.getProperty().getValue();
-				if (id != null) {
-					Department entity = departments.getItem(id).getEntity();
-					departmentFilter = entity;
-				} else if (departmentFilter != null) {
-					departmentFilter = null;
-				}
+				// if (id != null) {
+				// Department entity = departments.getItem(id).getEntity();
+				// departmentFilter = entity;
+				// } else if (departmentFilter != null) {
+				// departmentFilter = null;
+				// }
 				updateFilters();
 			}
 		});

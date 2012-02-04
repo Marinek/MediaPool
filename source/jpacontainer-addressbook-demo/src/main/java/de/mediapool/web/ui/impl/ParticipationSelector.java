@@ -1,4 +1,4 @@
-package de.mediapool.web.ui;
+package de.mediapool.web.ui.impl;
 
 import org.vaadin.addon.customfield.CustomField;
 
@@ -6,7 +6,6 @@ import com.vaadin.addon.jpacontainer.EntityItem;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
 import com.vaadin.data.util.filter.Compare.Equal;
-import com.vaadin.demo.jpaaddressbook.domain.Department;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
 
@@ -113,7 +112,7 @@ public class ParticipationSelector extends CustomField {
 
 	@Override
 	public Class<?> getType() {
-		return Department.class;
+		return Participation.class;
 	}
 
 }

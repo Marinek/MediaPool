@@ -2,7 +2,7 @@ package de.mediapool.web.ui.impl;
 
 import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.event.MouseEvents.ClickListener;
-import com.vaadin.terminal.ThemeResource;
+import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
@@ -13,6 +13,9 @@ public class MediaImage extends Embedded implements ClickListener {
 
 	private Window subwindow;
 	private Embedded bigImage;
+
+	private final static String THUMB_URL = "http://localhost:81/cover/thumbs/";
+	private final static String FULL_URL = "http://localhost:81/cover/";
 
 	public MediaImage() {
 		addListener((com.vaadin.event.MouseEvents.ClickListener) this);
@@ -52,8 +55,7 @@ public class MediaImage extends Embedded implements ClickListener {
 	public void setFilename(String fileurl, String title) {
 		this.requestRepaint();
 		setTitle(title);
-		this.setSource(new ThemeResource("cover/" + fileurl));
-		bigImage.setSource(new ThemeResource("cover/" + fileurl));
+		this.setSource(new ExternalResource(THUMB_URL + fileurl));
+		bigImage.setSource(new ExternalResource(FULL_URL + fileurl));
 	}
-
 }

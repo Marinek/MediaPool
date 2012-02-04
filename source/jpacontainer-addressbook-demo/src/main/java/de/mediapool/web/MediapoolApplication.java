@@ -8,8 +8,8 @@ import com.vaadin.ui.Window;
 
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.MediaMainView;
-import de.mediapool.web.ui.login.LoginForm.LoggedinEvent;
-import de.mediapool.web.ui.login.LoginForm.LoggedinListener;
+import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
+import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
 
 @Configurable
 public class MediapoolApplication extends Application implements LoggedinListener {
@@ -27,6 +27,7 @@ public class MediapoolApplication extends Application implements LoggedinListene
 	@Override
 	public void init() {
 		// getMediaService().createTestData();
+
 		Window window = new Window();
 		setMainWindow(window);
 		setTheme("media");
