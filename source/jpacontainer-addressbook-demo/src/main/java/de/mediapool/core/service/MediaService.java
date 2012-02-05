@@ -23,6 +23,8 @@ import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Participation;
 import de.mediapool.core.domain.Product;
 import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.core.domain.container.MovieHoldingEntry;
+import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.domain.migration.Filme;
 
 public class MediaService implements Serializable {
@@ -53,28 +55,36 @@ public class MediaService implements Serializable {
 
 	public BeanItemContainer<MovieEntry> getAllMovieEntries() {
 		BeanItemContainer<MovieEntry> movieEntrys = new BeanItemContainer<MovieEntry>(MovieEntry.class);
-		JPAContainer<Holding> holdings = JPAContainerFactory.make(Holding.class, PERSISTENCE_UNIT);
-		for (Object itemId : holdings.getItemIds()) {
-			EntityItem<Holding> holdingItem = holdings.getItem(itemId);
-
-			MovieEntry entry = new MovieEntry(holdingItem.getEntity());
-			// BeanItem<MovieEntry> newMovieEntryItem = new
-			// BeanItem<MovieEntry>(entry);
+		JPAContainer<Movie> movies = JPAContainerFactory.make(Movie.class, PERSISTENCE_UNIT);
+		for (Object itemId : movies.getItemIds()) {
+			EntityItem<Movie> movieItem = movies.getItem(itemId);
+			MovieEntry entry = new MovieEntry(movieItem.getEntity());
 			movieEntrys.addItem(entry);
 		}
-
 		return movieEntrys;
-
 	}
 
-	public BeanItemContainer<MovieEntry> getMovieEntrys(MUser muser) {
-		BeanItemContainer<MovieEntry> movieEntryItems = new BeanItemContainer<MovieEntry>(MovieEntry.class);
+	public BeanItemContainer<MovieProductEntry> getAllMovieProductEntries() {
+		BeanItemContainer<MovieProductEntry> productEntrys = new BeanItemContainer<MovieProductEntry>(
+				MovieProductEntry.class);
+		JPAContainer<Product> products = JPAContainerFactory.make(Product.class, PERSISTENCE_UNIT);
+		for (Object itemId : products.getItemIds()) {
+			EntityItem<Product> productItem = products.getItem(itemId);
+			MovieProductEntry entry = new MovieProductEntry(productItem.getEntity());
+			productEntrys.addItem(entry);
+		}
+		return productEntrys;
+	}
+
+	public BeanItemContainer<MovieHoldingEntry> getUserMovieEntrys(MUser muser) {
+		BeanItemContainer<MovieHoldingEntry> movieEntryItems = new BeanItemContainer<MovieHoldingEntry>(
+				MovieHoldingEntry.class);
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
 		Query q = em.createQuery("SELECT h FROM Holding h where h.muser=:muser");
 		q.setParameter("muser", muser);
 		for (Object holding : q.getResultList()) {
-			movieEntryItems.addBean(new MovieEntry((Holding) holding));
+			movieEntryItems.addBean(new MovieHoldingEntry((Holding) holding));
 		}
 		em.getTransaction().commit();
 		return movieEntryItems;
@@ -118,7 +128,7 @@ public class MediaService implements Serializable {
 	}
 
 	public void saveMovieEntry(Item item) {
-		BeanItem<MovieEntry> newMovieEntryItem = (BeanItem<MovieEntry>) item;
+		BeanItem<MovieHoldingEntry> newMovieEntryItem = (BeanItem<MovieHoldingEntry>) item;
 		Holding holding = newMovieEntryItem.getBean().getHolding();
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();

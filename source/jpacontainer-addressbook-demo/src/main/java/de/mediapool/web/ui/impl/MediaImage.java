@@ -39,6 +39,7 @@ public class MediaImage extends Embedded implements ClickListener {
 		layout.setSizeUndefined();
 		subwindow.addComponent(bigImage);
 		subwindow.center();
+		subwindow.setResizable(false);
 
 	}
 
