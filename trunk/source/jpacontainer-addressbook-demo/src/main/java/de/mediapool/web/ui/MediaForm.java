@@ -20,7 +20,7 @@ import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 
-import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.impl.MediaImage;
 
@@ -39,9 +39,12 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	@Autowired
 	private MediaService mediaService;
 
-	public MediaForm(Object[] formfields) {
+	public MediaForm(MediaView mediaView, Object[] formfields) {
 
-		editorForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
+		// Class itemClass = mediaView.getBeanItems().getBeanType();
+		// itemClass.getClass();
+
+		editorForm = new BeanValidationForm<MediaInterface>(MediaInterface.class);
 		editorForm.setFormFieldFactory(this);
 		editorForm.setWriteThrough(false);
 		editorForm.setImmediate(true);
@@ -91,10 +94,6 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	 */
 	@Override
 	public Field createField(Item item, Object propertyId, Component uiContext) {
-		// if ("participation".equals(propertyId)) {
-		// return new ParticipationSelector();
-		// }
-
 		Field field = DefaultFieldFactory.get().createField(item, propertyId, uiContext);
 		if (field instanceof TextField) {
 			((TextField) field).setNullRepresentation("");

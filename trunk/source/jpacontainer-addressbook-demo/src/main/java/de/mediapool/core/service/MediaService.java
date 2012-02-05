@@ -2,6 +2,7 @@ package de.mediapool.core.service;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -34,11 +35,11 @@ public class MediaService implements Serializable {
 
 	}
 
-	public static JPAContainer<Participation> getAllParticipation() {
+	public JPAContainer<Participation> getAllParticipation() {
 		return JPAContainerFactory.make(Participation.class, PERSISTENCE_UNIT);
 	}
 
-	public static BeanItemContainer<Filme> getFilme() {
+	public BeanItemContainer<Filme> getFilme() {
 		BeanItemContainer<Filme> filmEntrys = new BeanItemContainer<Filme>(Filme.class);
 		JPAContainer<Filme> filme = JPAContainerFactory.make(Filme.class, PERSISTENCE_UNIT);
 
@@ -64,6 +65,42 @@ public class MediaService implements Serializable {
 
 		return movieEntrys;
 
+	}
+
+	public BeanItemContainer<MovieEntry> getMovieEntrys(MUser muser) {
+		BeanItemContainer<MovieEntry> movieEntryItems = new BeanItemContainer<MovieEntry>(MovieEntry.class);
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		Query q = em.createQuery("SELECT h FROM Holding h where h.muser=:muser");
+		q.setParameter("muser", muser);
+		for (Object holding : q.getResultList()) {
+			movieEntryItems.addBean(new MovieEntry((Holding) holding));
+		}
+		em.getTransaction().commit();
+		return movieEntryItems;
+
+	}
+
+	public MUser loginMUser(String email, String password) throws WrongUserException {
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		Query q = em.createQuery("SELECT m FROM MUser m where m.email=:email and m.password=:password");
+		q.setParameter("email", email);
+		q.setParameter("password", password);
+		List users = q.getResultList();
+		MUser muser = null;
+		if (users.size() == 1) {
+			muser = (MUser) users.get(0);
+		} else {
+			throw new WrongUserException();
+		}
+		em.getTransaction().commit();
+		return muser;
+
+	}
+
+	public class WrongUserException extends Exception {
+		private static final long serialVersionUID = 1L;
 	}
 
 	public BeanItemContainer<Movie> searchMovieEntry(String name) {

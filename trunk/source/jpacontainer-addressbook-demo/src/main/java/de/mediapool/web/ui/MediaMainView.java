@@ -16,8 +16,11 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
+import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
+import com.vaadin.ui.themes.BaseTheme;
 
+import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.migration.Filme;
@@ -55,6 +58,8 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private NewMediaForm newMediaForm;
 
+	private VerticalSplitPanel leftSide;
+
 	private TextField searchField;
 
 	private MediaService mediaService;
@@ -87,10 +92,21 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		contentView = new HorizontalSplitPanel();
 		contentView.setSplitPosition(200, HorizontalSplitPanel.UNITS_PIXELS);
 		setMainArea(tabsheet);
-		contentView.setFirstComponent(groupTree);
+
+		leftSide = new VerticalSplitPanel();
+
+		loginForm = new MediaLoginForm();
+		loginForm.addLoginListener(this);
+
+		leftSide.setFirstComponent(loginForm);
+		leftSide.setSecondComponent(groupTree);
+		leftSide.setLocked(true);
+		leftSide.setSplitPosition(110, HorizontalSplitPanel.UNITS_PIXELS);
+
+		contentView.setFirstComponent(leftSide);
 
 		this.setLocked(true);
-		setSplitPosition(20);
+		setSplitPosition(98, HorizontalSplitPanel.UNITS_PIXELS);
 		setSecondComponent(contentView);
 		setFirstComponent(toolbar);
 
@@ -117,7 +133,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		toolbar.addComponent(musicButton);
 		toolbar.addComponent(bookButton);
 		toolbar.addComponent(searchButton);
-
+		movieButton.setHeight("65px");
 		movieButton.setIcon(new ThemeResource("icons/types/movie_small.png"));
 		gameButton.setIcon(new ThemeResource("icons/types/game_small.png"));
 		boardgameButton.setIcon(new ThemeResource("icons/types/boardgame_small.png"));
@@ -136,12 +152,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		toolbar.addComponent(searchField);
 		toolbar.setComponentAlignment(searchField, Alignment.TOP_CENTER);
 
-		loginForm = new MediaLoginForm();
-		loginForm.addLoginListener(this);
-
-		toolbar.addComponent(loginForm);
-		toolbar.setComponentAlignment(loginForm, Alignment.MIDDLE_RIGHT);
-		toolbar.setExpandRatio(loginForm, 1);
 	}
 
 	private void buildTree() {
@@ -188,9 +198,28 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	@Override
 	public void loggedin(LoggedinEvent event) {
-		toolbar.addComponent(new Label("loggedin"));
-		toolbar.removeComponent(loginForm);
+		login(event);
+	}
 
+	private void login(LoggedinEvent event) {
+		MUser user = event.getUser();
+		VerticalLayout logoutform = new VerticalLayout();
+		logoutform.addComponent(new Label("loggedin as: " + user.getEmail()));
+		Button logoutLink = new Button("logout");
+		logoutLink.setStyleName(BaseTheme.BUTTON_LINK);
+		logoutLink.addListener(new Button.ClickListener() {
+			public void buttonClick(ClickEvent event) {
+				logout();
+			}
+		});
+		logoutform.addComponent(logoutLink);
+		leftSide.setFirstComponent(logoutform);
+		getApplication().setUser(user);
+	}
+
+	private void logout() {
+		leftSide.setFirstComponent(loginForm);
+		getApplication().setUser(null);
 	}
 
 	private void addListTab(BeanItemContainer beanitems, String caption) {
@@ -208,12 +237,11 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		final Button source = event.getButton();
 
 		if (source == searchButton) {
-
+			movies = getMediaService().searchMovieEntry((String) searchField.getValue());
+			addListTab(movies, "Suche " + searchField.getValue());
 		} else if (source == musicButton) {
 			setMainArea(tabsheet);
 		} else if (source == movieButton) {
-			movies = getMediaService().searchMovieEntry((String) searchField.getValue());
-			addListTab(movies, "Suche " + searchField.getValue());
 		} else if (source == bookButton) {
 			setMainArea(newMediaForm);
 		} else if (source == gameButton) {
@@ -222,6 +250,10 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 		}
 
+	}
+
+	private boolean loggedin() {
+		return getApplication().getUser() != null;
 	}
 
 	public MediaService getMediaService() {
