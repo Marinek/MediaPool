@@ -10,7 +10,6 @@ import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
 
 import de.mediapool.core.domain.Participation;
-import de.mediapool.core.service.MediaService;
 
 /**
  * A custom field that allows selection of a department.
@@ -27,7 +26,7 @@ public class ParticipationSelector extends CustomField {
 	private JPAContainer<Participation> participations;
 
 	public ParticipationSelector() {
-		participations = MediaService.getAllParticipation();
+		// participations = MediaService.getAllParticipation();
 		// members = MediaService.getAllPMember();
 
 		setCaption("Participations");

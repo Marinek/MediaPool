@@ -18,39 +18,55 @@ package de.mediapool.web.ui.login;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-
+import com.vaadin.data.Item;
+import com.vaadin.data.util.BeanItem;
+import com.vaadin.terminal.UserError;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
-import com.vaadin.ui.LoginForm;
-import com.vaadin.ui.LoginForm.LoginEvent;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window.Notification;
+import com.vaadin.ui.Field;
+import com.vaadin.ui.Form;
+import com.vaadin.ui.FormFieldFactory;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.PasswordField;
+import com.vaadin.ui.TextField;
 
 import de.mediapool.core.domain.MUser;
-import de.mediapool.core.service.MediaService;
-import de.mediapool.core.service.MediaService.WrongUserException;
 
-@SuppressWarnings("serial")
-@Configurable
-public class MediaLoginForm extends VerticalLayout implements LoginForm.LoginListener {
+public class MediaLoginFormSpring extends Form implements FormFieldFactory, ClickListener {
 
-	private static final String LOGIN_FAILED = "Der Login ist fehlgeschlagen";
+	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private MediaService mediaService;
+	private Button loginButton;
+	private HorizontalLayout buttonBar = new HorizontalLayout();
 
-	public MediaLoginForm() {
+	private MUser user = new MUser();
 
-		setImmediate(true);
-		LoginForm login = new LoginForm();
+	public MediaLoginFormSpring() {
 
-		setHeight("110px");
-		login.setHeight("110px");
-		setSpacing(true);
-		login.addListener((LoginForm.LoginListener) this);
-		addComponent(login);
+		getFooter().addComponent(buttonBar);
+		loginButton = new Button("Login", (ClickListener) this);
+		buttonBar.addComponent(loginButton);
+		setFormFieldFactory(this);
+		BeanItem<MUser> userItem = new BeanItem<MUser>(user);
+		setItemDataSource(userItem);
+	}
 
+	@Override
+	public void buttonClick(ClickEvent event) {
+		if (!isValid())
+			return;
+
+		Button button = event.getButton();
+		if (button == loginButton) {
+			try {
+				user.authenticate();
+				fireLoggedin(user);
+			} catch (MUser.BadCredentialsException e) {
+				setComponentError(new UserError("LoginForm.BadCredentialsException"));
+			}
+		}
 	}
 
 	// below is all about events & handling them
@@ -63,6 +79,21 @@ public class MediaLoginForm extends VerticalLayout implements LoginForm.LoginLis
 			// This should never happen
 			throw new java.lang.RuntimeException("Internal error finding methods in Button");
 		}
+	}
+
+	@Override
+	public Field createField(Item item, Object propertyId, Component uiContext) {
+		String pid = (String) propertyId;
+		if (pid.equals("password")) {
+			PasswordField passwordField = new PasswordField("password");
+			passwordField.setNullRepresentation("");
+			return passwordField;
+		} else if (pid.equals("email")) {
+			TextField tf = new TextField("email");
+			tf.setNullRepresentation("");
+			return tf;
+		}
+		return null;
 	}
 
 	public class LoggedinEvent extends Component.Event {
@@ -93,28 +124,5 @@ public class MediaLoginForm extends VerticalLayout implements LoginForm.LoginLis
 
 	protected void fireLoggedin(MUser user) {
 		fireEvent(new LoggedinEvent(this, user));
-	}
-
-	public MediaService getMediaService() {
-		return mediaService;
-	}
-
-	public void setMediaService(MediaService mediaService) {
-		this.mediaService = mediaService;
-	}
-
-	@Override
-	public void onLogin(LoginEvent event) {
-		String email = event.getLoginParameter("username");
-		String password = event.getLoginParameter("password");
-		MUser user;
-		try {
-			user = getMediaService().loginMUser(email, password);
-			fireLoggedin(user);
-		} catch (WrongUserException e) {
-			getWindow().showNotification(LOGIN_FAILED, Notification.TYPE_ERROR_MESSAGE);
-
-		}
-
 	}
 }

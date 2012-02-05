@@ -1,20 +1,16 @@
 package de.mediapool.web.ui;
 
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Table;
 
-import de.mediapool.core.domain.MediaInterface;
-
 @SuppressWarnings("serial")
 public class MediaList extends Table {
 
-	public MediaList(BeanItemContainer<MediaInterface> movies, MediaView view, Object[] header_order,
-			String[] header_names) {
+	public MediaList(MediaView view, Object[] header_order, String[] header_names) {
 
 		setSizeFull();
-		setContainerDataSource(movies);
+		setContainerDataSource(view.getBeanItems());
 
 		setColumnCollapsingAllowed(true);
 		setColumnReorderingAllowed(true);

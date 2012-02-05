@@ -24,9 +24,9 @@ import de.mediapool.web.ui.impl.SplitPanelImpl.SplitterPositionChangedListener;
 @SuppressWarnings("serial")
 public class MediaView extends SplitPanelImpl implements ValueChangeListener, SplitterPositionChangedListener {
 	private static final Logger logger = LoggerFactory.getLogger(MediaView.class);
-	BeanItemContainer<MediaInterface> beanItems;
+	private BeanItemContainer<MediaInterface> beanItems;
 
-	HorizontalLayout toolbar;
+	HorizontalLayout listtoolbar;
 	MediaForm movieForm;
 	MediaList movieList;
 
@@ -41,7 +41,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 	private Object[] form_fields;
 
 	public MediaView(BeanItemContainer<MediaInterface> beanItems) {
-		this.beanItems = beanItems;
+		setBeanItems(beanItems);
 
 		initHeaders();
 		addStyleName("view");
@@ -49,11 +49,11 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 
 		this.addListener((SplitterPositionChangedListener) this);
 
-		movieForm = new MediaForm(form_fields);
-		movieList = new MediaList(beanItems, this, header_order, header_names);
+		movieForm = new MediaForm(this, form_fields);
+		movieList = new MediaList(this, header_order, header_names);
 
 		VerticalLayout first = new VerticalLayout();
-		first.addComponent(toolbar);
+		first.addComponent(listtoolbar);
 		first.addComponent(movieList);
 
 		setFirstComponent(first);
@@ -62,12 +62,12 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 
 		setImmediate(true);
 
-		movieList.setHeightUnits(getFirstComponent().getHeightUnits());
+		// movieList.setHeightUnits(getFirstComponent().getHeightUnits());
 	}
 
 	private void initHeaders() {
 		try {
-			Object mediaItem = beanItems.getBeanType().newInstance();
+			Object mediaItem = getBeanItems().getBeanType().newInstance();
 			header_names = ((MediaInterface) mediaItem).header_names();
 			header_order = ((MediaInterface) mediaItem).header_order();
 			form_fields = ((MediaInterface) mediaItem).form_fields();
@@ -105,7 +105,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 
 			@Override
 			public void buttonClick(ClickEvent event) {
-				beanItems.removeItem(movieList.getValue());
+				getBeanItems().removeItem(movieList.getValue());
 			}
 		});
 		deleteButton.setEnabled(false);
@@ -130,15 +130,19 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 				// updateFilters();
 			}
 		});
+		createListToolbar();
+	}
 
-		toolbar = new HorizontalLayout();
-		toolbar.addComponent(newButton);
-		toolbar.addComponent(deleteButton);
-		toolbar.addComponent(editButton);
-		toolbar.addComponent(searchField);
-		toolbar.setWidth("100%");
-		toolbar.setExpandRatio(searchField, 1);
-		toolbar.setComponentAlignment(searchField, Alignment.TOP_RIGHT);
+	private void createListToolbar() {
+		listtoolbar = new HorizontalLayout();
+		listtoolbar.addComponent(newButton);
+		listtoolbar.addComponent(deleteButton);
+		listtoolbar.addComponent(editButton);
+		listtoolbar.addComponent(searchField);
+		listtoolbar.setWidth("100%");
+		listtoolbar.setExpandRatio(searchField, 1);
+		listtoolbar.setComponentAlignment(searchField, Alignment.TOP_RIGHT);
+
 	}
 
 	@Override
@@ -154,12 +158,26 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 	}
 
 	public void splitterPositionChanged(SplitterPositionChangedEvent event) {
-		movieList.setHeightUnits(getFirstComponent().getHeightUnits());
-		movieList.requestRepaint();
+		StringBuffer sb = new StringBuffer();
+		sb.append("\n SplitUnit:" + getFirstComponent().getHeightUnits());
+		sb.append("\n SplitHeight:" + getFirstComponent().getHeight());
+		sb.append("\n TableHeight:" + movieList.getHeight());
+		sb.append("\n TableUnit:" + movieList.getHeightUnits());
+
+		getWindow().showNotification(sb.toString());
+
 	}
 
 	private void setModificationsEnabled(boolean b) {
 		deleteButton.setEnabled(b);
 		editButton.setEnabled(b);
+	}
+
+	public BeanItemContainer<MediaInterface> getBeanItems() {
+		return beanItems;
+	}
+
+	public void setBeanItems(BeanItemContainer<MediaInterface> beanItems) {
+		this.beanItems = beanItems;
 	}
 }
