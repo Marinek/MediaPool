@@ -23,6 +23,7 @@ import com.vaadin.ui.themes.BaseTheme;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.migration.Filme;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.login.MediaLoginForm;
@@ -106,7 +107,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		contentView.setFirstComponent(leftSide);
 
 		this.setLocked(true);
-		setSplitPosition(98, HorizontalSplitPanel.UNITS_PIXELS);
+		setSplitPosition(97, HorizontalSplitPanel.UNITS_PIXELS);
 		setSecondComponent(contentView);
 		setFirstComponent(toolbar);
 
@@ -215,6 +216,8 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		logoutform.addComponent(logoutLink);
 		leftSide.setFirstComponent(logoutform);
 		getApplication().setUser(user);
+		BeanItemContainer<MovieHoldingEntry> movieHoldingEntrys = getMediaService().getUserMovieEntrys(user);
+		addListTab(movieHoldingEntrys, "Meine Filme");
 	}
 
 	private void logout() {

@@ -1,16 +1,11 @@
 package de.mediapool.core.domain.container;
 
 import java.io.Serializable;
-import java.util.Set;
 
-import de.mediapool.core.domain.MediaInterface;
-import de.mediapool.core.domain.Movie;
-import de.mediapool.core.domain.Participation;
 import de.mediapool.core.domain.Product;
 
 @SuppressWarnings("serial")
-public class MovieProductEntry implements Serializable, MediaInterface {
-	private Movie movie;
+public class MovieProductEntry extends MovieEntry implements Serializable {
 	private Product product;
 
 	public MovieProductEntry() {
@@ -19,166 +14,78 @@ public class MovieProductEntry implements Serializable, MediaInterface {
 
 	@Override
 	public String[] header_names() {
-		return new String[] { "Titel", "Medium", "Wertung" };
+		return new String[] { "Titel", "Genre", "Medium" };
 	}
 
 	@Override
 	public Object[] header_order() {
-		return new Object[] { "title", "carrier", "rating" };
+		return new Object[] { "title", "genre", "carrier" };
 	}
 
 	@Override
 	public Object[] form_fields() {
-		return new Object[] { "title", "carrier", "rating" };
+		return new Object[] { "title", "genre", "carrier" };
 	}
 
 	public MovieProductEntry(Product product) {
-		this.product = product;
-		this.movie = product.getMovie();
-	}
-
-	public String getProductionland() {
-		return movie.getProductionland();
-	}
-
-	public void setProductionland(String productionland) {
-		movie.setProductionland(productionland);
-	}
-
-	public String getTitle() {
-		return movie.getTitle();
-	}
-
-	public void setTitle(String title) {
-		movie.setTitle(title);
-	}
-
-	public String getOriginaltitle() {
-		return movie.getOriginaltitle();
-	}
-
-	public void setOriginaltitle(String originaltitle) {
-		movie.setOriginaltitle(originaltitle);
-	}
-
-	public int getLaunchyear() {
-		return movie.getLaunchyear();
-	}
-
-	public void setLaunchyear(int launchyear) {
-		movie.setLaunchyear(launchyear);
-	}
-
-	public String getCover() {
-		return movie.getCover();
-	}
-
-	public void setCover(String cover) {
-		movie.setCover(cover);
-	}
-
-	public String getDescription() {
-		return movie.getDescription();
-	}
-
-	public void setDescription(String description) {
-		movie.setDescription(description);
-	}
-
-	public void setContenttype(String contenttype) {
-		movie.setContenttype(contenttype);
-	}
-
-	public String getGenre() {
-		return movie.getGenre();
-	}
-
-	public void setGenre(String genre) {
-		movie.setGenre(genre);
-	}
-
-	public Set<Participation> getParticipation() {
-		return movie.getParticipation();
-	}
-
-	public void setParticipation(Set<Participation> participation) {
-		movie.setParticipation(participation);
-	}
-
-	public String getMlanguage() {
-		return movie.getMlanguage();
-	}
-
-	public void setMlanguage(String mlanguage) {
-		movie.setMlanguage(mlanguage);
-	}
-
-	public String getMediatype() {
-		return movie.getMediatype();
-	}
-
-	public void setMediatype(String mediatype) {
-		movie.setMediatype(mediatype);
+		setProduct(product);
+		setMovie(getProduct().getMovie());
 	}
 
 	public double getPrice() {
-		return product.getPrice();
+		return getProduct().getPrice();
 	}
 
 	public void setPrice(double price) {
-		product.setPrice(price);
+		getProduct().setPrice(price);
 	}
 
 	public String getEan() {
-		return product.getEan();
+		return getProduct().getEan();
 	}
 
 	public void setEan(String ean) {
-		product.setEan(ean);
+		getProduct().setEan(ean);
 	}
 
 	public String getSpecial() {
-		return product.getSpecial();
+		return getProduct().getSpecial();
 	}
 
 	public void setSpecial(String special) {
-		product.setSpecial(special);
+		getProduct().setSpecial(special);
 	}
 
 	public String getCarrier() {
-		return product.getCarrier();
+		return getProduct().getCarrier();
 	}
 
 	public void setCarrier(String carrier) {
-		product.setCarrier(carrier);
+		getProduct().setCarrier(carrier);
 	}
 
 	public int getApprovedage() {
-		return product.getApprovedage();
+		return getProduct().getApprovedage();
 	}
 
 	public void setApprovedage(int approvedage) {
-		product.setApprovedage(approvedage);
+		getProduct().setApprovedage(approvedage);
 	}
 
 	public int getDuration() {
-		return product.getDuration();
+		return getProduct().getDuration();
 	}
 
 	public void setDuration(int duration) {
-		product.setDuration(duration);
+		getProduct().setDuration(duration);
 	}
 
 	public int getNumberdiscs() {
-		return product.getNumberdiscs();
+		return getProduct().getNumberdiscs();
 	}
 
 	public void setNumberdiscs(int numberdiscs) {
-		product.setNumberdiscs(numberdiscs);
-	}
-
-	public void setMovie(Movie movie) {
-		product.setMovie(movie);
+		getProduct().setNumberdiscs(numberdiscs);
 	}
 
 	public Product getProduct() {
@@ -187,10 +94,6 @@ public class MovieProductEntry implements Serializable, MediaInterface {
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	public Movie getMovie() {
-		return movie;
 	}
 
 }
