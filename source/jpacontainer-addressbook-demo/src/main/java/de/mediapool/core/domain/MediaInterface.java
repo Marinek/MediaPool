@@ -7,4 +7,6 @@ public interface MediaInterface {
 
 	public Object[] form_fields();
 
+	public boolean isReadOnly();
+
 }

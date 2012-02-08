@@ -26,9 +26,11 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 	private static final Logger logger = LoggerFactory.getLogger(MediaView.class);
 	private BeanItemContainer<MediaInterface> beanItems;
 
-	HorizontalLayout listtoolbar;
-	MediaForm movieForm;
-	MediaList movieList;
+	private HorizontalLayout listtoolbar;
+	private MediaForm movieForm;
+	private MediaList movieList;
+
+	private boolean isReadOnly = true;
 
 	private TextField searchField;
 
@@ -49,7 +51,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 
 		this.addListener((SplitterPositionChangedListener) this);
 
-		movieForm = new MediaForm(this, form_fields);
+		movieForm = new MediaForm(isReadOnly, this, form_fields);
 		movieList = new MediaList(this, header_order, header_names);
 
 		VerticalLayout first = new VerticalLayout();
@@ -71,6 +73,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 			header_names = ((MediaInterface) mediaItem).header_names();
 			header_order = ((MediaInterface) mediaItem).header_order();
 			form_fields = ((MediaInterface) mediaItem).form_fields();
+			isReadOnly = ((MediaInterface) mediaItem).isReadOnly();
 		} catch (InstantiationException e) {
 			logger.error(e.getMessage());
 		} catch (IllegalAccessException e) {

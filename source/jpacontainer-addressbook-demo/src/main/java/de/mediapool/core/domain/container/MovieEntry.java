@@ -30,6 +30,11 @@ public class MovieEntry implements Serializable, MediaInterface {
 		return new Object[] { "title", "genre" };
 	}
 
+	@Override
+	public boolean isReadOnly() {
+		return true;
+	}
+
 	public MovieEntry(Movie movie) {
 		setMovie(movie);
 	}

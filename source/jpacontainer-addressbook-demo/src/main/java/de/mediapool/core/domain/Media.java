@@ -69,6 +69,11 @@ public class Media implements Serializable, MediaInterface {
 		return new String[] { "title", "mediatype", "contenttype", "genre" };
 	}
 
+	@Override
+	public boolean isReadOnly() {
+		return true;
+	}
+
 	public String getTitle() {
 		return this.title;
 	}
