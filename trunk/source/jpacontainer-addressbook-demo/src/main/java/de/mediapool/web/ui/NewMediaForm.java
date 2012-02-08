@@ -7,14 +7,17 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Embedded;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.domain.Movie;
+import de.mediapool.core.domain.Product;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.core.service.grab.DataGrabber;
 
@@ -29,6 +32,7 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 	private MediaService mediaService;
 
 	private List<Movie> movieList;
+	private List<Product> productList;
 
 	private OptionGroup select;
 
@@ -66,8 +70,12 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 		final Button source = event.getButton();
 
 		if (source == searchButton) {
-			movieList = getDatagrabber().searchMovie((String) searchField.getValue(), false);
-			fillSelect();
+			productList = getDatagrabber().searchMovieProducts((String) searchField.getValue(), false, "FILM");
+			// movieList = getDatagrabber().searchMovie((String)
+			// searchField.getValue(), false);
+			// fillMovieSelect();
+			fillProductSelect();
+			showProductImages();
 		}
 		if (source == nextButton) {
 			String title = ((Movie) select.getValue()).getTitle();
@@ -75,13 +83,37 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 
 	}
 
-	private void fillSelect() {
+	private void fillMovieSelect() {
 		for (Movie movie : movieList) {
 			String toString = movie.getTitle() + ", " + movie.getLaunchyear() + ", " + movie.getMlanguage();
 			select.addItem(toString);
 		}
 		select.setVisible(true);
 
+	}
+
+	private void fillProductSelect() {
+		for (Product product : productList) {
+			StringBuffer str = new StringBuffer();
+			str.append(product.getMovie().getTitle());
+			str.append(", ");
+			str.append(product.getMovie().getLaunchyear());
+			str.append(", ");
+			str.append(product.getMlanguage());
+			str.append(", ");
+			str.append(product.getCarrier());
+			str.append(", ");
+			str.append(product.getPrice());
+			select.addItem(str);
+		}
+		select.setVisible(true);
+
+	}
+
+	private void showProductImages() {
+		for (Product product : productList) {
+			addComponent(new Embedded(product.getSpecial(), new ExternalResource(product.getCover())));
+		}
 	}
 
 	public DataGrabber getDatagrabber() {

@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Participation;
+import de.mediapool.core.domain.Product;
 
 @SuppressWarnings("serial")
 public class DataGrabber implements Serializable {
@@ -34,6 +35,25 @@ public class DataGrabber implements Serializable {
 	private String LAENGE = "Länge";
 	private String ORIGINALSPRACHE = "Originalsprache";
 	private String PRODUKTIONSLAND = "Produktionsland";
+
+	private static String IMAGE = "imageurl";
+	private static String TITLE = "title";
+	private static String UTITLE = "utitle";
+	private static String AUTHOR = "author";
+	private static String PRICE = "price";
+	private static String EAN = "ean";
+	private static String MEDIUM = "medium";
+	private static String COUNTDISC = "anzahl";
+	private static String AGE = "fsk";
+	private static String DATE = "datum";
+	private static String STUDIO = "studio";
+	private static String GENRE = "genre";
+	private static String DURATION = "dauer";
+	private static String LANGUAGE = "sprache";
+	private static String DESCRIPTION = "description";
+
+	private static String BLURAY = "Blu-ray";
+	private static String DVD = "DVD";
 
 	private String SEARCHMOVIE = "";
 	private boolean EXACTSEARCH = true;
@@ -209,7 +229,13 @@ public class DataGrabber implements Serializable {
 	}
 
 	private String getValueFromElement(Elements element) {
-		return element.first().getElementsByClass("value").first().text();
+		String value = "";
+		try {
+			value = element.first().getElementsByClass("value").first().text();
+		} catch (NullPointerException e) {
+			logger.error("getValueFromElement" + e.getMessage());
+		}
+		return value;
 	}
 
 	private TreeMap<String, String> getBookDataFromPage(String url) {
@@ -353,9 +379,9 @@ public class DataGrabber implements Serializable {
 		return linkstoget;
 	}
 
-	private List<String> getLinksFromBuch(String search) {
+	private List<String> getLinksFromBuch(String search, String media, boolean exact) {
 
-		String url = getSearchUrl("buch.de", search, "Buch");
+		String url = getSearchUrl("buch.de", search, media);
 
 		List<String> linkstoget = new ArrayList<String>();
 		Document doc = null;
@@ -370,7 +396,7 @@ public class DataGrabber implements Serializable {
 			Elements links = doc.getElementsByClass("pm_titelDetailsAction");
 
 			for (Element link : links) {
-				if (link.text().equalsIgnoreCase(search) || !EXACTSEARCH) {
+				if (link.text().equalsIgnoreCase(search) || !exact) {
 					linkstoget.add(link.attr("abs:href"));
 					print(" * a: <%s>  (%s)", link.attr("abs:href"), trim(link.text(), 35));
 				}
@@ -485,26 +511,31 @@ public class DataGrabber implements Serializable {
 		return searchUrl;
 	}
 
-	private void saveImage(String imageUrl, String file) throws IOException {
+	public void saveImage(String imageUrl, String file) {
 		String destinationFile = "c:\\" + file + ".jpg";
-		URL url = new URL(imageUrl);
-		InputStream is = url.openStream();
-		OutputStream os = new FileOutputStream(destinationFile);
+		URL url;
+		try {
+			url = new URL(imageUrl);
+			InputStream is = url.openStream();
+			OutputStream os = new FileOutputStream(destinationFile);
 
-		byte[] b = new byte[2048];
-		int length;
+			byte[] b = new byte[2048];
+			int length;
 
-		while ((length = is.read(b)) != -1) {
-			os.write(b, 0, length);
+			while ((length = is.read(b)) != -1) {
+				os.write(b, 0, length);
+			}
+
+			is.close();
+			os.close();
+		} catch (IOException e) {
+			logger.error("saveimage " + imageUrl);
 		}
-
-		is.close();
-		os.close();
 	}
 
 	private void searchBook(String searchBook, boolean exact) {
 		List<TreeMap<String, String>> buchdaten = new ArrayList<TreeMap<String, String>>();
-		List<String> pageurls = getLinksFromBuch(searchBook);
+		List<String> pageurls = getLinksFromBuch(searchBook, "Buch", false);
 
 		for (String url : pageurls) {
 			buchdaten.add(getBookDataFromPage(url));
@@ -546,6 +577,185 @@ public class DataGrabber implements Serializable {
 		}
 		str.append("</movies>");
 		return str.toString();
+	}
+
+	// new
+	public List<Product> searchMovieProducts(String search, boolean exact, String media) {
+		List<TreeMap<String, String>> productDataMap = new ArrayList<TreeMap<String, String>>();
+		List<String> pageurls = getLinksFromBuch(search, media, exact);
+		List<Product> products = new ArrayList<Product>();
+
+		for (String url : pageurls) {
+			productDataMap.add(getMovieDataFromPage(url));
+		}
+
+		for (TreeMap<String, String> productData : productDataMap) {
+			// printMap(productData);
+			if ((BLURAY).equals(productData.get(MEDIUM))) {
+				products.add(dateToProduct(productData));
+			}
+
+		}
+
+		logger.info("Gefundene Filme ingesamt: " + search + " " + pageurls.size());
+		return products;
+	}
+
+	// new
+	public TreeMap<String, String> getMovieDataFromPage(String url) {
+		TreeMap<String, String> hm = new TreeMap<String, String>();
+		// url =
+		// "http://www.buch.de/shop/bde_dvd_hg_startseite/empfehlungsartikel/american_gangster_scarface_2_movie_set/steven_zaillian/EAN5050582581003/ID15690984.html";
+		// url =
+		// "http://www.buch.de/shop/bde_dvd_hg_startseite/suchartikel/al_pacino_box/richard_price/EAN5050582703320/ID17631676.html?jumpId=6796933";
+		try {
+			Document doc = Jsoup.parse(new URL(url).openStream(), "UTF-8", url);
+
+			Elements titleClass = doc.getElementsByClass("pm_titel");
+			Elements utitleClass = doc.getElementsByClass("pm_untertitel");
+			Elements authorClass = doc.getElementsByClass("b9_author");
+
+			Elements imageCon = doc.getElementsByClass("pm_detailImage");
+
+			Elements priceClass = doc.select("span[class=pm_preis b9Value]");
+			Elements descriptioncon = doc.select("div[id=pm_kurzbeschreibung]");
+			Elements descriptionClass = descriptioncon.first().select("div[class=redaktion raw]");
+
+			Elements eanCon = doc.getElementsByClass("ean");
+			Elements mediumCon = doc.getElementsByClass("mediumKurzbezeichnung");
+			Elements anzahlCon = doc.getElementsByClass("anzahl");
+			Elements fskCon = doc.getElementsByClass("fsk");
+			Elements datumCon = doc.getElementsByClass("veroeffentlichungsdatum");
+			Elements studioCon = doc.getElementsByClass("verlag");
+			Elements genreCon = doc.getElementsByClass("stilrichtung");
+			Elements dauerCon = doc.getElementsByClass("spieldauer");
+			Elements spracheCon = doc.getElementsByClass("produktsprache");
+
+			String imageUrl = "";
+
+			hm = setFirstText(titleClass, TITLE, hm);
+			hm = setFirstText(utitleClass, UTITLE, hm);
+			hm = setFirstText(authorClass, AUTHOR, hm);
+			hm = setFirstText(priceClass, PRICE, hm);
+			hm = setFirstText(descriptionClass, DESCRIPTION, hm);
+
+			Element imageElement = imageCon.first();
+			if (imageElement != null) {
+				imageUrl = imageElement.attr("src");
+				hm.put(IMAGE, imageUrl);
+			}
+
+			hm.put(EAN, getValueFromElement(eanCon));
+			hm.put(MEDIUM, getValueFromElement(mediumCon));
+			hm.put(COUNTDISC, getValueFromElement(anzahlCon));
+			hm.put(AGE, getValueFromElement(fskCon));
+			hm.put(DATE, getValueFromElement(datumCon));
+			hm.put(STUDIO, getValueFromElement(studioCon));
+			hm.put(GENRE, getValueFromElement(genreCon));
+			hm.put(DURATION, getValueFromElement(dauerCon));
+			hm.put(LANGUAGE, getValueFromElement(spracheCon));
+
+			// printMap(hm);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			// logger.error("getMovieDataFromPage " + ex.getMessage());
+
+		}
+		return hm;
+
+	}
+
+	// new
+	private TreeMap<String, String> setFirstText(Elements elements, String prop, TreeMap<String, String> hm) {
+		Element element = elements.first();
+		if (element != null) {
+			hm.put(prop, element.text());
+		}
+		return hm;
+	}
+
+	// new
+	private double getPrice(String value) {
+		Double db = 0.0;
+
+		String number = value.replace("*", "");
+		number = number.replace(",", ".");
+
+		try {
+			db = Double.parseDouble(number);
+		} catch (NumberFormatException e) {
+			logger.error("getPrice" + number + " - " + e.getMessage());
+		}
+		return db;
+
+	}
+
+	// new
+	private int getInt(String value) {
+		int it = 1;
+		if (!value.equals("")) {
+			try {
+				it = Integer.parseInt(value);
+			} catch (NumberFormatException e) {
+				logger.error("getInt " + value + " - " + e.getMessage());
+			}
+		}
+
+		return it;
+
+	}
+
+	// new
+	private Product dateToProduct(TreeMap<String, String> productData) {
+		Product product = new Product();
+		Movie movie = new Movie();
+		Participation part;
+		Set<Participation> parts = new HashSet<Participation>();
+
+		for (String name : productData.keySet()) {
+
+			if (name.equals(EAN)) {
+				product.setEan(productData.get(name));
+			} else if (name.equals(MEDIUM)) {
+				product.setCarrier(productData.get(name));
+			} else if (name.equals(AGE)) {
+				product.setApprovedage(getAge(productData.get(name)));
+			} else if (name.equals(PRICE)) {
+				product.setPrice(getPrice(productData.get(name)));
+			} else if (name.equals(COUNTDISC)) {
+				product.setNumberdiscs(getInt(productData.get(name)));
+			} else if (name.equals(DURATION)) {
+				product.setDuration(toInt(productData.get(name)));
+			} else if (name.equals(IMAGE)) {
+				// saveImage(productData.get(name), productData.get(EAN));
+				product.setCover(productData.get(name));
+			} else if (name.equals(LANGUAGE)) {
+				product.setMlanguage(productData.get(name));
+			} else if (name.equals(UTITLE)) {
+				product.setSpecial(productData.get(name));
+			} else if (name.equals(DATE)) {
+				product.setLaunchdate(productData.get(name));
+
+			} else if (name.equals(TITLE)) {
+				movie.setTitle(productData.get(name));
+			} else if (name.equals(GENRE)) {
+				movie.setGenre(productData.get(name));
+			} else if (name.equals(DESCRIPTION)) {
+				movie.setDescription(productData.get(name));
+			} else if (name.equals(STUDIO)) {
+				movie.setStudio(productData.get(name));
+			} else if (name.equals(AUTHOR)) {
+				part = new Participation("Regie", productData.get(name));
+				parts.add(part);
+			}
+
+		}
+		movie.setParticipation(parts);
+		product.setMovie(movie);
+
+		logger.info("saveProduct" + product.toString());
+		return product;
+
 	}
 
 }

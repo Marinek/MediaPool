@@ -32,6 +32,8 @@ public class Product implements Serializable {
 
 	private String mlanguage;
 
+	private String launchdate;
+
 	private int approvedage;
 
 	private int duration;
@@ -151,6 +153,14 @@ public class Product implements Serializable {
 		sb.append("Special: ").append(getSpecial()).append(", ");
 		sb.append("Version: ").append(getVersion());
 		return sb.toString();
+	}
+
+	public String getLaunchdate() {
+		return launchdate;
+	}
+
+	public void setLaunchdate(String launchdate) {
+		this.launchdate = launchdate;
 	}
 
 }
