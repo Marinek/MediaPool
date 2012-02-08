@@ -30,6 +30,11 @@ public class Filme implements MediaInterface {
 	private String wertung;
 	private String genre;
 
+	@Override
+	public boolean isReadOnly() {
+		return false;
+	}
+
 	public String getName() {
 		return name;
 	}

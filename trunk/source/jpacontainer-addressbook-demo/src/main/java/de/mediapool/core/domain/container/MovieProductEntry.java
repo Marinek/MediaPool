@@ -13,6 +13,11 @@ public class MovieProductEntry extends MovieEntry implements Serializable {
 	}
 
 	@Override
+	public boolean isReadOnly() {
+		return true;
+	}
+
+	@Override
 	public String[] header_names() {
 		return new String[] { "Titel", "Genre", "Medium" };
 	}

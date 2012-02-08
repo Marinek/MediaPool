@@ -17,6 +17,7 @@ import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
+import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 
@@ -36,19 +37,23 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	private MediaImage image;
 	private Object[] formfields;
 
+	GridLayout grid;
+
 	@Autowired
 	private MediaService mediaService;
 
-	public MediaForm(MediaView mediaView, Object[] formfields) {
+	public MediaForm(boolean readOnly, MediaView mediaView, Object[] formfields) {
 
 		// Class itemClass = mediaView.getBeanItems().getBeanType();
 		// itemClass.getClass();
+		grid = new GridLayout(2, 2);
+		addComponent(grid);
 
 		editorForm = new BeanValidationForm<MediaInterface>(MediaInterface.class);
 		editorForm.setFormFieldFactory(this);
 		editorForm.setWriteThrough(false);
 		editorForm.setImmediate(true);
-
+		editorForm.setReadOnly(true);
 		this.formfields = formfields;
 
 		saveButton = new Button("Save", this);
@@ -61,9 +66,9 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		footer.setVisible(false);
 
 		image = new MediaImage();
-
-		addComponent(image);
-		addComponent(editorForm);
+		
+		grid.addComponent(image, 0, 0);
+		grid.addComponent(editorForm, 1, 0);
 
 		editorForm.setFooter(footer);
 
