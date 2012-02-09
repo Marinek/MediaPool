@@ -33,6 +33,7 @@ public class Media implements Serializable, MediaInterface {
 
 	private String cover;
 
+	@Column(length = 10000)
 	private String description;
 
 	private String mediatype;

@@ -82,7 +82,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		buildTree();
 		createToolbar();
 
-		newMediaForm = new NewMediaForm();
+		newMediaForm = new NewMediaForm(this);
 
 		tabsheet = new TabSheet();
 		tabsheet.setHeight("100%");
@@ -248,14 +248,19 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		} else if (source == bookButton) {
 			setMainArea(newMediaForm);
 		} else if (source == gameButton) {
-
+			BeanItemContainer<MovieHoldingEntry> movieHoldingEntrys = getMediaService().getUserMovieEntrys(getMUser());
+			addListTab(movieHoldingEntrys, "Meine Filme");
 		} else if (source == boardgameButton) {
 
 		}
 
 	}
 
-	private boolean loggedin() {
+	public MUser getMUser() {
+		return (MUser) getApplication().getUser();
+	}
+
+	public boolean loggedin() {
 		return getApplication().getUser() != null;
 	}
 

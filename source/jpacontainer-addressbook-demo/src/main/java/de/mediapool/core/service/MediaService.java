@@ -136,6 +136,17 @@ public class MediaService implements Serializable {
 		em.getTransaction().commit();
 	}
 
+	public void addProductToUser(Product product, MUser muser) {
+		Holding holding = new Holding();
+		holding.setProduct(product);
+		holding.setMuser(muser);
+		holding.setSince("today");
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		em.merge(holding);
+		em.getTransaction().commit();
+	}
+
 	final static String actors[] = { "Marlon Brando", "Al Pacino", "Robert DeNiro", "Leonardo DiCaprio" };
 	final static String movies[] = { "Der Pate I", "Der Pate II", "Der Pate III", "Inception" };
 	final static String covers[] = { "Pate.jpg", "Pate_II.jpg", "Pate_III.jpg", "Inception.jpg" };
