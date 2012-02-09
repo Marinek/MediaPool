@@ -8,11 +8,14 @@ import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.TreeMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -76,25 +79,135 @@ public class DataGrabber implements Serializable {
 		System.setProperty("java.net.useSystemProxies", "true");
 	}
 
+	public static void main(String[] args) {
+		// new DataGrabber().searchMovieProducts("Herr der Ringe", "DVD");
+		// new DataGrabber().searchEanProduct("5051890005823");
+		// new DataGrabber().searchEanProduct("4010884250787");
+		// new DataGrabber().searchEanProduct("4010232042187");
+	}
+
 	public void initSearch() {
-		for (String film : FilmList.allfilmes) {
-			searchMovie(film, EXACTSEARCH);
-		}
+		// for (String film : FilmList.allfilmes) {
+		// searchMovie(film, EXACTSEARCH);
+		// }
 
 	}
 
-	public List<Movie> searchMovie(String searchfilm, boolean exact) {
+	public List<Product> searchMovieProducts(String search, String media) {
+		List<TreeMap<String, String>> productDataMap = new ArrayList<TreeMap<String, String>>();
+		List<String> pageurls = getLinksFromBuch(search, "FILM", false);
+		List<Product> products = new ArrayList<Product>();
+		HashMap<String, String> uniqueProducts = new HashMap<String, String>();
+
+		for (String url : pageurls) {
+			productDataMap.add(getMovieDataFromPage(url));
+		}
+		int count = 0;
+		for (TreeMap<String, String> productData : productDataMap) {
+			// printMap(productData);
+			boolean rightMedium = productData.get(MEDIUM).equals(media);
+			boolean righttitle = titleContainsTitle(productData.get(TITLE), search);
+			boolean alreadyIn = "inserted".equals(uniqueProducts.get(productData.get(EAN)));
+			if (rightMedium && righttitle && !alreadyIn) {
+				count++;
+				uniqueProducts.put(productData.get(EAN), "inserted");
+				products.add(dataToProduct(productData));
+			}
+
+		}
+
+		logger.info("Gefundene Filme ingesamt: " + search + " " + pageurls.size() + " davon passend " + count);
+		return products;
+	}
+
+	public Product searchEanProduct(String ean) {
+		String url = getSearchUrl("buch.de", ean, "FILM");
+
+		TreeMap<String, String> productData = getMovieDataFromPage(url);
+		Product product = dataToProduct(productData);
+
+		logger.info("Gefundener Film für: " + ean + " " + product.getMovie().getTitle());
+
+		Movie movie = complementMovie(product);
+		product.setMovie(movie);
+		logger.info(product.getMovie().getParticipation().toString());
+		return product;
+	}
+
+	private Movie complementMovie(Product product) {
+
 		List<TreeMap<String, String>> filmdaten = new ArrayList<TreeMap<String, String>>();
-		List<String> pageurls = getLinksFromWiki(searchfilm);
+		List<String> pageurls = getLinksFromWiki(product.getMovie().getTitle());
 
 		for (String url : pageurls) {
 			filmdaten.add(getFilmDataFromPage(url));
 		}
 
-		return findeFilm(filmdaten, searchfilm, exact, pageurls);
+		return findeFilm(filmdaten, product);
 
 	}
 
+	private boolean sameTitle(String title1, String title2) {
+		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem Suchtitel
+		// entspricht
+		title1 = title1.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "");
+		title2 = title2.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "");
+		int dis = StringUtils.getLevenshteinDistance(title1, title2);
+		return dis < 2;
+	}
+
+	private boolean titleContainsTitle(String title1, String title2) {
+		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem Suchtitel
+		// entspricht
+		title1 = title1.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
+		title2 = title2.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
+		return title1.contains(title2);
+	}
+
+	private Movie findeFilm(List<TreeMap<String, String>> filmdaten, Product product) {
+		String searchfilm = product.getMovie().getTitle();
+
+		Participation regie = product.getMovie().getParticipation().iterator().next();
+
+		List<Movie> movieList = new ArrayList<Movie>();
+
+		StringBuffer notExact = new StringBuffer();
+		for (TreeMap<String, String> film : filmdaten) {
+			String dtitel = film.get(DEUTSCHERTITEL);
+			if (dtitel != null) {
+				// Entferne Untertitel aus dem eigentlichen Titel
+				film.put(DEUTSCHERTITEL, dtitel.split("\\s+\\w+titel:")[0]);
+				if (sameTitle(film.get(DEUTSCHERTITEL), searchfilm)) {
+					movieList.add(putMovieWikiDataToObject(film));
+				} else {
+					notExact.append(film.get(DEUTSCHERTITEL)).append(", ");
+				}
+			}
+		}
+		Movie movie = null;
+		if (movieList.size() > 1) {
+			for (Movie movieCheck : movieList) {
+				for (Participation part : movieCheck.getParticipation()) {
+					if (("Regie").equals(part.getMpart())) {
+						if (part.getName().equals(regie.getName())) {
+							movie = movieCheck;
+						}
+					}
+				}
+			}
+		} else {
+			movie = movieList.get(0);
+		}
+
+		String gefunden = movie != null ? "EIN" : "KEIN";
+		logger.info("Es wurde " + gefunden + " Film zum Titel : " + searchfilm + " gefunden");
+
+		writeToFile("Filmeinfo", notExact.toString(), "txt");
+
+		return movie;
+	}
+
+	@Deprecated
 	private List<Movie> findeFilm(List<TreeMap<String, String>> filmdaten, String searchfilm, boolean exakt,
 			List<String> pageurls) {
 		List<TreeMap<String, String>> rightfilms = new ArrayList<TreeMap<String, String>>();
@@ -166,9 +279,9 @@ public class DataGrabber implements Serializable {
 			} else if (name.equals(PRODUKTIONSLAND)) {
 				movie.setProductionland(film.get(name));
 			} else if (name.equals(ERSCHEINUNGSJAHR)) {
-				movie.setLaunchyear(toInt(film.get(name)));
+				movie.setLaunchyear(firstNumberInString(film.get(name)));
 			} else if (name.equals(LAENGE)) {
-				movie.setMlenght(toInt(film.get(name)));
+				movie.setMlenght(firstNumberInString(film.get(name)));
 			} else {
 				String[] values = film.get(name).split(", ");
 				for (int k = 0; k < values.length; k++) {
@@ -196,8 +309,9 @@ public class DataGrabber implements Serializable {
 		return new Participation(part, name);
 	}
 
+	@Deprecated
 	private int toInt(String svalue) {
-		String[] cuttime = svalue.split(" ");
+		String[] cuttime = svalue.split(" ");
 		String newvalue = cuttime[0].trim();
 		int ivalue = 0;
 		try {
@@ -206,6 +320,19 @@ public class DataGrabber implements Serializable {
 			logger.error(newvalue + " (toInt) " + e.getMessage());
 		}
 		return ivalue;
+	}
+
+	private int firstNumberInString(String value) {
+		StringTokenizer ST = new StringTokenizer(value);
+		int number = -1;
+		while (ST.hasMoreElements()) {
+			try {
+				number = Integer.parseInt(ST.nextToken());
+			} catch (Exception e) {
+				logger.debug(e.getMessage());
+			}
+		}
+		return number;
 	}
 
 	private int getAge(String value) {
@@ -229,11 +356,11 @@ public class DataGrabber implements Serializable {
 	}
 
 	private String getValueFromElement(Elements element) {
-		String value = "";
+		String value = null;
 		try {
 			value = element.first().getElementsByClass("value").first().text();
 		} catch (NullPointerException e) {
-			logger.error("getValueFromElement" + e.getMessage());
+			logger.debug(e.getMessage());
 		}
 		return value;
 	}
@@ -387,7 +514,7 @@ public class DataGrabber implements Serializable {
 		Document doc = null;
 
 		try {
-			doc = Jsoup.connect(url).get();
+			doc = Jsoup.connect(url).timeout(10 * 1000).get();
 
 		} catch (IOException e) {
 			logger.error("getLinksFromBuch " + e.getMessage());
@@ -511,7 +638,7 @@ public class DataGrabber implements Serializable {
 		return searchUrl;
 	}
 
-	public void saveImage(String imageUrl, String file) {
+	private void saveImage(String imageUrl, String file) {
 		String destinationFile = "c:\\" + file + ".jpg";
 		URL url;
 		try {
@@ -579,30 +706,7 @@ public class DataGrabber implements Serializable {
 		return str.toString();
 	}
 
-	// new
-	public List<Product> searchMovieProducts(String search, boolean exact, String media) {
-		List<TreeMap<String, String>> productDataMap = new ArrayList<TreeMap<String, String>>();
-		List<String> pageurls = getLinksFromBuch(search, media, exact);
-		List<Product> products = new ArrayList<Product>();
-
-		for (String url : pageurls) {
-			productDataMap.add(getMovieDataFromPage(url));
-		}
-
-		for (TreeMap<String, String> productData : productDataMap) {
-			// printMap(productData);
-			if ((BLURAY).equals(productData.get(MEDIUM))) {
-				products.add(dateToProduct(productData));
-			}
-
-		}
-
-		logger.info("Gefundene Filme ingesamt: " + search + " " + pageurls.size());
-		return products;
-	}
-
-	// new
-	public TreeMap<String, String> getMovieDataFromPage(String url) {
+	private TreeMap<String, String> getMovieDataFromPage(String url) {
 		TreeMap<String, String> hm = new TreeMap<String, String>();
 		// url =
 		// "http://www.buch.de/shop/bde_dvd_hg_startseite/empfehlungsartikel/american_gangster_scarface_2_movie_set/steven_zaillian/EAN5050582581003/ID15690984.html";
@@ -619,7 +723,9 @@ public class DataGrabber implements Serializable {
 
 			Elements priceClass = doc.select("span[class=pm_preis b9Value]");
 			Elements descriptioncon = doc.select("div[id=pm_kurzbeschreibung]");
-			Elements descriptionClass = descriptioncon.first().select("div[class=redaktion raw]");
+
+			Elements descriptionClass = descriptioncon.first() != null ? descriptioncon.first().select(
+					"div[class=redaktion raw]") : null;
 
 			Elements eanCon = doc.getElementsByClass("ean");
 			Elements mediumCon = doc.getElementsByClass("mediumKurzbezeichnung");
@@ -665,16 +771,16 @@ public class DataGrabber implements Serializable {
 
 	}
 
-	// new
 	private TreeMap<String, String> setFirstText(Elements elements, String prop, TreeMap<String, String> hm) {
-		Element element = elements.first();
-		if (element != null) {
-			hm.put(prop, element.text());
+		if (elements != null) {
+			Element element = elements.first();
+			if (element != null) {
+				hm.put(prop, element.text());
+			}
 		}
 		return hm;
 	}
 
-	// new
 	private double getPrice(String value) {
 		Double db = 0.0;
 
@@ -690,10 +796,9 @@ public class DataGrabber implements Serializable {
 
 	}
 
-	// new
 	private int getInt(String value) {
 		int it = 1;
-		if (!value.equals("")) {
+		if (value != null && !("").equals(value)) {
 			try {
 				it = Integer.parseInt(value);
 			} catch (NumberFormatException e) {
@@ -705,8 +810,7 @@ public class DataGrabber implements Serializable {
 
 	}
 
-	// new
-	private Product dateToProduct(TreeMap<String, String> productData) {
+	private Product dataToProduct(TreeMap<String, String> productData) {
 		Product product = new Product();
 		Movie movie = new Movie();
 		Participation part;
@@ -725,12 +829,12 @@ public class DataGrabber implements Serializable {
 			} else if (name.equals(COUNTDISC)) {
 				product.setNumberdiscs(getInt(productData.get(name)));
 			} else if (name.equals(DURATION)) {
-				product.setDuration(toInt(productData.get(name)));
+				product.setDuration(firstNumberInString(productData.get(name)));
 			} else if (name.equals(IMAGE)) {
 				// saveImage(productData.get(name), productData.get(EAN));
 				product.setCover(productData.get(name));
 			} else if (name.equals(LANGUAGE)) {
-				product.setMlanguage(productData.get(name));
+				product.setMlanguage(cutLanguage(productData.get(name)));
 			} else if (name.equals(UTITLE)) {
 				product.setSpecial(productData.get(name));
 			} else if (name.equals(DATE)) {
@@ -758,4 +862,10 @@ public class DataGrabber implements Serializable {
 
 	}
 
+	private String cutLanguage(String longString) {
+		if (longString.contains("... i ")) {
+			longString = longString.split("... i ")[1];
+		}
+		return longString;
+	}
 }
