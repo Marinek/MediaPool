@@ -26,12 +26,15 @@ import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.domain.migration.Filme;
+import de.mediapool.core.service.grab.DataGrabber;
 
 public class MediaService implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	public static final String PERSISTENCE_UNIT = "mediamanager";
+
+	private DataGrabber dataGrabber;
 
 	public MediaService() {
 
@@ -111,6 +114,39 @@ public class MediaService implements Serializable {
 
 	public class WrongUserException extends Exception {
 		private static final long serialVersionUID = 1L;
+	}
+
+	public BeanItemContainer<MovieProductEntry> searchMovieProducts(String search, String media) {
+		BeanItemContainer<MovieProductEntry> movieProductEntries = searchMovieProductsDB(search, media);
+		if (movieProductEntries.size() == 0) {
+			movieProductEntries = searchMovieProductsWeb(search, media);
+		}
+		return movieProductEntries;
+	}
+
+	public BeanItemContainer<MovieProductEntry> searchMovieProductsWeb(String search, String media) {
+		BeanItemContainer<MovieProductEntry> movieProductEntries = new BeanItemContainer<MovieProductEntry>(
+				MovieProductEntry.class);
+		List<Product> productList = getDataGrabber().searchMovieProducts(search, media);
+		for (Product product : productList) {
+			movieProductEntries.addBean(new MovieProductEntry(product));
+		}
+		return movieProductEntries;
+	}
+
+	public BeanItemContainer<MovieProductEntry> searchMovieProductsDB(String search, String media) {
+		BeanItemContainer<MovieProductEntry> movieProductEntries = new BeanItemContainer<MovieProductEntry>(
+				MovieProductEntry.class);
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		Query q = em.createQuery("SELECT p FROM Product p where p.movie.title=:title and p.carrier=:carrier");
+		q.setParameter("carrier", media);
+		q.setParameter("title", search);
+		for (Object productEntry : q.getResultList()) {
+			movieProductEntries.addBean(new MovieProductEntry((Product) productEntry));
+		}
+		em.getTransaction().commit();
+		return movieProductEntries;
 	}
 
 	public BeanItemContainer<Movie> searchMovieEntry(String name) {
@@ -228,5 +264,13 @@ public class MediaService implements Serializable {
 			em.persist(holding);
 		}
 		em.getTransaction().commit();
+	}
+
+	public DataGrabber getDataGrabber() {
+		return dataGrabber;
+	}
+
+	public void setDataGrabber(DataGrabber dataGrabber) {
+		this.dataGrabber = dataGrabber;
 	}
 }

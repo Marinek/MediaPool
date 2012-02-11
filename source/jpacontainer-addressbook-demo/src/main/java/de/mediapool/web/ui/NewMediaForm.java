@@ -1,17 +1,22 @@
 package de.mediapool.web.ui;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
+import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.data.util.BeanItem;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Embedded;
+import com.vaadin.ui.Form;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextField;
@@ -19,21 +24,18 @@ import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Product;
+import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
-import de.mediapool.core.service.grab.DataGrabber;
 
 @SuppressWarnings("serial")
 @Configurable
 public class NewMediaForm extends VerticalLayout implements ClickListener, ValueChangeListener {
 
 	@Autowired
-	private DataGrabber datagrabber;
-
-	@Autowired
 	private MediaService mediaService;
 
 	private List<Movie> movieList;
-	private List<Product> productList;
+	private BeanItemContainer<MovieProductEntry> productList;
 
 	private OptionGroup select;
 
@@ -57,6 +59,7 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 		addComponent(searchField);
 
 		searchButton = new Button("Search");
+		searchButton.focus();
 		addComponent(searchButton);
 
 		searchButton.addListener((ClickListener) this);
@@ -71,6 +74,9 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 		addComponent(nextButton);
 		setImmediate(true);
 
+		setSpacing(true);
+		setMargin(true, false, false, true);
+
 	}
 
 	@Override
@@ -78,12 +84,11 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 		final Button source = event.getButton();
 
 		if (source == searchButton) {
-			productList = getDatagrabber().searchMovieProducts((String) searchField.getValue(), "Blu-ray");
+			productList = getMediaService().searchMovieProducts((String) searchField.getValue(), "Blu-ray");
 			// movieList = getDatagrabber().searchMovie((String)
 			// searchField.getValue(), false);
 			// fillMovieSelect();
 			fillProductSelect();
-			showProductImages();
 		}
 		if (source == nextButton) {
 			addProduct((Product) select.getValue());
@@ -107,45 +112,39 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 	}
 
 	private void fillProductSelect() {
-		for (Product product : productList) {
-			StringBuffer str = new StringBuffer();
-			str.append(product.getMovie().getTitle());
-			str.append(", ");
-			str.append(product.getMovie().getLaunchyear());
-			str.append(", ");
-			str.append(product.getMlanguage());
-			str.append(", ");
-			str.append(product.getCarrier());
-			str.append(", ");
-			str.append(product.getPrice());
-			select.addItem(product);
-		}
-		select.setVisible(true);
-
-	}
-
-	private void showProductImages() {
 		int row = 0;
 		int column = 0;
-		for (int i = 0; i < productList.size(); i++) {
-			Embedded em = new Embedded("", new ExternalResource(productList.get(i).getCover()));
-			em.setWidth("100px");
-			if ((i + 1) % 4 == 0) {
+		int counter = 1;
+		for (MovieProductEntry productEntry : productList.getItemIds()) {
+			VerticalLayout vl = productDetailView(productList.getItem(productEntry));
+			if (counter % 4 == 0) {
 				row++;
 				column = 0;
 				grid.insertRow(row);
 			}
-			grid.addComponent(em, column, row);
+			grid.addComponent(vl, column, row);
 			column++;
+			counter++;
 		}
+
 	}
 
-	public DataGrabber getDatagrabber() {
-		return datagrabber;
-	}
+	private VerticalLayout productDetailView(BeanItem<MovieProductEntry> productItem) {
+		VerticalLayout view = new VerticalLayout();
+		Property cover = productItem.getItemProperty("cover");
+		if (cover != null && cover.getValue() != null) {
+			Embedded em = new Embedded("", new ExternalResource((String) cover.getValue()));
+			em.setWidth("100px");
+			view.addComponent(em);
+		}
+		Form mpeForm = new Form();
+		mpeForm.setImmediate(true);
+		mpeForm.setReadOnly(true);
+		mpeForm.setItemDataSource(productItem, Arrays.asList(new MovieProductEntry().form_fields()));
 
-	public void setDatagrabber(DataGrabber datagrabber) {
-		this.datagrabber = datagrabber;
+		view.addComponent(mpeForm);
+		view.addComponent(new com.vaadin.ui.CheckBox());
+		return view;
 	}
 
 	public MediaService getMediaService() {
