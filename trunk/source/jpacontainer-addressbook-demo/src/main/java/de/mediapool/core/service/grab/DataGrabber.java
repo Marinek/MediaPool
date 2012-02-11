@@ -511,6 +511,8 @@ public class DataGrabber implements Serializable {
 		String url = getSearchUrl("buch.de", search, media);
 
 		List<String> linkstoget = new ArrayList<String>();
+
+		HashMap<String, String> unique = new HashMap<String, String>();
 		Document doc = null;
 
 		try {
@@ -523,9 +525,12 @@ public class DataGrabber implements Serializable {
 			Elements links = doc.getElementsByClass("pm_titelDetailsAction");
 
 			for (Element link : links) {
-				if (link.text().equalsIgnoreCase(search) || !exact) {
-					linkstoget.add(link.attr("abs:href"));
-					print(" * a: <%s>  (%s)", link.attr("abs:href"), trim(link.text(), 35));
+				String newurl = link.attr("abs:href");
+				boolean inserted = unique.get(newurl).equals("inserted");
+				if (!inserted && link.text().equalsIgnoreCase(search) || !exact) {
+					unique.put(newurl, "inserted");
+					linkstoget.add(newurl);
+					print(" * a: <%s>  (%s)", newurl, trim(link.text(), 35));
 				}
 			}
 		}
@@ -533,7 +538,7 @@ public class DataGrabber implements Serializable {
 	}
 
 	private void print(String msg, Object... args) {
-		logger.info(String.format(msg, args));
+		logger.debug(String.format(msg, args));
 	}
 
 	private String trim(String s, int width) {
@@ -833,6 +838,7 @@ public class DataGrabber implements Serializable {
 			} else if (name.equals(IMAGE)) {
 				// saveImage(productData.get(name), productData.get(EAN));
 				product.setCover(productData.get(name));
+				movie.setCover(productData.get(name));
 			} else if (name.equals(LANGUAGE)) {
 				product.setMlanguage(cutLanguage(productData.get(name)));
 			} else if (name.equals(UTITLE)) {

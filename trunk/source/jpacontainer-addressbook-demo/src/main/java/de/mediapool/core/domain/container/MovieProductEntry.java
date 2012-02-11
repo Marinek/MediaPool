@@ -1,6 +1,7 @@
 package de.mediapool.core.domain.container;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 import de.mediapool.core.domain.Product;
 
@@ -99,6 +100,22 @@ public class MovieProductEntry extends MovieEntry implements Serializable {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	@Override
+	public String toString() {
+		return "MovieProductEntry [product=" + product + ", isReadOnly()=" + isReadOnly() + ", header_names()="
+				+ Arrays.toString(header_names()) + ", header_order()=" + Arrays.toString(header_order())
+				+ ", form_fields()=" + Arrays.toString(form_fields()) + ", getPrice()=" + getPrice() + ", getEan()="
+				+ getEan() + ", getSpecial()=" + getSpecial() + ", getCarrier()=" + getCarrier()
+				+ ", getApprovedage()=" + getApprovedage() + ", getDuration()=" + getDuration() + ", getNumberdiscs()="
+				+ getNumberdiscs() + ", getProduct()=" + getProduct() + ", getProductionland()=" + getProductionland()
+				+ ", getTitle()=" + getTitle() + ", getOriginaltitle()=" + getOriginaltitle() + ", getLaunchyear()="
+				+ getLaunchyear() + ", getCover()=" + getCover() + ", getDescription()=" + getDescription()
+				+ ", getGenre()=" + getGenre() + ", getParticipation()=" + getParticipation() + ", getMlanguage()="
+				+ getMlanguage() + ", getMediatype()=" + getMediatype() + ", getMovie()=" + getMovie()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
 	}
 
 }
