@@ -26,6 +26,7 @@ import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.migration.Filme;
 import de.mediapool.core.service.MediaService;
+import de.mediapool.web.ui.adding.NewMediaForm;
 import de.mediapool.web.ui.login.MediaLoginForm;
 import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
 import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
