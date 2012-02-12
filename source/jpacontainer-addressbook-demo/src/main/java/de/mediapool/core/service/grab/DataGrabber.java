@@ -97,6 +97,7 @@ public class DataGrabber implements Serializable {
 		List<TreeMap<String, String>> productDataMap = new ArrayList<TreeMap<String, String>>();
 		List<String> pageurls = getLinksFromBuch(search, "FILM", false);
 		List<Product> products = new ArrayList<Product>();
+		List<Product> secondproducts = new ArrayList<Product>();
 		HashMap<String, String> uniqueProducts = new HashMap<String, String>();
 
 		for (String url : pageurls) {
@@ -108,12 +109,18 @@ public class DataGrabber implements Serializable {
 			boolean rightMedium = productData.get(MEDIUM).equals(media);
 			boolean righttitle = titleContainsTitle(productData.get(TITLE), search);
 			boolean alreadyIn = "inserted".equals(uniqueProducts.get(productData.get(EAN)));
-			if (rightMedium && righttitle && !alreadyIn) {
-				count++;
+			if (rightMedium && !alreadyIn) {
 				uniqueProducts.put(productData.get(EAN), "inserted");
-				products.add(dataToProduct(productData));
+				if (righttitle) {
+					count++;
+					products.add(dataToProduct(productData));
+				} else {
+					secondproducts.add(dataToProduct(productData));
+				}
 			}
-
+		}
+		if (count == 0) {
+			products = secondproducts;
 		}
 
 		logger.info("Gefundene Filme ingesamt: " + search + " " + pageurls.size() + " davon passend " + count);
@@ -323,36 +330,39 @@ public class DataGrabber implements Serializable {
 	}
 
 	private int firstNumberInString(String value) {
-		StringTokenizer ST = new StringTokenizer(value);
-		int number = -1;
-		while (ST.hasMoreElements()) {
-			try {
-				number = Integer.parseInt(ST.nextToken());
-			} catch (Exception e) {
-				logger.debug(e.getMessage());
+		int number = 0;
+		if (value != null) {
+			StringTokenizer ST = new StringTokenizer(value);
+			while (ST.hasMoreElements()) {
+				try {
+					number = Integer.parseInt(ST.nextToken());
+				} catch (Exception e) {
+					logger.debug(e.getMessage());
+				}
 			}
 		}
 		return number;
 	}
 
 	private int getAge(String value) {
-		if (value.contains("0")) {
-			return 0;
-		}
-		if (value.contains("16")) {
-			return 16;
-		}
-		if (value.contains("6")) {
-			return 6;
-		}
-		if (value.contains("12")) {
-			return 12;
-		}
-		if (value.contains("18")) {
-			return 18;
+		if (value != null) {
+			if (value.contains("0")) {
+				return 0;
+			}
+			if (value.contains("16")) {
+				return 16;
+			}
+			if (value.contains("6")) {
+				return 6;
+			}
+			if (value.contains("12")) {
+				return 12;
+			}
+			if (value.contains("18")) {
+				return 18;
+			}
 		}
 		return 99;
-
 	}
 
 	private String getValueFromElement(Elements element) {
@@ -526,7 +536,7 @@ public class DataGrabber implements Serializable {
 
 			for (Element link : links) {
 				String newurl = link.attr("abs:href");
-				boolean inserted = unique.get(newurl).equals("inserted");
+				boolean inserted = ("inserted").equals(unique.get(newurl));
 				if (!inserted && link.text().equalsIgnoreCase(search) || !exact) {
 					unique.put(newurl, "inserted");
 					linkstoget.add(newurl);

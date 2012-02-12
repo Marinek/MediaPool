@@ -5,7 +5,6 @@ import org.vaadin.addon.customfield.CustomField;
 import com.vaadin.addon.jpacontainer.EntityItem;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
-import com.vaadin.data.util.filter.Compare.Equal;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CssLayout;
 
@@ -85,7 +84,8 @@ public class ParticipationSelector extends CustomField {
 			// memberBox.setEnabled(false);
 		} else {
 			participations.removeAllContainerFilters();
-			participations.addContainerFilter(new Equal("parent", participation));
+			// participations.addContainerFilter(new Equal("parent",
+			// participation));
 			participations.applyFilters();
 			// memberBox.setValue(null);
 			// memberBox.setEnabled(true);

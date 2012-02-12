@@ -45,6 +45,7 @@ public class MediaLoginForm extends VerticalLayout implements LoginForm.LoginLis
 		setImmediate(true);
 		LoginForm login = new LoginForm();
 
+		setMargin(false, false, false, true);
 		setHeight("110px");
 		login.setHeight("110px");
 		setSpacing(true);
