@@ -10,15 +10,16 @@ import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.VerticalLayout;
 
+import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.core.domain.container.MovieProductEntry;
 
 @SuppressWarnings("serial")
 public class MovieEntryDetailView extends VerticalLayout {
 
 	private CheckBox cb;
-	private BeanItem<MovieProductEntry> productItem;
+	private BeanItem<MediaInterface> productItem;
 
-	public MovieEntryDetailView(BeanItem<MovieProductEntry> productItem, boolean checkbox) {
+	public MovieEntryDetailView(BeanItem<MediaInterface> productItem, boolean checkbox) {
 		setProductItem(productItem);
 		Property cover = productItem.getItemProperty("cover");
 		Property ean = productItem.getItemProperty("ean");
@@ -35,13 +36,15 @@ public class MovieEntryDetailView extends VerticalLayout {
 		mpeForm.setImmediate(true);
 		mpeForm.setReadOnly(true);
 		addComponent(mpeForm);
-		cb = new CheckBox((String) ean.getValue());
-		cb.setStyleName("centered");
-		cb.setVisible(checkbox);
-		addComponent(cb);
+		if (ean != null && ean.getValue() != null) {
+			cb = new CheckBox((String) ean.getValue());
+			cb.setStyleName("centered");
+			cb.setVisible(checkbox);
+			addComponent(cb);
+		}
 	}
 
-	public MovieEntryDetailView(BeanItem<MovieProductEntry> productItem) {
+	public MovieEntryDetailView(BeanItem<MediaInterface> productItem) {
 		this(productItem, false);
 	}
 
@@ -49,11 +52,11 @@ public class MovieEntryDetailView extends VerticalLayout {
 		return cb.booleanValue();
 	}
 
-	public BeanItem<MovieProductEntry> getProductItem() {
+	public BeanItem<MediaInterface> getProductItem() {
 		return productItem;
 	}
 
-	public void setProductItem(BeanItem<MovieProductEntry> productItem) {
+	public void setProductItem(BeanItem<MediaInterface> productItem) {
 		this.productItem = productItem;
 	}
 

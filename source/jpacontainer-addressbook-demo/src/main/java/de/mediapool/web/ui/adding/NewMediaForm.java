@@ -15,6 +15,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Product;
 import de.mediapool.core.domain.container.MovieProductEntry;
@@ -54,9 +55,9 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 		nextButton = new Button("next");
 		nextButton.setVisible(true);
 		nextButton.addListener((ClickListener) this);
-		detailView = new MovieEntryDetailListView();
+		// detailView = new MovieEntryDetailListView();
 
-		addComponent(detailView);
+		// addComponent(detailView);
 		addComponent(nextButton);
 		setImmediate(true);
 
@@ -72,7 +73,7 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 		if (source == searchButton) {
 			searchButton.setComponentError(null);
 			productList = getMediaService().searchMovieProducts((String) searchField.getValue(), "Blu-ray");
-			detailView.fillView(productList);
+			detailView.fillView();
 		}
 		if (source == nextButton) {
 			switchToHolding();
@@ -82,8 +83,8 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 
 	private void switchToHolding() {
 		removeAllComponents();
-		BeanItem<MovieProductEntry> productItem = detailView.getCheckedProduct();
-		BeanItemContainer<MovieProductEntry> productItems = detailView.getCheckedProducts();
+		BeanItem<MediaInterface> productItem = detailView.getCheckedProduct();
+		BeanItemContainer<MediaInterface> productItems = detailView.getCheckedProducts();
 
 		addComponent(new NewHoldingForm(productItem));
 	}

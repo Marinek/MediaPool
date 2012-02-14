@@ -163,7 +163,7 @@ public class MediaService implements Serializable {
 
 	}
 
-	public void saveMovieEntry(Item item) {
+	public void saveMovieHoldingEntry(Item item) {
 		BeanItem<MovieHoldingEntry> newMovieEntryItem = (BeanItem<MovieHoldingEntry>) item;
 		Holding holding = newMovieEntryItem.getBean().getHolding();
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();

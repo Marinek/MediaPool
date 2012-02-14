@@ -8,32 +8,31 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 
-import de.mediapool.core.domain.container.MovieProductEntry;
+import de.mediapool.core.domain.MediaInterface;
+import de.mediapool.web.ui.MediaView;
 
 @SuppressWarnings("serial")
 public class MovieEntryDetailListView extends VerticalLayout {
 
-	private BeanItemContainer<MovieProductEntry> productList;
-
 	private GridLayout grid;
+	private MediaView view;
 
-	public MovieEntryDetailListView() {
+	public MovieEntryDetailListView(MediaView view) {
+		this.view = view;
 		setImmediate(true);
 		grid = new GridLayout(4, 1);
 		grid.setImmediate(true);
-		grid.setWidth("100%");
 		addComponent(grid);
+		fillView();
 	}
 
-	public void fillView(BeanItemContainer<MovieProductEntry> productList) {
-		setProductList(productList);
+	public void fillView() {
 		fillGrid();
 		requestRepaint();
 	}
 
-	public BeanItemContainer<MovieProductEntry> getCheckedProducts() {
-		BeanItemContainer<MovieProductEntry> checkedProducts = new BeanItemContainer<MovieProductEntry>(
-				MovieProductEntry.class);
+	public BeanItemContainer<MediaInterface> getCheckedProducts() {
+		BeanItemContainer<MediaInterface> checkedProducts = new BeanItemContainer<MediaInterface>(MediaInterface.class);
 		Iterator<Component> it = grid.getComponentIterator();
 		while (it.hasNext()) {
 			MovieEntryDetailView view = (MovieEntryDetailView) it.next();
@@ -44,7 +43,7 @@ public class MovieEntryDetailListView extends VerticalLayout {
 		return checkedProducts;
 	}
 
-	public BeanItem<MovieProductEntry> getCheckedProduct() {
+	public BeanItem<MediaInterface> getCheckedProduct() {
 
 		Iterator<Component> it = grid.getComponentIterator();
 		while (it.hasNext()) {
@@ -61,8 +60,8 @@ public class MovieEntryDetailListView extends VerticalLayout {
 		int row = 0;
 		int column = 0;
 		int counter = 1;
-		for (MovieProductEntry productEntry : productList.getItemIds()) {
-			VerticalLayout vl = new MovieEntryDetailView(productList.getItem(productEntry), true);
+		for (MediaInterface entry : getProductList().getItemIds()) {
+			VerticalLayout vl = new MovieEntryDetailView(getProductList().getItem(entry), true);
 			if (counter % 4 == 0) {
 				row++;
 				column = 0;
@@ -75,12 +74,8 @@ public class MovieEntryDetailListView extends VerticalLayout {
 
 	}
 
-	public BeanItemContainer<MovieProductEntry> getProductList() {
-		return productList;
-	}
-
-	public void setProductList(BeanItemContainer<MovieProductEntry> productList) {
-		this.productList = productList;
+	public BeanItemContainer<MediaInterface> getProductList() {
+		return view.getBeanItems();
 	}
 
 }

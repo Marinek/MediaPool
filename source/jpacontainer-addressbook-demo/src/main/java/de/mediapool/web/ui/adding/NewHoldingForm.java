@@ -2,6 +2,9 @@ package de.mediapool.web.ui.adding;
 
 import java.util.Arrays;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
@@ -16,8 +19,14 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 
 import de.mediapool.core.domain.Holding;
+import de.mediapool.core.domain.MUser;
+import de.mediapool.core.domain.MediaInterface;
+import de.mediapool.core.domain.Product;
+import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
+import de.mediapool.core.service.MediaService;
 
+@Configurable
 @SuppressWarnings("serial")
 public class NewHoldingForm extends HorizontalLayout implements ClickListener, FormFieldFactory {
 
@@ -26,20 +35,33 @@ public class NewHoldingForm extends HorizontalLayout implements ClickListener, F
 
 	private Button saveButton;
 	private Button cancelButton;
-	private BeanValidationForm<Holding> form;
+	private BeanValidationForm<MovieHoldingEntry> form;
+	@Autowired
+	private MediaService mediaService;
 
-	public NewHoldingForm(BeanItem<MovieProductEntry> productItem) {
+	private Item item;
 
-		form = new BeanValidationForm<Holding>(Holding.class);
+	public NewHoldingForm(BeanItem<MediaInterface> productItem) {
+
+		Product product = ((MovieProductEntry) productItem.getBean()).getProduct();
 		Holding holding = new Holding();
-		form.setItemDataSource(new BeanItem<Holding>(holding), Arrays.asList(form_fields));
+		MUser muser = new MUser();
+		holding.setMuser(muser);
+		holding.setProduct(product);
+
+		BeanItem<MovieHoldingEntry> holdingItem = new BeanItem<MovieHoldingEntry>(new MovieHoldingEntry(holding));
+
+		form = new BeanValidationForm<MovieHoldingEntry>(MovieHoldingEntry.class);
+
+		setItem(holdingItem);
+
 		addComponent(form);
 
 		MovieEntryDetailView productView = new MovieEntryDetailView(productItem);
 		productView.setMargin(false, true, false, false);
 		addComponent(productView);
 
-		form.setFormFieldFactory(this);
+		form.setFormFieldFactory((FormFieldFactory) this);
 		form.setWriteThrough(false);
 		form.setImmediate(true);
 
@@ -50,7 +72,7 @@ public class NewHoldingForm extends HorizontalLayout implements ClickListener, F
 		footer.setSpacing(true);
 		footer.addComponent(saveButton);
 		footer.addComponent(cancelButton);
-		footer.setVisible(false);
+		footer.setVisible(true);
 
 		form.setFooter(footer);
 
@@ -60,6 +82,7 @@ public class NewHoldingForm extends HorizontalLayout implements ClickListener, F
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton() == saveButton) {
 			form.commit();
+			getMediaService().saveMovieHoldingEntry(getItem());
 		} else if (event.getButton() == cancelButton) {
 			form.discard();
 		}
@@ -72,6 +95,25 @@ public class NewHoldingForm extends HorizontalLayout implements ClickListener, F
 			((TextField) field).setNullRepresentation("");
 		}
 		return field;
+	}
+
+	public MediaService getMediaService() {
+		return mediaService;
+	}
+
+	public void setMediaService(MediaService mediaService) {
+		this.mediaService = mediaService;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		form.setItemDataSource(item, Arrays.asList(form_fields));
+		form.getFooter().setVisible(true);
+		this.item = item;
+
 	}
 
 }

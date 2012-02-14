@@ -66,7 +66,7 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		footer.setVisible(false);
 
 		image = new MediaImage();
-		
+
 		grid.addComponent(image, 0, 0);
 		grid.addComponent(editorForm, 1, 0);
 
@@ -84,7 +84,7 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton() == saveButton) {
 			editorForm.commit();
-			getMediaService().saveMovieEntry(item);
+			// getMediaService().saveMovieEntry(item);
 			// fireEvent(new EditorSavedEvent(this, item));
 		} else if (event.getButton() == cancelButton) {
 			editorForm.discard();
