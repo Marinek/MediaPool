@@ -13,22 +13,26 @@ import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.domain.MediaInterface;
+import de.mediapool.web.ui.adding.MovieEntryDetailListView;
 import de.mediapool.web.ui.impl.SplitPanelImpl;
 import de.mediapool.web.ui.impl.SplitPanelImpl.SplitterPositionChangedListener;
 
 @SuppressWarnings("serial")
-public class MediaView extends SplitPanelImpl implements ValueChangeListener, SplitterPositionChangedListener {
+public class MediaView extends SplitPanelImpl implements ValueChangeListener, SplitterPositionChangedListener,
+		ClickListener {
 	private static final Logger logger = LoggerFactory.getLogger(MediaView.class);
 	private BeanItemContainer<MediaInterface> beanItems;
 
 	private HorizontalLayout listtoolbar;
 	private MediaForm movieForm;
 	private MediaList movieList;
+	private MovieEntryDetailListView moviePictures;
 
 	private boolean isReadOnly = true;
 
@@ -38,9 +42,14 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 	private Button deleteButton;
 	private Button editButton;
 
+	private Button listButton;
+	private Button imageButton;
+
 	private String[] header_names;
 	private Object[] header_order;
 	private Object[] form_fields;
+
+	private VerticalLayout viewMode;
 
 	public MediaView(BeanItemContainer<MediaInterface> beanItems) {
 		setBeanItems(beanItems);
@@ -53,18 +62,32 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 
 		movieForm = new MediaForm(isReadOnly, this, form_fields);
 		movieList = new MediaList(this, header_order, header_names);
+		moviePictures = new MovieEntryDetailListView(this);
 
-		VerticalLayout first = new VerticalLayout();
-		first.addComponent(listtoolbar);
-		first.addComponent(movieList);
+		viewMode = new VerticalLayout();
+		viewMode.addComponent(listtoolbar);
+		viewMode.addComponent(movieList);
 
-		setFirstComponent(first);
+		setFirstComponent(viewMode);
 		setSecondComponent(movieForm);
 		setSplitPosition(40);
 
 		setImmediate(true);
 
 		// movieList.setHeightUnits(getFirstComponent().getHeightUnits());
+	}
+
+	private void switchView(String mode) {
+		if ("List".equals(mode)) {
+			imageButton.setEnabled(true);
+			listButton.setEnabled(false);
+			viewMode.replaceComponent(moviePictures, movieList);
+		} else {
+			imageButton.setEnabled(false);
+			listButton.setEnabled(true);
+			viewMode.replaceComponent(movieList, moviePictures);
+		}
+
 	}
 
 	private void initHeaders() {
@@ -102,6 +125,14 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 		//
 		// }
 		// });
+
+		listButton = new Button("List");
+		listButton.addListener((ClickListener) this);
+		imageButton = new Button("Image");
+		imageButton.addListener((ClickListener) this);
+
+		imageButton.setEnabled(true);
+		listButton.setEnabled(false);
 
 		deleteButton = new Button("Delete");
 		deleteButton.addListener(new Button.ClickListener() {
@@ -141,6 +172,8 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 		listtoolbar.addComponent(newButton);
 		listtoolbar.addComponent(deleteButton);
 		listtoolbar.addComponent(editButton);
+		listtoolbar.addComponent(listButton);
+		listtoolbar.addComponent(imageButton);
 		listtoolbar.addComponent(searchField);
 		listtoolbar.setWidth("100%");
 		listtoolbar.setExpandRatio(searchField, 1);
@@ -182,5 +215,28 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 
 	public void setBeanItems(BeanItemContainer<MediaInterface> beanItems) {
 		this.beanItems = beanItems;
+	}
+
+	@Override
+	public void buttonClick(ClickEvent event) {
+		final Button source = event.getButton();
+
+		if (source == newButton) {
+
+		}
+		if (source == deleteButton) {
+
+		}
+		if (source == editButton) {
+
+		}
+		if (source == listButton) {
+			switchView("List");
+		}
+		if (source == imageButton) {
+			switchView("Detail");
+
+		}
+
 	}
 }
