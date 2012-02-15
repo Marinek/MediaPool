@@ -57,20 +57,12 @@ public class MovieHoldingEntry extends MovieProductEntry implements Serializable
 		getHolding().setKnowm(knowm);
 	}
 
-	public String getSince() {
+	public Date getSince() {
 		return getHolding().getSince();
 	}
 
-	public void setSince(String since) {
+	public void setSince(Date since) {
 		getHolding().setSince(since);
-	}
-
-	public String getRating() {
-		return getHolding().getRating();
-	}
-
-	public void setRating(String rating) {
-		getHolding().setRating(rating);
 	}
 
 	public Boolean getVisible() {

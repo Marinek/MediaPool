@@ -176,7 +176,6 @@ public class MediaService implements Serializable {
 		Holding holding = new Holding();
 		holding.setProduct(product);
 		holding.setMuser(muser);
-		holding.setSince("today");
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
 		em.merge(holding);
@@ -232,7 +231,6 @@ public class MediaService implements Serializable {
 			em.persist(product);
 
 			Holding holding = new Holding();
-			holding.setRating("good");
 			holding.setMuser(muser);
 			holding.setProduct(product);
 			em.persist(holding);
@@ -258,7 +256,6 @@ public class MediaService implements Serializable {
 			em.persist(product);
 
 			Holding holding = new Holding();
-			holding.setRating("good");
 			holding.setMuser(muser2);
 			holding.setProduct(product);
 			em.persist(holding);

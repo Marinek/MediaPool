@@ -55,11 +55,11 @@ public class DataGrabber implements Serializable {
 	private static String LANGUAGE = "sprache";
 	private static String DESCRIPTION = "description";
 
-	private static String BLURAY = "Blu-ray";
-	private static String DVD = "DVD";
-
-	private String SEARCHMOVIE = "";
-	private boolean EXACTSEARCH = true;
+	// private static String BLURAY = "Blu-ray";
+	// private static String DVD = "DVD";
+	//
+	// private String SEARCHMOVIE = "";
+	// private boolean EXACTSEARCH = true;
 	private boolean XMLOUTPUT = false;
 
 	private String wikiurl1 = "http://de.wikipedia.org/w/index.php?title=Spezial%3ASuche&profile=advanced&search=";
@@ -155,7 +155,8 @@ public class DataGrabber implements Serializable {
 	}
 
 	private boolean sameTitle(String title1, String title2) {
-		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem Suchtitel
+		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem
+		// Suchtitel
 		// entspricht
 		title1 = title1.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "");
 		title2 = title2.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "");
@@ -164,7 +165,8 @@ public class DataGrabber implements Serializable {
 	}
 
 	private boolean titleContainsTitle(String title1, String title2) {
-		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem Suchtitel
+		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem
+		// Suchtitel
 		// entspricht
 		title1 = title1.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
 		title2 = title2.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
@@ -221,7 +223,8 @@ public class DataGrabber implements Serializable {
 		List<Movie> movieList = new ArrayList<Movie>();
 		StringBuffer toprint = new StringBuffer();
 		StringBuffer notExact = new StringBuffer();
-		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem Suchtitel
+		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem
+		// Suchtitel
 		// entspricht
 		for (TreeMap<String, String> film : filmdaten) {
 			String dtitel = film.get(DEUTSCHERTITEL);
@@ -288,7 +291,7 @@ public class DataGrabber implements Serializable {
 			} else if (name.equals(ERSCHEINUNGSJAHR)) {
 				movie.setLaunchyear(firstNumberInString(film.get(name)));
 			} else if (name.equals(LAENGE)) {
-				movie.setMlenght(firstNumberInString(film.get(name)));
+				movie.setDuration(firstNumberInString(film.get(name)));
 			} else {
 				String[] values = film.get(name).split(", ");
 				for (int k = 0; k < values.length; k++) {
@@ -702,7 +705,7 @@ public class DataGrabber implements Serializable {
 			str.append(" year=");
 			str.append("\"" + movie.getLaunchyear() + "\"");
 			str.append(" length=");
-			str.append("\"" + movie.getMlenght() + "\"");
+			str.append("\"" + movie.getDuration() + "\"");
 			str.append(" age=");
 			str.append("\"" + movie.getApprovedage() + "\"");
 			str.append(" land=");
@@ -847,7 +850,7 @@ public class DataGrabber implements Serializable {
 				product.setDuration(firstNumberInString(productData.get(name)));
 			} else if (name.equals(IMAGE)) {
 				// saveImage(productData.get(name), productData.get(EAN));
-				product.setCover(productData.get(name));
+				product.setImage(productData.get(name));
 				movie.setCover(productData.get(name));
 			} else if (name.equals(LANGUAGE)) {
 				product.setMlanguage(cutLanguage(productData.get(name)));
