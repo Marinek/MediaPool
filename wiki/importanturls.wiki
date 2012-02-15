@@ -8,8 +8,14 @@ http://magi.virtuallypreinstalled.com/book-examples/book/?restartApplication#com
 
 http://vaadin.com/directory#addon/flexibleoptiongroup
 
+http://www.liferay.com/de/community/wiki/-/wiki/Main/Developing+Vaadin+Applications+as+Liferay+Portlets
+
 #Mobile
 
 https://vaadin.com/book/-/page/mobile.html#mobile.overview
 
 http://code.google.com/p/zxing/wiki/ScanningViaIntent
+
+https://vaadin.com/forum/-/message_boards/view_message/619453
+
+http://de.wikipedia.org/wiki/OAuth
