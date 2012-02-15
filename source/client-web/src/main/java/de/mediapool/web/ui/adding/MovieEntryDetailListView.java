@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
@@ -22,6 +23,7 @@ public class MovieEntryDetailListView extends VerticalLayout {
 		setImmediate(true);
 		grid = new GridLayout(4, 1);
 		grid.setImmediate(true);
+		grid.setMargin(true, false, false, true);
 		addComponent(grid);
 		fillView();
 	}
@@ -62,6 +64,7 @@ public class MovieEntryDetailListView extends VerticalLayout {
 		int counter = 1;
 		for (MediaInterface entry : getProductList().getItemIds()) {
 			VerticalLayout vl = new MovieEntryDetailView(getProductList().getItem(entry), true);
+			vl.addListener((LayoutClickListener) view);
 			if (counter % 4 == 0) {
 				row++;
 				column = 0;
