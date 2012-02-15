@@ -10,6 +10,8 @@ import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
+import com.vaadin.event.LayoutEvents.LayoutClickEvent;
+import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -20,12 +22,13 @@ import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.web.ui.adding.MovieEntryDetailListView;
+import de.mediapool.web.ui.adding.MovieEntryDetailView;
 import de.mediapool.web.ui.impl.SplitPanelImpl;
 import de.mediapool.web.ui.impl.SplitPanelImpl.SplitterPositionChangedListener;
 
 @SuppressWarnings("serial")
-public class MediaView extends SplitPanelImpl implements ValueChangeListener, SplitterPositionChangedListener,
-		ClickListener {
+public class MediaView extends SplitPanelImpl implements ValueChangeListener, LayoutClickListener,
+		SplitterPositionChangedListener, ClickListener {
 	private static final Logger logger = LoggerFactory.getLogger(MediaView.class);
 	private BeanItemContainer<MediaInterface> beanItems;
 
@@ -193,6 +196,16 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 		}
 	}
 
+	@Override
+	public void layoutClick(LayoutClickEvent event) {
+		MovieEntryDetailView component = (MovieEntryDetailView) event.getClickedComponent();
+		setModificationsEnabled(component.getProductItem() != null);
+		Item item = component.getProductItem();
+		if (item != movieForm.getItem()) {
+			movieForm.setItem(item);
+		}
+	}
+
 	public void splitterPositionChanged(SplitterPositionChangedEvent event) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("\n SplitUnit:" + getFirstComponent().getHeightUnits());
@@ -239,4 +252,5 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, Sp
 		}
 
 	}
+
 }

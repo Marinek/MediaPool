@@ -24,6 +24,7 @@ import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
+import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.adding.NewMediaForm;
 import de.mediapool.web.ui.login.MediaLoginForm;
@@ -38,6 +39,8 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private BeanItemContainer<Movie> movies;
 	private BeanItemContainer<MovieEntry> movieEntrys;
+
+	private BeanItemContainer<MovieProductEntry> productList;
 
 	// private BeanItemContainer<Filme> filme;
 
@@ -242,16 +245,14 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		final Button source = event.getButton();
 
 		if (source == searchButton) {
-			movies = getMediaService().searchMovieEntry((String) searchField.getValue());
-			addListTab(movies, "Suche " + searchField.getValue());
+			productList = getMediaService().searchMovieProducts((String) searchField.getValue(), "Blu-ray");
+			addListTab(productList, "Suche " + searchField.getValue());
 		} else if (source == musicButton) {
-			setMainArea(tabsheet);
 		} else if (source == movieButton) {
-		} else if (source == bookButton) {
-			setMainArea(newMediaForm);
-		} else if (source == gameButton) {
 			BeanItemContainer<MovieHoldingEntry> movieHoldingEntrys = getMediaService().getUserMovieEntrys(getMUser());
 			addListTab(movieHoldingEntrys, "Meine Filme");
+		} else if (source == bookButton) {
+		} else if (source == gameButton) {
 		} else if (source == boardgameButton) {
 
 		}

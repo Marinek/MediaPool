@@ -106,7 +106,7 @@ public class DataGrabber implements Serializable {
 		int count = 0;
 		for (TreeMap<String, String> productData : productDataMap) {
 			// printMap(productData);
-			boolean rightMedium = productData.get(MEDIUM).equals(media);
+			boolean rightMedium = true;// productData.get(MEDIUM).equals(media);
 			boolean righttitle = titleContainsTitle(productData.get(TITLE), search);
 			boolean alreadyIn = "inserted".equals(uniqueProducts.get(productData.get(EAN)));
 			if (rightMedium && !alreadyIn) {
