@@ -20,8 +20,6 @@ public class Product implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
-	private String cover;
-
 	private double price;
 
 	private String ean;
@@ -30,15 +28,17 @@ public class Product implements Serializable {
 
 	private String carrier;
 
-	private String mlanguage;
-
 	private String launchdate;
+
+	private int numberdiscs;
+
+	private String image;
+
+	private String mlanguage;
 
 	private int approvedage;
 
 	private int duration;
-
-	private int numberdiscs;
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Movie movie;
@@ -46,14 +46,6 @@ public class Product implements Serializable {
 	@Version
 	@Column(name = "version")
 	private Integer version;
-
-	public String getCover() {
-		return this.cover;
-	}
-
-	public void setCover(String cover) {
-		this.cover = cover;
-	}
 
 	public double getPrice() {
 		return this.price;
@@ -143,24 +135,32 @@ public class Product implements Serializable {
 		this.movie = movie;
 	}
 
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Carrier: ").append(getCarrier()).append(", ");
-		sb.append("Cover: ").append(getCover()).append(", ");
-		sb.append("Ean: ").append(getEan()).append(", ");
-		sb.append("Id: ").append(getId()).append(", ");
-		sb.append("Price: ").append(getPrice()).append(", ");
-		sb.append("Special: ").append(getSpecial()).append(", ");
-		sb.append("Version: ").append(getVersion());
-		return sb.toString();
-	}
-
 	public String getLaunchdate() {
 		return launchdate;
 	}
 
 	public void setLaunchdate(String launchdate) {
 		this.launchdate = launchdate;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Carrier: ").append(getCarrier()).append(", ");
+		sb.append("Cover: ").append(getImage()).append(", ");
+		sb.append("Ean: ").append(getEan()).append(", ");
+		sb.append("Id: ").append(getId()).append(", ");
+		sb.append("Price: ").append(getPrice()).append(", ");
+		sb.append("Special: ").append(getSpecial()).append(", ");
+		sb.append("Version: ").append(getVersion());
+		return sb.toString();
 	}
 
 }

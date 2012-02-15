@@ -2,7 +2,6 @@ package de.mediapool.web.ui.impl;
 
 import org.vaadin.addon.customfield.CustomField;
 
-import com.vaadin.addon.jpacontainer.EntityItem;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.data.Property;
 import com.vaadin.ui.ComboBox;
@@ -24,6 +23,7 @@ public class ParticipationSelector extends CustomField {
 
 	private JPAContainer<Participation> participations;
 
+	@SuppressWarnings("serial")
 	public ParticipationSelector() {
 		// participations = MediaService.getAllParticipation();
 		// members = MediaService.getAllPMember();
@@ -46,8 +46,9 @@ public class ParticipationSelector extends CustomField {
 				/*
 				 * Modify filtering of the department combobox
 				 */
-				EntityItem<Participation> item = participations.getItem(partBox.getValue());
-				Participation entity = item.getEntity();
+				// EntityItem<Participation> item =
+				// participations.getItem(partBox.getValue());
+				// Participation entity = item.getEntity();
 				// filterDepartments(entity);
 			}
 		});
@@ -78,19 +79,19 @@ public class ParticipationSelector extends CustomField {
 	 * 
 	 * @param currentGeoDepartment
 	 */
-	private void filterDepartments(Participation participation) {
-		if (participation == null) {
-			// memberBox.setValue(null);
-			// memberBox.setEnabled(false);
-		} else {
-			participations.removeAllContainerFilters();
-			// participations.addContainerFilter(new Equal("parent",
-			// participation));
-			participations.applyFilters();
-			// memberBox.setValue(null);
-			// memberBox.setEnabled(true);
-		}
-	}
+	// private void filterDepartments(Participation participation) {
+	// if (participation == null) {
+	// // memberBox.setValue(null);
+	// // memberBox.setEnabled(false);
+	// } else {
+	// participations.removeAllContainerFilters();
+	// // participations.addContainerFilter(new Equal("parent",
+	// // participation));
+	// participations.applyFilters();
+	// // memberBox.setValue(null);
+	// // memberBox.setEnabled(true);
+	// }
+	// }
 
 	@Override
 	public void setPropertyDataSource(Property newDataSource) {

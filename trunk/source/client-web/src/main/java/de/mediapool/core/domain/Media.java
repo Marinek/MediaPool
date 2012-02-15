@@ -29,10 +29,6 @@ public class Media implements Serializable, MediaInterface {
 
 	private String originaltitle;
 
-	private int launchyear;
-
-	private String cover;
-
 	@Column(length = 10000)
 	private String description;
 
@@ -41,6 +37,10 @@ public class Media implements Serializable, MediaInterface {
 	private String contenttype;
 
 	private String genre;
+
+	private int launchyear;
+
+	private String cover;
 
 	private String mlanguage;
 

@@ -20,11 +20,10 @@ public class Holding implements Serializable {
 
 	private String knowm;
 
-	private String since;
-
-	private String rating;
-
 	private Boolean visible;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date since;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastUsed;
@@ -72,22 +71,6 @@ public class Holding implements Serializable {
 
 	public void setKnowm(String knowm) {
 		this.knowm = knowm;
-	}
-
-	public String getSince() {
-		return this.since;
-	}
-
-	public void setSince(String since) {
-		this.since = since;
-	}
-
-	public String getRating() {
-		return this.rating;
-	}
-
-	public void setRating(String rating) {
-		this.rating = rating;
 	}
 
 	public Boolean getVisible() {
@@ -138,6 +121,22 @@ public class Holding implements Serializable {
 		this.lastUsed = lastUsed;
 	}
 
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public void setSince(Date since) {
+		this.since = since;
+	}
+
+	public Date getSince() {
+		return since;
+	}
+
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Id: ").append(getId()).append(", ");
@@ -146,20 +145,11 @@ public class Holding implements Serializable {
 		sb.append("Knowm: ").append(getKnowm()).append(", ");
 		sb.append("LastUsed: ").append(getLastUsed() == null ? "null" : getLastUsed().getTime()).append(", ");
 		sb.append("Muser: ").append(getMuser()).append(", ");
-		sb.append("Rating: ").append(getRating()).append(", ");
 		sb.append("Since: ").append(getSince()).append(", ");
 		sb.append("Situation: ").append(getSituation()).append(", ");
 		sb.append("Version: ").append(getVersion()).append(", ");
 		sb.append("Visible: ").append(getVisible());
 		return sb.toString();
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
 	}
 
 }

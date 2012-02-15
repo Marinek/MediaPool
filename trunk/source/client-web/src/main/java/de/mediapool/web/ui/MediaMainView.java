@@ -24,7 +24,6 @@ import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
-import de.mediapool.core.domain.migration.Filme;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.adding.NewMediaForm;
 import de.mediapool.web.ui.login.MediaLoginForm;
@@ -40,11 +39,11 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	private BeanItemContainer<Movie> movies;
 	private BeanItemContainer<MovieEntry> movieEntrys;
 
-	private BeanItemContainer<Filme> filme;
+	// private BeanItemContainer<Filme> filme;
 
 	private HorizontalSplitPanel contentView;
 
-	private String textFilter;
+	// private String textFilter;
 
 	private TabSheet tabsheet;
 
@@ -156,6 +155,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	}
 
+	@SuppressWarnings("serial")
 	private void buildTree() {
 		groupTree = new Tree(null, null);
 		groupTree.setItemCaptionPropertyId("name");
@@ -166,7 +166,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 			@Override
 			public void valueChange(ValueChangeEvent event) {
-				Object id = event.getProperty().getValue();
+				// Object id = event.getProperty().getValue();
 				// if (id != null) {
 				// Department entity = departments.getItem(id).getEntity();
 				// departmentFilter = entity;
@@ -203,6 +203,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		login(event);
 	}
 
+	@SuppressWarnings("serial")
 	private void login(LoggedinEvent event) {
 		MUser user = event.getUser();
 		VerticalLayout logoutform = new VerticalLayout();

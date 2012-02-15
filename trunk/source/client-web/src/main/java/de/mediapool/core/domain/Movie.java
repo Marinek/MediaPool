@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 
+@SuppressWarnings("serial")
 @Entity
 public class Movie extends Media {
 
@@ -19,7 +20,6 @@ public class Movie extends Media {
 	}
 
 	private String productionland;
-	private int mlenght;
 	private String studio;
 
 	public String getProductionland() {
@@ -28,6 +28,14 @@ public class Movie extends Media {
 
 	public void setProductionland(String productionland) {
 		this.productionland = productionland;
+	}
+
+	public String getStudio() {
+		return studio;
+	}
+
+	public void setStudio(String studio) {
+		this.studio = studio;
 	}
 
 	public String toString() {
@@ -45,22 +53,6 @@ public class Movie extends Media {
 		sb.append("Title: ").append(getTitle()).append(", ");
 		sb.append("Version: ").append(getVersion());
 		return sb.toString();
-	}
-
-	public int getMlenght() {
-		return mlenght;
-	}
-
-	public void setMlenght(int mlenght) {
-		this.mlenght = mlenght;
-	}
-
-	public String getStudio() {
-		return studio;
-	}
-
-	public void setStudio(String studio) {
-		this.studio = studio;
 	}
 
 }

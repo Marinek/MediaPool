@@ -1,14 +1,11 @@
 package de.mediapool.web.ui.adding;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItem;
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -16,9 +13,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.domain.MediaInterface;
-import de.mediapool.core.domain.Movie;
-import de.mediapool.core.domain.Product;
-import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.MediaMainView;
 
@@ -29,8 +23,8 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 	@Autowired
 	private MediaService mediaService;
 
-	private List<Movie> movieList;
-	private BeanItemContainer<MovieProductEntry> productList;
+	// private List<Movie> movieList;
+	// private BeanItemContainer<MovieProductEntry> productList;
 
 	private MovieEntryDetailListView detailView;
 
@@ -72,7 +66,8 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 
 		if (source == searchButton) {
 			searchButton.setComponentError(null);
-			productList = getMediaService().searchMovieProducts((String) searchField.getValue(), "Blu-ray");
+			// productList = getMediaService().searchMovieProducts((String)
+			// searchField.getValue(), "Blu-ray");
 			detailView.fillView();
 		}
 		if (source == nextButton) {
@@ -84,16 +79,17 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 	private void switchToHolding() {
 		removeAllComponents();
 		BeanItem<MediaInterface> productItem = detailView.getCheckedProduct();
-		BeanItemContainer<MediaInterface> productItems = detailView.getCheckedProducts();
+		// BeanItemContainer<MediaInterface> productItems =
+		// detailView.getCheckedProducts();
 
 		addComponent(new NewHoldingForm(productItem));
 	}
 
-	private void addProduct(Product product) {
-		if (main.loggedin()) {
-			getMediaService().addProductToUser(product, main.getMUser());
-		}
-	}
+	// private void addProduct(Product product) {
+	// if (main.loggedin()) {
+	// getMediaService().addProductToUser(product, main.getMUser());
+	// }
+	// }
 
 	public MediaService getMediaService() {
 		return mediaService;
