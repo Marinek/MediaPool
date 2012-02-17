@@ -27,6 +27,8 @@ import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.adding.NewMediaForm;
+import de.mediapool.web.ui.impl.MediaAccordion;
+import de.mediapool.web.ui.impl.MediaMenuBar;
 import de.mediapool.web.ui.login.MediaLoginForm;
 import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
 import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
@@ -36,6 +38,8 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	private static final long serialVersionUID = 1L;
 
 	private Tree groupTree;
+
+	private MediaAccordion accordion;
 
 	private BeanItemContainer<Movie> movies;
 	private BeanItemContainer<MovieEntry> movieEntrys;
@@ -52,7 +56,8 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private MediaLoginForm loginForm;
 
-	private HorizontalLayout toolbar;
+	private VerticalLayout header;
+
 	private Button searchButton;
 	private Button movieButton;
 	private Button gameButton;
@@ -102,22 +107,28 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		loginForm = new MediaLoginForm();
 		loginForm.addLoginListener(this);
 
+		accordion = new MediaAccordion();
+
 		leftSide.setFirstComponent(loginForm);
-		leftSide.setSecondComponent(groupTree);
+		leftSide.setSecondComponent(accordion);
 		leftSide.setLocked(true);
 		leftSide.setSplitPosition(110, HorizontalSplitPanel.UNITS_PIXELS);
 
 		contentView.setFirstComponent(leftSide);
 
 		this.setLocked(true);
-		setSplitPosition(97, HorizontalSplitPanel.UNITS_PIXELS);
+		setSplitPosition(117, HorizontalSplitPanel.UNITS_PIXELS);
 		setSecondComponent(contentView);
-		setFirstComponent(toolbar);
+		setFirstComponent(header);
 
 	}
 
 	private void createToolbar() {
-		toolbar = new HorizontalLayout();
+		header = new VerticalLayout();
+		MediaMenuBar menu = new MediaMenuBar();
+		HorizontalLayout toolbar = new HorizontalLayout();
+		header.addComponent(menu);
+		header.addComponent(toolbar);
 
 		toolbar.setMargin(true);
 		toolbar.setSpacing(true);
