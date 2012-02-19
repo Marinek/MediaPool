@@ -7,6 +7,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.FieldEvents.TextChangeEvent;
 import com.vaadin.event.FieldEvents.TextChangeListener;
@@ -20,6 +21,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.web.ui.adding.MovieEntryDetailListView;
 import de.mediapool.web.ui.adding.MovieEntryDetailView;
@@ -37,20 +39,16 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	private MediaList movieList;
 	private MovieEntryDetailListView moviePictures;
 
-	private boolean isReadOnly = true;
-
 	private TextField searchField;
+	private TextField saveField;
 
-	private Button newButton;
-	private Button deleteButton;
-	private Button editButton;
+	private Button saveButton;
 
 	private Button listButton;
 	private Button imageButton;
 
 	private String[] header_names;
 	private Object[] header_order;
-	private Object[] form_fields;
 
 	private VerticalLayout viewMode;
 
@@ -63,7 +61,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 		this.addListener((SplitterPositionChangedListener) this);
 
-		movieForm = new MediaForm(isReadOnly, this, form_fields);
+		movieForm = new MediaForm();
 		movieList = new MediaList(this, header_order, header_names);
 		moviePictures = new MovieEntryDetailListView(this);
 
@@ -98,8 +96,6 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 			Object mediaItem = getBeanItems().getBeanType().newInstance();
 			header_names = ((MediaInterface) mediaItem).header_names();
 			header_order = ((MediaInterface) mediaItem).header_order();
-			form_fields = ((MediaInterface) mediaItem).form_fields();
-			isReadOnly = ((MediaInterface) mediaItem).isReadOnly();
 		} catch (InstantiationException e) {
 			logger.error(e.getMessage());
 		} catch (IllegalAccessException e) {
@@ -109,25 +105,10 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 	private void createToolbar() {
 
-		newButton = new Button("Add");
-		// newButton.addListener(new Button.ClickListener() {
-		//
-		// @Override
-		// public void buttonClick(ClickEvent event) {
-		// final BeanItem<Movie> newMovieItem = new BeanItem<Movie>(new
-		// Movie(new Participation("actor",
-		// new PMember("test"))));
-		//
-		// movieForm.setMovieItem(newMovieItem);
-		// movieForm.addListener(new EditorSavedListener() {
-		// @Override
-		// public void editorSaved(EditorSavedEvent event) {
-		// movies.addEntity(newMovieItem.getBean());
-		// }
-		// });
-		//
-		// }
-		// });
+		listtoolbar = new HorizontalLayout();
+
+		saveButton = new Button("Save");
+		saveButton.addListener((ClickListener) this);
 
 		listButton = new Button("List");
 		listButton.addListener((ClickListener) this);
@@ -137,28 +118,10 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 		imageButton.setEnabled(true);
 		listButton.setEnabled(false);
 
-		deleteButton = new Button("Delete");
-		deleteButton.addListener(new Button.ClickListener() {
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				getBeanItems().removeItem(movieList.getValue());
-			}
-		});
-		deleteButton.setEnabled(false);
-
-		editButton = new Button("Edit");
-		editButton.addListener(new Button.ClickListener() {
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				movieForm.setItem(movieList.getItem(movieList.getValue()));
-			}
-		});
-		editButton.setEnabled(false);
+		saveField = new TextField();
 
 		searchField = new TextField();
-		searchField.setInputPrompt("Search by name");
+		searchField.setInputPrompt("Search by title");
 		searchField.addListener(new TextChangeListener() {
 
 			@Override
@@ -167,28 +130,21 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 				// updateFilters();
 			}
 		});
-		createListToolbar();
-	}
 
-	private void createListToolbar() {
-		listtoolbar = new HorizontalLayout();
-		listtoolbar.addComponent(newButton);
-		listtoolbar.addComponent(deleteButton);
-		listtoolbar.addComponent(editButton);
+		listtoolbar.addComponent(saveField);
+		listtoolbar.addComponent(saveButton);
 		listtoolbar.addComponent(listButton);
 		listtoolbar.addComponent(imageButton);
 		listtoolbar.addComponent(searchField);
 		listtoolbar.setWidth("100%");
 		listtoolbar.setExpandRatio(searchField, 1);
 		listtoolbar.setComponentAlignment(searchField, Alignment.TOP_RIGHT);
-
 	}
 
 	@Override
 	public void valueChange(ValueChangeEvent event) {
 		Property property = event.getProperty();
 		if (property == movieList) {
-			setModificationsEnabled(movieList.getValue() != null);
 			Item item = movieList.getItem(movieList.getValue());
 			if (item != movieForm.getItem()) {
 				movieForm.setItem(item);
@@ -198,11 +154,10 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 	@Override
 	public void layoutClick(LayoutClickEvent event) {
-		MovieEntryDetailView component = (MovieEntryDetailView) event.getClickedComponent();
-		setModificationsEnabled(component.getProductItem() != null);
-		Item item = component.getProductItem();
-		if (item != movieForm.getItem()) {
-			movieForm.setItem(item);
+		MovieEntryDetailView component = (MovieEntryDetailView) event.getComponent();
+		BeanItem<MediaInterface> mediaItem = component.getMediaItem();
+		if (mediaItem != movieForm.getItem()) {
+			movieForm.setBeanItem(mediaItem);
 		}
 	}
 
@@ -217,11 +172,6 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 	}
 
-	private void setModificationsEnabled(boolean b) {
-		deleteButton.setEnabled(b);
-		editButton.setEnabled(b);
-	}
-
 	public BeanItemContainer<MediaInterface> getBeanItems() {
 		return beanItems;
 	}
@@ -234,13 +184,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	public void buttonClick(ClickEvent event) {
 		final Button source = event.getButton();
 
-		if (source == newButton) {
-
-		}
-		if (source == deleteButton) {
-
-		}
-		if (source == editButton) {
+		if (source == saveButton) {
 
 		}
 		if (source == listButton) {
@@ -251,6 +195,10 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 		}
 
+	}
+
+	public MUser getMUser() {
+		return (MUser) getApplication().getUser();
 	}
 
 }

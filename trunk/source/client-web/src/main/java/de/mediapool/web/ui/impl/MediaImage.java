@@ -19,10 +19,10 @@ public class MediaImage extends Embedded implements ClickListener {
 
 	public MediaImage() {
 		addListener((com.vaadin.event.MouseEvents.ClickListener) this);
-		setWidth("200px");
+		setHeight("200px");
 
 		bigImage = new Embedded();
-		bigImage.setWidth("1024px");
+		bigImage.setHeight("600px");
 
 		// Create the window
 		subwindow = new Window("Cover");
@@ -53,10 +53,16 @@ public class MediaImage extends Embedded implements ClickListener {
 		subwindow.setCaption(title);
 	}
 
-	public void setFilename(String fileurl, String title) {
+	public void setFilename(String fileurl, String title, boolean intern) {
+		String thumbprefix = "";
+		String fullprefix = "";
 		this.requestRepaint();
 		setTitle(title);
-		this.setSource(new ExternalResource(THUMB_URL + fileurl));
-		bigImage.setSource(new ExternalResource(FULL_URL + fileurl));
+		if (intern) {
+			thumbprefix = THUMB_URL;
+			fullprefix = FULL_URL;
+		}
+		this.setSource(new ExternalResource(thumbprefix + fileurl));
+		bigImage.setSource(new ExternalResource(fullprefix + fileurl));
 	}
 }

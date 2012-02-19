@@ -26,7 +26,6 @@ import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
-import de.mediapool.web.ui.adding.NewMediaForm;
 import de.mediapool.web.ui.impl.MediaAccordion;
 import de.mediapool.web.ui.impl.MediaMenuBar;
 import de.mediapool.web.ui.login.MediaLoginForm;
@@ -65,8 +64,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	private Button musicButton;
 	private Button bookButton;
 
-	private NewMediaForm newMediaForm;
-
 	private VerticalSplitPanel leftSide;
 
 	private TextField searchField;
@@ -89,8 +86,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 		buildTree();
 		createToolbar();
-
-		newMediaForm = new NewMediaForm(this);
 
 		tabsheet = new TabSheet();
 		tabsheet.setHeight("100%");

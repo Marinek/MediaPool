@@ -1,7 +1,5 @@
 package de.mediapool.web.ui;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Component;
@@ -17,11 +16,18 @@ import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
-import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 
+import de.mediapool.core.domain.Holding;
+import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.MediaInterface;
+import de.mediapool.core.domain.Product;
+import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.core.domain.container.MovieHoldingEntry;
+import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.impl.MediaImage;
 
@@ -31,30 +37,32 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	private static final long serialVersionUID = 1L;
 
 	private Item item;
-	private Form editorForm;
+	private Form holdingForm;
+	private Form productForm;
+	private Form movieForm;
+
 	private Button saveButton;
 	private Button cancelButton;
 	private MediaImage image;
-	private Object[] formfields;
-
-	GridLayout grid;
 
 	@Autowired
 	private MediaService mediaService;
 
-	public MediaForm(boolean readOnly, MediaView mediaView, Object[] formfields) {
+	public MediaForm() {
 
 		// Class itemClass = mediaView.getBeanItems().getBeanType();
 		// itemClass.getClass();
-		grid = new GridLayout(2, 2);
-		addComponent(grid);
+		setMargin(true, false, false, true);
 
-		editorForm = new BeanValidationForm<MediaInterface>(MediaInterface.class);
-		editorForm.setFormFieldFactory(this);
-		editorForm.setWriteThrough(false);
-		editorForm.setImmediate(true);
-		editorForm.setReadOnly(true);
-		this.formfields = formfields;
+		VerticalLayout productView = new VerticalLayout();
+
+		holdingForm = new BeanValidationForm<MovieHoldingEntry>(MovieHoldingEntry.class);
+		productForm = new BeanValidationForm<MovieProductEntry>(MovieProductEntry.class);
+		movieForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
+
+		holdingForm.setFormFieldFactory(this);
+		holdingForm.setWriteThrough(false);
+		holdingForm.setImmediate(true);
 
 		saveButton = new Button("Save", this);
 		cancelButton = new Button("Cancel", this);
@@ -67,10 +75,16 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 
 		image = new MediaImage();
 
-		grid.addComponent(image, 0, 0);
-		grid.addComponent(editorForm, 1, 0);
+		productView.addComponent(image);
+		productView.addComponent(productForm);
 
-		editorForm.setFooter(footer);
+		holdingForm.setFooter(footer);
+
+		addComponent(productView);
+		addComponent(new Label(" "));
+		addComponent(movieForm);
+		addComponent(new Label(" "));
+		addComponent(holdingForm);
 
 	}
 
@@ -83,11 +97,11 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton() == saveButton) {
-			editorForm.commit();
-			// getMediaService().saveMovieEntry(item);
+			holdingForm.commit();
+			getMediaService().saveMovieHoldingEntry(item);
 			// fireEvent(new EditorSavedEvent(this, item));
 		} else if (event.getButton() == cancelButton) {
-			editorForm.discard();
+			holdingForm.discard();
 		}
 	}
 
@@ -106,56 +120,59 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		return field;
 	}
 
-	public void addListener(EditorSavedListener listener) {
-		try {
-			Method method = EditorSavedListener.class.getDeclaredMethod("editorSaved",
-					new Class[] { EditorSavedEvent.class });
-			addListener(EditorSavedEvent.class, listener, method);
-		} catch (final java.lang.NoSuchMethodException e) {
-			// This should never happen
-			throw new java.lang.RuntimeException("Internal error, editor saved method not found");
-		}
-	}
-
-	public void removeListener(EditorSavedListener listener) {
-		removeListener(EditorSavedEvent.class, listener);
-	}
-
-	public static class EditorSavedEvent extends Component.Event {
-
-		private static final long serialVersionUID = 1L;
-		private Item savedItem;
-
-		public EditorSavedEvent(Component source, Item savedItem) {
-			super(source);
-			this.savedItem = savedItem;
-		}
-
-		public Item getSavedItem() {
-			return savedItem;
-		}
-	}
-
-	public interface EditorSavedListener extends Serializable {
-		public void editorSaved(EditorSavedEvent event);
-	}
-
 	public Item getItem() {
 		return item;
 	}
 
 	public void setItem(Item item) {
-		editorForm.setItemDataSource(item, Arrays.asList(formfields));
-		editorForm.getFooter().setVisible(true);
+		holdingForm.getFooter().setVisible(loggedIn());
 		this.item = item;
 		changeImage();
 
 	}
 
+	public void setBeanItem(BeanItem<MediaInterface> selectedItem) {
+		Product product = ((MovieProductEntry) selectedItem.getBean()).getProduct();
+		BeanItem<MovieProductEntry> productItem = new BeanItem<MovieProductEntry>(new MovieProductEntry(product));
+		BeanItem<MovieEntry> movieItem = new BeanItem<MovieEntry>(new MovieEntry(product.getMovie()));
+		productForm.setItemDataSource(productItem, Arrays.asList(new MovieProductEntry().form_fields()));
+		movieForm.setItemDataSource(movieItem, Arrays.asList(new MovieEntry().form_fields()));
+		productForm.setReadOnly(true);
+		movieForm.setReadOnly(true);
+
+		if (loggedIn()) {
+			Holding holding = ((MovieHoldingEntry) selectedItem.getBean()).getHolding();
+			if (holding == null) {
+				holding = new Holding();
+				holding.setMuser(getMUser());
+				holding.setProduct(product);
+				MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
+				BeanItem<MovieHoldingEntry> holdingItem = new BeanItem<MovieHoldingEntry>(movieHoldingEntry);
+				holdingForm.setItemDataSource(holdingItem, Arrays.asList(movieHoldingEntry.form_fields()));
+				setItem(holdingItem);
+			} else {
+				holdingForm.setItemDataSource(selectedItem, Arrays.asList(new MovieHoldingEntry().form_fields()));
+				setItem(selectedItem);
+			}
+		} else {
+			setItem(selectedItem);
+		}
+
+	}
+
 	private void changeImage() {
+		Boolean localItem = false;
 		Property cover = item.getItemProperty("cover");
+		Property local = item.getItemProperty("local");
+
+		if (local != null) {
+			localItem = (Boolean) local.getValue();
+		}
+		if (cover == null) {
+			cover = item.getItemProperty("image");
+		}
 		Property title = item.getItemProperty("title");
-		image.setFilename(nullCheck(cover), nullCheck(title));
+		image.setFilename(nullCheck(cover), nullCheck(title), localItem);
 
 	}
 
@@ -175,4 +192,38 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		this.mediaService = mediaService;
 	}
 
+	private MUser getMUser() {
+		return (MUser) getApplication().getUser();
+	}
+
+	private boolean loggedIn() {
+		return getMUser() != null;
+	}
+
+	/*
+	 * unused ?
+	 * 
+	 * public void addListener(EditorSavedListener listener) { try { Method
+	 * method = EditorSavedListener.class.getDeclaredMethod("editorSaved", new
+	 * Class[] { EditorSavedEvent.class }); addListener(EditorSavedEvent.class,
+	 * listener, method); } catch (final java.lang.NoSuchMethodException e) { //
+	 * This should never happen throw new
+	 * java.lang.RuntimeException("Internal error, editor saved method not found"
+	 * ); } }
+	 * 
+	 * public void removeListener(EditorSavedListener listener) {
+	 * removeListener(EditorSavedEvent.class, listener); }
+	 * 
+	 * public static class EditorSavedEvent extends Component.Event {
+	 * 
+	 * private static final long serialVersionUID = 1L; private Item savedItem;
+	 * 
+	 * public EditorSavedEvent(Component source, Item savedItem) {
+	 * super(source); this.savedItem = savedItem; }
+	 * 
+	 * public Item getSavedItem() { return savedItem; } }
+	 * 
+	 * public interface EditorSavedListener extends Serializable { public void
+	 * editorSaved(EditorSavedEvent event); }
+	 */
 }

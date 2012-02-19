@@ -30,7 +30,7 @@ public class MovieProductEntry extends MovieEntry implements Serializable {
 
 	@Override
 	public Object[] form_fields() {
-		return new Object[] { "title", "genre", "carrier" };
+		return new Object[] { "special", "price", "carrier" };
 	}
 
 	public MovieProductEntry(Product product) {

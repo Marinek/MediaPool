@@ -116,11 +116,54 @@ public class MediaService implements Serializable {
 		private static final long serialVersionUID = 1L;
 	}
 
-	public BeanItemContainer<MovieProductEntry> searchMovieProducts(String search, String media) {
-		BeanItemContainer<MovieProductEntry> movieProductEntries = searchMovieProductsDB(search, media);
-		if (movieProductEntries.size() == 0) {
-			movieProductEntries = searchMovieProductsWeb(search, media);
+	private boolean eanSearch(String search) {
+		boolean eansearch;
+		try {
+			Long.parseLong(search);
+			eansearch = true;
+		} catch (NumberFormatException e) {
+			eansearch = false;
 		}
+		return eansearch;
+
+	}
+
+	public BeanItemContainer<MovieProductEntry> searchMovieProducts(String search, String media) {
+		BeanItemContainer<MovieProductEntry> movieProductEntries;
+		if (eanSearch(search)) {
+			movieProductEntries = searchMovieProductsEanDB(search, media);
+			if (movieProductEntries.size() == 0) {
+				movieProductEntries = searchMovieProductsEanWeb(search, media);
+			}
+		} else {
+			movieProductEntries = searchMovieProductsDB(search, media);
+			if (movieProductEntries.size() == 0) {
+				movieProductEntries = searchMovieProductsWeb(search, media);
+			}
+		}
+		return movieProductEntries;
+	}
+
+	public BeanItemContainer<MovieProductEntry> searchMovieProductsEanWeb(String search, String media) {
+		BeanItemContainer<MovieProductEntry> movieProductEntries = new BeanItemContainer<MovieProductEntry>(
+				MovieProductEntry.class);
+		Product product = getDataGrabber().searchEanProduct(search);
+		movieProductEntries.addBean(new MovieProductEntry(product));
+
+		return movieProductEntries;
+	}
+
+	public BeanItemContainer<MovieProductEntry> searchMovieProductsEanDB(String search, String media) {
+		BeanItemContainer<MovieProductEntry> movieProductEntries = new BeanItemContainer<MovieProductEntry>(
+				MovieProductEntry.class);
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		Query q = em.createQuery("SELECT p FROM Product p where p.ean=:ean");
+		q.setParameter("ean", search);
+		for (Object productEntry : q.getResultList()) {
+			movieProductEntries.addBean(new MovieProductEntry((Product) productEntry));
+		}
+		em.getTransaction().commit();
 		return movieProductEntries;
 	}
 
@@ -223,6 +266,7 @@ public class MediaService implements Serializable {
 
 			Set<Participation> participations = new HashSet<Participation>();
 			participations.add(part);
+			movie.setLocal(true);
 			movie.setParticipation(participations);
 
 			Product product = new Product();
@@ -249,7 +293,7 @@ public class MediaService implements Serializable {
 			Set<Participation> participations = new HashSet<Participation>();
 			participations.add(part);
 			movie.setParticipation(participations);
-
+			movie.setLocal(true);
 			Product product = new Product();
 			product.setCarrier("DVD");
 			product.setMovie(movie);
