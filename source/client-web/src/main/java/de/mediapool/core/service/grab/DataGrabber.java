@@ -168,7 +168,9 @@ public class DataGrabber implements Serializable {
 		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem
 		// Suchtitel
 		// entspricht
-		title1 = title1.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
+		if (title1 != null) {
+			title1 = title1.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
+		}
 		title2 = title2.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
 		return title1.contains(title2);
 	}
@@ -731,7 +733,10 @@ public class DataGrabber implements Serializable {
 		// url =
 		// "http://www.buch.de/shop/bde_dvd_hg_startseite/suchartikel/al_pacino_box/richard_price/EAN5050582703320/ID17631676.html?jumpId=6796933";
 		try {
-			Document doc = Jsoup.parse(new URL(url).openStream(), "UTF-8", url);
+			// Document doc = Jsoup.parse(new URL(url).openStream(), "UTF-8",
+			// url);
+
+			Document doc = Jsoup.connect(url).userAgent("Mozilla").timeout(10 * 1000).get();
 
 			Elements titleClass = doc.getElementsByClass("pm_titel");
 			Elements utitleClass = doc.getElementsByClass("pm_untertitel");
@@ -873,6 +878,7 @@ public class DataGrabber implements Serializable {
 			}
 
 		}
+		movie.setLocal(false);
 		movie.setParticipation(parts);
 		product.setMovie(movie);
 

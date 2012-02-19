@@ -27,7 +27,7 @@ public class MovieEntry implements Serializable, MediaInterface {
 
 	@Override
 	public Object[] form_fields() {
-		return new Object[] { "title", "genre" };
+		return new Object[] { "title", "genre", "launchyear", "duration", "approvedage", "description" };
 	}
 
 	@Override
@@ -129,6 +129,14 @@ public class MovieEntry implements Serializable, MediaInterface {
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
+	}
+
+	public boolean isLocal() {
+		return movie.isLocal();
+	}
+
+	public void setLocal(boolean local) {
+		movie.setLocal(local);
 	}
 
 }

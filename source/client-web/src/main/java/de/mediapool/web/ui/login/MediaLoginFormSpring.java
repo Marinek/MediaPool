@@ -69,18 +69,6 @@ public class MediaLoginFormSpring extends Form implements FormFieldFactory, Clic
 		}
 	}
 
-	// below is all about events & handling them
-
-	private static final Method LOGGEDIN_METHOD;
-	static {
-		try {
-			LOGGEDIN_METHOD = LoggedinListener.class.getDeclaredMethod("loggedin", new Class[] { LoggedinEvent.class });
-		} catch (NoSuchMethodException e) {
-			// This should never happen
-			throw new java.lang.RuntimeException("Internal error finding methods in Button");
-		}
-	}
-
 	@Override
 	public Field createField(Item item, Object propertyId, Component uiContext) {
 		String pid = (String) propertyId;
@@ -94,6 +82,18 @@ public class MediaLoginFormSpring extends Form implements FormFieldFactory, Clic
 			return tf;
 		}
 		return null;
+	}
+
+	// below is all about events & handling them
+
+	private static final Method LOGGEDIN_METHOD;
+	static {
+		try {
+			LOGGEDIN_METHOD = LoggedinListener.class.getDeclaredMethod("loggedin", new Class[] { LoggedinEvent.class });
+		} catch (NoSuchMethodException e) {
+			// This should never happen
+			throw new java.lang.RuntimeException("Internal error finding methods in Button");
+		}
 	}
 
 	public class LoggedinEvent extends Component.Event {

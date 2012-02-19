@@ -48,6 +48,8 @@ public class Media implements Serializable, MediaInterface {
 
 	private int approvedage;
 
+	private boolean local;
+
 	@Version
 	@Column(name = "version")
 	private Integer version;
@@ -201,6 +203,14 @@ public class Media implements Serializable, MediaInterface {
 
 	public void setApprovedage(int approvedage) {
 		this.approvedage = approvedage;
+	}
+
+	public boolean isLocal() {
+		return local;
+	}
+
+	public void setLocal(boolean local) {
+		this.local = local;
 	}
 
 }

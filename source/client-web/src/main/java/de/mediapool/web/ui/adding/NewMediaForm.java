@@ -5,14 +5,12 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
-import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.MediaMainView;
 
@@ -71,18 +69,9 @@ public class NewMediaForm extends VerticalLayout implements ClickListener, Value
 			detailView.fillView();
 		}
 		if (source == nextButton) {
-			switchToHolding();
+
 		}
 
-	}
-
-	private void switchToHolding() {
-		removeAllComponents();
-		BeanItem<MediaInterface> productItem = detailView.getCheckedProduct();
-		// BeanItemContainer<MediaInterface> productItems =
-		// detailView.getCheckedProducts();
-
-		addComponent(new NewHoldingForm(productItem));
 	}
 
 	// private void addProduct(Product product) {
