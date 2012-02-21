@@ -251,7 +251,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		final Button source = event.getButton();
 
 		if (source == searchButton) {
-			productList = getMediaService().searchMovieProducts((String) searchField.getValue(), "Blu-ray");
+			productList = getMediaService().searchMovieProducts((String) searchField.getValue());
 			addListTab(productList, "Suche " + searchField.getValue());
 		} else if (source == musicButton) {
 		} else if (source == movieButton) {

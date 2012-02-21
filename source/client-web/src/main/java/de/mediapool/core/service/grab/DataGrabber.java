@@ -93,7 +93,7 @@ public class DataGrabber implements Serializable {
 
 	}
 
-	public List<Product> searchMovieProducts(String search, String media) {
+	public List<Product> searchMovieProducts(String search) {
 		List<TreeMap<String, String>> productDataMap = new ArrayList<TreeMap<String, String>>();
 		List<String> pageurls = getLinksFromBuch(search, "FILM", false);
 		List<Product> products = new ArrayList<Product>();
@@ -888,7 +888,7 @@ public class DataGrabber implements Serializable {
 	}
 
 	private String cutLanguage(String longString) {
-		if (longString.contains("... i ")) {
+		if (longString != null && longString.contains("... i ")) {
 			longString = longString.split("... i ")[1];
 		}
 		return longString;

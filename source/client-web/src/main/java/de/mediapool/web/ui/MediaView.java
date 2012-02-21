@@ -3,7 +3,6 @@ package de.mediapool.web.ui;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
@@ -21,8 +20,8 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
+import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.MUser;
-import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.web.ui.adding.MovieEntryDetailListView;
 import de.mediapool.web.ui.adding.MovieEntryDetailView;
 import de.mediapool.web.ui.impl.SplitPanelImpl;
@@ -49,6 +48,10 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 	private String[] header_names;
 	private Object[] header_order;
+
+	// TODO IMPLEMENT
+	// QueryString
+	// Product or Movie Type
 
 	private VerticalLayout viewMode;
 
@@ -145,10 +148,8 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	public void valueChange(ValueChangeEvent event) {
 		Property property = event.getProperty();
 		if (property == movieList) {
-			Item item = movieList.getItem(movieList.getValue());
-			if (item != movieForm.getItem()) {
-				movieForm.setItem(item);
-			}
+			movieForm.setBeanItem(getBeanItems().getItem(movieList.getValue()));
+
 		}
 	}
 

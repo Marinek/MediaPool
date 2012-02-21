@@ -15,6 +15,8 @@ import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
+import de.mediapool.core.MediaInterface;
+
 @SuppressWarnings("serial")
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

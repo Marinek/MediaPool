@@ -22,6 +22,7 @@ public class Product implements Serializable {
 
 	private double price;
 
+	// TODO refactor to long
 	private String ean;
 
 	private String special;

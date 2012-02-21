@@ -3,7 +3,7 @@ package de.mediapool.core.domain.container;
 import java.io.Serializable;
 import java.util.Set;
 
-import de.mediapool.core.domain.MediaInterface;
+import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Participation;
 
