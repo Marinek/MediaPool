@@ -1,6 +1,8 @@
 package de.mediapool.web.ui;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -11,6 +13,7 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DefaultFieldFactory;
 import com.vaadin.ui.Field;
@@ -18,12 +21,14 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.Window.Notification;
 
+import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.Holding;
 import de.mediapool.core.domain.MUser;
-import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.core.domain.Product;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
@@ -32,60 +37,88 @@ import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.impl.MediaImage;
 
 @Configurable
-public class MediaForm extends HorizontalLayout implements Button.ClickListener, FormFieldFactory {
+public class MediaForm extends VerticalLayout implements Button.ClickListener, FormFieldFactory {
 
 	private static final long serialVersionUID = 1L;
 
-	private Item item;
+	BeanItem<MediaInterface> item;
 	private Form holdingForm;
 	private Form productForm;
 	private Form movieForm;
 
 	private Button saveButton;
 	private Button cancelButton;
+	private Button addButton;
+	private Button removeButton;
+
+	private Label title = new Label();
+	private Label subtitle = new Label();
+
+	private boolean initialzied = false;
+
 	private MediaImage image;
+
+	List<String> knownvalues;
+	List<String> situationvalues;
 
 	@Autowired
 	private MediaService mediaService;
 
 	public MediaForm() {
 
-		// Class itemClass = mediaView.getBeanItems().getBeanType();
-		// itemClass.getClass();
+		title.setStyleName("titleheader");
+
 		setMargin(true, false, false, true);
 
 		VerticalLayout productView = new VerticalLayout();
+		HorizontalLayout formView = new HorizontalLayout();
 
 		holdingForm = new BeanValidationForm<MovieHoldingEntry>(MovieHoldingEntry.class);
 		productForm = new BeanValidationForm<MovieProductEntry>(MovieProductEntry.class);
 		movieForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
 
+		productForm.setFormFieldFactory(this);
 		holdingForm.setFormFieldFactory(this);
+		movieForm.setFormFieldFactory(this);
+
 		holdingForm.setWriteThrough(false);
 		holdingForm.setImmediate(true);
 
 		saveButton = new Button("Save", this);
 		cancelButton = new Button("Cancel", this);
+		addButton = new Button("Add", this);
+		removeButton = new Button("Remove", this);
 
 		HorizontalLayout footer = new HorizontalLayout();
 		footer.setSpacing(true);
 		footer.addComponent(saveButton);
 		footer.addComponent(cancelButton);
 		footer.setVisible(false);
+		holdingForm.setFooter(footer);
 
 		image = new MediaImage();
 
 		productView.addComponent(image);
 		productView.addComponent(productForm);
 
-		holdingForm.setFooter(footer);
+		formView.addComponent(productView);
+		formView.addComponent(new Label(" "));
+		formView.addComponent(movieForm);
+		formView.addComponent(new Label(" "));
+		formView.addComponent(holdingForm);
 
-		addComponent(productView);
-		addComponent(new Label(" "));
-		addComponent(movieForm);
-		addComponent(new Label(" "));
-		addComponent(holdingForm);
+		addComponent(title);
+		addComponent(subtitle);
+		addComponent(formView);
+	}
 
+	// TODO move in central Area of Application
+	private void initFieldValues() {
+		if (!initialzied) {
+			knownvalues = getMediaService().getMpresetsFor("known");
+			situationvalues = getMediaService().getMpresetsFor("situation");
+			initialzied = true;
+		}
 	}
 
 	/*
@@ -99,6 +132,7 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		if (event.getButton() == saveButton) {
 			holdingForm.commit();
 			getMediaService().saveMovieHoldingEntry(item);
+			getWindow().showNotification("Saved Successfully", Notification.TYPE_HUMANIZED_MESSAGE);
 			// fireEvent(new EditorSavedEvent(this, item));
 		} else if (event.getButton() == cancelButton) {
 			holdingForm.discard();
@@ -113,7 +147,30 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	 */
 	@Override
 	public Field createField(Item item, Object propertyId, Component uiContext) {
+		initFieldValues();
+		String pid = (String) propertyId;
 		Field field = DefaultFieldFactory.get().createField(item, propertyId, uiContext);
+		if (pid.equals("description")) {
+			TextArea descField = new TextArea();
+			descField.setInputPrompt("Hint");
+			descField.setHeight("200px");
+			descField.setNullRepresentation("");
+			return descField;
+		}
+		if (pid.equals("situation")) {
+			ComboBox situationBox = new ComboBox("Situation");
+			for (String sit : situationvalues) {
+				situationBox.addItem(sit);
+			}
+			return situationBox;
+		}
+		if (pid.equals("knowm")) {
+			ComboBox knownBox = new ComboBox("Known");
+			for (String sit : knownvalues) {
+				knownBox.addItem(sit);
+			}
+			return knownBox;
+		}
 		if (field instanceof TextField) {
 			((TextField) field).setNullRepresentation("");
 		}
@@ -124,11 +181,25 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		return item;
 	}
 
-	public void setItem(Item item) {
-		holdingForm.getFooter().setVisible(loggedIn());
+	public void setItem(BeanItem<MediaInterface> item) {
 		this.item = item;
-		changeImage();
+		refreshForm();
 
+	}
+
+	private void refreshForm() {
+		Collection form_fields = Arrays.asList(new MovieHoldingEntry().form_fields());
+		holdingForm.getFooter().setVisible(loggedIn());
+		holdingForm.setItemDataSource(getItem(), form_fields);
+		changeImage();
+		setTitle();
+	}
+
+	// TODO find better way
+	private boolean isHolding(BeanItem<MediaInterface> selectedItem) {
+		String classname = "de.mediapool.core.domain.container.MovieHoldingEntry";
+		String itemname = selectedItem.getBean().getClass().getName();
+		return classname.equals(itemname);
 	}
 
 	public void setBeanItem(BeanItem<MediaInterface> selectedItem) {
@@ -141,18 +212,17 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 		movieForm.setReadOnly(true);
 
 		if (loggedIn()) {
-			Holding holding = ((MovieHoldingEntry) selectedItem.getBean()).getHolding();
-			if (holding == null) {
+			Holding holding;
+			if (isHolding(selectedItem)) {
+				holding = ((MovieHoldingEntry) selectedItem.getBean()).getHolding();
+				setItem(selectedItem);
+			} else {
 				holding = new Holding();
 				holding.setMuser(getMUser());
 				holding.setProduct(product);
 				MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
-				BeanItem<MovieHoldingEntry> holdingItem = new BeanItem<MovieHoldingEntry>(movieHoldingEntry);
-				holdingForm.setItemDataSource(holdingItem, Arrays.asList(movieHoldingEntry.form_fields()));
+				BeanItem<MediaInterface> holdingItem = new BeanItem<MediaInterface>(movieHoldingEntry);
 				setItem(holdingItem);
-			} else {
-				holdingForm.setItemDataSource(selectedItem, Arrays.asList(new MovieHoldingEntry().form_fields()));
-				setItem(selectedItem);
 			}
 		} else {
 			setItem(selectedItem);
@@ -161,27 +231,14 @@ public class MediaForm extends HorizontalLayout implements Button.ClickListener,
 	}
 
 	private void changeImage() {
-		Boolean localItem = false;
-		Property cover = item.getItemProperty("cover");
-		Property local = item.getItemProperty("local");
-
-		if (local != null) {
-			localItem = (Boolean) local.getValue();
-		}
-		if (cover == null) {
-			cover = item.getItemProperty("image");
-		}
-		Property title = item.getItemProperty("title");
-		image.setFilename(nullCheck(cover), nullCheck(title), localItem);
-
+		image.setMediaItem(item);
 	}
 
-	private String nullCheck(Property check) {
-		String string = "";
-		if (check != null) {
-			string = (String) check.getValue();
+	private void setTitle() {
+		Property titleprop = item.getItemProperty("title");
+		if (titleprop != null) {
+			title.setValue((String) titleprop.getValue());
 		}
-		return string;
 	}
 
 	public MediaService getMediaService() {

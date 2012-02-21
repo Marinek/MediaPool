@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import de.mediapool.core.domain.MediaInterface;
+import de.mediapool.core.MediaInterface;
 
 @Entity
 @Table(name = "Filme")

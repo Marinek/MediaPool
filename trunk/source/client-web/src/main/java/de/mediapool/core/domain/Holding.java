@@ -18,6 +18,7 @@ import javax.persistence.Version;
 @Entity
 public class Holding implements Serializable {
 
+	// TODO RENAME TO known
 	private String knowm;
 
 	private Boolean visible;
@@ -48,6 +49,9 @@ public class Holding implements Serializable {
 	@Version
 	@Column(name = "version")
 	private Integer version;
+
+	public Holding() {
+	}
 
 	public Long getId() {
 		return this.id;

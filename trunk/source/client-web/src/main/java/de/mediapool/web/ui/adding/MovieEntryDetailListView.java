@@ -5,8 +5,8 @@ import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 
+import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.MUser;
-import de.mediapool.core.domain.MediaInterface;
 import de.mediapool.web.ui.MediaView;
 
 @SuppressWarnings("serial")

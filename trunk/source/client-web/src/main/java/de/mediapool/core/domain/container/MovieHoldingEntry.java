@@ -27,7 +27,7 @@ public class MovieHoldingEntry extends MovieProductEntry implements Serializable
 
 	@Override
 	public Object[] form_fields() {
-		return new Object[] { "knowm", "since", "lastUsed", "situation", "visible", "inventoryplace", "inventorynumber" };
+		return new Object[] { "knowm", "since", "lastUsed", "situation", "visible" };
 	}
 
 	public MovieHoldingEntry(Holding holding) {
