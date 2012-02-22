@@ -29,8 +29,10 @@ import com.vaadin.ui.Window.Notification;
 import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.Holding;
 import de.mediapool.core.domain.MUser;
+import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Product;
 import de.mediapool.core.domain.container.MovieEntry;
+import de.mediapool.core.domain.container.MovieEntryType;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
@@ -41,7 +43,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 
 	private static final long serialVersionUID = 1L;
 
-	BeanItem<MediaInterface> item;
+	private BeanItem<MediaInterface> item;
 	private Form holdingForm;
 	private Form productForm;
 	private Form movieForm;
@@ -177,7 +179,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		return field;
 	}
 
-	public Item getItem() {
+	public BeanItem<MediaInterface> getItem() {
 		return item;
 	}
 
@@ -188,9 +190,6 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	}
 
 	private void refreshForm() {
-		Collection form_fields = Arrays.asList(new MovieHoldingEntry().form_fields());
-		holdingForm.getFooter().setVisible(loggedIn());
-		holdingForm.setItemDataSource(getItem(), form_fields);
 		changeImage();
 		setTitle();
 	}
@@ -202,32 +201,59 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		return classname.equals(itemname);
 	}
 
-	public void setBeanItem(BeanItem<MediaInterface> selectedItem) {
+	public void setBeanItem(BeanItem<MediaInterface> selectedItem, MovieEntryType type) {
+		switch (type) {
+		case MOVIEHOLDINGENTRY:
+			setMovieHoldingEntry(selectedItem);
+			break;
+		case MOVIEENTRY:
+			setMovieEntry(selectedItem);
+			break;
+		case MOVIEPRODUCTENTRY:
+			setMovieProductEntry(selectedItem);
+			break;
+		}
+		setItem(selectedItem);
+	}
+
+	private void setMovieEntry(BeanItem<MediaInterface> selectedItem) {
+		Movie movie = ((MovieEntry) selectedItem.getBean()).getMovie();
+		BeanItem<MovieEntry> movieItem = new BeanItem<MovieEntry>(new MovieEntry(movie));
+		movieForm.setItemDataSource(movieItem, Arrays.asList(new MovieEntry().form_fields()));
+		movieForm.setReadOnly(true);
+	}
+
+	private void setMovieHoldingEntry(BeanItem<MediaInterface> selectedItem) {
+		if (loggedIn()) {
+			MovieHoldingEntry movieHoldingEntry = ((MovieHoldingEntry) selectedItem.getBean());
+			Holding holding = movieHoldingEntry.getHolding();
+			Collection form_fields = Arrays.asList(movieHoldingEntry.form_fields());
+			boolean owned = holding.getMuser().equals(getMUser());
+			holdingForm.getFooter().setVisible(owned);
+			holdingForm.setReadOnly(owned);
+			holdingForm.setItemDataSource(selectedItem, form_fields);
+		}
+		setMovieProductEntry(selectedItem);
+
+	}
+
+	private void setMovieProductEntry(BeanItem<MediaInterface> selectedItem) {
 		Product product = ((MovieProductEntry) selectedItem.getBean()).getProduct();
 		BeanItem<MovieProductEntry> productItem = new BeanItem<MovieProductEntry>(new MovieProductEntry(product));
-		BeanItem<MovieEntry> movieItem = new BeanItem<MovieEntry>(new MovieEntry(product.getMovie()));
 		productForm.setItemDataSource(productItem, Arrays.asList(new MovieProductEntry().form_fields()));
-		movieForm.setItemDataSource(movieItem, Arrays.asList(new MovieEntry().form_fields()));
 		productForm.setReadOnly(true);
-		movieForm.setReadOnly(true);
+		setMovieEntry(selectedItem);
+	}
 
-		if (loggedIn()) {
-			Holding holding;
-			if (isHolding(selectedItem)) {
-				holding = ((MovieHoldingEntry) selectedItem.getBean()).getHolding();
-				setItem(selectedItem);
-			} else {
-				holding = new Holding();
-				holding.setMuser(getMUser());
-				holding.setProduct(product);
-				MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
-				BeanItem<MediaInterface> holdingItem = new BeanItem<MediaInterface>(movieHoldingEntry);
-				setItem(holdingItem);
-			}
-		} else {
-			setItem(selectedItem);
-		}
-
+	private void addProduct() {
+		Product product = ((MovieProductEntry) getItem().getBean()).getProduct();
+		Holding holding = new Holding();
+		holding.setMuser(getMUser());
+		holding.setProduct(product);
+		MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
+		BeanItem<MediaInterface> holdingItem = new BeanItem<MediaInterface>(movieHoldingEntry);
+		setMovieHoldingEntry(holdingItem);
+		setItem(holdingItem);
 	}
 
 	private void changeImage() {

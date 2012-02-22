@@ -1,5 +1,6 @@
  @import url(../runo/styles.css);
-/* Using the old default theme (runo) as the basis for now */
+
+/* Using the old default theme (runo) as the basis for now @import url("runostyles.css");*/
 
 /* Add some padding to the tree */
 .v-tree {
@@ -7,7 +8,7 @@
       padding-left: 4px;
 }
 
-.toolbar .v-button {
+.listtoolbar .v-button {
       display: block;
       width: 65px;
       height: 65px;
@@ -16,14 +17,14 @@
       text-align: center;
 }
  
-.toolbar .v-button img {
+.listtoolbar .v-icon img {
       display: block;
       margin-left: auto;
       margin-right: auto;
       margin-bottom: 5px;
 }
 
-.toolbar .v-button span {
+.listtoolbar .v-button-wrap span {
       font-size: x-small;
       text-shadow: #fafafa 1px 1px 0;
 }

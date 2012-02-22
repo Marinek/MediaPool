@@ -2,7 +2,6 @@ package de.mediapool.web.ui;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -21,10 +20,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.themes.BaseTheme;
 
 import de.mediapool.core.domain.MUser;
-import de.mediapool.core.domain.Movie;
-import de.mediapool.core.domain.container.MovieEntry;
-import de.mediapool.core.domain.container.MovieHoldingEntry;
-import de.mediapool.core.domain.container.MovieProductEntry;
+import de.mediapool.core.domain.container.MovieContainer;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.impl.MediaAccordion;
 import de.mediapool.web.ui.impl.MediaMenuBar;
@@ -40,10 +36,10 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private MediaAccordion accordion;
 
-	private BeanItemContainer<Movie> movies;
-	private BeanItemContainer<MovieEntry> movieEntrys;
+	private MovieContainer movies;
+	private MovieContainer movieEntrys;
 
-	private BeanItemContainer<MovieProductEntry> productList;
+	private MovieContainer productList;
 
 	// private BeanItemContainer<Filme> filme;
 
@@ -227,8 +223,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		logoutform.addComponent(logoutLink);
 		leftSide.setFirstComponent(logoutform);
 		getApplication().setUser(user);
-		BeanItemContainer<MovieHoldingEntry> movieHoldingEntrys = getMediaService().getUserMovieEntrys(user);
-		addListTab(movieHoldingEntrys, "Meine Filme");
+		meineFilme();
 	}
 
 	private void logout() {
@@ -236,14 +231,20 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		getApplication().setUser(null);
 	}
 
-	private void addListTab(BeanItemContainer beanitems, String caption) {
-		if (beanitems != null) {
-			MediaView searchView = new MediaView(beanitems);
-			String newCaption = caption + " (" + beanitems.getItemIds().size() + ")";
+	private void addListTab(MovieContainer movieitems, String caption) {
+		if (movieitems != null) {
+			MediaView searchView = new MediaView(movieitems);
+			String newCaption = caption + " (" + movieitems.getItemIds().size() + ")";
 			tabsheet.addTab(searchView, newCaption);
 			tabsheet.setSelectedTab(searchView);
 			tabsheet.getTab(searchView).setClosable(true);
 		}
+	}
+
+	private void meineFilme() {
+		MovieContainer movieHoldingEntrys = getMediaService().getUserMovieEntrys(getMUser());
+		addListTab(movieHoldingEntrys, "Meine Filme");
+
 	}
 
 	@Override
@@ -255,8 +256,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 			addListTab(productList, "Suche " + searchField.getValue());
 		} else if (source == musicButton) {
 		} else if (source == movieButton) {
-			BeanItemContainer<MovieHoldingEntry> movieHoldingEntrys = getMediaService().getUserMovieEntrys(getMUser());
-			addListTab(movieHoldingEntrys, "Meine Filme");
+			meineFilme();
 		} else if (source == bookButton) {
 		} else if (source == gameButton) {
 		} else if (source == boardgameButton) {

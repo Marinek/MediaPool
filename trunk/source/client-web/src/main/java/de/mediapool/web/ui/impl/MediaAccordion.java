@@ -11,9 +11,9 @@ import com.vaadin.ui.TabSheet.Tab;
 @SuppressWarnings("serial")
 public class MediaAccordion extends HorizontalLayout implements Accordion.SelectedTabChangeListener {
 
-	private static final ThemeResource icon1 = new ThemeResource("../sampler/icons/action_save.gif");
-	private static final ThemeResource icon2 = new ThemeResource("../sampler/icons/comment_yellow.gif");
-	private static final ThemeResource icon3 = new ThemeResource("../sampler/icons/icon_info.gif");
+	private static final ThemeResource icon1 = new ThemeResource("icons/new/16/hands.png");
+	private static final ThemeResource icon2 = new ThemeResource("icons/new/16/people.png");
+	private static final ThemeResource icon3 = new ThemeResource("icons/new/16/product.png");
 
 	private Accordion a;
 

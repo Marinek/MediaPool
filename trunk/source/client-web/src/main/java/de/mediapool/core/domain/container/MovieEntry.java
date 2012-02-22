@@ -11,6 +11,8 @@ import de.mediapool.core.domain.Participation;
 public class MovieEntry implements Serializable, MediaInterface {
 	private Movie movie;
 
+	public static final MovieEntryType entryType = MovieEntryType.MOVIEENTRY;
+
 	public MovieEntry() {
 
 	}
