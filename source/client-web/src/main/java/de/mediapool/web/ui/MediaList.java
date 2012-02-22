@@ -10,7 +10,7 @@ public class MediaList extends Table {
 	public MediaList(MediaView view, Object[] header_order, String[] header_names) {
 
 		setSizeFull();
-		setContainerDataSource(view.getBeanItems());
+		setContainerDataSource(view.getMovieItems());
 
 		setColumnCollapsingAllowed(true);
 		setColumnReorderingAllowed(true);

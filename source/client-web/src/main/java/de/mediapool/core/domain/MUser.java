@@ -104,4 +104,31 @@ public class MUser implements Serializable {
 		this.mrelated = mrelated;
 	}
 
+	@Override
+	public int hashCode() {
+		int result = 17;
+		result = 31 * result + email.hashCode();
+		result = 31 * result + username.hashCode();
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		MUser muser;
+		if (obj instanceof MUser) {
+			muser = (MUser) obj;
+		} else {
+			return false;
+		}
+
+		if (!(this.email.equalsIgnoreCase(muser.email))) {
+			return false;
+		}
+		if (this.username != muser.username) {
+			return false;
+		}
+
+		return true;
+	}
+
 }

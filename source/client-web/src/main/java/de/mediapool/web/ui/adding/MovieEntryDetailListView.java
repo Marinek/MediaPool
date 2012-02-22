@@ -1,12 +1,12 @@
 package de.mediapool.web.ui.adding;
 
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.MUser;
+import de.mediapool.core.domain.container.MovieContainer;
 import de.mediapool.web.ui.MediaView;
 
 @SuppressWarnings("serial")
@@ -50,8 +50,8 @@ public class MovieEntryDetailListView extends VerticalLayout {
 
 	}
 
-	public BeanItemContainer<MediaInterface> getProductList() {
-		return view.getBeanItems();
+	public MovieContainer getProductList() {
+		return view.getMovieItems();
 	}
 
 	private boolean loggedIn() {
