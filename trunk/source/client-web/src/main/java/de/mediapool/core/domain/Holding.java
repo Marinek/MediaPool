@@ -31,10 +31,9 @@ public class Holding implements Serializable {
 
 	private String situation;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Product product;
 
-	@ManyToOne(cascade = CascadeType.ALL)
 	private MUser muser;
 
 	private String inventoryplace;

@@ -250,6 +250,17 @@ public class MediaService implements Serializable {
 
 	}
 
+	public void removeMovieHoldingEntry(Item item) {
+		BeanItem<MovieHoldingEntry> newMovieEntryItem = (BeanItem<MovieHoldingEntry>) item;
+		Holding holding = newMovieEntryItem.getBean().getHolding();
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		Holding toRemove = em.merge(holding);
+		em.remove(toRemove);
+		em.getTransaction().commit();
+
+	}
+
 	public void addProductToUser(Product product, MUser muser) {
 		Holding holding = new Holding();
 		holding.setProduct(product);
