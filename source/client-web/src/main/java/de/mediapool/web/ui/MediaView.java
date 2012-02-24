@@ -66,7 +66,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 		this.addListener((SplitterPositionChangedListener) this);
 
-		movieForm = new MediaForm();
+		movieForm = new MediaForm(this);
 		movieList = new MediaList(this, header_order, header_names);
 		moviePictures = new MovieEntryDetailListView(this);
 
@@ -146,7 +146,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	public void valueChange(ValueChangeEvent event) {
 		Property property = event.getProperty();
 		if (property == movieList) {
-			movieForm.setBeanItem(getMovieItems().getItem(movieList.getValue()), getMovieItems().getEntryType());
+			movieForm.setMediaItem(getMovieItems().getItem(movieList.getValue()), getMovieItems().getEntryType());
 
 		}
 	}
@@ -155,8 +155,8 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	public void layoutClick(LayoutClickEvent event) {
 		MovieEntryDetailView component = (MovieEntryDetailView) event.getComponent();
 		BeanItem<MediaInterface> mediaItem = component.getMediaItem();
-		if (mediaItem != movieForm.getItem()) {
-			movieForm.setBeanItem(mediaItem, getMovieItems().getEntryType());
+		if (mediaItem != movieForm.getMediaItem()) {
+			movieForm.setMediaItem(mediaItem, getMovieItems().getEntryType());
 		}
 	}
 

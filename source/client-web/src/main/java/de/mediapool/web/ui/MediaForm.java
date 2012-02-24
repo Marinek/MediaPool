@@ -2,6 +2,7 @@ package de.mediapool.web.ui;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import com.vaadin.ui.Form;
 import com.vaadin.ui.FormFieldFactory;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -38,6 +40,7 @@ import de.mediapool.core.domain.container.MovieEntryType;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
+import de.mediapool.web.ui.impl.ConfirmationDialog;
 import de.mediapool.web.ui.impl.MediaImage;
 
 @Configurable
@@ -45,7 +48,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 
 	private static final long serialVersionUID = 1L;
 
-	private BeanItem<MediaInterface> item;
+	private BeanItem<MediaInterface> mediaItem;
 	private Form holdingForm;
 	private Form productForm;
 	private Form movieForm;
@@ -62,17 +65,20 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 
 	private boolean initialzied = false;
 
-	private boolean owned = false;
+	private boolean inHolding = false;
 
 	private MediaImage image;
 
-	List<String> knownvalues;
-	List<String> situationvalues;
+	private List<String> knownvalues;
+	private List<String> situationvalues;
+
+	private MediaView view;
 
 	@Autowired
 	private MediaService mediaService;
 
-	public MediaForm() {
+	public MediaForm(MediaView view) {
+		this.view = view;
 		createFormToolbar();
 		title.setStyleName("titleheader");
 
@@ -112,7 +118,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	private void createFormToolbar() {
 
 		formtoolbar = new HorizontalLayout();
-		formtoolbar.setMargin(true, false, true, false);
+		formtoolbar.setMargin(true, false, true, true);
 		saveButton = new Button();
 		saveButton.addListener(this);
 		saveButton.setDescription("Save");
@@ -166,20 +172,41 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	@Override
 	public void buttonClick(ClickEvent event) {
 		if (event.getButton() == saveButton) {
-			holdingForm.commit();
-			getMediaService().saveMovieHoldingEntry(item);
-			getWindow().showNotification("Saved Successfully", Notification.TYPE_HUMANIZED_MESSAGE);
-			owned = true;
-			checkButtons();
-			// fireEvent(new EditorSavedEvent(this, item));
+			saveProduct();
 		} else if (event.getButton() == cancelButton) {
 			holdingForm.discard();
 		} else if (event.getButton() == removeButton) {
-			owned = false;
-			checkButtons();
-
+			askFirst();
 		} else if (event.getButton() == addButton) {
-			addProduct();
+			addHoldingToProduct();
+		}
+	}
+
+	private void askFirst() {
+		getWindow().addWindow(
+				new ConfirmationDialog("Really remove ?", "Are you sure to remove this item", "Yes", "No",
+						new ConfirmationDialog.ConfirmationDialogCallback() {
+							public void response(boolean remove) {
+								deleteProduct(remove);
+							}
+						}));
+	}
+
+	private void saveProduct() {
+		holdingForm.commit();
+		getMediaService().saveMovieHoldingEntry(mediaItem);
+		getWindow().showNotification("Saved Successfully", Notification.TYPE_HUMANIZED_MESSAGE);
+		inHolding = true;
+		refreshButtons();
+	}
+
+	private void deleteProduct(boolean remove) {
+		if (remove) {
+			getMediaService().removeMovieHoldingEntry(mediaItem);
+			inHolding = false;
+			view.getMovieItems().removeItem(mediaItem.getBean());
+			refreshForm();
+			getWindow().showNotification("Removed Successfully", Notification.TYPE_HUMANIZED_MESSAGE);
 		}
 	}
 
@@ -215,41 +242,39 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 			}
 			return knownBox;
 		}
+		if (pid.equals("since")) {
+			PopupDateField startDate = new PopupDateField("Since");
+			startDate.setDateFormat("dd.MM.yyyy");
+			startDate.setValue(new Date());
+
+			// Set the correct resolution
+			startDate.setResolution(PopupDateField.RESOLUTION_DAY);
+			// Add valuechangelistener
+			startDate.setImmediate(true);
+			return startDate;
+		}
 		if (field instanceof TextField) {
 			((TextField) field).setNullRepresentation("");
 		}
 		return field;
 	}
 
-	public BeanItem<MediaInterface> getItem() {
-		return item;
-	}
-
-	public void setItem(BeanItem<MediaInterface> item) {
-		this.item = item;
-		refreshForm();
-
-	}
-
-	private void refreshForm() {
-		changeImage();
-		setTitle();
-		checkButtons();
-	}
-
-	public void setBeanItem(BeanItem<MediaInterface> selectedItem, MovieEntryType type) {
+	public void setMediaItem(BeanItem<MediaInterface> selectedItem, MovieEntryType type) {
 		switch (type) {
 		case MOVIEHOLDINGENTRY:
 			initMovieHoldingEntry(selectedItem);
 			break;
 		case MOVIEENTRY:
 			initMovieEntry(selectedItem);
+			inHolding = false;
 			break;
 		case MOVIEPRODUCTENTRY:
 			initMovieProductEntry(selectedItem);
+			inHolding = false;
 			break;
 		}
-		setItem(selectedItem);
+		mediaItem = selectedItem;
+		refreshForm();
 	}
 
 	private void initMovieEntry(BeanItem<MediaInterface> selectedItem) {
@@ -265,8 +290,8 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 			MovieHoldingEntry movieHoldingEntry = ((MovieHoldingEntry) selectedItem.getBean());
 			Holding holding = movieHoldingEntry.getHolding();
 			Collection form_fields = Arrays.asList(movieHoldingEntry.form_fields());
-			owned = holding.getMuser().equals(getMUser());
-			holdingForm.setReadOnly(owned);
+			inHolding = holding.getMuser().equals(getMUser());
+			holdingForm.setReadOnly(inHolding);
 			holdingForm.setItemDataSource(selectedItem, form_fields);
 		}
 		initMovieProductEntry(selectedItem);
@@ -281,14 +306,41 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		initMovieEntry(selectedItem);
 	}
 
-	private void checkButtons() {
+	private void addHoldingToProduct() {
+		Product product = ((MovieProductEntry) getMediaItem().getBean()).getProduct();
+		Holding holding = new Holding();
+		holding.setMuser(getMUser());
+		holding.setProduct(product);
+		MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
+		BeanItem<MediaInterface> holdingItem = new BeanItem<MediaInterface>(movieHoldingEntry);
+		initMovieHoldingEntry(holdingItem);
+		mediaItem = holdingItem;
+		refreshForm();
+	}
+
+	public BeanItem<MediaInterface> getMediaItem() {
+		return mediaItem;
+	}
+
+	private void refreshForm() {
+		changeImage();
+		setTitle();
+		refreshButtons();
+		refreshHolding();
+	}
+
+	private void refreshHolding() {
+		holdingForm.setVisible(inHolding);
+	}
+
+	private void refreshButtons() {
 		addButton.setEnabled(false);
 		removeButton.setEnabled(false);
 		cancelButton.setEnabled(false);
 		saveButton.setEnabled(false);
 
 		if (loggedIn()) {
-			if (owned) {
+			if (inHolding) {
 				removeButton.setEnabled(true);
 				saveButton.setEnabled(true);
 				cancelButton.setEnabled(true);
@@ -299,23 +351,12 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 
 	}
 
-	private void addProduct() {
-		Product product = ((MovieProductEntry) getItem().getBean()).getProduct();
-		Holding holding = new Holding();
-		holding.setMuser(getMUser());
-		holding.setProduct(product);
-		MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
-		BeanItem<MediaInterface> holdingItem = new BeanItem<MediaInterface>(movieHoldingEntry);
-		initMovieHoldingEntry(holdingItem);
-		setItem(holdingItem);
-	}
-
 	private void changeImage() {
-		image.setMediaItem(item);
+		image.setMediaItem(mediaItem);
 	}
 
 	private void setTitle() {
-		Property titleprop = item.getItemProperty("title");
+		Property titleprop = mediaItem.getItemProperty("title");
 		if (titleprop != null) {
 			title.setValue((String) titleprop.getValue());
 		}

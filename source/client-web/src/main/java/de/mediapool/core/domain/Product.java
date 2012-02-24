@@ -41,7 +41,7 @@ public class Product implements Serializable {
 
 	private int duration;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Movie movie;
 
 	@Version
