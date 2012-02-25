@@ -8,8 +8,8 @@ import com.vaadin.ui.Window;
 
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.MediaMainView;
-import de.mediapool.web.ui.elements.MediaLoginForm.LoggedinEvent;
-import de.mediapool.web.ui.elements.MediaLoginForm.LoggedinListener;
+import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
+import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
 
 @SuppressWarnings("serial")
 @Configurable
