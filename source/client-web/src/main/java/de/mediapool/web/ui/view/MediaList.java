@@ -1,8 +1,9 @@
-package de.mediapool.web.ui;
+package de.mediapool.web.ui.view;
 
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Table;
+
 
 @SuppressWarnings("serial")
 public class MediaList extends Table {

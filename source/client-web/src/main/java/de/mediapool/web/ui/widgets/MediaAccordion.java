@@ -1,4 +1,4 @@
-package de.mediapool.web.ui.impl;
+package de.mediapool.web.ui.widgets;
 
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Accordion;
@@ -28,6 +28,7 @@ public class MediaAccordion extends HorizontalLayout implements Accordion.Select
 		a = new Accordion();
 		a.setHeight("580px");
 		a.setWidth("200px");
+
 		a.addTab(tree, "Listen", icon1);
 		a.addTab(l2, "Freunde", icon2);
 		a.addTab(l3, "Medien", icon3);

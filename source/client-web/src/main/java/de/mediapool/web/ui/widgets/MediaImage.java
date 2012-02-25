@@ -1,4 +1,4 @@
-package de.mediapool.web.ui.impl;
+package de.mediapool.web.ui.widgets;
 
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;

@@ -1,4 +1,4 @@
-package de.mediapool.web.ui.impl.tmp;
+package de.mediapool.web.ui.widgets;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

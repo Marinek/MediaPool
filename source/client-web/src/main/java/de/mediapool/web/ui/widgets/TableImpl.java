@@ -1,4 +1,4 @@
-package de.mediapool.web.ui.impl;
+package de.mediapool.web.ui.widgets;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;

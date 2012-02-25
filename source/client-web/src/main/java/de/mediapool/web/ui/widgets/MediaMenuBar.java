@@ -1,4 +1,4 @@
-package de.mediapool.web.ui.impl;
+package de.mediapool.web.ui.widgets;
 
 import com.vaadin.terminal.ExternalResource;
 import com.vaadin.ui.MenuBar;

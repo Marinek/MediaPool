@@ -1,4 +1,4 @@
-package de.mediapool.web.ui;
+package de.mediapool.web.ui.view;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,10 +23,8 @@ import com.vaadin.ui.VerticalLayout;
 import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
-import de.mediapool.web.ui.adding.MovieEntryDetailListView;
-import de.mediapool.web.ui.adding.MovieEntryDetailView;
-import de.mediapool.web.ui.impl.SplitPanelImpl;
-import de.mediapool.web.ui.impl.SplitPanelImpl.SplitterPositionChangedListener;
+import de.mediapool.web.ui.widgets.SplitPanelImpl;
+import de.mediapool.web.ui.widgets.SplitPanelImpl.SplitterPositionChangedListener;
 
 @SuppressWarnings("serial")
 public class MediaView extends SplitPanelImpl implements ValueChangeListener, LayoutClickListener,
@@ -38,7 +36,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	private HorizontalLayout listtoolbar;
 	private MediaForm movieForm;
 	private MediaList movieList;
-	private MovieEntryDetailListView moviePictures;
+	private MediaDetailList moviePictures;
 
 	private TextField searchField;
 	private TextField saveField;
@@ -68,7 +66,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 		movieForm = new MediaForm(this);
 		movieList = new MediaList(this, header_order, header_names);
-		moviePictures = new MovieEntryDetailListView(this);
+		moviePictures = new MediaDetailList(this);
 
 		viewMode = new VerticalLayout();
 		viewMode.addComponent(listtoolbar);
@@ -153,7 +151,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 	@Override
 	public void layoutClick(LayoutClickEvent event) {
-		MovieEntryDetailView component = (MovieEntryDetailView) event.getComponent();
+		MediaDetail component = (MediaDetail) event.getComponent();
 		BeanItem<MediaInterface> mediaItem = component.getMediaItem();
 		if (mediaItem != movieForm.getMediaItem()) {
 			movieForm.setMediaItem(mediaItem, getMovieItems().getEntryType());
