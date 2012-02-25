@@ -1,4 +1,4 @@
-package de.mediapool.web.ui.adding;
+package de.mediapool.web.ui.view;
 
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.GridLayout;
@@ -7,15 +7,14 @@ import com.vaadin.ui.VerticalLayout;
 import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
-import de.mediapool.web.ui.MediaView;
 
 @SuppressWarnings("serial")
-public class MovieEntryDetailListView extends VerticalLayout {
+public class MediaDetailList extends VerticalLayout {
 
 	private GridLayout grid;
 	private MediaView view;
 
-	public MovieEntryDetailListView(MediaView view) {
+	public MediaDetailList(MediaView view) {
 		this.view = view;
 		setImmediate(true);
 		grid = new GridLayout(4, 1);
@@ -36,7 +35,7 @@ public class MovieEntryDetailListView extends VerticalLayout {
 		int column = 0;
 		int counter = 1;
 		for (MediaInterface entry : getProductList().getItemIds()) {
-			VerticalLayout vl = new MovieEntryDetailView(getProductList().getItem(entry), true);
+			VerticalLayout vl = new MediaDetail(getProductList().getItem(entry), true);
 			vl.addListener((LayoutClickListener) view);
 			if (counter % 4 == 0) {
 				row++;

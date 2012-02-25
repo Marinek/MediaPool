@@ -1,4 +1,4 @@
-package de.mediapool.web.ui;
+package de.mediapool.web.ui.view;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -40,8 +40,8 @@ import de.mediapool.core.domain.container.MovieEntryType;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
-import de.mediapool.web.ui.impl.ConfirmationDialog;
-import de.mediapool.web.ui.impl.MediaImage;
+import de.mediapool.web.ui.widgets.ConfirmationDialog;
+import de.mediapool.web.ui.widgets.MediaImage;
 
 @Configurable
 public class MediaForm extends VerticalLayout implements Button.ClickListener, FormFieldFactory {
@@ -64,8 +64,8 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	private Label subtitle = new Label();
 
 	private boolean initialzied = false;
-
 	private boolean inHolding = false;
+	private boolean inDB = false;
 
 	private MediaImage image;
 
@@ -196,7 +196,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		holdingForm.commit();
 		getMediaService().saveMovieHoldingEntry(mediaItem);
 		getWindow().showNotification("Saved Successfully", Notification.TYPE_HUMANIZED_MESSAGE);
-		inHolding = true;
+		inDB = true;
 		refreshButtons();
 	}
 
@@ -243,15 +243,22 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 			return knownBox;
 		}
 		if (pid.equals("since")) {
-			PopupDateField startDate = new PopupDateField("Since");
-			startDate.setDateFormat("dd.MM.yyyy");
-			startDate.setValue(new Date());
-
+			PopupDateField sinceDate = new PopupDateField("Since");
+			sinceDate.setDateFormat("dd.MM.yyyy");
 			// Set the correct resolution
-			startDate.setResolution(PopupDateField.RESOLUTION_DAY);
+			sinceDate.setResolution(PopupDateField.RESOLUTION_DAY);
 			// Add valuechangelistener
-			startDate.setImmediate(true);
-			return startDate;
+			sinceDate.setImmediate(true);
+			return sinceDate;
+		}
+		if (pid.equals("lastUsed")) {
+			PopupDateField usedDate = new PopupDateField("Last Used");
+			usedDate.setDateFormat("dd.MM.yyyy");
+			// Set the correct resolution
+			usedDate.setResolution(PopupDateField.RESOLUTION_DAY);
+			// Add valuechangelistener
+			usedDate.setImmediate(true);
+			return usedDate;
 		}
 		if (field instanceof TextField) {
 			((TextField) field).setNullRepresentation("");
@@ -290,6 +297,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 			MovieHoldingEntry movieHoldingEntry = ((MovieHoldingEntry) selectedItem.getBean());
 			Holding holding = movieHoldingEntry.getHolding();
 			Collection form_fields = Arrays.asList(movieHoldingEntry.form_fields());
+			inDB = holding.getId() != null;
 			inHolding = holding.getMuser().equals(getMUser());
 			holdingForm.setReadOnly(inHolding);
 			holdingForm.setItemDataSource(selectedItem, form_fields);
@@ -311,6 +319,11 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		Holding holding = new Holding();
 		holding.setMuser(getMUser());
 		holding.setProduct(product);
+		holding.setSince(new Date());
+		holding.setLastUsed(new Date());
+		holding.setSituation("new");
+		holding.setKnowm("unknown");
+		holding.setVisible(true);
 		MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
 		BeanItem<MediaInterface> holdingItem = new BeanItem<MediaInterface>(movieHoldingEntry);
 		initMovieHoldingEntry(holdingItem);
@@ -341,9 +354,9 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 
 		if (loggedIn()) {
 			if (inHolding) {
-				removeButton.setEnabled(true);
 				saveButton.setEnabled(true);
 				cancelButton.setEnabled(true);
+				removeButton.setEnabled(inDB);
 			} else {
 				addButton.setEnabled(true);
 			}
