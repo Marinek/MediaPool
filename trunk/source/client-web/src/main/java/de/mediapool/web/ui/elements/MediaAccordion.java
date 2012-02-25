@@ -1,4 +1,4 @@
-package de.mediapool.web.ui.widgets;
+package de.mediapool.web.ui.elements;
 
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Accordion;
@@ -7,6 +7,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TabSheet.SelectedTabChangeEvent;
 import com.vaadin.ui.TabSheet.Tab;
+
 
 @SuppressWarnings("serial")
 public class MediaAccordion extends HorizontalLayout implements Accordion.SelectedTabChangeListener {

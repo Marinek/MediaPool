@@ -1,7 +1,8 @@
-package de.mediapool.web.ui.widgets;
+package de.mediapool.web.ui.elements;
 
 import java.util.Iterator;
 
+import com.vaadin.data.Item;
 import com.vaadin.data.util.HierarchicalContainer;
 import com.vaadin.event.DataBoundTransferable;
 import com.vaadin.event.Transferable;
@@ -9,13 +10,12 @@ import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
+import com.vaadin.terminal.ThemeResource;
 import com.vaadin.terminal.gwt.client.ui.dd.VerticalDropLocation;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.Tree.TreeDragMode;
 import com.vaadin.ui.Tree.TreeTargetDetails;
 import com.vaadin.ui.VerticalLayout;
-
-import de.mediapool.web.ui.impl.tmp.ExampleUtil;
 
 @SuppressWarnings("serial")
 public class MediaTree extends VerticalLayout {
@@ -26,10 +26,10 @@ public class MediaTree extends VerticalLayout {
 		Tree tree = new Tree("Tree sortable using drag'n'drop");
 
 		// Populate the tree
-		HierarchicalContainer container = ExampleUtil.getHardwareContainer();
+		HierarchicalContainer container = getMediaContainer();
 		tree.setContainerDataSource(container);
-		tree.setItemCaptionPropertyId(ExampleUtil.hw_PROPERTY_NAME);
-		tree.setItemIconPropertyId(ExampleUtil.hw_PROPERTY_ICON);
+		tree.setItemCaptionPropertyId(hw_PROPERTY_NAME);
+		tree.setItemIconPropertyId(hw_PROPERTY_ICON);
 
 		// Allow all nodes to have children
 		for (Object itemId : tree.getItemIds()) {
@@ -133,5 +133,46 @@ public class MediaTree extends VerticalLayout {
 			}
 		}
 	}
+
+	public static HierarchicalContainer getMediaContainer() {
+		Item item = null;
+		int itemId = 0; // Increasing numbering for itemId:s
+
+		// Create new container
+		HierarchicalContainer hwContainer = new HierarchicalContainer();
+		// Create containerproperty for name
+		hwContainer.addContainerProperty(hw_PROPERTY_NAME, String.class, null);
+		// Create containerproperty for icon
+		hwContainer.addContainerProperty(hw_PROPERTY_ICON, ThemeResource.class, new ThemeResource(
+				"../runo/icons/16/document.png"));
+		for (int i = 0; i < media.length; i++) {
+			// Add new item
+			item = hwContainer.addItem(itemId);
+			// Add name property for item
+			item.getItemProperty(hw_PROPERTY_NAME).setValue(media[i][0]);
+			// Allow children
+			hwContainer.setChildrenAllowed(itemId, true);
+			itemId++;
+			for (int j = 1; j < media[i].length; j++) {
+				if (j == 1) {
+					item.getItemProperty(hw_PROPERTY_ICON).setValue(new ThemeResource("../runo/icons/16/folder.png"));
+				}
+				// Add child items
+				item = hwContainer.addItem(itemId);
+				item.getItemProperty(hw_PROPERTY_NAME).setValue(media[i][j]);
+				hwContainer.setParent(itemId, itemId - j);
+				hwContainer.setChildrenAllowed(itemId, false);
+
+				itemId++;
+			}
+		}
+		return hwContainer;
+	}
+
+	public static final Object hw_PROPERTY_NAME = "name";
+	public static final Object hw_PROPERTY_ICON = "icon";
+
+	private static final String[][] media = { { "Filme", "Lieblinge", "Meine", "Ungelesen" },
+			{ "Spiele", "Lieblinge", "Meine", "Ungelesen" }, { "Bücher", "Lieblinge", "Meine", "Ungelesen" } };
 
 }
