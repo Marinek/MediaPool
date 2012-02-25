@@ -40,8 +40,8 @@ import de.mediapool.core.domain.container.MovieEntryType;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
+import de.mediapool.web.ui.elements.MediaImage;
 import de.mediapool.web.ui.widgets.ConfirmationDialog;
-import de.mediapool.web.ui.widgets.MediaImage;
 
 @Configurable
 public class MediaForm extends VerticalLayout implements Button.ClickListener, FormFieldFactory {

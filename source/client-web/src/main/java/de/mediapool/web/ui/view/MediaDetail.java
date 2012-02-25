@@ -9,7 +9,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.container.MovieProductEntry;
-import de.mediapool.web.ui.widgets.MediaImage;
+import de.mediapool.web.ui.elements.MediaImage;
 
 @SuppressWarnings("serial")
 public class MediaDetail extends VerticalLayout {
