@@ -23,10 +23,10 @@ import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.elements.MediaAccordion;
-import de.mediapool.web.ui.elements.MediaLoginForm;
 import de.mediapool.web.ui.elements.MediaMenuBar;
-import de.mediapool.web.ui.elements.MediaLoginForm.LoggedinEvent;
-import de.mediapool.web.ui.elements.MediaLoginForm.LoggedinListener;
+import de.mediapool.web.ui.login.MediaLoginForm;
+import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
+import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
 import de.mediapool.web.ui.view.MediaView;
 
 public class MediaMainView extends VerticalSplitPanel implements ComponentContainer, LoggedinListener, ClickListener {

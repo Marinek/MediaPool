@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package de.mediapool.web.ui.elements;
+package de.mediapool.web.ui.login;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
