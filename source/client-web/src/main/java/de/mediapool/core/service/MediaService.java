@@ -26,7 +26,6 @@ import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
-import com.vaadin.data.util.BeanItemContainer;
 
 import de.mediapool.core.domain.Holding;
 import de.mediapool.core.domain.MRelated;
@@ -60,17 +59,47 @@ public class MediaService implements Serializable {
 		return JPAContainerFactory.make(Participation.class, PERSISTENCE_UNIT);
 	}
 
-	@Deprecated
-	public BeanItemContainer<Filme> getFilme() {
-		BeanItemContainer<Filme> filmEntrys = new BeanItemContainer<Filme>(Filme.class);
-		JPAContainer<Filme> filme = JPAContainerFactory.make(Filme.class, PERSISTENCE_UNIT);
+	private List<Filme> filmMigrationGet() {
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		List<Filme> filmList;
+		Query q = em.createQuery("SELECT f FROM Filme f");
+		filmList = q.getResultList();
+		em.getTransaction().commit();
+		return filmList;
+	}
 
-		for (Object itemId : filme.getItemIds()) {
-			EntityItem<Filme> filmItem = filme.getItem(itemId);
-			filmEntrys.addItem(filmItem.getEntity());
+	public MovieContainer filmMigrationMerge() {
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		MovieContainer migratedFilms = new MovieContainer(MovieHoldingEntry.class, MovieEntryType.MOVIEHOLDINGENTRY);
+		MUser muser = new MUser();
+		muser.setEmail("mig@mig.de");
+		muser.setPassword("migration");
+		muser.setUsername("migration");
+
+		for (Filme film : filmMigrationGet()) {
+
+			Holding holding = new Holding();
+			Movie movie = new Movie();
+			Product product = new Product();
+			product.setMovie(movie);
+			holding.setProduct(product);
+			holding.setMuser(muser);
+			holding.setInventorynumber(film.getFach() + "");
+			movie.setGenre(film.getGenre());
+			holding.setKnowm("Ja".equalsIgnoreCase(film.getGesehen()) ? "known" : "unknown");
+			product.setCarrier(film.getMedium());
+			movie.setTitle(film.getName());
+			// film.getWertung();
+			holding.setSituation(film.getQuali());
+			em.merge(holding);
+
+			migratedFilms.addBean(new MovieHoldingEntry(holding));
 		}
 
-		return filmEntrys;
+		em.getTransaction().commit();
+		return migratedFilms;
 	}
 
 	public MovieContainer getAllMovieEntries() {
@@ -82,18 +111,6 @@ public class MediaService implements Serializable {
 			movieEntrys.addItem(entry);
 		}
 		return movieEntrys;
-	}
-
-	public MovieContainer getAllMovieProductEntries() {
-		MovieContainer movieEntryItems = new MovieContainer(MovieProductEntry.class, MovieEntryType.MOVIEPRODUCTENTRY);
-
-		JPAContainer<Product> products = JPAContainerFactory.make(Product.class, PERSISTENCE_UNIT);
-		for (Object itemId : products.getItemIds()) {
-			EntityItem<Product> productItem = products.getItem(itemId);
-			MovieProductEntry entry = new MovieProductEntry(productItem.getEntity());
-			movieEntryItems.addItem(entry);
-		}
-		return movieEntryItems;
 	}
 
 	public MovieContainer getUserMovieEntrys(MUser muser) {
