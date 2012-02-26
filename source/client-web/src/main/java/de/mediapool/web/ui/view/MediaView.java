@@ -7,8 +7,6 @@ import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.data.util.BeanItem;
-import com.vaadin.event.FieldEvents.TextChangeEvent;
-import com.vaadin.event.FieldEvents.TextChangeListener;
 import com.vaadin.event.LayoutEvents.LayoutClickEvent;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.terminal.ThemeResource;
@@ -16,6 +14,7 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -23,6 +22,7 @@ import com.vaadin.ui.VerticalLayout;
 import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
+import de.mediapool.web.ui.widgets.MediaFilterBox;
 import de.mediapool.web.ui.widgets.SplitPanelImpl;
 import de.mediapool.web.ui.widgets.SplitPanelImpl.SplitterPositionChangedListener;
 
@@ -36,18 +36,24 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	private HorizontalLayout listtoolbar;
 	private MediaForm movieForm;
 	private MediaList movieList;
-	private MediaDetailList moviePictures;
+	private MediaDetailList movieImages;
+	private MediaDetailList movieDetails;
 
-	private TextField searchField;
+	private MediaFilterBox searchField;
 	private TextField saveField;
 
 	private Button saveButton;
 
 	private Button listButton;
 	private Button imageButton;
+	private Button detailButton;
+
+	private Button removeFilter;
 
 	private String[] header_names;
 	private Object[] header_order;
+
+	private ViewMode currentView;
 
 	// TODO IMPLEMENT
 	// QueryString
@@ -66,11 +72,14 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 		movieForm = new MediaForm(this);
 		movieList = new MediaList(this, header_order, header_names);
-		moviePictures = new MediaDetailList(this);
+		movieImages = new MediaDetailList(this, false);
+		movieDetails = new MediaDetailList(this, true);
 
 		viewMode = new VerticalLayout();
 		viewMode.addComponent(listtoolbar);
 		viewMode.addComponent(movieList);
+
+		currentView = ViewMode.LISTVIEW;
 
 		setFirstComponent(viewMode);
 		setSecondComponent(movieForm);
@@ -81,17 +90,39 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 		// movieList.setHeightUnits(getFirstComponent().getHeightUnits());
 	}
 
-	private void switchView(String mode) {
-		if ("List".equals(mode)) {
-			imageButton.setEnabled(true);
+	private void switchToView(ViewMode mode) {
+		switch (mode) {
+		case LISTVIEW:
 			listButton.setEnabled(false);
-			viewMode.replaceComponent(moviePictures, movieList);
-		} else {
-			imageButton.setEnabled(false);
+			detailButton.setEnabled(true);
+			imageButton.setEnabled(true);
+			viewMode.replaceComponent(resolveCurrentView(), movieList);
+			break;
+		case DETAILVIEW:
 			listButton.setEnabled(true);
-			viewMode.replaceComponent(movieList, moviePictures);
+			detailButton.setEnabled(false);
+			imageButton.setEnabled(true);
+			viewMode.replaceComponent(resolveCurrentView(), movieDetails);
+			break;
+		case IMAGEVIEW:
+			listButton.setEnabled(true);
+			detailButton.setEnabled(true);
+			imageButton.setEnabled(false);
+			viewMode.replaceComponent(resolveCurrentView(), movieImages);
+			break;
 		}
+		currentView = mode;
+	}
 
+	private Component resolveCurrentView() {
+		switch (currentView) {
+		case DETAILVIEW:
+			return movieDetails;
+		case IMAGEVIEW:
+			return movieImages;
+		default:
+			return movieList;
+		}
 	}
 
 	private void initHeaders() {
@@ -107,34 +138,50 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 		saveButton.addListener((ClickListener) this);
 
 		listButton = new Button();
-		listButton.setIcon(new ThemeResource("icons/new/16/list.png"));
+		listButton.setIcon(new ThemeResource("icons/new/16/listView.png"));
 		listButton.addListener((ClickListener) this);
+		listButton.setDescription("ListView");
+
+		detailButton = new Button();
+		detailButton.addListener((ClickListener) this);
+		detailButton.setIcon(new ThemeResource("icons/new/16/detailView.png"));
+		detailButton.setDescription("DetailView");
+
 		imageButton = new Button();
 		imageButton.addListener((ClickListener) this);
-		imageButton.setIcon(new ThemeResource("icons/new/16/detail_list.png"));
+		imageButton.setIcon(new ThemeResource("icons/new/16/imageView.png"));
+		imageButton.setDescription("ImageView");
 
 		imageButton.setEnabled(true);
 		listButton.setEnabled(false);
+		detailButton.setEnabled(true);
 
 		saveField = new TextField();
 
-		searchField = new TextField();
-		searchField.setInputPrompt("Search by title");
-		searchField.addListener(new TextChangeListener() {
+		removeFilter = new Button();
+		removeFilter.addListener((ClickListener) this);
+		removeFilter.setIcon(new ThemeResource("icons/new/16/disable.png"));
+		removeFilter.setDescription("Remove Filter");
 
-			@Override
-			public void textChange(TextChangeEvent event) {
-				// textFilter = event.getText();
-				// updateFilters();
-			}
-		});
+		searchField = new MediaFilterBox(this);
+		// searchField.setInputPrompt("Search by title");
+		// searchField.addListener(new TextChangeListener() {
+		//
+		// @Override
+		// public void textChange(TextChangeEvent event) {
+		// // textFilter = event.getText();
+		// // updateFilters();
+		// }
+		// });
 
 		listButton.setStyleName("listtoolbar");
 		listtoolbar.addComponent(saveField);
 		listtoolbar.addComponent(saveButton);
 		listtoolbar.addComponent(listButton);
+		listtoolbar.addComponent(detailButton);
 		listtoolbar.addComponent(imageButton);
 		listtoolbar.addComponent(searchField);
+		listtoolbar.addComponent(removeFilter);
 		listtoolbar.setWidth("100%");
 		listtoolbar.setExpandRatio(searchField, 1);
 		listtoolbar.setComponentAlignment(searchField, Alignment.TOP_RIGHT);
@@ -176,12 +223,17 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 		if (source == saveButton) {
 
 		}
+		if (source == removeFilter) {
+			searchField.resetFilter();
+		}
 		if (source == listButton) {
-			switchView("List");
+			switchToView(ViewMode.LISTVIEW);
+		}
+		if (source == detailButton) {
+			switchToView(ViewMode.DETAILVIEW);
 		}
 		if (source == imageButton) {
-			switchView("Detail");
-
+			switchToView(ViewMode.IMAGEVIEW);
 		}
 
 	}
@@ -196,6 +248,10 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 	public void setMovieItems(MovieContainer movieItems) {
 		this.movieItems = movieItems;
+	}
+
+	public enum ViewMode {
+		LISTVIEW, DETAILVIEW, IMAGEVIEW
 	}
 
 }
