@@ -166,13 +166,14 @@ public class DataGrabber implements Serializable {
 
 	private boolean titleContainsTitle(String title1, String title2) {
 		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem
-		// Suchtitel
-		// entspricht
+		// Suchtitel entspricht
+		boolean contains = false;
 		if (title1 != null) {
 			title1 = title1.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
+			title2 = title2.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
+			contains = title1.contains(title2);
 		}
-		title2 = title2.replaceAll("[_[^\\w\\däüöÄÜÖ ]]", "").toLowerCase();
-		return title1.contains(title2);
+		return contains;
 	}
 
 	private Movie findeFilm(List<TreeMap<String, String>> filmdaten, Product product) {

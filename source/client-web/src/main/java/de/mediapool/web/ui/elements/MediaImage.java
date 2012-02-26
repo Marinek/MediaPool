@@ -109,7 +109,7 @@ public class MediaImage extends Embedded implements ClickListener {
 		if (local != null) {
 			localItem = (Boolean) local.getValue();
 		}
-		if (cover == null) {
+		if (cover.getValue() == null) {
 			cover = mediaItem.getItemProperty("image");
 		}
 		Property title = mediaItem.getItemProperty("title");

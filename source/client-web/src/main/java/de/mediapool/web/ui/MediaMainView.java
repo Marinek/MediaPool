@@ -3,7 +3,6 @@ package de.mediapool.web.ui;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -134,12 +133,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		musicButton = new Button("Music");
 		bookButton = new Button("Book");
 
-		toolbar.addComponent(movieButton);
-		toolbar.addComponent(gameButton);
-		toolbar.addComponent(boardgameButton);
-		toolbar.addComponent(musicButton);
-		toolbar.addComponent(bookButton);
-		toolbar.addComponent(searchButton);
 		movieButton.setHeight("65px");
 		movieButton.setIcon(new ThemeResource("icons/types/movie_small.png"));
 		gameButton.setIcon(new ThemeResource("icons/types/game_small.png"));
@@ -155,9 +148,16 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		bookButton.addListener((ClickListener) this);
 		searchButton.addListener((ClickListener) this);
 
-		searchField = new TextField("Search");
+		searchField = new TextField();
+		searchField.setInputPrompt("Search");
+
+		toolbar.addComponent(movieButton);
+		toolbar.addComponent(gameButton);
+		toolbar.addComponent(searchButton);
 		toolbar.addComponent(searchField);
-		toolbar.setComponentAlignment(searchField, Alignment.TOP_CENTER);
+		toolbar.addComponent(boardgameButton);
+		toolbar.addComponent(musicButton);
+		toolbar.addComponent(bookButton);
 
 	}
 
@@ -234,7 +234,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private void addListTab(MovieContainer movieitems, String caption) {
 		if (movieitems != null) {
-			MediaView searchView = new MediaView(movieitems);
+			MediaView searchView = new MediaView(movieitems, caption);
 			String newCaption = caption + " (" + movieitems.getItemIds().size() + ")";
 			tabsheet.addTab(searchView, newCaption);
 			tabsheet.setSelectedTab(searchView);

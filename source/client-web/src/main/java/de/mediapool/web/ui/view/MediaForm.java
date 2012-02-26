@@ -224,7 +224,8 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		if (pid.equals("description")) {
 			TextArea descField = new TextArea();
 			descField.setInputPrompt("Hint");
-			descField.setHeight("200px");
+			descField.setHeight("150px");
+			descField.setWidth("400px");
 			descField.setNullRepresentation("");
 			return descField;
 		}
@@ -320,7 +321,6 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		holding.setMuser(getMUser());
 		holding.setProduct(product);
 		holding.setSince(new Date());
-		holding.setLastUsed(new Date());
 		holding.setSituation("new");
 		holding.setKnowm("unknown");
 		holding.setVisible(true);

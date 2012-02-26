@@ -1,11 +1,12 @@
 package de.mediapool.web.ui.view;
 
+import com.vaadin.data.util.BeanItem;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
 import com.vaadin.ui.GridLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.MediaInterface;
-import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
 
 @SuppressWarnings("serial")
@@ -19,48 +20,33 @@ public class MediaDetailList extends VerticalLayout {
 		this.view = view;
 		this.showDetails = showDetails;
 		setImmediate(true);
-		grid = new GridLayout(4, 1);
-		grid.setImmediate(true);
-		grid.setMargin(true, false, false, true);
-		addComponent(grid);
-		fillView();
+		setMargin(true, true, false, true);
+		refreshView();
 	}
 
-	public void fillView() {
-		fillGrid();
+	public void refreshView() {
+		removeAllComponents();
+		fillView();
 		requestRepaint();
 	}
 
-	private void fillGrid() {
-		grid.removeAllComponents();
-		int row = 0;
-		int column = 0;
-		int counter = 1;
-		for (MediaInterface entry : getProductList().getItemIds()) {
-			VerticalLayout vl = new MediaDetail(getProductList().getItem(entry), showDetails);
-			vl.addListener((LayoutClickListener) view);
-			if (counter % 4 == 0) {
-				row++;
-				column = 0;
-				grid.insertRow(row);
+	private void fillView() {
+		int count = 0;
+		HorizontalLayout hl = new HorizontalLayout();
+		for (MediaInterface entry : getMovieList().getItemIds()) {
+			if (count % 6 == 0) {
+				hl = new HorizontalLayout();
+				addComponent(hl);
 			}
-			grid.addComponent(vl, column, row);
-			column++;
-			counter++;
+			BeanItem<MediaInterface> item = getMovieList().getItem(entry);
+			hl.addComponent(new MediaDetail(item, showDetails, (LayoutClickListener) view));
+			count++;
 		}
 
 	}
 
-	public MovieContainer getProductList() {
+	public MovieContainer getMovieList() {
 		return view.getMovieItems();
-	}
-
-	private boolean loggedIn() {
-		return getMUser() != null;
-	}
-
-	public MUser getMUser() {
-		return (MUser) getApplication().getUser();
 	}
 
 }

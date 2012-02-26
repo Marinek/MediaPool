@@ -1,17 +1,14 @@
 package de.mediapool.web.ui.widgets;
 
-import com.vaadin.data.Property;
-import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.ui.AbstractSelect;
 import com.vaadin.ui.AbstractSelect.Filtering;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.HorizontalLayout;
 
-import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.web.ui.view.MediaView;
 
 @SuppressWarnings("serial")
-public class MediaFilterBox extends HorizontalLayout implements Property.ValueChangeListener {
+public class MediaFilterBox extends HorizontalLayout {
 
 	private MediaView view;
 
@@ -34,7 +31,7 @@ public class MediaFilterBox extends HorizontalLayout implements Property.ValueCh
 		// Set the appropriate filtering mode for this example
 		filterBox.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
 		filterBox.setImmediate(true);
-		filterBox.addListener(this);
+		filterBox.addListener(view);
 
 		filterBox.setWidth(200, UNITS_PIXELS);
 
@@ -44,16 +41,12 @@ public class MediaFilterBox extends HorizontalLayout implements Property.ValueCh
 		addComponent(filterBox);
 	}
 
-	public void resetFilter() {
-		filterBox.setValue(null);
+	public ComboBox getFilterBox() {
+		return filterBox;
 	}
 
-	public void valueChange(ValueChangeEvent event) {
-		view.getMovieItems().removeAllContainerFilters();
-		MovieEntry entry = (MovieEntry) filterBox.getValue();
-		if (entry != null) {
-			view.getMovieItems().addContainerFilter(FILTER_PROPERTY, entry.getTitle(), true, false);
-		}
+	public void setFilterBox(ComboBox filterBox) {
+		this.filterBox = filterBox;
 	}
 
 }
