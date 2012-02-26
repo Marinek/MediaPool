@@ -15,45 +15,44 @@ public class MediaFilterBox extends HorizontalLayout implements Property.ValueCh
 
 	private MediaView view;
 
-	private ComboBox l;
+	private static final String FILTER_PROPERTY = "title";
+
+	private ComboBox filterBox;
 
 	public MediaFilterBox(MediaView view) {
 		setSpacing(true);
 		this.view = view;
 		// Creates a new combobox using an existing container
-		l = new ComboBox(null, view.getMovieItems());
+		filterBox = new ComboBox(null, view.getMovieItems());
 
 		// Sets the combobox to show a certain property as the item caption
-		l.setItemCaptionPropertyId("title");
-		l.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
+		filterBox.setItemCaptionPropertyId(FILTER_PROPERTY);
+		filterBox.setItemCaptionMode(AbstractSelect.ITEM_CAPTION_MODE_PROPERTY);
 
-		l.setInputPrompt("Filter by Title");
+		filterBox.setInputPrompt("Filter by Title");
 
 		// Set the appropriate filtering mode for this example
-		l.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
-		l.setImmediate(true);
-		l.addListener(this);
+		filterBox.setFilteringMode(Filtering.FILTERINGMODE_CONTAINS);
+		filterBox.setImmediate(true);
+		filterBox.addListener(this);
 
-		l.setWidth(200, UNITS_PIXELS);
+		filterBox.setWidth(200, UNITS_PIXELS);
 
-		// Disallow null selections
-		l.setNullSelectionAllowed(true);
+		// allow null selections
+		filterBox.setNullSelectionAllowed(true);
 
-		addComponent(l);
+		addComponent(filterBox);
 	}
 
 	public void resetFilter() {
-		l.setValue(null);
+		filterBox.setValue(null);
 	}
 
-	/*
-	 * Shows a notification when a selection is made.
-	 */
 	public void valueChange(ValueChangeEvent event) {
 		view.getMovieItems().removeAllContainerFilters();
-		// filter contacts with given filter
-		if (l.getValue() != null) {
-			view.getMovieItems().addContainerFilter("title", ((MovieEntry) l.getValue()).getTitle(), true, false);
+		MovieEntry entry = (MovieEntry) filterBox.getValue();
+		if (entry != null) {
+			view.getMovieItems().addContainerFilter(FILTER_PROPERTY, entry.getTitle(), true, false);
 		}
 	}
 
