@@ -22,6 +22,7 @@ import com.vaadin.ui.VerticalLayout;
 import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
+import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.web.ui.widgets.MediaFilterBox;
 import de.mediapool.web.ui.widgets.SplitPanelImpl;
 import de.mediapool.web.ui.widgets.SplitPanelImpl.SplitterPositionChangedListener;
@@ -39,7 +40,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	private MediaDetailList movieImages;
 	private MediaDetailList movieDetails;
 
-	private MediaFilterBox searchField;
+	private MediaFilterBox filterSearch;
 	private TextField saveField;
 
 	private Button saveButton;
@@ -61,12 +62,13 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 	private VerticalLayout viewMode;
 
-	public MediaView(MovieContainer movieItems) {
+	public MediaView(MovieContainer movieItems, String caption) {
 		setMovieItems(movieItems);
 
 		initHeaders();
 		addStyleName("view");
 		createToolbar();
+		saveField.setValue(caption);
 
 		this.addListener((SplitterPositionChangedListener) this);
 
@@ -88,6 +90,142 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 		setImmediate(true);
 
 		// movieList.setHeightUnits(getFirstComponent().getHeightUnits());
+	}
+
+	private void initHeaders() {
+		header_names = getMovieItems().header_names;
+		header_order = getMovieItems().header_order;
+	}
+
+	private void createToolbar() {
+
+		listtoolbar = new HorizontalLayout();
+
+		saveButton = new Button();
+		saveButton.setIcon(new ThemeResource("icons/new/16/save.png"));
+		saveButton.addListener((ClickListener) this);
+		saveButton.setDescription("Save Search");
+
+		listButton = new Button();
+		listButton.setIcon(new ThemeResource("icons/new/16/listView.png"));
+		listButton.addListener((ClickListener) this);
+		listButton.setDescription("ListView");
+
+		detailButton = new Button();
+		detailButton.addListener((ClickListener) this);
+		detailButton.setIcon(new ThemeResource("icons/new/16/detailView.png"));
+		detailButton.setDescription("DetailView");
+
+		imageButton = new Button();
+		imageButton.addListener((ClickListener) this);
+		imageButton.setIcon(new ThemeResource("icons/new/16/imageView.png"));
+		imageButton.setDescription("ImageView");
+
+		imageButton.setEnabled(true);
+		listButton.setEnabled(false);
+		detailButton.setEnabled(true);
+
+		saveField = new TextField();
+
+		removeFilter = new Button();
+		removeFilter.addListener((ClickListener) this);
+		removeFilter.setIcon(new ThemeResource("icons/new/16/disable.png"));
+		removeFilter.setDescription("Remove Filter");
+
+		filterSearch = new MediaFilterBox(this);
+		// searchField.setInputPrompt("Search by title");
+		// searchField.addListener(new TextChangeListener() {
+		//
+		// @Override
+		// public void textChange(TextChangeEvent event) {
+		// // textFilter = event.getText();
+		// // updateFilters();
+		// }
+		// });
+
+		listButton.setStyleName("listtoolbar");
+		listtoolbar.addComponent(saveButton);
+		listtoolbar.addComponent(saveField);
+		listtoolbar.addComponent(listButton);
+		listtoolbar.addComponent(detailButton);
+		listtoolbar.addComponent(imageButton);
+		listtoolbar.addComponent(filterSearch);
+		listtoolbar.addComponent(removeFilter);
+		listtoolbar.setWidth("100%");
+		listtoolbar.setExpandRatio(filterSearch, 1);
+		listtoolbar.setComponentAlignment(filterSearch, Alignment.TOP_RIGHT);
+	}
+
+	@Override
+	public void valueChange(ValueChangeEvent event) {
+		Property property = event.getProperty();
+		if (property == movieList) {
+			movieForm.setMediaItem(getMovieItems().getItem(movieList.getValue()), getMovieItems().getEntryType());
+		}
+		if (property == filterSearch.getFilterBox()) {
+			applyFilter();
+		}
+	}
+
+	private void applyFilter() {
+		getMovieItems().removeAllContainerFilters();
+		MovieEntry entry = (MovieEntry) filterSearch.getFilterBox().getValue();
+		if (entry != null) {
+			getMovieItems().addContainerFilter("title", entry.getTitle(), true, false);
+			movieDetails.refreshView();
+			movieImages.refreshView();
+		}
+
+	}
+
+	private void removeFilter() {
+		getMovieItems().removeAllContainerFilters();
+		filterSearch.getFilterBox().setValue(null);
+		movieDetails.refreshView();
+		movieImages.refreshView();
+
+	}
+
+	@Override
+	public void layoutClick(LayoutClickEvent event) {
+		MediaDetail component = (MediaDetail) event.getComponent();
+		BeanItem<MediaInterface> mediaItem = component.getMediaItem();
+		if (mediaItem != movieForm.getMediaItem()) {
+			movieForm.setMediaItem(mediaItem, getMovieItems().getEntryType());
+		}
+	}
+
+	public void splitterPositionChanged(SplitterPositionChangedEvent event) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("\n SplitUnit:" + getFirstComponent().getHeightUnits());
+		sb.append("\n SplitHeight:" + getFirstComponent().getHeight());
+		sb.append("\n TableHeight:" + movieList.getHeight());
+		sb.append("\n TableUnit:" + movieList.getHeightUnits());
+
+		getWindow().showNotification(sb.toString());
+
+	}
+
+	@Override
+	public void buttonClick(ClickEvent event) {
+		final Button source = event.getButton();
+
+		if (source == saveButton) {
+
+		}
+		if (source == removeFilter) {
+			removeFilter();
+		}
+		if (source == listButton) {
+			switchToView(ViewMode.LISTVIEW);
+		}
+		if (source == detailButton) {
+			switchToView(ViewMode.DETAILVIEW);
+		}
+		if (source == imageButton) {
+			switchToView(ViewMode.IMAGEVIEW);
+		}
+
 	}
 
 	private void switchToView(ViewMode mode) {
@@ -125,119 +263,6 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 		}
 	}
 
-	private void initHeaders() {
-		header_names = getMovieItems().header_names;
-		header_order = getMovieItems().header_order;
-	}
-
-	private void createToolbar() {
-
-		listtoolbar = new HorizontalLayout();
-
-		saveButton = new Button("Save");
-		saveButton.addListener((ClickListener) this);
-
-		listButton = new Button();
-		listButton.setIcon(new ThemeResource("icons/new/16/listView.png"));
-		listButton.addListener((ClickListener) this);
-		listButton.setDescription("ListView");
-
-		detailButton = new Button();
-		detailButton.addListener((ClickListener) this);
-		detailButton.setIcon(new ThemeResource("icons/new/16/detailView.png"));
-		detailButton.setDescription("DetailView");
-
-		imageButton = new Button();
-		imageButton.addListener((ClickListener) this);
-		imageButton.setIcon(new ThemeResource("icons/new/16/imageView.png"));
-		imageButton.setDescription("ImageView");
-
-		imageButton.setEnabled(true);
-		listButton.setEnabled(false);
-		detailButton.setEnabled(true);
-
-		saveField = new TextField();
-
-		removeFilter = new Button();
-		removeFilter.addListener((ClickListener) this);
-		removeFilter.setIcon(new ThemeResource("icons/new/16/disable.png"));
-		removeFilter.setDescription("Remove Filter");
-
-		searchField = new MediaFilterBox(this);
-		// searchField.setInputPrompt("Search by title");
-		// searchField.addListener(new TextChangeListener() {
-		//
-		// @Override
-		// public void textChange(TextChangeEvent event) {
-		// // textFilter = event.getText();
-		// // updateFilters();
-		// }
-		// });
-
-		listButton.setStyleName("listtoolbar");
-		listtoolbar.addComponent(saveField);
-		listtoolbar.addComponent(saveButton);
-		listtoolbar.addComponent(listButton);
-		listtoolbar.addComponent(detailButton);
-		listtoolbar.addComponent(imageButton);
-		listtoolbar.addComponent(searchField);
-		listtoolbar.addComponent(removeFilter);
-		listtoolbar.setWidth("100%");
-		listtoolbar.setExpandRatio(searchField, 1);
-		listtoolbar.setComponentAlignment(searchField, Alignment.TOP_RIGHT);
-	}
-
-	@Override
-	public void valueChange(ValueChangeEvent event) {
-		Property property = event.getProperty();
-		if (property == movieList) {
-			movieForm.setMediaItem(getMovieItems().getItem(movieList.getValue()), getMovieItems().getEntryType());
-
-		}
-	}
-
-	@Override
-	public void layoutClick(LayoutClickEvent event) {
-		MediaDetail component = (MediaDetail) event.getComponent();
-		BeanItem<MediaInterface> mediaItem = component.getMediaItem();
-		if (mediaItem != movieForm.getMediaItem()) {
-			movieForm.setMediaItem(mediaItem, getMovieItems().getEntryType());
-		}
-	}
-
-	public void splitterPositionChanged(SplitterPositionChangedEvent event) {
-		StringBuffer sb = new StringBuffer();
-		sb.append("\n SplitUnit:" + getFirstComponent().getHeightUnits());
-		sb.append("\n SplitHeight:" + getFirstComponent().getHeight());
-		sb.append("\n TableHeight:" + movieList.getHeight());
-		sb.append("\n TableUnit:" + movieList.getHeightUnits());
-
-		getWindow().showNotification(sb.toString());
-
-	}
-
-	@Override
-	public void buttonClick(ClickEvent event) {
-		final Button source = event.getButton();
-
-		if (source == saveButton) {
-
-		}
-		if (source == removeFilter) {
-			searchField.resetFilter();
-		}
-		if (source == listButton) {
-			switchToView(ViewMode.LISTVIEW);
-		}
-		if (source == detailButton) {
-			switchToView(ViewMode.DETAILVIEW);
-		}
-		if (source == imageButton) {
-			switchToView(ViewMode.IMAGEVIEW);
-		}
-
-	}
-
 	public MUser getMUser() {
 		return (MUser) getApplication().getUser();
 	}
@@ -253,5 +278,4 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	public enum ViewMode {
 		LISTVIEW, DETAILVIEW, IMAGEVIEW
 	}
-
 }

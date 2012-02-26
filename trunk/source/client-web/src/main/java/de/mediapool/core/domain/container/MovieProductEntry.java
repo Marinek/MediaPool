@@ -70,6 +70,14 @@ public class MovieProductEntry extends MovieEntry implements Serializable {
 		getProduct().setCarrier(carrier);
 	}
 
+	public String getImage() {
+		return getProduct().getImage();
+	}
+
+	public void setImage(String image) {
+		getProduct().setImage(image);
+	}
+
 	public int getApprovedage() {
 		return getProduct().getApprovedage();
 	}
