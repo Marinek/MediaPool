@@ -854,9 +854,7 @@ public class DataGrabber implements Serializable {
 			} else if (name.equals(DURATION)) {
 				product.setDuration(firstNumberInString(productData.get(name)));
 			} else if (name.equals(IMAGE)) {
-				// saveImage(productData.get(name), productData.get(EAN));
 				product.setImage(productData.get(name));
-				movie.setCover(productData.get(name));
 			} else if (name.equals(LANGUAGE)) {
 				product.setMlanguage(cutLanguage(productData.get(name)));
 			} else if (name.equals(UTITLE)) {

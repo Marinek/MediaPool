@@ -16,14 +16,14 @@ public class MediaDetail extends VerticalLayout {
 
 	private BeanItem<MediaInterface> mediaItem;
 
-	public MediaDetail(BeanItem<MediaInterface> mediaItem, boolean details) {
+	public MediaDetail(BeanItem<MediaInterface> mediaItem, boolean shwoDetails) {
 		setMediaItem(mediaItem);
 
 		MediaImage image = new MediaImage(false, "100px");
 		image.setMediaItem(mediaItem);
 		addComponent(image);
 
-		if (details) {
+		if (shwoDetails) {
 			Form mpeForm = new Form();
 			mpeForm.setData(mediaItem);
 			Collection propertyIds = Arrays.asList(new MovieProductEntry().form_fields());

@@ -13,9 +13,11 @@ public class MediaDetailList extends VerticalLayout {
 
 	private GridLayout grid;
 	private MediaView view;
+	private boolean showDetails = true;
 
-	public MediaDetailList(MediaView view) {
+	public MediaDetailList(MediaView view, boolean showDetails) {
 		this.view = view;
+		this.showDetails = showDetails;
 		setImmediate(true);
 		grid = new GridLayout(4, 1);
 		grid.setImmediate(true);
@@ -35,7 +37,7 @@ public class MediaDetailList extends VerticalLayout {
 		int column = 0;
 		int counter = 1;
 		for (MediaInterface entry : getProductList().getItemIds()) {
-			VerticalLayout vl = new MediaDetail(getProductList().getItem(entry), true);
+			VerticalLayout vl = new MediaDetail(getProductList().getItem(entry), showDetails);
 			vl.addListener((LayoutClickListener) view);
 			if (counter % 4 == 0) {
 				row++;
