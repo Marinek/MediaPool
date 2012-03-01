@@ -834,6 +834,19 @@ public class DataGrabber implements Serializable {
 
 	}
 
+	private long parseLong(String value) {
+		long it = 0;
+		if (value != null && !("").equals(value)) {
+			try {
+				it = Long.parseLong(value);
+			} catch (NumberFormatException e) {
+				logger.error("getInt " + value + " - " + e.getMessage());
+			}
+		}
+		return it;
+
+	}
+
 	private Product dataToProduct(TreeMap<String, String> productData) {
 		Product product = new Product();
 		Movie movie = new Movie();
@@ -843,7 +856,7 @@ public class DataGrabber implements Serializable {
 		for (String name : productData.keySet()) {
 
 			if (name.equals(EAN)) {
-				product.setEan(productData.get(name));
+				product.setEan(parseLong(productData.get(name)));
 			} else if (name.equals(MEDIUM)) {
 				product.setCarrier(productData.get(name));
 			} else if (name.equals(AGE)) {

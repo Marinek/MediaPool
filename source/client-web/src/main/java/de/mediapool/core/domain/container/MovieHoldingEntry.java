@@ -49,12 +49,12 @@ public class MovieHoldingEntry extends MovieProductEntry implements Serializable
 		getHolding().setVersion(version);
 	}
 
-	public String getKnowm() {
-		return getHolding().getKnowm();
+	public String getKnown() {
+		return getHolding().getKnown();
 	}
 
-	public void setKnowm(String knowm) {
-		getHolding().setKnowm(knowm);
+	public void setKnown(String known) {
+		getHolding().setKnown(known);
 	}
 
 	public Date getSince() {
