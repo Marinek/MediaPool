@@ -88,7 +88,7 @@ public class MediaService implements Serializable {
 			holding.setMuser(muser);
 			holding.setInventorynumber(film.getFach() + "");
 			movie.setGenre(film.getGenre());
-			holding.setKnowm("Ja".equalsIgnoreCase(film.getGesehen()) ? "known" : "unknown");
+			holding.setKnown("Ja".equalsIgnoreCase(film.getGesehen()) ? "known" : "unknown");
 			product.setCarrier(film.getMedium());
 			movie.setTitle(film.getName());
 			// film.getWertung();
@@ -256,7 +256,7 @@ public class MediaService implements Serializable {
 	public void saveMovieHoldingEntry(Item item) {
 		BeanItem<MovieHoldingEntry> newMovieEntryItem = (BeanItem<MovieHoldingEntry>) item;
 		Holding holding = newMovieEntryItem.getBean().getHolding();
-		String newUrl = saveImage(holding.getProduct().getImage(), holding.getProduct().getEan());
+		String newUrl = saveImage(holding.getProduct().getImage(), holding.getProduct().getEan() + "");
 		holding.getProduct().getMovie().setLocal(true);
 		holding.getProduct().setImage(newUrl);
 		holding.getProduct().getMovie().setCover(newUrl);
@@ -372,8 +372,9 @@ public class MediaService implements Serializable {
 		Mpresets mpreset1 = new Mpresets("situation", "used");
 		Mpresets mpreset2 = new Mpresets("situation", "unused");
 		Mpresets mpreset3 = new Mpresets("known", "good");
-		Mpresets mpreset4 = new Mpresets("known", "not good");
-		Mpresets mpreset5 = new Mpresets("known", "unknown");
+		Mpresets mpreset4 = new Mpresets("known", "known");
+		Mpresets mpreset5 = new Mpresets("known", "not good");
+		Mpresets mpreset6 = new Mpresets("known", "unknown");
 
 		em.persist(mpreset);
 		em.persist(mpreset1);
@@ -381,6 +382,7 @@ public class MediaService implements Serializable {
 		em.persist(mpreset3);
 		em.persist(mpreset4);
 		em.persist(mpreset5);
+		em.persist(mpreset6);
 
 		em.getTransaction().commit();
 	}

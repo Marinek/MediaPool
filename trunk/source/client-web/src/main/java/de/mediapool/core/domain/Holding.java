@@ -18,8 +18,7 @@ import javax.persistence.Version;
 @Entity
 public class Holding implements Serializable {
 
-	// TODO RENAME TO known
-	private String knowm;
+	private String known;
 
 	private Boolean visible;
 
@@ -31,9 +30,10 @@ public class Holding implements Serializable {
 
 	private String situation;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Product product;
 
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private MUser muser;
 
 	private String inventoryplace;
@@ -68,12 +68,12 @@ public class Holding implements Serializable {
 		this.version = version;
 	}
 
-	public String getKnowm() {
-		return this.knowm;
+	public String getKnown() {
+		return this.known;
 	}
 
-	public void setKnowm(String knowm) {
-		this.knowm = knowm;
+	public void setKnown(String known) {
+		this.known = known;
 	}
 
 	public Boolean getVisible() {
@@ -145,7 +145,7 @@ public class Holding implements Serializable {
 		sb.append("Id: ").append(getId()).append(", ");
 		sb.append("Inventorynumber: ").append(getInventorynumber()).append(", ");
 		sb.append("Inventoryplace: ").append(getInventoryplace()).append(", ");
-		sb.append("Knowm: ").append(getKnowm()).append(", ");
+		sb.append("Knowm: ").append(getKnown()).append(", ");
 		sb.append("LastUsed: ").append(getLastUsed() == null ? "null" : getLastUsed().getTime()).append(", ");
 		sb.append("Muser: ").append(getMuser()).append(", ");
 		sb.append("Since: ").append(getSince()).append(", ");
