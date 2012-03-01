@@ -46,11 +46,11 @@ public class MovieProductEntry extends MovieEntry implements Serializable {
 		getProduct().setPrice(price);
 	}
 
-	public String getEan() {
+	public long getEan() {
 		return getProduct().getEan();
 	}
 
-	public void setEan(String ean) {
+	public void setEan(long ean) {
 		getProduct().setEan(ean);
 	}
 

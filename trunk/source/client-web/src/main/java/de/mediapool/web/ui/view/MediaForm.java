@@ -32,6 +32,7 @@ import com.vaadin.ui.Window.Notification;
 
 import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.Holding;
+import de.mediapool.core.domain.MRating;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Product;
@@ -42,6 +43,7 @@ import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.elements.MediaImage;
 import de.mediapool.web.ui.widgets.ConfirmationDialog;
+import de.mediapool.web.ui.widgets.ratingstars.MediaRatingStars;
 
 @Configurable
 public class MediaForm extends VerticalLayout implements Button.ClickListener, FormFieldFactory {
@@ -59,6 +61,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	private Button removeButton;
 
 	private HorizontalLayout formtoolbar;
+	private MediaRatingStars mratingStars;
 
 	private Label title = new Label();
 	private Label subtitle = new Label();
@@ -87,6 +90,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 
 		VerticalLayout productView = new VerticalLayout();
 		HorizontalLayout formView = new HorizontalLayout();
+		VerticalLayout editArea = new VerticalLayout();
 
 		holdingForm = new BeanValidationForm<MovieHoldingEntry>(MovieHoldingEntry.class);
 		productForm = new BeanValidationForm<MovieProductEntry>(MovieProductEntry.class);
@@ -101,11 +105,16 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 
 		image = new MediaImage();
 
+		editArea.addComponent(holdingForm);
+		mratingStars = new MediaRatingStars(this);
+		mratingStars.setVisible(false);
+		editArea.addComponent(mratingStars);
+
 		productView.setMargin(false, true, false, true);
 		productView.addComponent(image);
 		productView.addComponent(productForm);
 
-		formView.addComponent(holdingForm);
+		formView.addComponent(editArea);
 		formView.addComponent(productView);
 		formView.addComponent(movieForm);
 
@@ -182,6 +191,17 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		}
 	}
 
+	private void showRating() {
+		if (loggedIn()) {
+			mratingStars.setVisible(true);
+			MRating mrating = new MRating();
+			mrating.setMuser(getMUser());
+			mrating.setMedia(((MovieEntry) mediaItem.getBean()).getMovie());
+			mratingStars.setMrating(mrating);
+
+		}
+	}
+
 	private void askFirst() {
 		getWindow().addWindow(
 				new ConfirmationDialog("Really remove ?", "Are you sure to remove this item", "Yes", "No",
@@ -236,7 +256,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 			}
 			return situationBox;
 		}
-		if (pid.equals("knowm")) {
+		if (pid.equals("known")) {
 			ComboBox knownBox = new ComboBox("Known");
 			for (String sit : knownvalues) {
 				knownBox.addItem(sit);
@@ -322,7 +342,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		holding.setProduct(product);
 		holding.setSince(new Date());
 		holding.setSituation("new");
-		holding.setKnowm("unknown");
+		holding.setKnown("unknown");
 		holding.setVisible(true);
 		MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
 		BeanItem<MediaInterface> holdingItem = new BeanItem<MediaInterface>(movieHoldingEntry);
@@ -336,6 +356,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	}
 
 	private void refreshForm() {
+		showRating();
 		changeImage();
 		setTitle();
 		refreshButtons();
