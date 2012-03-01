@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import de.mediapool.core.MediaInterface;
@@ -52,12 +53,18 @@ public class Media implements Serializable, MediaInterface {
 
 	private boolean local;
 
+	@Transient
+	private double averageRating;
+
 	@Version
 	@Column(name = "version")
 	private Integer version;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Participation> participation = new HashSet<Participation>();
+
+	@OneToMany(cascade = CascadeType.MERGE)
+	private Set<MRating> mratings = new HashSet<MRating>();
 
 	@Override
 	public String[] header_names() {
@@ -213,6 +220,14 @@ public class Media implements Serializable, MediaInterface {
 
 	public void setLocal(boolean local) {
 		this.local = local;
+	}
+
+	public double getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(double averageRating) {
+		this.averageRating = averageRating;
 	}
 
 }

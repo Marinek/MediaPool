@@ -15,6 +15,7 @@ public class Mpresets implements Serializable {
 
 	private String value;
 	private String field;
+	private String language;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,6 +65,14 @@ public class Mpresets implements Serializable {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }

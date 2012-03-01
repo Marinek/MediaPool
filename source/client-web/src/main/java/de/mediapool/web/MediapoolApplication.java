@@ -24,8 +24,7 @@ public class MediapoolApplication extends Application implements LoggedinListene
 	public void init() {
 		// getMediaService().createTestData();
 
-		Window window = new Window();
-		window.setCaption("mediapool");
+		Window window = new Window("mediapool");
 		setMainWindow(window);
 
 		setTheme("media");

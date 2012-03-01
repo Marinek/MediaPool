@@ -22,8 +22,7 @@ public class Product implements Serializable {
 
 	private double price;
 
-	// TODO refactor to long
-	private String ean;
+	private long ean;
 
 	private String special;
 
@@ -41,7 +40,9 @@ public class Product implements Serializable {
 
 	private int duration;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	private String quality;
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Movie movie;
 
 	@Version
@@ -54,14 +55,6 @@ public class Product implements Serializable {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	public String getEan() {
-		return this.ean;
-	}
-
-	public void setEan(String ean) {
-		this.ean = ean;
 	}
 
 	public String getSpecial() {
@@ -162,6 +155,22 @@ public class Product implements Serializable {
 		sb.append("Special: ").append(getSpecial()).append(", ");
 		sb.append("Version: ").append(getVersion());
 		return sb.toString();
+	}
+
+	public String getQuality() {
+		return quality;
+	}
+
+	public void setQuality(String quality) {
+		this.quality = quality;
+	}
+
+	public long getEan() {
+		return ean;
+	}
+
+	public void setEan(long ean) {
+		this.ean = ean;
 	}
 
 }
