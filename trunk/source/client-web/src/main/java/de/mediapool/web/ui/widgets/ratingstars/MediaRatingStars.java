@@ -87,8 +87,8 @@ public class MediaRatingStars extends VerticalLayout {
 		description.setVisible(false);
 		deleteRatingButton.setVisible(false);
 		saveRatingButton.setVisible(false);
-		ratingStars.setEnabled(false);
 		ratingStars.setValue(value);
+		ratingStars.setReadOnly(true);
 
 	}
 

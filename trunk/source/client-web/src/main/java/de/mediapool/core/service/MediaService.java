@@ -21,6 +21,7 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vaadin.addon.jpacontainer.EntityItem;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.Item;
@@ -104,13 +105,12 @@ public class MediaService implements Serializable {
 
 	public MovieContainer getAllMovieEntries() {
 		MovieContainer movieEntrys = new MovieContainer(MovieEntry.class, MovieEntryType.MOVIEENTRY);
-		// JPAContainer<Movie> movies = JPAContainerFactory.make(Movie.class,
-		// PERSISTENCE_UNIT);
-		// for (Object itemId : movies.getItemIds()) {
-		// EntityItem<Movie> movieItem = movies.getItem(itemId);
-		// MovieEntry entry = new MovieEntry(movieItem.getEntity());
-		// movieEntrys.addItem(entry);
-		// }
+		JPAContainer<Movie> movies = JPAContainerFactory.make(Movie.class, PERSISTENCE_UNIT);
+		for (Object itemId : movies.getItemIds()) {
+			EntityItem<Movie> movieItem = movies.getItem(itemId);
+			MovieEntry entry = new MovieEntry(movieItem.getEntity());
+			movieEntrys.addItem(entry);
+		}
 		return movieEntrys;
 	}
 
@@ -268,10 +268,17 @@ public class MediaService implements Serializable {
 
 	}
 
-	public void saveRating(MRating rating) {
+	public void addRating(MovieEntry movieEntry) {
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
-		em.merge(rating);
+		em.merge(movieEntry.getMovie());
+		em.getTransaction().commit();
+	}
+
+	public void changeRating(MRating mrating) {
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		em.merge(mrating);
 		em.getTransaction().commit();
 	}
 

@@ -68,12 +68,20 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 
 	@Override
 	public void buttonClick(ClickEvent event) {
+		MRating mrating = userRatingStars.bindAndGetRating();
 		if ("Save".equals(event.getButton().getDescription())) {
-			form.getMediaService().saveRating(userRatingStars.bindAndGetRating());
+			if (!movieEntry.getMratings().contains(mrating)) {
+				movieEntry.getMratings().add(mrating);
+				form.getMediaService().addRating(movieEntry);
+			} else {
+				form.getMediaService().changeRating(mrating);
+			}
 		}
 		if ("Delete".equals(event.getButton().getDescription())) {
-			form.getMediaService().deleteRating(userRatingStars.bindAndGetRating());
+			movieEntry.getMratings().remove(mrating);
+			form.getMediaService().deleteRating(mrating);
 		}
+		fillRatingPanel();
 
 	}
 
