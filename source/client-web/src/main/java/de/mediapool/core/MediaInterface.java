@@ -1,6 +1,7 @@
 package de.mediapool.core;
 
 public interface MediaInterface {
+
 	public String[] header_names();
 
 	public Object[] header_order();
