@@ -1,12 +1,17 @@
 package de.mediapool.core.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 @SuppressWarnings("serial")
@@ -17,9 +22,14 @@ public class MRating implements Serializable {
 
 	private String description;
 
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private MUser muser;
 
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Media media;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date ratingDate;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -76,6 +86,14 @@ public class MRating implements Serializable {
 
 	public void setMedia(Media media) {
 		this.media = media;
+	}
+
+	public Date getRatingDate() {
+		return ratingDate;
+	}
+
+	public void setRatingDate(Date ratingDate) {
+		this.ratingDate = ratingDate;
 	}
 
 }

@@ -63,7 +63,7 @@ public class Media implements Serializable, MediaInterface {
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Participation> participation = new HashSet<Participation>();
 
-	@OneToMany(cascade = CascadeType.MERGE)
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<MRating> mratings = new HashSet<MRating>();
 
 	@Override
@@ -228,6 +228,14 @@ public class Media implements Serializable, MediaInterface {
 
 	public void setAverageRating(double averageRating) {
 		this.averageRating = averageRating;
+	}
+
+	public Set<MRating> getMratings() {
+		return mratings;
+	}
+
+	public void setMratings(Set<MRating> mratings) {
+		this.mratings = mratings;
 	}
 
 }
