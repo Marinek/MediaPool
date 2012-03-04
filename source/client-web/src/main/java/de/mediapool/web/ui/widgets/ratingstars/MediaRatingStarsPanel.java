@@ -53,6 +53,7 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 			MediaRatingStars stars = new MediaRatingStars(this);
 
 			stars.setMrating(mrating);
+			stars.setEnabled(false);
 			addComponent(stars);
 		}
 	}
@@ -72,14 +73,14 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 		if ("Save".equals(event.getButton().getDescription())) {
 			if (!movieEntry.getMratings().contains(mrating)) {
 				movieEntry.getMratings().add(mrating);
-				form.getMediaService().addRating(movieEntry);
+				form.getMediaService().refreshRating(movieEntry);
 			} else {
 				form.getMediaService().changeRating(mrating);
 			}
 		}
 		if ("Delete".equals(event.getButton().getDescription())) {
 			movieEntry.getMratings().remove(mrating);
-			form.getMediaService().deleteRating(mrating);
+			form.getMediaService().refreshRating(movieEntry);
 		}
 		fillRatingPanel();
 
