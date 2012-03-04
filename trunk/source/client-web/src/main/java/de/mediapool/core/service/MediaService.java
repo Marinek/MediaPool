@@ -268,7 +268,7 @@ public class MediaService implements Serializable {
 
 	}
 
-	public void addRating(MovieEntry movieEntry) {
+	public void refreshRating(MovieEntry movieEntry) {
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
 		em.merge(movieEntry.getMovie());
@@ -279,14 +279,6 @@ public class MediaService implements Serializable {
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
 		em.merge(mrating);
-		em.getTransaction().commit();
-	}
-
-	public void deleteRating(MRating rating) {
-		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
-		em.getTransaction().begin();
-		MRating remove = em.merge(rating);
-		em.remove(remove);
 		em.getTransaction().commit();
 	}
 
