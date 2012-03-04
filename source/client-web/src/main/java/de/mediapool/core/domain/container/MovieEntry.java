@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 import de.mediapool.core.MediaInterface;
+import de.mediapool.core.domain.MRating;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Participation;
 
@@ -101,6 +102,14 @@ public class MovieEntry implements Serializable, MediaInterface {
 		getMovie().setGenre(genre);
 	}
 
+	public Set<MRating> getMratings() {
+		return getMovie().getMratings();
+	}
+
+	public void setMratings(Set<MRating> mratings) {
+		getMovie().setMratings(mratings);
+	}
+
 	public Set<Participation> getParticipation() {
 		return getMovie().getParticipation();
 	}
@@ -139,6 +148,20 @@ public class MovieEntry implements Serializable, MediaInterface {
 
 	public void setLocal(boolean local) {
 		movie.setLocal(local);
+	}
+
+	public double getAverageRating() {
+		Double added = 0.0;
+		Double average = 0.0;
+		for (MRating mrating : movie.getMratings()) {
+			added = added + mrating.getVoting();
+		}
+		average = added / movie.getMratings().size();
+		return average;
+	}
+
+	public void setAverageRating(double averageRating) {
+		movie.setAverageRating(averageRating);
 	}
 
 }

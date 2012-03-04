@@ -21,13 +21,13 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vaadin.addon.jpacontainer.EntityItem;
 import com.vaadin.addon.jpacontainer.JPAContainer;
 import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 
 import de.mediapool.core.domain.Holding;
+import de.mediapool.core.domain.MRating;
 import de.mediapool.core.domain.MRelated;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.Movie;
@@ -104,12 +104,13 @@ public class MediaService implements Serializable {
 
 	public MovieContainer getAllMovieEntries() {
 		MovieContainer movieEntrys = new MovieContainer(MovieEntry.class, MovieEntryType.MOVIEENTRY);
-		JPAContainer<Movie> movies = JPAContainerFactory.make(Movie.class, PERSISTENCE_UNIT);
-		for (Object itemId : movies.getItemIds()) {
-			EntityItem<Movie> movieItem = movies.getItem(itemId);
-			MovieEntry entry = new MovieEntry(movieItem.getEntity());
-			movieEntrys.addItem(entry);
-		}
+		// JPAContainer<Movie> movies = JPAContainerFactory.make(Movie.class,
+		// PERSISTENCE_UNIT);
+		// for (Object itemId : movies.getItemIds()) {
+		// EntityItem<Movie> movieItem = movies.getItem(itemId);
+		// MovieEntry entry = new MovieEntry(movieItem.getEntity());
+		// movieEntrys.addItem(entry);
+		// }
 		return movieEntrys;
 	}
 
@@ -252,7 +253,7 @@ public class MediaService implements Serializable {
 
 	}
 
-	// TODO implement if Product already exists
+	// TODO implement if Movie already exists
 	public void saveMovieHoldingEntry(Item item) {
 		BeanItem<MovieHoldingEntry> newMovieEntryItem = (BeanItem<MovieHoldingEntry>) item;
 		Holding holding = newMovieEntryItem.getBean().getHolding();
@@ -265,6 +266,21 @@ public class MediaService implements Serializable {
 		em.merge(holding);
 		em.getTransaction().commit();
 
+	}
+
+	public void saveRating(MRating rating) {
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		em.merge(rating);
+		em.getTransaction().commit();
+	}
+
+	public void deleteRating(MRating rating) {
+		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
+		em.getTransaction().begin();
+		MRating remove = em.merge(rating);
+		em.remove(remove);
+		em.getTransaction().commit();
 	}
 
 	public void removeMovieHoldingEntry(Item item) {
@@ -341,6 +357,14 @@ public class MediaService implements Serializable {
 			holding.setMuser(muser);
 			holding.setProduct(product);
 			em.persist(holding);
+
+			// MRating rating = new MRating();
+			// rating.setDescription("Cool");
+			// rating.setRatingDate(new Date());
+			// rating.setVoting(i);
+			// rating.setMedia(movie);
+			// em.persist(rating);
+
 		}
 
 		for (int i = 2; i < 4; i++) {
@@ -366,6 +390,13 @@ public class MediaService implements Serializable {
 			holding.setMuser(muser2);
 			holding.setProduct(product);
 			em.persist(holding);
+
+			// MRating rating = new MRating();
+			// rating.setDescription("Cool");
+			// rating.setRatingDate(new Date());
+			// rating.setVoting(i);
+			// rating.setMedia(movie);
+			// em.persist(rating);
 		}
 
 		Mpresets mpreset = new Mpresets("situation", "new");
