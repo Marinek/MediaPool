@@ -7,19 +7,18 @@ import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window.Notification;
 
 import de.mediapool.core.domain.MRating;
-import de.mediapool.web.ui.view.MediaForm;
 
 @SuppressWarnings("serial")
 public class MediaRatingStars extends VerticalLayout {
 
 	private TextArea description;
-	private Label username;
+	private Label mcaption;
 	private RatingStars ratingStars;
 	private MRating mrating;
 	private Button saveRatingButton;
@@ -35,18 +34,19 @@ public class MediaRatingStars extends VerticalLayout {
 		valueCaptions.put(5, "Excellent");
 	}
 
-	public MediaRatingStars(MediaForm form) {
+	public MediaRatingStars(MediaRatingStarsPanel panel) {
 		description = new TextArea();
+		description.setNullRepresentation("");
 		description.setImmediate(true);
-		username = new Label();
+		mcaption = new Label();
 		ratingStars = new RatingStars();
 		saveRatingButton = new Button();
-		saveRatingButton.addListener(form);
+		saveRatingButton.addListener(panel);
 		saveRatingButton.setDescription("Save");
 		saveRatingButton.setIcon(new ThemeResource("icons/new/16/save.png"));
 
 		deleteRatingButton = new Button();
-		deleteRatingButton.addListener(form);
+		deleteRatingButton.addListener(panel);
 		deleteRatingButton.setDescription("Delete");
 		deleteRatingButton.setIcon(new ThemeResource("icons/new/16/cancel.png"));
 
@@ -54,19 +54,22 @@ public class MediaRatingStars extends VerticalLayout {
 		ratingStars.setImmediate(true);
 		ratingStars.setDescription("Your rating");
 		ratingStars.setValueCaption(valueCaptions.values().toArray(new String[5]));
+		addComponent(mcaption);
 		addComponent(ratingStars);
-		addComponent(username);
 		addComponent(description);
-		addComponent(saveRatingButton);
-		addComponent(deleteRatingButton);
+		HorizontalLayout buttons = new HorizontalLayout();
+		buttons.addComponent(saveRatingButton);
+		buttons.addComponent(deleteRatingButton);
+		addComponent(buttons);
 
 		ratingStars.addListener(new Property.ValueChangeListener() {
 
 			public void valueChange(ValueChangeEvent event) {
 				Double value = (Double) event.getProperty().getValue();
 
-				getWindow().showNotification("You voted " + value + " stars for " + username.toString() + ".",
-						Notification.TYPE_TRAY_NOTIFICATION);
+				// getWindow().showNotification("You voted " + value +
+				// " stars for " + ".",
+				// Notification.TYPE_TRAY_NOTIFICATION);
 
 				RatingStars changedRs = (RatingStars) event.getProperty();
 				// reset value captions
@@ -80,12 +83,20 @@ public class MediaRatingStars extends VerticalLayout {
 		setEnabled(false);
 	}
 
+	public void setAverageRating(Double value) {
+		description.setVisible(false);
+		deleteRatingButton.setVisible(false);
+		saveRatingButton.setVisible(false);
+		ratingStars.setEnabled(false);
+		ratingStars.setValue(value);
+
+	}
+
 	public void setEnabled(boolean enabled) {
 		description.setEnabled(enabled);
 		ratingStars.setEnabled(enabled);
 		deleteRatingButton.setEnabled(enabled);
 		saveRatingButton.setEnabled(enabled);
-
 	}
 
 	public void refreshStars() {
@@ -93,6 +104,7 @@ public class MediaRatingStars extends VerticalLayout {
 			setEnabled(true);
 			description.setValue(mrating.getDescription());
 			ratingStars.setValue(mrating.getVoting());
+			mcaption.setValue(mrating.getMuser().getUsername());
 		}
 	}
 
@@ -105,6 +117,14 @@ public class MediaRatingStars extends VerticalLayout {
 	public void setMrating(MRating mrating) {
 		this.mrating = mrating;
 		refreshStars();
+	}
+
+	public String getMcaption() {
+		return (String) mcaption.getValue();
+	}
+
+	public void setMcaption(String caption) {
+		this.mcaption.setValue(caption);
 	}
 
 }

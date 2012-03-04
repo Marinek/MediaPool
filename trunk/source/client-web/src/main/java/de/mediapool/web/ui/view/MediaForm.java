@@ -32,7 +32,6 @@ import com.vaadin.ui.Window.Notification;
 
 import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.Holding;
-import de.mediapool.core.domain.MRating;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.Movie;
 import de.mediapool.core.domain.Product;
@@ -43,7 +42,7 @@ import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.elements.MediaImage;
 import de.mediapool.web.ui.widgets.ConfirmationDialog;
-import de.mediapool.web.ui.widgets.ratingstars.MediaRatingStars;
+import de.mediapool.web.ui.widgets.ratingstars.MediaRatingStarsPanel;
 
 @Configurable
 public class MediaForm extends VerticalLayout implements Button.ClickListener, FormFieldFactory {
@@ -61,7 +60,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	private Button removeButton;
 
 	private HorizontalLayout formtoolbar;
-	private MediaRatingStars mratingStars;
+	private MediaRatingStarsPanel mratingStars;
 
 	private Label title = new Label();
 	private Label subtitle = new Label();
@@ -106,7 +105,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		image = new MediaImage();
 
 		editArea.addComponent(holdingForm);
-		mratingStars = new MediaRatingStars(this);
+		mratingStars = new MediaRatingStarsPanel(this);
 		mratingStars.setVisible(false);
 		editArea.addComponent(mratingStars);
 
@@ -188,17 +187,6 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 			askFirst();
 		} else if (event.getButton() == addButton) {
 			addHoldingToProduct();
-		}
-	}
-
-	private void showRating() {
-		if (loggedIn()) {
-			mratingStars.setVisible(true);
-			MRating mrating = new MRating();
-			mrating.setMuser(getMUser());
-			mrating.setMedia(((MovieEntry) mediaItem.getBean()).getMovie());
-			mratingStars.setMrating(mrating);
-
 		}
 	}
 
@@ -306,11 +294,13 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	}
 
 	private void initMovieEntry(BeanItem<MediaInterface> selectedItem) {
-		Movie movie = ((MovieEntry) selectedItem.getBean()).getMovie();
+		MovieEntry entry = (MovieEntry) selectedItem.getBean();
+		Movie movie = entry.getMovie();
 		BeanItem<MovieEntry> movieItem = new BeanItem<MovieEntry>(new MovieEntry(movie));
 		movieForm.setItemDataSource(movieItem, Arrays.asList(new MovieEntry().form_fields()));
 		movieForm.setReadOnly(true);
 		holdingForm.setVisible(loggedIn());
+		mratingStars.setMovieEntry(entry);
 	}
 
 	private void initMovieHoldingEntry(BeanItem<MediaInterface> selectedItem) {
@@ -356,11 +346,11 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	}
 
 	private void refreshForm() {
-		showRating();
 		changeImage();
 		setTitle();
 		refreshButtons();
 		refreshHolding();
+		mratingStars.setVisible(mediaItem != null);
 	}
 
 	private void refreshHolding() {
@@ -404,11 +394,11 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		this.mediaService = mediaService;
 	}
 
-	private MUser getMUser() {
+	public MUser getMUser() {
 		return (MUser) getApplication().getUser();
 	}
 
-	private boolean loggedIn() {
+	public boolean loggedIn() {
 		return getMUser() != null;
 	}
 
