@@ -22,7 +22,7 @@ public class BOMediaTypeManager extends BusinessObject {
 	}
 	
 	private void init() {
-		this.mediaTypeMap.put(MediaType.MOVIE, BOMovie.class);
+		this.mediaTypeMap.put(MediaType.ATTRIBUTEDMEDIA, BOAttributedMedia.class);
 	}
 
 	public static final BOMediaTypeManager getInstance() {
@@ -63,6 +63,10 @@ public class BOMediaTypeManager extends BusinessObject {
 		}
 		
 		return boInstance;
+	}
+	
+	public BOAbstractMedia getBOInstance (Integer mediaId) throws MPExeption {
+		return this.getBOInstance(mediaId, MediaType.ATTRIBUTEDMEDIA);
 	}
 	
 	public BOAbstractMedia getBOInstance (MediaType mediaType) throws MPExeption {

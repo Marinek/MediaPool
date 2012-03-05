@@ -24,7 +24,7 @@
 	<bean id="movieService" class="de.mediapool.core.services.media.MediaServiceImpl">
 	</bean>
 	
-	<bean id="movieDAO" class="de.mediapool.core.persistence.dao.media.MovieDAOImpl">
+	<bean id="mediaDAO" class="de.mediapool.core.persistence.dao.media.MediaDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	

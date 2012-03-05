@@ -3,7 +3,8 @@ package de.mediapool.core;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import de.mediapool.core.beans.media.MovieBean;
+import de.mediapool.core.beans.media.AbstractMediaBean;
+import de.mediapool.core.beans.media.AttributedMediaBean;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 
@@ -17,9 +18,8 @@ public class Database {
 
 		
 		try {
-			MovieBean lMovieBean = new MovieBean();
+			AbstractMediaBean lMovieBean = new AttributedMediaBean();
 			
-			lMovieBean.setLength(123);
 			lMovieBean.setName("Mein Supertoller Test");
 			
 			
