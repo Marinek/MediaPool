@@ -14,10 +14,23 @@ public class PersistenceUtils {
 	private static Logger log = Logger.getLogger(PersistenceUtils.class);
 	
 	public static <T extends AbstractBean> T toBean(Class<T> pBeanClass, IValueObject pValueObject) {
-		if(pBeanClass != null && pValueObject != null) {
+		if(pBeanClass != null) {
 			try {
 				T lBean = pBeanClass.newInstance();
-				Class<?> lBeanObjectClass = pBeanClass.getClass();
+				
+				return toBean(lBean, pValueObject);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		} else {
+			throw new IllegalArgumentException("Parameter dürfen nicht null sein!");
+		}
+	}
+	
+	public static <T extends AbstractBean> T toBean(T pBean, IValueObject pValueObject) {
+		if(pBean != null && pValueObject != null) {
+			try {
+				Class<?> lBeanObjectClass = pBean.getClass();
 
 				while(lBeanObjectClass != null) {
 
@@ -27,15 +40,15 @@ public class PersistenceUtils {
 							Method lValueObjectGetMethod = pValueObject.getClass().getMethod("get" + firstUpperCase(lBeanField.getName()), new Class [] {});
 							Object lValueObjectFieldData = lValueObjectGetMethod.invoke(pValueObject, new Object[] {});
 							
-							Method lBeanSetMethod = lBean.getClass().getMethod("set" + firstUpperCase(lBeanField.getName()), lValueObjectFieldData.getClass());
-							lBeanSetMethod.invoke(lBean, lValueObjectFieldData);
+							Method lBeanSetMethod = pBean.getClass().getMethod("set" + firstUpperCase(lBeanField.getName()), lValueObjectFieldData.getClass());
+							lBeanSetMethod.invoke(pBean, lValueObjectFieldData);
 						} catch (NoSuchMethodException nsme) {
 							log.debug("Das Feld '" + lBeanField.getName() + "' konnte nicht zugeordnet werden.");
 						}
 					}
 					lBeanObjectClass = lBeanObjectClass.getSuperclass();
 				}
-				return lBean;
+				return pBean;
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}

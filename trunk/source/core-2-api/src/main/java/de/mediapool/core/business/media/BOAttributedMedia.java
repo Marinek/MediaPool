@@ -1,6 +1,7 @@
 package de.mediapool.core.business.media;
 
 import de.mediapool.core.beans.media.AbstractMediaBean;
+import de.mediapool.core.beans.media.AttributedMediaBean;
 import de.mediapool.core.beans.media.MediaType;
 import de.mediapool.core.exceptions.MPExeption;
 
@@ -26,6 +27,14 @@ public class BOAttributedMedia extends BOAbstractMedia {
 	public static BOAttributedMedia getInstance(Integer mediaID) throws MPExeption {
 		return new BOAttributedMedia(mediaID);
 	}
+	
+	public AbstractMediaBean getCurrentMediaBean() throws MPExeption {
+		if(this.currentMediaBean == null) {
+			this.currentMediaBean = new AttributedMediaBean();
+		}
+		
+		return super.getCurrentMediaBean();
+	}
 
 	protected void protectedSave() throws MPExeption {
 	
@@ -37,11 +46,6 @@ public class BOAttributedMedia extends BOAbstractMedia {
 	
 	protected MediaType getMediaType() throws MPExeption {
 		return MediaType.ATTRIBUTEDMEDIA;
-	}
-
-	protected Class<AbstractMediaBean> getBeanClass() throws MPExeption {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 

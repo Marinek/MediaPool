@@ -16,7 +16,9 @@ import de.mediapool.core.utils.ValidationUtil;
 
 public abstract class BOAbstractMedia extends BusinessObject {
 
-	private AbstractMediaBean currentMediaBean = null;
+	protected AbstractMediaBean currentMediaBean = null;
+	
+	protected MediaVO currentMediaVO = null;
 
 	protected BOAbstractMedia () throws MPExeption {
 		super();
@@ -30,10 +32,7 @@ public abstract class BOAbstractMedia extends BusinessObject {
 
 	protected void init(int mediaID) throws MPExeption {
 		try {
-			MediaVO mediaVO = MediaVO.getDAO().get(mediaID);
-			if(mediaVO != null) {
-				this.setCurrentMediaBean(this.getMediaBean(mediaVO));
-			}
+			currentMediaVO = MediaVO.getDAO().get(mediaID);
 		} catch (DBException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Could not Read MovieVO", e);
 		}
@@ -67,10 +66,7 @@ public abstract class BOAbstractMedia extends BusinessObject {
 			MediaVO saveMovieVO = this.getMediaVO();
 
 			try {
-				saveMovieVO = MediaVO.getDAO().insert(saveMovieVO);
-
-				this.setCurrentMediaBean(this.getMediaBean(saveMovieVO));
-
+				this.currentMediaVO = MediaVO.getDAO().insert(saveMovieVO);
 				this.protectedSave();
 			} catch (DBException e) {
 				throw new MPTechnicalExeption(ExeptionErrorCode.DB_UPDATE, "Could not Update MediaVO", e);
@@ -84,11 +80,9 @@ public abstract class BOAbstractMedia extends BusinessObject {
 		return PersistenceUtils.<MediaVO>toVO(MediaVO.class, this.getCurrentMediaBean());
 	}
 
-	private AbstractMediaBean getMediaBean(MediaVO movieVO) throws MPExeption {
-		return PersistenceUtils.<AbstractMediaBean>toBean(this.getBeanClass(), movieVO);
+	protected AbstractMediaBean getMediaBean() throws MPExeption {
+		return PersistenceUtils.<AbstractMediaBean>toBean(this.currentMediaBean, this.currentMediaVO);
 	}
-
-	protected abstract Class<AbstractMediaBean> getBeanClass() throws MPExeption;
 
 	protected abstract void protectedSave() throws MPExeption;
 
