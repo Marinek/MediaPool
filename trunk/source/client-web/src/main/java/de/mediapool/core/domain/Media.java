@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -63,7 +64,7 @@ public class Media implements Serializable, MediaInterface {
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Participation> participation = new HashSet<Participation>();
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "media")
 	private Set<MRating> mratings = new HashSet<MRating>();
 
 	@Override
