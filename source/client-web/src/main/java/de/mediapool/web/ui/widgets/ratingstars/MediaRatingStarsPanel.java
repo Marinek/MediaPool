@@ -1,5 +1,6 @@
 package de.mediapool.web.ui.widgets.ratingstars;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,6 +46,7 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 			MRating mrating = new MRating();
 			mrating.setMuser(form.getMUser());
 			mrating.setMedia(movieEntry.getMovie());
+			mrating.setRatingDate(new Date());
 			userRatingStars = new MediaRatingStars(this);
 			userRatingStars.setMrating(mrating);
 			addComponent(userRatingStars);
@@ -73,14 +75,13 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 		if ("Save".equals(event.getButton().getDescription())) {
 			if (!movieEntry.getMratings().contains(mrating)) {
 				movieEntry.getMratings().add(mrating);
-				form.getMediaService().refreshRating(movieEntry);
-			} else {
-				form.getMediaService().changeRating(mrating);
 			}
+			form.getMediaService().addOrChangeRating(mrating);
 		}
+
 		if ("Delete".equals(event.getButton().getDescription())) {
 			movieEntry.getMratings().remove(mrating);
-			form.getMediaService().refreshRating(movieEntry);
+			form.getMediaService().removeRating(mrating);
 		}
 		fillRatingPanel();
 
