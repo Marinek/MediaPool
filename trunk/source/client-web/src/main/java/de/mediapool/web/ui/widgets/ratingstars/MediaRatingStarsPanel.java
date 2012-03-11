@@ -29,7 +29,8 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 		Set<MRating> mratings = movieEntry.getMratings();
 		Set<MRating> otherrrating = new HashSet<MRating>();
 		avstars.setAverageRating(movieEntry.getAverageRating());
-		avstars.setMcaption("Total :");
+
+		avstars.setMcaption("Total (" + mratings.size() + ") :");
 		addComponent(avstars);
 		userRatingStars = null;
 		for (MRating mrating : mratings) {

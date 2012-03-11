@@ -2,7 +2,6 @@ package de.mediapool.web.ui.view;
 
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.event.LayoutEvents.LayoutClickListener;
-import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.VerticalLayout;
 
@@ -12,7 +11,6 @@ import de.mediapool.core.domain.container.MovieContainer;
 @SuppressWarnings("serial")
 public class MediaDetailList extends VerticalLayout {
 
-	private GridLayout grid;
 	private MediaView view;
 	private boolean showDetails = true;
 
