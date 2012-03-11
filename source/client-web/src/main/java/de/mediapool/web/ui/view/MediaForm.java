@@ -202,7 +202,8 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 
 	private void saveProduct() {
 		holdingForm.commit();
-		getMediaService().saveMovieHoldingEntry(mediaItem);
+		mediaItem = getMediaService().saveMovieHoldingEntry(mediaItem);
+		initMovieHoldingEntry(mediaItem);
 		getWindow().showNotification("Saved Successfully", Notification.TYPE_HUMANIZED_MESSAGE);
 		inDB = true;
 		refreshButtons();
@@ -254,18 +255,14 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		if (pid.equals("since")) {
 			PopupDateField sinceDate = new PopupDateField("Since");
 			sinceDate.setDateFormat("dd.MM.yyyy");
-			// Set the correct resolution
 			sinceDate.setResolution(PopupDateField.RESOLUTION_DAY);
-			// Add valuechangelistener
 			sinceDate.setImmediate(true);
 			return sinceDate;
 		}
 		if (pid.equals("lastUsed")) {
 			PopupDateField usedDate = new PopupDateField("Last Used");
 			usedDate.setDateFormat("dd.MM.yyyy");
-			// Set the correct resolution
 			usedDate.setResolution(PopupDateField.RESOLUTION_DAY);
-			// Add valuechangelistener
 			usedDate.setImmediate(true);
 			return usedDate;
 		}

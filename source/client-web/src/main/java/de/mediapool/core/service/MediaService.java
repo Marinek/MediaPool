@@ -27,6 +27,7 @@ import com.vaadin.addon.jpacontainer.JPAContainerFactory;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 
+import de.mediapool.core.MediaInterface;
 import de.mediapool.core.domain.Holding;
 import de.mediapool.core.domain.MRating;
 import de.mediapool.core.domain.MRelated;
@@ -254,7 +255,7 @@ public class MediaService implements Serializable {
 	}
 
 	// TODO implement if Movie already exists
-	public void saveMovieHoldingEntry(Item item) {
+	public BeanItem<MediaInterface> saveMovieHoldingEntry(Item item) {
 		BeanItem<MovieHoldingEntry> newMovieEntryItem = (BeanItem<MovieHoldingEntry>) item;
 		Holding holding = newMovieEntryItem.getBean().getHolding();
 		String newUrl = saveImage(holding.getProduct().getImage(), holding.getProduct().getEan() + "");
@@ -263,8 +264,9 @@ public class MediaService implements Serializable {
 		holding.getProduct().getMovie().setCover(newUrl);
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
-		em.merge(holding);
+		Holding savedHolding = em.merge(holding);
 		em.getTransaction().commit();
+		return new BeanItem<MediaInterface>(new MovieHoldingEntry(savedHolding));
 
 	}
 

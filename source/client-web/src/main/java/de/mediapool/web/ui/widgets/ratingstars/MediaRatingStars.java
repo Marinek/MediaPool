@@ -40,6 +40,7 @@ public class MediaRatingStars extends VerticalLayout {
 		description.setImmediate(true);
 		mcaption = new Label();
 		ratingStars = new RatingStars();
+		ratingStars.setDescription(ratingStars.getValue().toString());
 		saveRatingButton = new Button();
 		saveRatingButton.addListener(panel);
 		saveRatingButton.setDescription("Save");
