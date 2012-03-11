@@ -1,6 +1,6 @@
 package de.mediapool.core.persistence.core;
 
-import org.hibernate.Hibernate;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,8 +12,9 @@ public abstract class AbstractDAOImpl<T extends IValueObject> implements IDataAc
 
 	private SessionFactory  sessionFactory;
 	
+	private Session currentSession = null;
+	
 	public SessionFactory getSessionFactory () {
-			
 		 return sessionFactory;
 	}
 	
@@ -33,24 +34,24 @@ public abstract class AbstractDAOImpl<T extends IValueObject> implements IDataAc
 		
 		lSession.save(valueObject);
 		
+		lSession.flush();
+		
 		return valueObject;
 	}
 
 	public void update(T valueObject) {
-		this.getSession().update(valueObject);
+		Session lSession = this.getSession();
+		
+		lSession.saveOrUpdate(valueObject);
+		
+		lSession.flush();
+		
 	}
 
 	public void delete(T valueObject) {
 		this.getSession().delete(valueObject);
 	}
 
-	public T get(int valueObjectPrimaryKey) {
-		T valueObject = (T) this.getSession().get(this.getValueObjectClass(), valueObjectPrimaryKey);
-		Hibernate.initialize(valueObject);
-		return valueObject ;
-	}
-
-	
 	protected Transaction getTransaction(Session pSession) {
 		if(this.transaction == null) {
 			this.transaction = pSession.beginTransaction();
@@ -59,8 +60,15 @@ public abstract class AbstractDAOImpl<T extends IValueObject> implements IDataAc
 		return this.transaction;
 	}
 	
+	public Criteria createCriteria() throws DBException {
+		return this.getSession().createCriteria(this.getValueObjectClass());
+	}
+
 	protected Session getSession() {
-		return this.sessionFactory.openSession();
+		if(this.currentSession == null ) {
+			this.currentSession =  this.sessionFactory.openSession();
+		}
+		return this.currentSession;
 	}
 
 	public void commit() throws DBException {

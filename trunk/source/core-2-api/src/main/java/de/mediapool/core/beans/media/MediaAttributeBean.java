@@ -1,20 +1,12 @@
 package de.mediapool.core.beans.media;
 
+import de.mediapool.core.beans.media.attributes.MediaAttributeTypeBean;
+
 public class MediaAttributeBean {
 
-	private String attributeName = null;
+	private MediaAttributeTypeBean attributeType = new MediaAttributeTypeBean();
 	
 	private String attributeValue = null;
-	
-	private String attributeType = null;
-
-	public String getAttributeName() {
-		return attributeName;
-	}
-
-	public void setAttributeName(String attributeName) {
-		this.attributeName = attributeName;
-	}
 
 	public String getAttributeValue() {
 		return attributeValue;
@@ -24,11 +16,11 @@ public class MediaAttributeBean {
 		this.attributeValue = attributeValue;
 	}
 
-	public String getAttributeType() {
-		return attributeType;
+	public MediaAttributeTypeBean getAttributeType() {
+		return this.attributeType;
 	}
-
-	public void setAttributeType(String attributeType) {
+	
+	public void setAttributeType(MediaAttributeTypeBean attributeType) {
 		this.attributeType = attributeType;
 	}
 }

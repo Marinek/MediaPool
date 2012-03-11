@@ -6,6 +6,7 @@ public abstract class AbstractMediaBean extends AbstractBean {
 
 	private int id;
 	private String name;
+	private String mediaType;
 	
 	public void setId(int id) {
 		this.id = id;
@@ -23,6 +24,13 @@ public abstract class AbstractMediaBean extends AbstractBean {
 		return name;
 	}
 
-	public abstract MediaType getMediaType();
+	public String getMediaType() {
+		return mediaType;
+	}
+
+	public void setMediaType(String mediaType) {
+		this.mediaType = mediaType;
+	}
+
 
 }

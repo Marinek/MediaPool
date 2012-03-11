@@ -7,7 +7,7 @@
 		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/mediapool"/>
 		<property name="user" value="root"/>
-		<property name="password" value=""/>
+		<property name="password" value="root"/>
 	</bean>
 
 	<bean id="entityManagerFactory"
@@ -15,10 +15,15 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>de.mediapool.core.persistence.vo.media.MovieVO</value>
 				<value>de.mediapool.core.persistence.vo.media.MediaVO</value>
+				<value>de.mediapool.core.persistence.vo.media.MediaAttributeVO</value>
 			</list>
 		</property>
+		<property name="hibernateProperties">
+           <props>
+               <prop key="hibernate.show_sql">true</prop>
+           </props>
+        </property>
 	</bean>
 
 	<bean id="movieService" class="de.mediapool.core.services.media.MediaServiceImpl">
@@ -28,6 +33,9 @@
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
+	<bean id="mediaAttributeDAO" class="de.mediapool.core.persistence.dao.media.MediaAttributeDAOImpl">
+	 <property name="sessionFactory" ref="entityManagerFactory" />
+	</bean>
 
 </beans>
 
