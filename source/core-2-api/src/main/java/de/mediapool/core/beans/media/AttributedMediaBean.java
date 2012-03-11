@@ -1,12 +1,16 @@
 package de.mediapool.core.beans.media;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AttributedMediaBean extends AbstractMediaBean {
 
 	private Map<String, MediaAttributeBean> attributes = new HashMap<String, MediaAttributeBean>();
-	
+
 	public String getAttribute(String pName) {
 		String lReturnString = "";
 		if(attributes.containsKey(pName)) {
@@ -14,16 +18,28 @@ public class AttributedMediaBean extends AbstractMediaBean {
 		}
 		return lReturnString;
 	}
-	
+
 	public void setAttribute(String pName, String pValue) {
 		if(!attributes.containsKey(pName)) {
-			this.attributes.put(pName, new MediaAttributeBean());
+			MediaAttributeBean mediaAttributeBean = new MediaAttributeBean();
+			
+			this.attributes.put(pName, mediaAttributeBean);
 		}
 		this.attributes.get(pName).setAttributeValue(pValue);
 	}
-	
-	public MediaType getMediaType() {
-		return MediaType.ATTRIBUTEDMEDIA;
+
+	public void addAttribute (MediaAttributeBean pAttributeBean) {
+		attributes.put(pAttributeBean.getAttributeType().getAttributeName(), pAttributeBean);
+	}
+
+	public Collection<MediaAttributeBean> getAttributes() {
+		List<MediaAttributeBean> lReturnList = new ArrayList<MediaAttributeBean>();
+
+		for(String lKey : this.attributes.keySet()) {
+			lReturnList.add(this.attributes.get(lKey));
+		}
+
+		return Collections.unmodifiableCollection(lReturnList);
 	}
 
 }

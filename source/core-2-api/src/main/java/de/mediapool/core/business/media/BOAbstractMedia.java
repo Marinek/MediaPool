@@ -3,7 +3,6 @@ package de.mediapool.core.business.media;
 import java.util.List;
 
 import de.mediapool.core.beans.media.AbstractMediaBean;
-import de.mediapool.core.beans.media.MediaType;
 import de.mediapool.core.beans.utils.PersistenceUtils;
 import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.business.BusinessObject;
@@ -32,7 +31,7 @@ public abstract class BOAbstractMedia extends BusinessObject {
 
 	protected void init(int mediaID) throws MPExeption {
 		try {
-			currentMediaVO = MediaVO.getDAO().get(mediaID);
+			currentMediaVO = MediaVO.getDAO().getByPrimaryKey(mediaID);
 		} catch (DBException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Could not Read MovieVO", e);
 		}
@@ -87,7 +86,5 @@ public abstract class BOAbstractMedia extends BusinessObject {
 	protected abstract void protectedSave() throws MPExeption;
 
 	protected abstract void protectedDelete() throws MPExeption;
-
-	protected abstract MediaType getMediaType () throws MPExeption;
 
 }

@@ -6,10 +6,15 @@ public enum ExeptionErrorCode {
 	DB_READ(1000, "Konnte nicht auf Datenbank lesen."),
 	DB_INSERT(1100, "Konnte neuen Datensatz nicht erzeugen."),
 	DB_UPDATE(1200, "Konnte vorhandenen Datensatz nicht aktualisieren."),
-	DB_DELETE(1300, "Konnte vorhandenen Datensatz nicht löschen."),
+	DB_DELETE(1300, "Konnte vorhandenen Datensatz nicht lÃ¶schen."),
+	
 	
 	// Auto Instance Creator
-	MANAGER_CREATE (2000, "Es konnte keine neue Instanz erstellt werden.");
+	MANAGER_CREATE (2000, "Es konnte keine neue Instanz erstellt werden."),
+	
+	// Authfehler
+	AUTH_LOGIN(3000, "Fehler beim Authentifizieren: Benutzer oder Passwort falsch"),
+	AUTH_LOGIN_CACHE(3001, "Fehler beim Authentifizieren: Unzureichende Identifizierung.");
 	
 	private int errorCode = -1;
 	
