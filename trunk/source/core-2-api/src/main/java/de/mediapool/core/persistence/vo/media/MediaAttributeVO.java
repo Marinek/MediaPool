@@ -51,10 +51,7 @@ public class MediaAttributeVO implements IValueObject {
 		this.attributeName = attributeName;
 	}
 	
-	
 	public static IMediaAttributesDAO getDAO() {
 		return (IMediaAttributesDAO) PersistenceContext.getInstance().getDAO(IMediaAttributesDAO.class);
 	}
-	
-
 }

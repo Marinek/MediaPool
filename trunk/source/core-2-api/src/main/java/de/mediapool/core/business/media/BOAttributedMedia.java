@@ -2,18 +2,16 @@ package de.mediapool.core.business.media;
 
 import java.util.List;
 
-import de.mediapool.core.beans.media.AbstractMediaBean;
 import de.mediapool.core.beans.media.AttributedMediaBean;
 import de.mediapool.core.beans.media.MediaAttributeBean;
-import de.mediapool.core.business.media.attributes.AttributeManager;
+import de.mediapool.core.business.media.attributes.MediaAttributeTypeManager;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.DBException;
-import de.mediapool.core.persistence.dao.interfaces.IMediaAttributesDAO;
 import de.mediapool.core.persistence.vo.media.MediaAttributeVO;
 
-public class BOAttributedMedia extends BOAbstractMedia {
+public class BOAttributedMedia extends BOAbstractMedia<AttributedMediaBean> {
 
 	private List<MediaAttributeVO> currentAttributes;
 
@@ -44,21 +42,18 @@ public class BOAttributedMedia extends BOAbstractMedia {
 		return new BOAttributedMedia(mediaID);
 	}
 	
-	public AbstractMediaBean getCurrentMediaBean() throws MPExeption {
-		if(this.currentMediaBean == null) {
-			this.currentMediaBean = new AttributedMediaBean();
-		}
+	public AttributedMediaBean getCurrentMediaBean() throws MPExeption {
+		this.currentMediaBean = new AttributedMediaBean();
 		
 		if(this.currentAttributes != null) {
-			AttributedMediaBean lBean = (AttributedMediaBean) this.currentMediaBean;
 			for(MediaAttributeVO lVO : this.currentAttributes) {
 				MediaAttributeBean lAttributeBean = new MediaAttributeBean();
 
-				AttributeManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentMediaBean.getMediaType());
+				MediaAttributeTypeManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentMediaBean.getMediaType());
 				
 				lAttributeBean.setAttributeValue(lVO.getAttributeValue());
 				
-				lBean.addAttribute(lAttributeBean);
+				currentMediaBean.addAttribute(lAttributeBean);
 			}
 		}
 		
@@ -66,18 +61,19 @@ public class BOAttributedMedia extends BOAbstractMedia {
 	}
 
 	protected void protectedSave() throws MPExeption {
-		AttributedMediaBean lBean = (AttributedMediaBean) getCurrentMediaBean();
+		AttributedMediaBean lBean = getCurrentMediaBean();
 		
 		try {
+			this.currentAttributes.clear();
 			
 			for(MediaAttributeBean lAttribute : lBean.getAttributes()) {
 				MediaAttributeVO lVO = new MediaAttributeVO();
 
-				lVO.setAttributeName("testName");
+				lVO.setAttributeName(lAttribute.getAttributeType().getAttributeName());
+				lVO.setMediaID(currentMediaVO.getId());
 				lVO.setAttributeValue(lAttribute.getAttributeValue());
-				lVO.setMediaID(22);
 				
-				MediaAttributeVO.getDAO().update(lVO);
+				this.currentAttributes.add(MediaAttributeVO.getDAO().update(lVO));
 			}
 		} catch (DBException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_UPDATE, "Attribute konnten nicht hinzugefügt werden.", e);

@@ -1,15 +1,14 @@
 package de.mediapool.core.services.media;
 
-import de.mediapool.core.beans.media.AbstractMediaBean;
-import de.mediapool.core.business.media.BOAbstractMedia;
+import de.mediapool.core.beans.media.AttributedMediaBean;
 import de.mediapool.core.business.media.BOAttributedMedia;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 
-public class MediaServiceImpl implements IMediaService {
+public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 
-	public AbstractMediaBean createMedia(AbstractMediaBean abstractMediaBean) throws MPExeption {
-		BOAbstractMedia boInstance = BOAttributedMedia.getInstance();
+	public AttributedMediaBean createMedia(AttributedMediaBean abstractMediaBean) throws MPExeption {
+		BOAttributedMedia boInstance = BOAttributedMedia.getInstance();
 		
 		boInstance.setCurrentMediaBean(abstractMediaBean);
 		
@@ -20,14 +19,14 @@ public class MediaServiceImpl implements IMediaService {
 		return boInstance.getCurrentMediaBean();
 	}
 
-	public void deleteMedia(AbstractMediaBean abstractMediaBean) throws MPExeption {
-		BOAbstractMedia boInstance = BOAttributedMedia.getInstance(abstractMediaBean.getId());
+	public void deleteMedia(AttributedMediaBean abstractMediaBean) throws MPExeption {
+		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(abstractMediaBean.getId());
 		
 		boInstance.delete();
 	}
 
-	public AbstractMediaBean getMedia(int id) throws MPExeption {
-		BOAbstractMedia boInstance = BOAttributedMedia.getInstance(id);
+	public AttributedMediaBean getMedia(int id) throws MPExeption {
+		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(id);
 		
 		return boInstance.getCurrentMediaBean();
 	}
