@@ -13,9 +13,9 @@ import de.mediapool.core.persistence.core.DBException;
 import de.mediapool.core.persistence.vo.media.MediaVO;
 import de.mediapool.core.utils.ValidationUtil;
 
-public abstract class BOAbstractMedia extends BusinessObject {
+public abstract class BOAbstractMedia<T extends AbstractMediaBean> extends BusinessObject {
 
-	protected AbstractMediaBean currentMediaBean = null;
+	protected T currentMediaBean = null;
 	
 	protected MediaVO currentMediaVO = null;
 
@@ -37,11 +37,11 @@ public abstract class BOAbstractMedia extends BusinessObject {
 		}
 	}
 
-	public void setCurrentMediaBean(AbstractMediaBean abstractMediaBean) throws MPExeption {
+	public void setCurrentMediaBean(T abstractMediaBean) throws MPExeption {
 		this.currentMediaBean = abstractMediaBean;
 	}
 
-	public AbstractMediaBean getCurrentMediaBean () throws MPExeption {
+	public T getCurrentMediaBean () throws MPExeption {
 		return this.currentMediaBean;
 	}
 
@@ -79,8 +79,8 @@ public abstract class BOAbstractMedia extends BusinessObject {
 		return PersistenceUtils.<MediaVO>toVO(MediaVO.class, this.getCurrentMediaBean());
 	}
 
-	protected AbstractMediaBean getMediaBean() throws MPExeption {
-		return PersistenceUtils.<AbstractMediaBean>toBean(this.currentMediaBean, this.currentMediaVO);
+	protected T getMediaBean() throws MPExeption {
+		return PersistenceUtils.<T>toBean(this.currentMediaBean, this.currentMediaVO);
 	}
 
 	protected abstract void protectedSave() throws MPExeption;

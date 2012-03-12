@@ -39,13 +39,14 @@ public abstract class AbstractDAOImpl<T extends IValueObject> implements IDataAc
 		return valueObject;
 	}
 
-	public void update(T valueObject) {
+	public T update(T valueObject) {
 		Session lSession = this.getSession();
 		
 		lSession.saveOrUpdate(valueObject);
 		
 		lSession.flush();
 		
+		return valueObject;
 	}
 
 	public void delete(T valueObject) {

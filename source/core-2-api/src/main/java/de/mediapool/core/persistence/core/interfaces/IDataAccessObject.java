@@ -11,7 +11,7 @@ public interface IDataAccessObject<T extends IValueObject> {
 	public Class<T> getValueObjectClass();
 	
 	public  T insert(T valueObject) throws DBException;
-	public  void update(T valueObject) throws DBException;
+	public  T update(T valueObject) throws DBException;
 	public  void delete(T valueObject) throws DBException;
 	
 	public Criteria createCriteria() throws DBException;
