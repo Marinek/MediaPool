@@ -6,12 +6,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
-import de.mediapool.core.persistence.core.interfaces.IValueObject;
+import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 import de.mediapool.core.persistence.dao.interfaces.IMediaAttributesDAO;
 
 @Entity()
 @Table(name = "MediaAttributes")
-public class MediaAttributeVO implements IValueObject {
+public class MediaAttributeVO implements IPSValueObject {
 
 	private static final long serialVersionUID = 1L;
 	

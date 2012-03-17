@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
-import de.mediapool.core.persistence.core.interfaces.IValueObject;
+import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 import de.mediapool.core.persistence.dao.interfaces.IMediaDAO;
 
 @Entity()
 @Table(name = "Media")
-public class MediaVO implements IValueObject {
+public class MediaVO implements IPSValueObject {
 
 	private static final long serialVersionUID = 1L;
 

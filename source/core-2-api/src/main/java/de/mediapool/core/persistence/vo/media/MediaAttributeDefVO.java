@@ -9,13 +9,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
-import de.mediapool.core.persistence.core.interfaces.IValueObject;
+import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 import de.mediapool.core.persistence.dao.interfaces.IMediaAttributeDefsDAO;
 import de.mediapool.core.persistence.enums.media.AttributeMandatoryType;
 
 @Entity
 @Table(name = "mediaattributedefs")
-public class MediaAttributeDefVO implements IValueObject {
+public class MediaAttributeDefVO implements IPSValueObject {
 
 	private static final long serialVersionUID = 1L;
 	

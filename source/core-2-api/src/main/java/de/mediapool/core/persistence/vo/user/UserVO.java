@@ -1,15 +1,15 @@
-package de.mediapool.core.persistence.vo.media;
+package de.mediapool.core.persistence.vo.user;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 
-import de.mediapool.core.persistence.core.interfaces.IValueObject;
+import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 
 @Entity
 @Table(name="user")
-public class UserVO implements IValueObject {
+public class UserVO implements IPSValueObject {
 	
 	private static final long serialVersionUID = 1L;
 

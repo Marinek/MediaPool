@@ -5,11 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import de.mediapool.core.persistence.core.interfaces.IValueObject;
+import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 
 @Entity
 @Table(name="mediatypes")
-public class MediaTypeVO implements IValueObject {
+public class MediaTypeVO implements IPSValueObject {
 
 	private static final long serialVersionUID = 1L;
 

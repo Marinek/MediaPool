@@ -10,7 +10,7 @@ import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
-import de.mediapool.core.persistence.core.DBException;
+import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.media.MediaVO;
 import de.mediapool.core.utils.ValidationUtil;
 
@@ -33,7 +33,7 @@ public abstract class BOAbstractMedia<T extends AbstractMediaBean> extends Busin
 	protected void init(int mediaID) throws MPExeption {
 		try {
 			currentMediaVO = MediaVO.getDAO().getByPrimaryKey(mediaID);
-		} catch (DBException e) {
+		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Could not Read MovieVO", e);
 		}
 	}
@@ -51,7 +51,7 @@ public abstract class BOAbstractMedia<T extends AbstractMediaBean> extends Busin
 
 		try {
 			MediaVO.getDAO().delete(deleteMovie);
-		} catch (DBException e) {
+		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_DELETE, "Could not Delete MediaVO", e);
 		}
 
@@ -63,12 +63,16 @@ public abstract class BOAbstractMedia<T extends AbstractMediaBean> extends Busin
 		List<ValidationResultBean> validationResult = this.validate();
 
 		if(ValidationUtil.canProceed(validationResult)) {
-			MediaVO saveMovieVO = this.getMediaVO();
+			this.currentMediaVO = this.getMediaVO();
 
 			try {
-				this.currentMediaVO = MediaVO.getDAO().insert(saveMovieVO);
+				MediaVO.getDAO().saveOrUpdate(currentMediaVO, this.getTransaction());
 				this.protectedSave();
-			} catch (DBException e) {
+				
+				this.doCommit();
+			} catch (PSException e) {
+				this.doRollback();
+				
 				throw new MPTechnicalExeption(ExeptionErrorCode.DB_UPDATE, "Could not Update MediaVO", e);
 			}
 		}

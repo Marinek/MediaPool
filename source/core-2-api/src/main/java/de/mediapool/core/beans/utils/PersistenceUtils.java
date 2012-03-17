@@ -7,13 +7,13 @@ import org.apache.log4j.Logger;
 
 
 import de.mediapool.core.beans.AbstractBean;
-import de.mediapool.core.persistence.core.interfaces.IValueObject;
+import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 
 public class PersistenceUtils {
 	
 	private static Logger log = Logger.getLogger(PersistenceUtils.class);
 	
-	public static <T extends AbstractBean> T toBean(Class<T> pBeanClass, IValueObject pValueObject) {
+	public static <T extends AbstractBean> T toBean(Class<T> pBeanClass, IPSValueObject pValueObject) {
 		if(pBeanClass != null) {
 			try {
 				T lBean = pBeanClass.newInstance();
@@ -27,7 +27,7 @@ public class PersistenceUtils {
 		}
 	}
 	
-	public static <T extends AbstractBean> T toBean(T pBean, IValueObject pValueObject) {
+	public static <T extends AbstractBean> T toBean(T pBean, IPSValueObject pValueObject) {
 		if(pBean != null && pValueObject != null) {
 			try {
 				Class<?> lBeanObjectClass = pBean.getClass();
@@ -57,7 +57,7 @@ public class PersistenceUtils {
 		}
 	}
 
-	public static <T extends IValueObject> T toVO(Class<T> pValueObjectClass, AbstractBean pBeanObject) {
+	public static <T extends IPSValueObject> T toVO(Class<T> pValueObjectClass, AbstractBean pBeanObject) {
 		if(pValueObjectClass != null && pBeanObject != null) {
 			try {
 				T lValueObject = pValueObjectClass.newInstance();
