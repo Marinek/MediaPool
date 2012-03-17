@@ -8,6 +8,8 @@ public class MediaAttributeTypeBean extends AbstractBean {
 	private String attributeName = null;
 	private String attributeDisplay = null;
 	
+	private MediaAttributeMandatoryType mandatoryType =  MediaAttributeMandatoryType.NOTHING;
+	
 	public String getAttributeMediaType() {
 		return attributeMediaType;
 	}
@@ -25,6 +27,16 @@ public class MediaAttributeTypeBean extends AbstractBean {
 	}
 	public void setAttributeDisplay(String attributeDisplay) {
 		this.attributeDisplay = attributeDisplay;
+	}
+	public MediaAttributeMandatoryType getMandatoryType() {
+		return mandatoryType;
+	}
+	public void setMandatoryType(MediaAttributeMandatoryType mandatoryType) {
+		this.mandatoryType = mandatoryType;
+	}
+	
+	public boolean isMandatory() {
+		return this.getMandatoryType().isMandatory();
 	}
 	
 }

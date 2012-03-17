@@ -1,8 +1,11 @@
 package de.mediapool.core.persistence.vo.media;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
@@ -32,6 +35,10 @@ public class MediaAttributeDefVO implements IValueObject {
 
 	@Column(name = "attributeMandatory")
 	private AttributeMandatoryType attributeMandatory = AttributeMandatoryType.NOTHING;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="mediaTypeId")
+	private MediaTypeVO mediaTypeVO = null;
 
 	public Integer getMediaTypeId() {
 		return mediaTypeId;
@@ -39,6 +46,10 @@ public class MediaAttributeDefVO implements IValueObject {
 
 	public void setMediaTypeId(Integer mediaTypeId) {
 		this.mediaTypeId = mediaTypeId;
+	}
+	
+	public String getMediaTypeName() {
+		return this.mediaTypeVO.getTypeName();
 	}
 
 	public String getAttributeName() {
