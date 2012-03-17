@@ -1,5 +1,7 @@
 package de.mediapool.core.persistence.core;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,10 +15,6 @@ public abstract class AbstractDAOImpl<T extends IValueObject> implements IDataAc
 	private SessionFactory  sessionFactory;
 	
 	private Session currentSession = null;
-	
-	public SessionFactory getSessionFactory () {
-		 return sessionFactory;
-	}
 	
 	private Transaction transaction;
 
@@ -52,6 +50,19 @@ public abstract class AbstractDAOImpl<T extends IValueObject> implements IDataAc
 	public void delete(T valueObject) {
 		this.getSession().delete(valueObject);
 	}
+	
+	public List<T> findAll() throws DBException {
+		Session lSession = this.getSession();
+		
+		Criteria lCriteria = lSession.createCriteria(this.getValueObjectClass());
+		
+		return lCriteria.list();
+	}
+	
+	
+	protected SessionFactory getSessionFactory () {
+		 return sessionFactory;
+	}
 
 	protected Transaction getTransaction(Session pSession) {
 		if(this.transaction == null) {
@@ -61,7 +72,7 @@ public abstract class AbstractDAOImpl<T extends IValueObject> implements IDataAc
 		return this.transaction;
 	}
 	
-	public Criteria createCriteria() throws DBException {
+	protected Criteria createCriteria() throws DBException {
 		return this.getSession().createCriteria(this.getValueObjectClass());
 	}
 

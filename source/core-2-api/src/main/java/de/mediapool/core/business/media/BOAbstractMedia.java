@@ -4,6 +4,7 @@ import java.util.List;
 
 import de.mediapool.core.beans.media.AbstractMediaBean;
 import de.mediapool.core.beans.utils.PersistenceUtils;
+import de.mediapool.core.beans.validation.ValidationErrorType;
 import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
@@ -73,10 +74,28 @@ public abstract class BOAbstractMedia<T extends AbstractMediaBean> extends Busin
 		}
 		return validationResult;
 	}
+	
+	public List<ValidationResultBean> validate() throws MPExeption {
+		List<ValidationResultBean> lValidation = super.validate();
+		
+		AbstractMediaBean currentMediaBean2 = this.getCurrentMediaBean();
+		
+		if(currentMediaBean2.getName() == null) {
+			lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Feld Name muss ist ein Pflichtfeld."));
+		}
+		
+		return lValidation;
+	}
 
 
 	private MediaVO getMediaVO() throws MPExeption {
-		return PersistenceUtils.<MediaVO>toVO(MediaVO.class, this.getCurrentMediaBean());
+		AbstractMediaBean lCurrentBean = this.getCurrentMediaBean();
+		MediaVO lMediaVO = new MediaVO();
+		
+		lMediaVO.setId(lCurrentBean.getId());
+		lMediaVO.setName(lCurrentBean.getName());
+		
+		return lMediaVO;
 	}
 
 	protected T getMediaBean() throws MPExeption {
