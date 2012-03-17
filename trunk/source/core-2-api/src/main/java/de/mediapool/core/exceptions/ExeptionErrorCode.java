@@ -7,6 +7,7 @@ public enum ExeptionErrorCode {
 	DB_INSERT(1100, "Konnte neuen Datensatz nicht erzeugen."),
 	DB_UPDATE(1200, "Konnte vorhandenen Datensatz nicht aktualisieren."),
 	DB_DELETE(1300, "Konnte vorhandenen Datensatz nicht löschen."),
+	DB_COMMIT(1300, "Konnte Commit nicht ausführen."),
 	
 	
 	// Auto Instance Creator

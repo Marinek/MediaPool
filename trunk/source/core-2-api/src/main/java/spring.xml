@@ -42,6 +42,10 @@
 	<bean id="MediaAttributeDefsDAO" class="de.mediapool.core.persistence.dao.media.MediaAttributeDefsDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
+	
+	<bean id="psTransaction" class="de.mediapool.core.persistence.core.PSTransaction">
+	 <property name="sessionFactory" ref="entityManagerFactory" />
+	</bean>
 
 </beans>
 

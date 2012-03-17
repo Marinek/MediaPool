@@ -1,10 +1,10 @@
 package de.mediapool.core.persistence.core;
 
-public class DBException extends Exception {
+public class PSException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public DBException(String pMessage) {
+	public PSException(String pMessage) {
 		super(pMessage);
 	}
 }

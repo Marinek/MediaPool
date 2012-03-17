@@ -10,7 +10,7 @@ import de.mediapool.core.beans.media.attributes.MediaAttributeTypeBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
-import de.mediapool.core.persistence.core.DBException;
+import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.media.MediaAttributeDefVO;
 
 public class MediaAttributeTypeManager {
@@ -43,7 +43,7 @@ public class MediaAttributeTypeManager {
 				this.attributeMap.put(lDefinition.getMediaTypeName() + lDefinition.getAttributeName(), lBean);
 				this.attributeMap.put(lDefinition.getMediaTypeId() + lDefinition.getAttributeName(), lBean);
 			}
-		} catch (DBException e) {
+		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Fehler beim Lesen der Tabelle 'MediaAttributeDef'.");
 		}
 	}

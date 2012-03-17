@@ -1,6 +1,6 @@
 package de.mediapool.core.persistence.core;
 
-public enum DBErrorCode {
+public enum PSErrorCode {
 
 	READ,
 	CREATE,

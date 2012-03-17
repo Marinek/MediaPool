@@ -9,7 +9,7 @@ import de.mediapool.core.business.media.attributes.MediaAttributeTypeManager;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
-import de.mediapool.core.persistence.core.DBException;
+import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.media.MediaAttributeVO;
 
 public class BOAttributedMedia extends BOAbstractMedia<AttributedMediaBean> {
@@ -29,7 +29,7 @@ public class BOAttributedMedia extends BOAbstractMedia<AttributedMediaBean> {
 
 		try {
 			currentAttributes = MediaAttributeVO.getDAO().getAttributesFor(this.currentMediaVO.getId());
-		} catch (DBException e) {
+		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Fehler beim Lesen der Attribute", e);
 		}
 
@@ -76,9 +76,11 @@ public class BOAttributedMedia extends BOAbstractMedia<AttributedMediaBean> {
 				lVO.setMediaID(currentMediaVO.getId());
 				lVO.setAttributeValue(lAttribute.getAttributeValue());
 
-				this.currentAttributes.add(MediaAttributeVO.getDAO().update(lVO));
+				MediaAttributeVO.getDAO().saveOrUpdate(lVO, this.getTransaction());
+				
+				this.currentAttributes.add(lVO);
 			}
-		} catch (DBException e) {
+		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_UPDATE, "Attribute konnten nicht hinzugefügt werden.", e);
 		}
 
