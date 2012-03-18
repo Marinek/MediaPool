@@ -1,5 +1,6 @@
 package de.mediapool.core.services.media;
 
+import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.media.AttributedMediaBean;
 import de.mediapool.core.beans.media.MediaAttributeBean;
 import de.mediapool.core.beans.media.attributes.MediaAttributeTypeBean;
@@ -10,8 +11,8 @@ import de.mediapool.core.services.interfaces.IMediaService;
 
 public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 
-	public AttributedMediaBean createMedia(AttributedMediaBean abstractMediaBean) throws MPExeption {
-		BOAttributedMedia boInstance = BOAttributedMedia.getInstance();
+	public AttributedMediaBean createMedia(AttributedMediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
+		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(pUserBean);
 		
 		boInstance.setCurrentMediaBean(abstractMediaBean);
 		
@@ -22,19 +23,19 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 		return boInstance.getCurrentMediaBean();
 	}
 
-	public void deleteMedia(AttributedMediaBean abstractMediaBean) throws MPExeption {
-		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(abstractMediaBean.getId());
+	public void deleteMedia(AttributedMediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
+		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(abstractMediaBean.getId(), pUserBean);
 		
 		boInstance.delete();
 	}
 
-	public AttributedMediaBean getMedia(int id) throws MPExeption {
-		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(id);
+	public AttributedMediaBean getMedia(int id, UserBean pUserBean) throws MPExeption {
+		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(id, pUserBean);
 		
 		return boInstance.getCurrentMediaBean();
 	}
 
-	public void getAllMedia() throws MPExeption {
+	public void getAllMedia(UserBean pUserBea) throws MPExeption {
 	}
 	
 	public MediaAttributeBean createAttribute (String pMediaType, String pAttributeName, String pValue) throws MPExeption {

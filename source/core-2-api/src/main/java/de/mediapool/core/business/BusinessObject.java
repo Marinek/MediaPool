@@ -3,6 +3,7 @@ package de.mediapool.core.business;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
@@ -13,9 +14,15 @@ import de.mediapool.core.persistence.core.interfaces.IPSTransaction;
 
 public abstract class BusinessObject {
 
+	private UserBean currentUserBean = null;
+	
 	private IPSTransaction currentTransaction = null;
 	private boolean isOwnTransaction = true;
 
+	protected BusinessObject (UserBean pUserBean) throws MPExeption {
+		this.currentUserBean = pUserBean;
+	}
+	
 	public List<ValidationResultBean> validate() throws MPExeption {
 		List<ValidationResultBean> validatationResultList = new ArrayList<ValidationResultBean>();
 

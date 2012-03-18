@@ -14,6 +14,10 @@ import de.mediapool.core.exceptions.MPExeption;
 
 public class BOUserAuthentication extends BusinessObject {
 
+	protected BOUserAuthentication() throws MPExeption {
+		super(null);
+	}
+
 	public UserBean login(String pUsername, String pPassword) throws MPExeption {
 		Subject currentUser = SecurityUtils.getSubject();
 		UserBean lUserBean = new UserBean();
