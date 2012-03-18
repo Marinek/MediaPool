@@ -11,6 +11,7 @@ import com.vaadin.ui.VerticalLayout;
 import de.mediapool.core.domain.MRating;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.web.ui.view.MediaForm;
+import de.mediapool.web.ui.widgets.ConfirmationDialog;
 import de.mediapool.web.ui.widgets.ratingstars.MediaRatingStars.RatingMode;
 
 @SuppressWarnings("serial")
@@ -72,8 +73,8 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		MRating mrating = userRatingStars.bindAndGetRating();
 		if ("Save".equals(event.getButton().getDescription())) {
+			MRating mrating = userRatingStars.bindAndGetRating();
 			if (movieEntry.getMratings().contains(mrating)) {
 				movieEntry.getMratings().remove(mrating);
 			}
@@ -85,14 +86,31 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 		}
 
 		if ("Delete".equals(event.getButton().getDescription())) {
-			movieEntry.getMratings().remove(mrating);
-			form.getMediaService().removeRating(mrating);
-			fillRatingPanel();
+			askFirst();
 		}
 		if ("Edit".equals(event.getButton().getDescription())) {
 			userRatingStars.refreshStars(RatingMode.EDITVIEW);
 		}
 
+	}
+
+	private void askFirst() {
+		getWindow().addWindow(
+				new ConfirmationDialog("Really remove ?", "Are you sure to remove this Rating", "Yes", "No",
+						new ConfirmationDialog.ConfirmationDialogCallback() {
+							public void response(boolean remove) {
+								if (remove) {
+									deleteRating();
+								}
+							}
+						}));
+	}
+
+	private void deleteRating() {
+		MRating mrating = userRatingStars.bindAndGetRating();
+		movieEntry.getMratings().remove(mrating);
+		form.getMediaService().removeRating(mrating);
+		fillRatingPanel();
 	}
 
 }
