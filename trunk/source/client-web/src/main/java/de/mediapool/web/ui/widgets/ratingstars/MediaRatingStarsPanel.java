@@ -11,6 +11,7 @@ import com.vaadin.ui.VerticalLayout;
 import de.mediapool.core.domain.MRating;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.web.ui.view.MediaForm;
+import de.mediapool.web.ui.widgets.ratingstars.MediaRatingStars.RatingMode;
 
 @SuppressWarnings("serial")
 public class MediaRatingStarsPanel extends VerticalLayout implements ClickListener {
@@ -36,7 +37,7 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 		for (MRating mrating : mratings) {
 			if (form.loggedIn() && mrating.getMuser().equals(form.getMUser())) {
 				userRatingStars = new MediaRatingStars(this);
-				userRatingStars.setMrating(mrating);
+				userRatingStars.setMrating(mrating, RatingMode.SAVEDVIEW);
 				addComponent(userRatingStars);
 			} else {
 				otherrrating.add(mrating);
@@ -49,14 +50,13 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 			mrating.setMedia(movieEntry.getMovie());
 			mrating.setRatingDate(new Date());
 			userRatingStars = new MediaRatingStars(this);
-			userRatingStars.setMrating(mrating);
+			userRatingStars.setMrating(mrating, RatingMode.NEWVIEW);
 			addComponent(userRatingStars);
 		}
 		for (MRating mrating : otherrrating) {
 			MediaRatingStars stars = new MediaRatingStars(this);
 
-			stars.setMrating(mrating);
-			stars.setEnabled(false);
+			stars.setMrating(mrating, RatingMode.OTHERVIEW);
 			addComponent(stars);
 		}
 	}
@@ -74,17 +74,24 @@ public class MediaRatingStarsPanel extends VerticalLayout implements ClickListen
 	public void buttonClick(ClickEvent event) {
 		MRating mrating = userRatingStars.bindAndGetRating();
 		if ("Save".equals(event.getButton().getDescription())) {
-			if (!movieEntry.getMratings().contains(mrating)) {
-				movieEntry.getMratings().add(mrating);
+			if (movieEntry.getMratings().contains(mrating)) {
+				movieEntry.getMratings().remove(mrating);
 			}
-			form.getMediaService().addOrChangeRating(mrating);
+			MRating changed = form.getMediaService().addOrChangeRating(mrating);
+			userRatingStars.setMrating(changed, RatingMode.SAVEDVIEW);
+			movieEntry.getMratings().add(changed);
+			fillRatingPanel();
+
 		}
 
 		if ("Delete".equals(event.getButton().getDescription())) {
 			movieEntry.getMratings().remove(mrating);
 			form.getMediaService().removeRating(mrating);
+			fillRatingPanel();
 		}
-		fillRatingPanel();
+		if ("Edit".equals(event.getButton().getDescription())) {
+			userRatingStars.refreshStars(RatingMode.EDITVIEW);
+		}
 
 	}
 
