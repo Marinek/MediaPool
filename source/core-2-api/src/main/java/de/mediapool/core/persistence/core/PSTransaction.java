@@ -42,7 +42,7 @@ public class PSTransaction implements IPSTransaction {
 		this.closeSession();
 	}
 	
-	public void rollback() throws PSException {
+	public void rollback() {
 		this.currentTransaction.rollback();
 		
 		this.closeSession();

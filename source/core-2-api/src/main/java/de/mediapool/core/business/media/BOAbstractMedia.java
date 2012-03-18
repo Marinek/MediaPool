@@ -50,12 +50,14 @@ public abstract class BOAbstractMedia<T extends AbstractMediaBean> extends Busin
 		MediaVO deleteMovie = this.getMediaVO();
 
 		try {
-			MediaVO.getDAO().delete(deleteMovie);
+			MediaVO.getDAO().delete(deleteMovie, this.getTransaction());
+			this.protectedDelete();
+			
+			this.doCommit();
 		} catch (PSException e) {
+			this.doRollback();
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_DELETE, "Could not Delete MediaVO", e);
 		}
-
-		this.protectedDelete();
 	}
 
 
