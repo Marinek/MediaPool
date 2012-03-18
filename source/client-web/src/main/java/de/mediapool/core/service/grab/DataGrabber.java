@@ -135,13 +135,12 @@ public class DataGrabber implements Serializable {
 
 		logger.info("Gefundener Film für: " + ean + " " + product.getMovie().getTitle());
 
-		Movie movie = complementMovie(product);
-		product.setMovie(movie);
+		Product newproduct = complementMovie(product);
 		logger.info(product.getMovie().getParticipation().toString());
-		return product;
+		return newproduct;
 	}
 
-	private Movie complementMovie(Product product) {
+	public Product complementMovie(Product product) {
 
 		List<TreeMap<String, String>> filmdaten = new ArrayList<TreeMap<String, String>>();
 		List<String> pageurls = getLinksFromWiki(product.getMovie().getTitle());
@@ -150,7 +149,7 @@ public class DataGrabber implements Serializable {
 			filmdaten.add(getFilmDataFromPage(url));
 		}
 
-		return findeFilm(filmdaten, product);
+		return findMovieFromProduct(filmdaten, product);
 
 	}
 
@@ -176,7 +175,7 @@ public class DataGrabber implements Serializable {
 		return contains;
 	}
 
-	private Movie findeFilm(List<TreeMap<String, String>> filmdaten, Product product) {
+	private Product findMovieFromProduct(List<TreeMap<String, String>> filmdaten, Product product) {
 		String searchfilm = product.getMovie().getTitle();
 
 		Participation regie = product.getMovie().getParticipation().iterator().next();
@@ -215,8 +214,8 @@ public class DataGrabber implements Serializable {
 		logger.info("Es wurde " + gefunden + " Film zum Titel : " + searchfilm + " gefunden");
 
 		writeToFile("Filmeinfo", notExact.toString(), "txt");
-
-		return movie;
+		product.setMovie(movie);
+		return product;
 	}
 
 	@Deprecated

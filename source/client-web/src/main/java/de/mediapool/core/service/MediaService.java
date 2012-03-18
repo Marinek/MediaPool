@@ -262,6 +262,7 @@ public class MediaService implements Serializable {
 		holding.getProduct().getMovie().setLocal(true);
 		holding.getProduct().setImage(newUrl);
 		holding.getProduct().getMovie().setCover(newUrl);
+		holding.setProduct(getDataGrabber().complementMovie(holding.getProduct()));
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
 		Holding savedHolding = em.merge(holding);
@@ -278,11 +279,12 @@ public class MediaService implements Serializable {
 		em.getTransaction().commit();
 	}
 
-	public void addOrChangeRating(MRating mrating) {
+	public MRating addOrChangeRating(MRating mrating) {
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
-		em.merge(mrating);
+		MRating changed = em.merge(mrating);
 		em.getTransaction().commit();
+		return changed;
 	}
 
 	public void removeMovieHoldingEntry(Item item) {
