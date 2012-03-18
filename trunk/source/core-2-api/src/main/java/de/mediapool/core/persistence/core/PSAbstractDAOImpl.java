@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 
 import de.mediapool.core.persistence.core.interfaces.IPSDataAccessObject;
 import de.mediapool.core.persistence.core.interfaces.IPSTransaction;
@@ -15,12 +14,12 @@ public abstract class PSAbstractDAOImpl<T extends IPSValueObject> implements IPS
 
 	private SessionFactory  sessionFactory;
 	
-	private Transaction transaction;
-
-	public void setTransaction(Transaction transaction) {
-		this.transaction = transaction;
-	}
-	
+	/**
+	 * Wird für Dependency Injection verwendet um die zu vewendete {@link SessionFactory} 
+	 * hinzuzufügen.
+	 * 
+	 * @param sessionFactory Implementierung von {@link SessionFactory}
+	 */
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
@@ -45,22 +44,29 @@ public abstract class PSAbstractDAOImpl<T extends IPSValueObject> implements IPS
 		lSession.flush();
 	}
 
-	public void delete(T valueObject) {
-		this.getSession().delete(valueObject);
+	public void delete(T valueObject) throws PSException {
+		IPSTransaction lTransaction = PSTransaction.createTransaction();
+		
+		this.delete(valueObject, lTransaction);
+		
+		lTransaction.commit();
 	}
 	
-	protected List<T> findByCriteria(PSCriteria pCriteria) throws PSException {
-		if(pCriteria == null) {
-			throw new PSException("Criteria dürfen nicht null sein!");
+	public void delete(T valueObject, IPSTransaction pTransaction) throws PSException {
+		if(pTransaction == null) {
+			throw new PSException("Die Transaktion darf nicht null sein.");
 		}
 		
-		return this.find(pCriteria);
+		Session lSession = pTransaction.getSession();
+		
+		lSession.delete(valueObject);
 	}
 	
 	public List<T> findAll() throws PSException {
 		return this.find(this.createCriteria());
 	}
 	
+	@SuppressWarnings("unchecked")
 	private List<T> find(PSCriteria pCriteria) throws PSException {
 		Criteria executableCriteria = pCriteria.getExecutableCriteria(this.getSession());
 		
@@ -71,12 +77,12 @@ public abstract class PSAbstractDAOImpl<T extends IPSValueObject> implements IPS
 		 return sessionFactory;
 	}
 
-	protected Transaction getTransaction(Session pSession) {
-		if(this.transaction == null) {
-			this.transaction = pSession.beginTransaction();
+	protected List<T> findByCriteria(PSCriteria pCriteria) throws PSException {
+		if(pCriteria == null) {
+			throw new PSException("Criteria dürfen nicht null sein!");
 		}
 		
-		return this.transaction;
+		return this.find(pCriteria);
 	}
 	
 	protected PSCriteria createCriteria() throws PSException {
@@ -87,11 +93,5 @@ public abstract class PSAbstractDAOImpl<T extends IPSValueObject> implements IPS
 		return  this.sessionFactory.openSession();
 	}
 
-	public void commit() throws PSException {
-		
-	}
-
-	public void rollback() throws PSException {
-		
-	}
+	protected abstract Class<T> getValueObjectClass() throws PSException;
 }

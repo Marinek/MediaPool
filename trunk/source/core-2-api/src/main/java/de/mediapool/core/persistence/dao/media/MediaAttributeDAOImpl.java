@@ -2,12 +2,11 @@ package de.mediapool.core.persistence.dao.media;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import de.mediapool.core.persistence.core.PSAbstractDAOImpl;
-import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.core.PSCriteria;
+import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.dao.interfaces.IMediaAttributesDAO;
 import de.mediapool.core.persistence.vo.media.MediaAttributeVO;
 
