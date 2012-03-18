@@ -3,6 +3,7 @@ package de.mediapool.core.business.media;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.media.AttributedMediaBean;
 import de.mediapool.core.beans.media.MediaAttributeBean;
 import de.mediapool.core.business.media.attributes.MediaAttributeTypeManager;
@@ -16,12 +17,12 @@ public class BOAttributedMedia extends BOAbstractMedia<AttributedMediaBean> {
 
 	private List<MediaAttributeVO> currentAttributes = new ArrayList<MediaAttributeVO>();
 
-	protected BOAttributedMedia() throws MPExeption {
-		super();
+	protected BOAttributedMedia(UserBean pUserBean) throws MPExeption {
+		super(pUserBean);
 	}
 
-	protected BOAttributedMedia(int mediaID) throws MPExeption {
-		super(mediaID);
+	protected BOAttributedMedia(int mediaID, UserBean pUserBean) throws MPExeption {
+		super(mediaID, pUserBean);
 	}
 
 	protected void init(int mediaID) throws MPExeption {
@@ -35,12 +36,12 @@ public class BOAttributedMedia extends BOAbstractMedia<AttributedMediaBean> {
 
 	}
 
-	public static BOAttributedMedia getInstance() throws MPExeption {
-		return new BOAttributedMedia();
+	public static BOAttributedMedia getInstance(UserBean pUserBean) throws MPExeption {
+		return new BOAttributedMedia(pUserBean);
 	}
 
-	public static BOAttributedMedia getInstance(Integer mediaID) throws MPExeption {
-		return new BOAttributedMedia(mediaID);
+	public static BOAttributedMedia getInstance(Integer mediaID, UserBean pUserBean) throws MPExeption {
+		return new BOAttributedMedia(mediaID, pUserBean);
 	}
 
 	public AttributedMediaBean getCurrentMediaBean() throws MPExeption {

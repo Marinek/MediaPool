@@ -2,6 +2,7 @@ package de.mediapool.core.business.media;
 
 import java.util.List;
 
+import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.media.AbstractMediaBean;
 import de.mediapool.core.beans.utils.PersistenceUtils;
 import de.mediapool.core.beans.validation.ValidationErrorType;
@@ -20,12 +21,12 @@ public abstract class BOAbstractMedia<T extends AbstractMediaBean> extends Busin
 	
 	protected MediaVO currentMediaVO = null;
 
-	protected BOAbstractMedia () throws MPExeption {
-		super();
+	protected BOAbstractMedia (UserBean pUserBean) throws MPExeption {
+		super(pUserBean);
 	}
 
-	protected BOAbstractMedia (int mediaID) throws MPExeption {
-		super();
+	protected BOAbstractMedia (int mediaID, UserBean pUserBean) throws MPExeption {
+		this(pUserBean);
 
 		this.init(mediaID);
 	}
