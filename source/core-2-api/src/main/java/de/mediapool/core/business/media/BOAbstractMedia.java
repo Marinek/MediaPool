@@ -2,6 +2,7 @@ package de.mediapool.core.business.media;
 
 import java.util.List;
 
+import de.mediapool.core.beans.PersistentStatus;
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.media.AbstractMediaBean;
 import de.mediapool.core.beans.utils.PersistenceUtils;
@@ -73,6 +74,8 @@ public abstract class BOAbstractMedia<T extends AbstractMediaBean> extends Busin
 				this.protectedSave();
 				
 				this.doCommit();
+				
+				this.currentMediaBean.setPersistentStatus(PersistentStatus.PERSISTENT);
 			} catch (PSException e) {
 				this.doRollback();
 				

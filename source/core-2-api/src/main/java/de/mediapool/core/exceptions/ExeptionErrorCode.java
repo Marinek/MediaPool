@@ -15,7 +15,10 @@ public enum ExeptionErrorCode {
 	
 	// Authfehler
 	AUTH_LOGIN(3000, "Fehler beim Authentifizieren: Benutzer oder Passwort falsch"),
-	AUTH_LOGIN_CACHE(3001, "Fehler beim Authentifizieren: Unzureichende Identifizierung.");
+	AUTH_LOGIN_CACHE(3001, "Fehler beim Authentifizieren: Unzureichende Identifizierung."),
+	
+	// BOError
+	BO_INIT(10000, "Fehler beim Initialisieren des BOs. Unzureichende Daten.");
 	
 	private int errorCode = -1;
 	
