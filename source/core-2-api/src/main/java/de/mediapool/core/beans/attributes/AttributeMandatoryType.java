@@ -1,6 +1,6 @@
-package de.mediapool.core.beans.media.attributes;
+package de.mediapool.core.beans.attributes;
 
-public enum MediaAttributeMandatoryType {
+public enum AttributeMandatoryType {
 	MANDATORY("*", true),
 	RECOMMENDED("+",false),
 	NOTHING("",false);
@@ -8,7 +8,7 @@ public enum MediaAttributeMandatoryType {
 	private final String infoString;
 	private final boolean isMandatory;
 
-	private MediaAttributeMandatoryType(String pInfoString, boolean isMandatory) {
+	private AttributeMandatoryType(String pInfoString, boolean isMandatory) {
 		this.infoString = pInfoString;
 		this.isMandatory = isMandatory;
 		

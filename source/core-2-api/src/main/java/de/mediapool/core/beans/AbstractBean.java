@@ -2,6 +2,7 @@ package de.mediapool.core.beans;
 
 
 public abstract class AbstractBean {
+	
 	private PersistentStatus persistentStatus = PersistentStatus.NOTPERSISTENT;
 	
 	public boolean isPersistent () {

@@ -1,4 +1,4 @@
-package de.mediapool.core.beans.media;
+package de.mediapool.core.beans.media.attributes;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import de.mediapool.core.beans.media.AbstractMediaBean;
 
 public class AttributedMediaBean extends AbstractMediaBean {
 
@@ -29,7 +31,7 @@ public class AttributedMediaBean extends AbstractMediaBean {
 	}
 
 	public void addAttribute (MediaAttributeBean pAttributeBean) {
-		attributes.put(pAttributeBean.getAttributeType().getAttributeName(), pAttributeBean);
+		attributes.put(pAttributeBean.getAttributeName(), pAttributeBean);
 	}
 
 	public Collection<MediaAttributeBean> getAttributes() {

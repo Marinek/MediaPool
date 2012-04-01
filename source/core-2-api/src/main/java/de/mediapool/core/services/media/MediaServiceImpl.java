@@ -1,9 +1,8 @@
 package de.mediapool.core.services.media;
 
 import de.mediapool.core.beans.authentication.UserBean;
-import de.mediapool.core.beans.media.AttributedMediaBean;
-import de.mediapool.core.beans.media.MediaAttributeBean;
-import de.mediapool.core.beans.media.attributes.MediaAttributeTypeBean;
+import de.mediapool.core.beans.media.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.media.attributes.MediaAttributeBean;
 import de.mediapool.core.business.media.BOAttributedMedia;
 import de.mediapool.core.business.media.attributes.MediaAttributeTypeManager;
 import de.mediapool.core.exceptions.MPExeption;
@@ -29,7 +28,7 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 		boInstance.delete();
 	}
 
-	public AttributedMediaBean getMedia(int id, UserBean pUserBean) throws MPExeption {
+	public AttributedMediaBean getMedia(Integer id, UserBean pUserBean) throws MPExeption {
 		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(id, pUserBean);
 		
 		return boInstance.getCurrentMediaBean();
@@ -39,15 +38,21 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 	}
 	
 	public MediaAttributeBean createAttribute (String pMediaType, String pAttributeName, String pValue) throws MPExeption {
-		MediaAttributeBean lAttribute = new MediaAttributeBean();
-		
-		MediaAttributeTypeBean attributeType = MediaAttributeTypeManager.getInstance().getAttribute(pAttributeName, pMediaType);
-		
-		lAttribute.setAttributeType(attributeType);
+		MediaAttributeBean lAttribute =  MediaAttributeTypeManager.getInstance().getAttribute(pAttributeName, pMediaType);
 		
 		lAttribute.setAttributeValue(pValue);
 		
 		return lAttribute;
+	}
+
+	public AttributedMediaBean createNewMedia(String pMediaType) throws MPExeption {
+		AttributedMediaBean lReturnNewMedia = new AttributedMediaBean();
+		
+		lReturnNewMedia.setMediaType(pMediaType);
+		
+		MediaAttributeTypeManager.getInstance().initialAttributes(lReturnNewMedia);
+		
+		return lReturnNewMedia;
 	}
 
 }

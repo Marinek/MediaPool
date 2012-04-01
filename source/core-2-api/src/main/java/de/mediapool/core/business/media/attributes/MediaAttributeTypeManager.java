@@ -3,10 +3,12 @@ package de.mediapool.core.business.media.attributes;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import de.mediapool.core.beans.PersistentStatus;
-import de.mediapool.core.beans.media.attributes.MediaAttributeMandatoryType;
-import de.mediapool.core.beans.media.attributes.MediaAttributeTypeBean;
+import de.mediapool.core.beans.attributes.AttributeMandatoryType;
+import de.mediapool.core.beans.media.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.media.attributes.MediaAttributeBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
@@ -17,7 +19,7 @@ public class MediaAttributeTypeManager {
 
 	private static MediaAttributeTypeManager instance = null;
 	
-	private Map<String, MediaAttributeTypeBean> attributeMap = new HashMap<String, MediaAttributeTypeBean>();
+	private Map<String, Map<String, MediaAttributeBean>>  attributeMap = new HashMap<String, Map<String,MediaAttributeBean>>(); 
 	
 	public static final MediaAttributeTypeManager getInstance() throws MPExeption {
 		if(instance == null) {
@@ -32,29 +34,44 @@ public class MediaAttributeTypeManager {
 			List<MediaAttributeDefVO> listDefs = MediaAttributeDefVO.getDAO().findAll();
 			
 			for(MediaAttributeDefVO lDefinition : listDefs) {
-				MediaAttributeTypeBean lBean = new MediaAttributeTypeBean();
+				MediaAttributeBean lBean = new MediaAttributeBean();
 				
 				lBean.setAttributeDisplay(lDefinition.getAttributeName());
-				lBean.setAttributeMediaType(lDefinition.getAttributeType());
-				lBean.setMandatoryType(MediaAttributeMandatoryType.valueOf(lDefinition.getAttributeMandatory().toString()));
+				lBean.setAttributeType(lDefinition.getAttributeType());
+				lBean.setMandatoryType(AttributeMandatoryType.valueOf(lDefinition.getAttributeMandatory().toString()));
 				lBean.setPersistentStatus(PersistentStatus.PERSISTENT);
 				lBean.setAttributeName(lDefinition.getAttributeName());
+				lBean.setMediaType(lDefinition.getMediaTypeName());
 				
-				this.attributeMap.put(lDefinition.getMediaTypeName() + lDefinition.getAttributeName(), lBean);
-				this.attributeMap.put(lDefinition.getMediaTypeId() + lDefinition.getAttributeName(), lBean);
+				this.registerAttribute(lBean);
 			}
 		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Fehler beim Lesen der Tabelle 'MediaAttributeDef'.");
 		}
 	}
 
-	public MediaAttributeTypeBean getAttribute(String attributeName, String mediaType) {
-		MediaAttributeTypeBean lAttributeType = null;
+	public MediaAttributeBean getAttribute(String attributeName, String mediaType) throws MPExeption {
+		MediaAttributeBean lAttributeType = null;
 		
-		if(this.attributeMap.containsKey(mediaType + attributeName)) {
-			lAttributeType = this.attributeMap.get(mediaType + attributeName);
+		if(this.attributeMap.containsKey(mediaType)) {
+			lAttributeType = this.attributeMap.get(mediaType).get(attributeName);
 		}
 		
 		return lAttributeType;
+	}
+
+	public void initialAttributes(AttributedMediaBean pReturnNewMedia) throws MPExeption {
+		if(this.attributeMap.containsKey(pReturnNewMedia.getMediaType())) {
+			for(Entry<String, MediaAttributeBean> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getMediaType()).entrySet()) {
+				pReturnNewMedia.addAttribute(lAttributeEntry.getValue());
+			}
+		}
+	}
+	
+	private void registerAttribute(MediaAttributeBean lBean) {
+		if(!this.attributeMap.containsKey(lBean.getMediaType())) {
+			this.attributeMap.put(lBean.getMediaType(), new HashMap<String, MediaAttributeBean>());
+		}
+		this.attributeMap.get(lBean.getMediaType()).put(lBean.getAttributeName(), lBean);
 	}
 }

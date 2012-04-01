@@ -20,7 +20,7 @@ public abstract class BusinessObject {
 	private boolean isOwnTransaction = true;
 
 	protected BusinessObject (UserBean pUserBean) throws MPExeption {
-		this.currentUserBean = pUserBean;
+		this.setCurrentUserBean(pUserBean);
 	}
 	
 	public List<ValidationResultBean> validate() throws MPExeption {
@@ -62,5 +62,13 @@ public abstract class BusinessObject {
 			// nach einem Fehler, da brauchen wir jetzt nicht noch
 			// mehr zu meckern ;D
 		}
+	}
+
+	public UserBean getCurrentUserBean() {
+		return currentUserBean;
+	}
+
+	public void setCurrentUserBean(UserBean currentUserBean) {
+		this.currentUserBean = currentUserBean;
 	}
 }
