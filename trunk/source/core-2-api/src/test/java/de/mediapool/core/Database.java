@@ -4,8 +4,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import de.mediapool.core.beans.authentication.UserBean;
-import de.mediapool.core.beans.media.AttributedMediaBean;
-import de.mediapool.core.beans.media.MediaAttributeBean;
+import de.mediapool.core.beans.media.attributes.AttributedMediaBean;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 
@@ -15,21 +14,18 @@ public class Database {
 	public void test() {
 		ClassPathXmlApplicationContext beanFactory = new ClassPathXmlApplicationContext(new String[] {"spring.xml"});
 
-		IMediaService<AttributedMediaBean> bean = (IMediaService<AttributedMediaBean>) beanFactory.getBean("movieService");
+		IMediaService<AttributedMediaBean> mediaService = (IMediaService<AttributedMediaBean>) beanFactory.getBean("movieService");
 
 		UserBean lUserBean = new UserBean();
 		
 		try {
-			AttributedMediaBean lMovieBean = new AttributedMediaBean();
-			
-			MediaAttributeBean lAttribute = bean.createAttribute("Movie", "duration", "123");
-			
-			lMovieBean.addAttribute(lAttribute);
+			AttributedMediaBean lMovieBean = mediaService.createNewMedia("Movie");
 
+			lMovieBean.setAttribute("duration", "12345");
 			
 			lMovieBean.setName("Dies ist ein Test.");
 			
-			bean.createMedia(lMovieBean, lUserBean);
+			mediaService.createMedia(lMovieBean, lUserBean);
 			
 		} catch (MPExeption e) {
 			// TODO Auto-generated catch block

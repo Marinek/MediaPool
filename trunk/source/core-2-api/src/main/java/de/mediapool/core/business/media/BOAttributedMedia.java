@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mediapool.core.beans.authentication.UserBean;
-import de.mediapool.core.beans.media.AttributedMediaBean;
-import de.mediapool.core.beans.media.MediaAttributeBean;
+import de.mediapool.core.beans.media.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.media.attributes.MediaAttributeBean;
 import de.mediapool.core.business.media.attributes.MediaAttributeTypeManager;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
@@ -73,7 +73,7 @@ public class BOAttributedMedia extends BOAbstractMedia<AttributedMediaBean> {
 			for(MediaAttributeBean lAttribute : lBean.getAttributes()) {
 				MediaAttributeVO lVO = new MediaAttributeVO();
 
-				lVO.setAttributeName(lAttribute.getAttributeType().getAttributeName());
+				lVO.setAttributeName(lAttribute.getAttributeName());
 				lVO.setMediaID(currentMediaVO.getId());
 				lVO.setAttributeValue(lAttribute.getAttributeValue());
 
