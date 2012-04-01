@@ -10,8 +10,8 @@ import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
-import de.mediapool.core.persistence.dao.interfaces.IMediaAttributeDefsDAO;
-import de.mediapool.core.persistence.enums.media.AttributeMandatoryType;
+import de.mediapool.core.persistence.dao.interfaces.media.IMediaAttributeDefsDAO;
+import de.mediapool.core.persistence.enums.AttributeMandatoryType;
 
 @Entity
 @Table(name = "mediaattributedefs")

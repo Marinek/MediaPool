@@ -19,6 +19,7 @@
 				<value>de.mediapool.core.persistence.vo.media.MediaAttributeVO</value>
 				<value>de.mediapool.core.persistence.vo.media.MediaAttributeDefVO</value>
 				<value>de.mediapool.core.persistence.vo.media.MediaTypeVO</value>
+				<value>de.mediapool.core.persistence.vo.media.products.MediaProductVO</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -40,6 +41,10 @@
 	</bean>
 	
 	<bean id="MediaAttributeDefsDAO" class="de.mediapool.core.persistence.dao.media.MediaAttributeDefsDAOImpl">
+	 <property name="sessionFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<bean id="MediaProductsDAO" class="de.mediapool.core.persistence.dao.media.products.MediaProductsDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	

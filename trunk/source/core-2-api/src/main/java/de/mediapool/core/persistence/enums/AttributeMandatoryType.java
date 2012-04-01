@@ -1,4 +1,4 @@
-package de.mediapool.core.persistence.enums.media;
+package de.mediapool.core.persistence.enums;
 
 public enum AttributeMandatoryType {
 
