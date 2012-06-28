@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 import de.mediapool.core.persistence.dao.interfaces.media.products.IMediaProductsDAO;
-import de.mediapool.core.persistence.vo.media.MediaVO;
+import de.mediapool.core.persistence.vo.media.EntityVO;
 
 public class MediaProductVO implements IPSValueObject {
 
@@ -41,7 +41,7 @@ public class MediaProductVO implements IPSValueObject {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="Id")
-	private MediaVO mediaVO = null;
+	private EntityVO mediaVO = null;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -91,7 +91,7 @@ public class MediaProductVO implements IPSValueObject {
 		this.producttype = producttype;
 	}
 
-	public MediaVO getMediaVO() {
+	public EntityVO getMediaVO() {
 		return mediaVO;
 	}
 	
