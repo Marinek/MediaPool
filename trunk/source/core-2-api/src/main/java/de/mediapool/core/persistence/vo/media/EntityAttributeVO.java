@@ -1,5 +1,7 @@
 package de.mediapool.core.persistence.vo.media;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +19,7 @@ public class EntityAttributeVO implements IPSValueObject {
 	
 	@Id
     @Column(name = "mediaid")
-	private Integer mediaID = 0;
+	private String mediaID = null;
 	
 	@Id
     @Column(name = "attributeName")
@@ -27,12 +29,12 @@ public class EntityAttributeVO implements IPSValueObject {
 	private String attributeValue = "";
 	
 
-	public Integer getMediaID() {
-		return mediaID;
+	public UUID getMediaID() {
+		return UUID.fromString(this.mediaID);
 	}
 
-	public void setMediaID(Integer mediaID) {
-		this.mediaID = mediaID;
+	public void setMediaID(UUID mediaID) {
+		this.mediaID = mediaID != null ? mediaID.toString() : UUID.randomUUID().toString();
 	}
 
 	public String getAttributeValue() {

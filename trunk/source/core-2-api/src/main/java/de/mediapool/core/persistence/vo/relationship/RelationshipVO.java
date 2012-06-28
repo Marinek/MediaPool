@@ -1,5 +1,7 @@
 package de.mediapool.core.persistence.vo.relationship;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -21,13 +23,13 @@ public class RelationshipVO implements IPSValueObject {
 	private Integer relationId = null;
 
 	@Column(name = "childId")
-	private Integer childId = null;
+	private String childId = null;
 	
 	@Column(name = "childType")
 	private String childType = null;
 	
 	@Column(name = "parentId")
-	private Integer parentId = null;
+	private String parentId = null;
 	
 	@Column(name = "parentType")
 	private String parentType = null;
@@ -43,11 +45,11 @@ public class RelationshipVO implements IPSValueObject {
 		this.relationId = relationId;
 	}
 
-	public Integer getChildId() {
-		return childId;
+	public UUID getChildId() {
+		return UUID.fromString(childId);
 	}
 
-	public void setChildId(Integer childId) {
+	public void setChildId(String childId) {
 		this.childId = childId;
 	}
 
@@ -59,11 +61,11 @@ public class RelationshipVO implements IPSValueObject {
 		this.childType = childType;
 	}
 
-	public Integer getParentId() {
-		return parentId;
+	public UUID getParentId() {
+		return UUID.fromString(parentId);
 	}
 
-	public void setParentId(Integer parentId) {
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 

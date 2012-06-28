@@ -1,5 +1,7 @@
 package de.mediapool.core.services.interfaces;
 
+import java.util.UUID;
+
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.entity.AbstractEntityBean;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
@@ -10,7 +12,7 @@ public interface IMediaService <T extends AbstractEntityBean> extends IService {
 	
 	public T createMedia(T abstractMediaBean, UserBean pUserBean) throws MPExeption;
 	public void deleteMedia(T abstractMediaBean, UserBean pUserBean) throws MPExeption;
-	public T getMedia(Integer id, UserBean pUserBean) throws MPExeption;
+	public T getMedia(UUID id, UserBean pUserBean) throws MPExeption;
 	public void getAllMedia(UserBean pUserBean) throws MPExeption;
 	
 	public EntityAttributeBean createAttribute (String pMediaType, String pAttributeName, String pValue) throws MPExeption;

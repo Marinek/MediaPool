@@ -1,5 +1,7 @@
 package de.mediapool.core.services.media;
 
+import java.util.UUID;
+
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.beans.entity.attributes.EntityAttributeBean;
@@ -28,7 +30,7 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 		boInstance.delete();
 	}
 
-	public AttributedMediaBean getMedia(Integer id, UserBean pUserBean) throws MPExeption {
+	public AttributedMediaBean getMedia(UUID id, UserBean pUserBean) throws MPExeption {
 		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(id, pUserBean);
 		
 		return boInstance.getCurrentEntityBean();

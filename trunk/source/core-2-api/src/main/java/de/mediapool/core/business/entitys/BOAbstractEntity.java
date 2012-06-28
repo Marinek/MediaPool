@@ -2,6 +2,7 @@ package de.mediapool.core.business.entitys;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import de.mediapool.core.beans.PersistentStatus;
 import de.mediapool.core.beans.authentication.UserBean;
@@ -33,7 +34,7 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 		super(pUserBean);
 	}
 
-	protected BOAbstractEntity (int entityID, UserBean pUserBean) throws MPExeption {
+	protected BOAbstractEntity (UUID entityID, UserBean pUserBean) throws MPExeption {
 		this(pUserBean);
 
 		this.init(entityID);
@@ -43,7 +44,7 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 		this(pMediaBean.getId(), pUserBean);
 	}
 
-	protected void init(int mediaID) throws MPExeption {
+	protected void init(UUID mediaID) throws MPExeption {
 		try {
 			currentEntityVO = EntityVO.getDAO().getByPrimaryKey(mediaID);
 

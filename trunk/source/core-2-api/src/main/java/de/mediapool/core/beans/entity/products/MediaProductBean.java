@@ -1,5 +1,7 @@
 package de.mediapool.core.beans.entity.products;
 
+import java.util.UUID;
+
 import de.mediapool.core.beans.entity.AbstractEntityBean;
 
 public class MediaProductBean extends AbstractEntityBean {
@@ -30,7 +32,7 @@ public class MediaProductBean extends AbstractEntityBean {
 		this.productid = productid;
 	}
 
-	public Integer getMediaid() {
+	public UUID getMediaid() {
 		return this.getMediaBean().getId();
 	}
 
