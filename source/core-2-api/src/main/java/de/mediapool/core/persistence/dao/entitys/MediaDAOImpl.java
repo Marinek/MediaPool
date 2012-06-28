@@ -1,6 +1,7 @@
 package de.mediapool.core.persistence.dao.entitys;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.criterion.Restrictions;
 
@@ -21,7 +22,7 @@ public class MediaDAOImpl extends PSAbstractDAOImpl<EntityVO> implements IMediaD
 		return null;
 	}
 
-	public EntityVO getByPrimaryKey(Integer pPrimaryKey) throws PSException {
+	public EntityVO getByPrimaryKey(UUID pPrimaryKey) throws PSException {
 		PSCriteria criteria = this.createCriteria();
 		
 		criteria.add(Restrictions.eq("id", pPrimaryKey));

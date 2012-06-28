@@ -2,6 +2,7 @@ package de.mediapool.core.business.entitys.products;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
@@ -28,7 +29,7 @@ public class BOMediaProduct extends BOAbstractEntity<MediaProductBean> {
 
 	}
 
-	protected BOMediaProduct(Integer pMediaBean, UserBean pUserBean) throws MPExeption {
+	protected BOMediaProduct(UUID pMediaBean, UserBean pUserBean) throws MPExeption {
 		super(pMediaBean, pUserBean);
 		
 	}
@@ -37,7 +38,7 @@ public class BOMediaProduct extends BOAbstractEntity<MediaProductBean> {
 		return new BOMediaProduct(pMediaBean, pUserBean);
 	}
 	
-	public static BOMediaProduct getInstance(Integer pMediaBean, UserBean pUserBean) throws MPExeption {
+	public static BOMediaProduct getInstance(UUID pMediaBean, UserBean pUserBean) throws MPExeption {
 		return new BOMediaProduct(pMediaBean, pUserBean);
 	}
 

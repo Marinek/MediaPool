@@ -1,5 +1,7 @@
 package de.mediapool.core.persistence.vo.media;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,17 +22,17 @@ public class EntityVO implements IPSValueObject {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
-    private Integer id;
+    private String id;
 
 	@Column(name = "Name")
 	private String name;
 	
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(UUID id) {
+		this.id = id != null ? id.toString() : UUID.randomUUID().toString();
 	}
 
-	public Integer getId() {
-		return id;
+	public UUID getId() {
+		return UUID.fromString(id);
 	}
  
     public void setName(String name) {

@@ -40,7 +40,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 
 
 	protected BOAbstractRelation(UserBean pUserBean, AbstractBean pReferent) throws MPExeption {
-		this(pUserBean, pReferent.getBeanId());
+		this(pUserBean, pReferent.getId());
 	}
 
 	private void init() throws MPExeption {

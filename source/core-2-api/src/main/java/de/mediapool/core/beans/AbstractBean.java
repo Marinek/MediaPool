@@ -21,12 +21,16 @@ public abstract class AbstractBean {
 		return persistentStatus;
 	}
 
-	public UUID getBeanId() {
+	public UUID getId() {
 		return beanId;
 	}
 
-	public void setBeanId(UUID beanId) {
+	public void setId(UUID beanId) {
 		this.beanId = beanId;
+	}
+
+	public void setId(String beanId) {
+		this.beanId = UUID.fromString(beanId);
 	}
 
 

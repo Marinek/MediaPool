@@ -1,5 +1,7 @@
 package de.mediapool.core.business.entitys.media;
 
+import java.util.UUID;
+
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.business.entitys.BOAbstractEntity;
@@ -11,7 +13,7 @@ public class BOAttributedMedia extends BOAbstractEntity<AttributedMediaBean> {
 		super(pUserBean);
 	}
 
-	protected BOAttributedMedia(int mediaID, UserBean pUserBean) throws MPExeption {
+	protected BOAttributedMedia(UUID mediaID, UserBean pUserBean) throws MPExeption {
 		super(mediaID, pUserBean);
 	}
 
@@ -19,7 +21,7 @@ public class BOAttributedMedia extends BOAbstractEntity<AttributedMediaBean> {
 		return new BOAttributedMedia(pUserBean);
 	}
 
-	public static BOAttributedMedia getInstance(Integer mediaID, UserBean pUserBean) throws MPExeption {
+	public static BOAttributedMedia getInstance(UUID mediaID, UserBean pUserBean) throws MPExeption {
 		return new BOAttributedMedia(mediaID, pUserBean);
 	}
 

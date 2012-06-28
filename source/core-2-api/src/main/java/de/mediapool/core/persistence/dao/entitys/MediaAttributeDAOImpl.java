@@ -1,6 +1,7 @@
 package de.mediapool.core.persistence.dao.entitys;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.hibernate.criterion.Restrictions;
 
@@ -16,7 +17,7 @@ public class MediaAttributeDAOImpl extends PSAbstractDAOImpl<EntityAttributeVO> 
 		return EntityAttributeVO.class;
 	}
 
-	public List<EntityAttributeVO> getAttributesFor(Integer pMediaId) throws PSException {
+	public List<EntityAttributeVO> getAttributesFor(UUID pMediaId) throws PSException {
 		PSCriteria criteria = this.createCriteria();
 		
 		criteria.add(Restrictions.eq("mediaId", pMediaId));
