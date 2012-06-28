@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import de.mediapool.core.beans.authentication.UserBean;
-import de.mediapool.core.beans.media.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 
