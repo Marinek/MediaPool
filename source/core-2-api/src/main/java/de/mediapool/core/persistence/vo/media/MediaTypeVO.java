@@ -1,5 +1,7 @@
 package de.mediapool.core.persistence.vo.media;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,17 +17,17 @@ public class MediaTypeVO implements IPSValueObject {
 
 	@Id
 	@Column(name="mediaTypeId")
-	private Integer typeId;
+	private String typeId;
 	
 	@Column(name="mediaTypeName")
 	private String TypeName;
 
-	public Integer getTypeId() {
-		return typeId;
+	public UUID getTypeId() {
+		return this.typeId != null ? UUID.fromString(this.typeId) : null;
 	}
 
-	public void setTypeId(Integer typeId) {
-		this.typeId = typeId;
+	public void setTypeId(UUID typeId) {
+		this.typeId = typeId != null ? typeId.toString(): null;
 	}
 
 	public String getTypeName() {
