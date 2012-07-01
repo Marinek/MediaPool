@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 import de.mediapool.core.persistence.core.interfaces.IPSDataAccessObject;
 import de.mediapool.core.persistence.core.interfaces.IPSTransaction;

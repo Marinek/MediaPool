@@ -1,5 +1,7 @@
 package de.mediapool.core.persistence.vo.media.products;
 
+import java.util.UUID;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -25,7 +27,7 @@ public class MediaProductVO implements IPSValueObject {
 	
 	@Id
 	@Column(name = "productid")
-	private Integer productid;
+	private String productid;
 	
 	@Column(name = "mediaid")
 	private Integer mediaid;
@@ -51,11 +53,11 @@ public class MediaProductVO implements IPSValueObject {
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public Integer getProductid() {
-		return productid;
+	public UUID getProductid() {
+		return this.productid != null ? UUID.fromString(this.productid) : null;
 	}
 
-	public void setProductid(Integer productid) {
+	public void setProductid(String productid) {
 		this.productid = productid;
 	}
 

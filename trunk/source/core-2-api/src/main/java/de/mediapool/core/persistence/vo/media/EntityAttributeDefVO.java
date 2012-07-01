@@ -1,5 +1,7 @@
 package de.mediapool.core.persistence.vo.media;
 
+import java.util.UUID;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +23,7 @@ public class EntityAttributeDefVO implements IPSValueObject {
 	
 	@Id
 	@Column(name = "mediaTypeId")
-	private Integer mediaTypeId = null;
+	private String mediaTypeId = null;
 	
 	@Id
 	@Column(name = "attributeName")
@@ -40,12 +42,12 @@ public class EntityAttributeDefVO implements IPSValueObject {
 	@JoinColumn(name="mediaTypeId")
 	private MediaTypeVO mediaTypeVO = null;
 
-	public Integer getMediaTypeId() {
-		return mediaTypeId;
+	public UUID getMediaTypeId() {
+		return UUID.fromString(this.mediaTypeId);
 	}
 
-	public void setMediaTypeId(Integer mediaTypeId) {
-		this.mediaTypeId = mediaTypeId;
+	public void setMediaTypeId(UUID mediaTypeId) {
+		this.mediaTypeId = this.mediaTypeId == null ? null : this.mediaTypeId.toString();
 	}
 	
 	public String getEntityTypeName() {

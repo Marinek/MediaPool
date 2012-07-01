@@ -15,16 +15,20 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>de.mediapool.core.persistence.vo.media.MediaVO</value>
-				<value>de.mediapool.core.persistence.vo.media.MediaAttributeVO</value>
-				<value>de.mediapool.core.persistence.vo.media.MediaAttributeDefVO</value>
 				<value>de.mediapool.core.persistence.vo.media.MediaTypeVO</value>
+				<value>de.mediapool.core.persistence.vo.media.EntityVO</value>
+				<value>de.mediapool.core.persistence.vo.media.EntityAttributeVO</value>
+				<value>de.mediapool.core.persistence.vo.media.EntityAttributeDefVO</value>
+				<value>de.mediapool.core.persistence.vo.relationship.RelationshipVO</value>
+				<value>de.mediapool.core.persistence.vo.user.UserVO</value>
 				<value>de.mediapool.core.persistence.vo.media.products.MediaProductVO</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
            <props>
-               <prop key="hibernate.show_sql">true</prop>
+           		<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+           		<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+               	<prop key="hibernate.show_sql">true</prop>
            </props>
         </property>
 	</bean>
@@ -32,25 +36,25 @@
 	<bean id="movieService" class="de.mediapool.core.services.media.MediaServiceImpl">
 	</bean>
 	
-	<bean id="mediaDAO" class="de.mediapool.core.persistence.dao.media.MediaDAOImpl">
+	<bean id="imediaDAO" class="de.mediapool.core.persistence.dao.entitys.MediaDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
-	<bean id="mediaAttributeDAO" class="de.mediapool.core.persistence.dao.media.MediaAttributeDAOImpl">
+	<bean id="mediaAttributeDAO" class="de.mediapool.core.persistence.dao.entitys.MediaAttributeDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
-	<bean id="MediaAttributeDefsDAO" class="de.mediapool.core.persistence.dao.media.MediaAttributeDefsDAOImpl">
+	<bean id="MediaAttributeDefsDAO" class="de.mediapool.core.persistence.dao.entitys.MediaAttributeDefsDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
-	<bean id="MediaProductsDAO" class="de.mediapool.core.persistence.dao.media.products.MediaProductsDAOImpl">
+	<bean id="MediaProductsDAO" class="de.mediapool.core.persistence.dao.entitys.products.MediaProductsDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
 	<bean id="psTransaction" class="de.mediapool.core.persistence.core.PSTransaction">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
-
+	
 </beans>
 

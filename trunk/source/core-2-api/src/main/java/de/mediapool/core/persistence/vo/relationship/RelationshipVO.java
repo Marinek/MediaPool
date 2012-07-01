@@ -9,7 +9,6 @@ import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
-import de.mediapool.core.persistence.dao.interfaces.media.IMediaAttributesDAO;
 import de.mediapool.core.persistence.dao.interfaces.relationship.IRelationshipDAO;
 
 @Entity
@@ -20,7 +19,7 @@ public class RelationshipVO implements IPSValueObject {
 	
 	@Id
 	@Column(name = "relationid")
-	private Integer relationId = null;
+	private String relationId = null;
 
 	@Column(name = "childId")
 	private String childId = null;
@@ -37,11 +36,11 @@ public class RelationshipVO implements IPSValueObject {
 	@Column(name = "relationType")
 	private String relationType = null;
 
-	public Integer getRelationId() {
-		return relationId;
+	public String getRelationId() {
+		return relationId != null ? UUID.fromString(relationId).toString() : null;
 	}
 
-	public void setRelationId(Integer relationId) {
+	public void setRelationId(String relationId) {
 		this.relationId = relationId;
 	}
 
