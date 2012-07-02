@@ -4,15 +4,19 @@ import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 import de.mediapool.core.persistence.dao.interfaces.media.products.IMediaProductsDAO;
 import de.mediapool.core.persistence.vo.media.EntityVO;
 
+@Entity
+@Table(name = "mediaProducts")
 public class MediaProductVO implements IPSValueObject {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

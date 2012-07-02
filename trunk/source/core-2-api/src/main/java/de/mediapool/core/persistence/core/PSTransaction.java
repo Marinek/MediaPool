@@ -18,13 +18,16 @@ public class PSTransaction implements IPSTransaction {
 	public PSTransaction() throws PSException {
 	}
 
-	private void initTransaction() {
+	private void initTransaction() throws PSException {
+		if(this.currentSession != null) {
+			throw new PSException("Das Wiederbenutzen einer Transaktion ist nicht unterstützt!");
+		}
 		currentSession = this.sessionFactory.openSession();
 		
 		currentTransaction = currentSession.beginTransaction();
 	}
 	
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setSessionFactory(SessionFactory sessionFactory) throws PSException {
 		this.sessionFactory = sessionFactory;
 		
 		this.initTransaction ();

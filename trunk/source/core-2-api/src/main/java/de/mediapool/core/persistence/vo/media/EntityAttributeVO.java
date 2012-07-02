@@ -9,10 +9,10 @@ import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
-import de.mediapool.core.persistence.dao.interfaces.media.IMediaAttributesDAO;
+import de.mediapool.core.persistence.dao.interfaces.media.IEntityAttributesDAO;
 
 @Entity()
-@Table(name = "MediaAttributes")
+@Table(name = "EntityAttributes")
 public class EntityAttributeVO implements IPSValueObject {
 
 	private static final long serialVersionUID = 1L;
@@ -53,7 +53,7 @@ public class EntityAttributeVO implements IPSValueObject {
 		this.attributeName = attributeName;
 	}
 	
-	public static IMediaAttributesDAO getDAO() {
-		return (IMediaAttributesDAO) PersistenceContext.getInstance().getDAO(IMediaAttributesDAO.class);
+	public static IEntityAttributesDAO getDAO() {
+		return (IEntityAttributesDAO) PersistenceContext.getInstance().getDAO(IEntityAttributesDAO.class);
 	}
 }

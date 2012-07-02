@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.mediapool.core.beans.PersistentStatus;
-import de.mediapool.core.beans.attributes.AttributeMandatoryType;
+import de.mediapool.core.beans.attributes.BeanAttributeMandatoryType;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.beans.entity.attributes.EntityAttributeBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
@@ -38,7 +38,7 @@ public class EntityAttributeTypeManager {
 				
 				lBean.setAttributeDisplay(lDefinition.getAttributeName());
 				lBean.setAttributeType(lDefinition.getAttributeType());
-				lBean.setMandatoryType(AttributeMandatoryType.valueOf(lDefinition.getAttributeMandatory().toString()));
+				lBean.setMandatoryType(BeanAttributeMandatoryType.valueOf(lDefinition.getAttributeMandatory().toString()));
 				lBean.setPersistentStatus(PersistentStatus.PERSISTENT);
 				lBean.setAttributeName(lDefinition.getAttributeName());
 				lBean.setEntityType(lDefinition.getEntityTypeName());

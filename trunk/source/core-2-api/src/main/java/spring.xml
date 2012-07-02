@@ -15,7 +15,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>de.mediapool.core.persistence.vo.media.MediaTypeVO</value>
+				<value>de.mediapool.core.persistence.vo.media.EntityTypeVO</value>
 				<value>de.mediapool.core.persistence.vo.media.EntityVO</value>
 				<value>de.mediapool.core.persistence.vo.media.EntityAttributeVO</value>
 				<value>de.mediapool.core.persistence.vo.media.EntityAttributeDefVO</value>
@@ -35,16 +35,22 @@
 
 	<bean id="movieService" class="de.mediapool.core.services.media.MediaServiceImpl">
 	</bean>
+	<bean id="installationService" class="de.mediapool.core.services.install.InstallationServiceImpl">
+	</bean>
 	
-	<bean id="imediaDAO" class="de.mediapool.core.persistence.dao.entitys.MediaDAOImpl">
+	<bean id="entityDAO" class="de.mediapool.core.persistence.dao.entitys.EntityDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
-	<bean id="mediaAttributeDAO" class="de.mediapool.core.persistence.dao.entitys.MediaAttributeDAOImpl">
+	<bean id="entityAttributeDAO" class="de.mediapool.core.persistence.dao.entitys.EntityAttributeDAOImpl">
+	 <property name="sessionFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="entityTypeDAO" class="de.mediapool.core.persistence.dao.entitys.EntityTypeDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
-	<bean id="MediaAttributeDefsDAO" class="de.mediapool.core.persistence.dao.entitys.MediaAttributeDefsDAOImpl">
+	<bean id="entityAttributeDefsDAO" class="de.mediapool.core.persistence.dao.entitys.EntityAttributeDefsDAOImpl">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
@@ -52,7 +58,7 @@
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
-	<bean id="psTransaction" class="de.mediapool.core.persistence.core.PSTransaction">
+	<bean id="psTransaction" class="de.mediapool.core.persistence.core.PSTransaction" singleton="false">
 	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	

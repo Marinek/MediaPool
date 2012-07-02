@@ -8,7 +8,7 @@ import de.mediapool.core.persistence.core.interfaces.IPSDataAccessObject;
 import de.mediapool.core.persistence.vo.media.EntityVO;
 
 
-public interface IMediaDAO extends IPSDataAccessObject<EntityVO> {
+public interface IEntityDAO extends IPSDataAccessObject<EntityVO> {
 
 	public abstract List<EntityVO> getAll();
 	
