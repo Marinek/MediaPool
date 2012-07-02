@@ -8,6 +8,7 @@ import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBea
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.services.interfaces.IInstallationService;
 import de.mediapool.core.services.interfaces.IMediaService;
 
 public class Database {
@@ -15,9 +16,6 @@ public class Database {
 
 	@Test
 	public void test() {
-		
-		
-		
 		ClassPathXmlApplicationContext beanFactory = new ClassPathXmlApplicationContext(new String[] {"spring.xml"});
 		
 		
@@ -33,12 +31,14 @@ public class Database {
 
 		IMediaService<AttributedMediaBean> mediaService = (IMediaService<AttributedMediaBean>) beanFactory.getBean("movieService");
 
+		IInstallationService installationService = (IInstallationService)beanFactory.getBean("installationService");
 		
 		
 		
 		UserBean lUserBean = new UserBean();
 		
 		try {
+			installationService.installDB();
 			AttributedMediaBean lMovieBean = mediaService.createNewMedia("Movie");
 
 			lMovieBean.setAttribute("duration", "12345");

@@ -17,7 +17,7 @@ public class AttributeBean extends AbstractBean {
 	private String attributeName;
 	private String attributeDisplay;
 
-	private AttributeMandatoryType mandatoryType =  AttributeMandatoryType.NOTHING;
+	private BeanAttributeMandatoryType mandatoryType =  BeanAttributeMandatoryType.NOTHING;
 	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -46,10 +46,10 @@ public class AttributeBean extends AbstractBean {
 	public void setAttributeDisplay(String attributeDisplay) {
 		this.attributeDisplay = attributeDisplay;
 	}
-	public AttributeMandatoryType getMandatoryType() {
+	public BeanAttributeMandatoryType getMandatoryType() {
 		return mandatoryType;
 	}
-	public void setMandatoryType(AttributeMandatoryType mandatoryType) {
+	public void setMandatoryType(BeanAttributeMandatoryType mandatoryType) {
 		this.mandatoryType = mandatoryType;
 	}
 	

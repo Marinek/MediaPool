@@ -8,10 +8,10 @@ import org.hibernate.criterion.Restrictions;
 import de.mediapool.core.persistence.core.PSAbstractDAOImpl;
 import de.mediapool.core.persistence.core.PSCriteria;
 import de.mediapool.core.persistence.core.PSException;
-import de.mediapool.core.persistence.dao.interfaces.media.IMediaAttributesDAO;
+import de.mediapool.core.persistence.dao.interfaces.media.IEntityAttributesDAO;
 import de.mediapool.core.persistence.vo.media.EntityAttributeVO;
 
-public class MediaAttributeDAOImpl extends PSAbstractDAOImpl<EntityAttributeVO> implements IMediaAttributesDAO {
+public class EntityAttributeDAOImpl extends PSAbstractDAOImpl<EntityAttributeVO> implements IEntityAttributesDAO {
 
 	public Class<EntityAttributeVO> getValueObjectClass() {
 		return EntityAttributeVO.class;

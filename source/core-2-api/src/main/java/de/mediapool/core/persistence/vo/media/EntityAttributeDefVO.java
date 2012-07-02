@@ -12,20 +12,19 @@ import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
-import de.mediapool.core.persistence.dao.interfaces.media.IMediaAttributeDefsDAO;
+import de.mediapool.core.persistence.dao.interfaces.media.IEntityAttributeDefsDAO;
 import de.mediapool.core.persistence.enums.AttributeMandatoryType;
 
 @Entity
-@Table(name = "mediaattributedefs")
+@Table(name = "entityattributedefs")
 public class EntityAttributeDefVO implements IPSValueObject {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "mediaTypeId")
-	private String mediaTypeId = null;
+	@Column(name = "entityDefId")
+	private String entityDefId = null;
 	
-	@Id
 	@Column(name = "attributeName")
 	private String attributeName = null;
 	
@@ -40,18 +39,10 @@ public class EntityAttributeDefVO implements IPSValueObject {
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="mediaTypeId")
-	private MediaTypeVO mediaTypeVO = null;
+	private EntityTypeVO mediaTypeVO = null;
 
-	public UUID getMediaTypeId() {
-		return UUID.fromString(this.mediaTypeId);
-	}
-
-	public void setMediaTypeId(UUID mediaTypeId) {
-		this.mediaTypeId = this.mediaTypeId == null ? null : this.mediaTypeId.toString();
-	}
-	
 	public String getEntityTypeName() {
-		return this.mediaTypeVO.getTypeName();
+		return this.getMediaTypeVO().getEntityTypeName();
 	}
 
 	public String getAttributeName() {
@@ -86,7 +77,23 @@ public class EntityAttributeDefVO implements IPSValueObject {
 		this.attributeMandatory = attributeMandatory;
 	}
 	
-	public static IMediaAttributeDefsDAO getDAO() {
-		return (IMediaAttributeDefsDAO) PersistenceContext.getInstance().getDAO(IMediaAttributeDefsDAO.class);
+	public static IEntityAttributeDefsDAO getDAO() {
+		return (IEntityAttributeDefsDAO) PersistenceContext.getInstance().getDAO(IEntityAttributeDefsDAO.class);
+	}
+
+	public EntityTypeVO getMediaTypeVO() {
+		return mediaTypeVO;
+	}
+
+	public void setMediaTypeVO(EntityTypeVO mediaTypeVO) {
+		this.mediaTypeVO = mediaTypeVO;
+	}
+
+	public String getEntityDefId() {
+		return entityDefId;
+	}
+
+	public void setEntityDefId(UUID entityDefId) {
+		this.entityDefId = entityDefId.toString();
 	}
 }

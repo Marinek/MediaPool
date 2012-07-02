@@ -45,7 +45,7 @@ public abstract class AbstractEntityBean extends AbstractBean {
 	public void setAttribute(String pName, String pValue) {
 		if(!attributes.containsKey(pName)) {
 			EntityAttributeBean mediaAttributeBean = new EntityAttributeBean();
-			
+			mediaAttributeBean.setAttributeName(pName);
 			this.attributes.put(pName, mediaAttributeBean);
 		}
 		this.attributes.get(pName).setAttributeValue(pValue);
