@@ -12,7 +12,7 @@ import de.mediapool.core.services.interfaces.IMediaService;
 
 public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 
-	public AttributedMediaBean createMedia(AttributedMediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
+	public AttributedMediaBean saveMedia(AttributedMediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
 		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(pUserBean);
 		
 		boInstance.setCurrentEntityBean(abstractMediaBean);

@@ -1,14 +1,13 @@
 package de.mediapool.core.persistence.dao.entities;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
 import de.mediapool.core.persistence.core.PSAbstractDAOImpl;
-import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.core.PSCriteria;
+import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.dao.interfaces.entities.IEntityDAO;
 import de.mediapool.core.persistence.vo.entities.EntityVO;
 
@@ -23,7 +22,7 @@ public class EntityDAOImpl extends PSAbstractDAOImpl<EntityVO> implements IEntit
 		return null;
 	}
 
-	public EntityVO getByPrimaryKey(UUID pPrimaryKey) throws PSException {
+	public EntityVO getByPrimaryKey(String pPrimaryKey) throws PSException {
 		PSCriteria criteria = this.createCriteria();
 		
 		criteria.add(Restrictions.eq("id", pPrimaryKey));

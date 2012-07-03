@@ -1,6 +1,7 @@
 package de.mediapool.core;
 
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
@@ -45,7 +46,11 @@ public class Database {
 			
 			lMovieBean.setName("Dies dwdwdwdw ein Test.");
 			
-			mediaService.createMedia(lMovieBean, lUserBean);
+			AttributedMediaBean lBean = mediaService.saveMedia(lMovieBean, lUserBean);
+			
+			AttributedMediaBean media = mediaService.getMedia(lBean.getId(), null);
+			
+			Assert.assertTrue(media != null);
 			
 		} catch (MPExeption e) {
 			// TODO Auto-generated catch block

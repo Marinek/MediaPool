@@ -15,6 +15,7 @@ import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
+import de.mediapool.core.exceptions.MPBusinessExeption;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
@@ -46,7 +47,11 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 
 	protected void init(UUID mediaID) throws MPExeption {
 		try {
-			currentEntityVO = EntityVO.getDAO().getByPrimaryKey(mediaID);
+			
+			if(mediaID == null) {
+				throw new MPBusinessExeption(ExeptionErrorCode.BO_INIT, "Es wurde keine ID für dieses Businessobjekt angegeben!");
+			}
+			currentEntityVO = EntityVO.getDAO().getByPrimaryKey(mediaID.toString());
 
 			currentAttributes = EntityAttributeVO.getDAO().getAttributesFor(this.currentEntityVO.getId());
 		} catch (PSException e) {
@@ -70,6 +75,7 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 				EntityAttributeTypeManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
 
 				lAttributeBean.setAttributeValue(lVO.getAttributeValue());
+				lAttributeBean.setId(lVO.getId());
 
 				currentEntity.addAttribute(lAttributeBean);
 			}
@@ -107,6 +113,7 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 				for(EntityAttributeBean lAttribute : this.getCurrentEntityBean().getAttributes()) {
 					EntityAttributeVO lVO = new EntityAttributeVO();
 
+					lVO.setAttributeName(lAttribute.getIdAsString());
 					lVO.setAttributeName(lAttribute.getAttributeName());
 					lVO.setMediaID(currentEntityVO.getId());
 					lVO.setAttributeValue(lAttribute.getAttributeValue());
@@ -148,7 +155,7 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 		AbstractEntityBean lCurrentBean = this.getCurrentEntityBean();
 		EntityVO lMediaVO = new EntityVO();
 
-		lMediaVO.setId(lCurrentBean.getId());
+		lMediaVO.setId(lCurrentBean.getIdAsString());
 		lMediaVO.setName(lCurrentBean.getName());
 
 		return lMediaVO;

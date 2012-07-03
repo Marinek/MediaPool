@@ -7,7 +7,7 @@ public abstract class AbstractBean {
 	
 	private PersistentStatus persistentStatus = PersistentStatus.NOTPERSISTENT;
 	
-	private UUID beanId = null;
+	private UUID beanId = UUID.randomUUID();
 	
 	public boolean isPersistent () {
 		return this.getPersistentStatus() == PersistentStatus.PERSISTENT;
@@ -23,6 +23,10 @@ public abstract class AbstractBean {
 
 	public UUID getId() {
 		return beanId;
+	}
+	
+	public String getIdAsString() {
+		return this.beanId != null ? this.beanId.toString() : null;
 	}
 
 	public void setId(UUID beanId) {
