@@ -1,7 +1,6 @@
 package de.mediapool.core.persistence.dao.entities;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
@@ -19,10 +18,10 @@ public class EntityAttributeDAOImpl extends PSAbstractDAOImpl<EntityAttributeVO>
 		return EntityAttributeVO.class;
 	}
 
-	public List<EntityAttributeVO> getAttributesFor(UUID pMediaId) throws PSException {
+	public List<EntityAttributeVO> getAttributesFor(String pMediaId) throws PSException {
 		PSCriteria criteria = this.createCriteria();
 		
-		criteria.add(Restrictions.eq("mediaId", pMediaId));
+		criteria.add(Restrictions.eq("mediaid", pMediaId));
 		
 		return this.findByCriteria(criteria);
 	}

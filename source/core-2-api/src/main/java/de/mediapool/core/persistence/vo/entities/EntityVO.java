@@ -1,7 +1,5 @@
 package de.mediapool.core.persistence.vo.entities;
 
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -24,12 +22,12 @@ public class EntityVO implements IPSValueObject {
 	@Column(name = "Name")
 	private String name;
 	
-	public void setId(UUID id) {
-		this.id = id != null ? id.toString() : UUID.randomUUID().toString();
+	public void setId(String id) {
+		this.id = id;
 	}
 
-	public UUID getId() {
-		return UUID.fromString(id);
+	public String getId() {
+		return id;
 	}
  
     public void setName(String name) {

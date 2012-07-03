@@ -18,10 +18,12 @@ public class EntityAttributeVO implements IPSValueObject {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-    @Column(name = "mediaid")
-	private String mediaID = null;
+	@Column(name = "id")
+	private String id = UUID.randomUUID().toString();
+
+	@Column(name = "mediaid")
+	private String mediaid = null;
 	
-	@Id
     @Column(name = "attributeName")
     private String attributeName = "";
 
@@ -29,12 +31,12 @@ public class EntityAttributeVO implements IPSValueObject {
 	private String attributeValue = "";
 	
 
-	public UUID getMediaID() {
-		return UUID.fromString(this.mediaID);
+	public String getMediaID() {
+		return this.mediaid;
 	}
 
-	public void setMediaID(UUID mediaID) {
-		this.mediaID = mediaID != null ? mediaID.toString() : UUID.randomUUID().toString();
+	public void setMediaID(String mediaID) {
+		this.mediaid = mediaID;
 	}
 
 	public String getAttributeValue() {
@@ -55,5 +57,13 @@ public class EntityAttributeVO implements IPSValueObject {
 	
 	public static IEntityAttributesDAO getDAO() {
 		return (IEntityAttributesDAO) PersistenceContext.getInstance().getDAO(IEntityAttributesDAO.class);
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

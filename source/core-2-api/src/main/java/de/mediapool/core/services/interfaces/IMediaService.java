@@ -10,7 +10,7 @@ import de.mediapool.core.exceptions.MPExeption;
 
 public interface IMediaService <T extends AbstractEntityBean> extends IService {
 	
-	public T createMedia(T abstractMediaBean, UserBean pUserBean) throws MPExeption;
+	public T saveMedia(T abstractMediaBean, UserBean pUserBean) throws MPExeption;
 	public void deleteMedia(T abstractMediaBean, UserBean pUserBean) throws MPExeption;
 	public T getMedia(UUID id, UserBean pUserBean) throws MPExeption;
 	public void getAllMedia(UserBean pUserBean) throws MPExeption;
