@@ -1,4 +1,4 @@
-package de.mediapool.core.business.entitys.attributes;
+package de.mediapool.core.business.entities.attributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +13,7 @@ import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
-import de.mediapool.core.persistence.vo.media.EntityAttributeDefVO;
+import de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO;
 
 public class EntityAttributeTypeManager {
 

@@ -5,13 +5,17 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import de.mediapool.core.persistence.core.interfaces.IPSDataAccessObject;
 import de.mediapool.core.persistence.core.interfaces.IPSTransaction;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 
+@Component
 public abstract class PSAbstractDAOImpl<T extends IPSValueObject> implements IPSDataAccessObject<T> {
 
+	@Autowired
 	private SessionFactory  sessionFactory;
 	
 	/**

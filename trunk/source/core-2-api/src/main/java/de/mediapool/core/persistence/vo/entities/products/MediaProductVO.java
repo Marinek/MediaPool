@@ -1,4 +1,4 @@
-package de.mediapool.core.persistence.vo.media.products;
+package de.mediapool.core.persistence.vo.entities.products;
 
 import java.util.UUID;
 
@@ -12,8 +12,8 @@ import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
-import de.mediapool.core.persistence.dao.interfaces.media.products.IMediaProductsDAO;
-import de.mediapool.core.persistence.vo.media.EntityVO;
+import de.mediapool.core.persistence.dao.interfaces.entities.products.IMediaProductsDAO;
+import de.mediapool.core.persistence.vo.entities.EntityVO;
 
 @Entity
 @Table(name = "mediaProducts")

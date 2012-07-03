@@ -1,4 +1,4 @@
-package de.mediapool.core.persistence.vo.media;
+package de.mediapool.core.persistence.vo.entities;
 
 import java.util.UUID;
 
@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
-import de.mediapool.core.persistence.dao.interfaces.media.IEntityAttributeDefsDAO;
+import de.mediapool.core.persistence.dao.interfaces.entities.IEntityAttributeDefsDAO;
 import de.mediapool.core.persistence.enums.AttributeMandatoryType;
 
 @Entity

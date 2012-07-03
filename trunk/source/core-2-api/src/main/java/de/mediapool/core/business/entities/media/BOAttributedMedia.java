@@ -1,10 +1,10 @@
-package de.mediapool.core.business.entitys.media;
+package de.mediapool.core.business.entities.media;
 
 import java.util.UUID;
 
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
-import de.mediapool.core.business.entitys.BOAbstractEntity;
+import de.mediapool.core.business.entities.BOAbstractEntity;
 import de.mediapool.core.exceptions.MPExeption;
 
 public class BOAttributedMedia extends BOAbstractEntity<AttributedMediaBean> {
