@@ -7,9 +7,8 @@ import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.enums.AttributeMandatoryType;
-import de.mediapool.core.persistence.vo.media.EntityAttributeDefVO;
-import de.mediapool.core.persistence.vo.media.EntityAttributeVO;
-import de.mediapool.core.persistence.vo.media.EntityTypeVO;
+import de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO;
+import de.mediapool.core.persistence.vo.entities.EntityTypeVO;
 import de.mediapool.core.services.interfaces.IInstallationService;
 
 public class InstallationServiceImpl implements IInstallationService {

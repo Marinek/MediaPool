@@ -1,4 +1,4 @@
-package de.mediapool.core.business.entitys.products;
+package de.mediapool.core.business.entities.products;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.UUID;
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.beans.entity.products.MediaProductBean;
-import de.mediapool.core.business.entitys.BOAbstractEntity;
+import de.mediapool.core.business.entities.BOAbstractEntity;
 import de.mediapool.core.exceptions.MPExeption;
 
 public class BOMediaProduct extends BOAbstractEntity<MediaProductBean> {

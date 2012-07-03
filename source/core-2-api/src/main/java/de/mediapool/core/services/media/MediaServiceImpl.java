@@ -5,8 +5,8 @@ import java.util.UUID;
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.beans.entity.attributes.EntityAttributeBean;
-import de.mediapool.core.business.entitys.attributes.EntityAttributeTypeManager;
-import de.mediapool.core.business.entitys.media.BOAttributedMedia;
+import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
+import de.mediapool.core.business.entities.media.BOAttributedMedia;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 

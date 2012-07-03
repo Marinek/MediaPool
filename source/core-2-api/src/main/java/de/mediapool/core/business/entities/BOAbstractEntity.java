@@ -1,4 +1,4 @@
-package de.mediapool.core.business.entitys;
+package de.mediapool.core.business.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +13,13 @@ import de.mediapool.core.beans.utils.PersistenceUtils;
 import de.mediapool.core.beans.validation.ValidationErrorType;
 import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.business.BusinessObject;
-import de.mediapool.core.business.entitys.attributes.EntityAttributeTypeManager;
+import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
-import de.mediapool.core.persistence.vo.media.EntityAttributeVO;
-import de.mediapool.core.persistence.vo.media.EntityVO;
+import de.mediapool.core.persistence.vo.entities.EntityAttributeVO;
+import de.mediapool.core.persistence.vo.entities.EntityVO;
 import de.mediapool.core.utils.ValidationUtil;
 
 public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends BusinessObject {

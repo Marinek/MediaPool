@@ -1,4 +1,4 @@
-package de.mediapool.core.persistence.vo.media;
+package de.mediapool.core.persistence.vo.entities;
 
 import java.util.UUID;
 
@@ -9,10 +9,10 @@ import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
-import de.mediapool.core.persistence.dao.interfaces.media.IEntityDAO;
+import de.mediapool.core.persistence.dao.interfaces.entities.IEntityDAO;
 
 @Entity()
-@Table(name = "entitys")
+@Table(name = "entities")
 public class EntityVO implements IPSValueObject {
 
 	private static final long serialVersionUID = 1L;

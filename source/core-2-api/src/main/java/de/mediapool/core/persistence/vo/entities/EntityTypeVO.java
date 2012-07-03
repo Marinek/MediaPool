@@ -1,4 +1,4 @@
-package de.mediapool.core.persistence.vo.media;
+package de.mediapool.core.persistence.vo.entities;
 
 import java.util.UUID;
 
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
-import de.mediapool.core.persistence.dao.interfaces.media.IEntityTypeDAO;
+import de.mediapool.core.persistence.dao.interfaces.entities.IEntityTypeDAO;
 
 @Entity
 @Table(name="entitytypes")

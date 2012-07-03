@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
-<beans>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.jdbc.Driver"/>
@@ -9,19 +14,23 @@
 		<property name="user" value="root"/>
 		<property name="password" value="root"/>
 	</bean>
+	
+	<context:annotation-config />
+
+	<context:component-scan base-package="de.mediapool.core.persistence"/>
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-				<value>de.mediapool.core.persistence.vo.media.EntityTypeVO</value>
-				<value>de.mediapool.core.persistence.vo.media.EntityVO</value>
-				<value>de.mediapool.core.persistence.vo.media.EntityAttributeVO</value>
-				<value>de.mediapool.core.persistence.vo.media.EntityAttributeDefVO</value>
+				<value>de.mediapool.core.persistence.vo.entities.EntityTypeVO</value>
+				<value>de.mediapool.core.persistence.vo.entities.EntityVO</value>
+				<value>de.mediapool.core.persistence.vo.entities.EntityAttributeVO</value>
+				<value>de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO</value>
 				<value>de.mediapool.core.persistence.vo.relationship.RelationshipVO</value>
 				<value>de.mediapool.core.persistence.vo.user.UserVO</value>
-				<value>de.mediapool.core.persistence.vo.media.products.MediaProductVO</value>
+				<value>de.mediapool.core.persistence.vo.entities.products.MediaProductVO</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -36,30 +45,6 @@
 	<bean id="movieService" class="de.mediapool.core.services.media.MediaServiceImpl">
 	</bean>
 	<bean id="installationService" class="de.mediapool.core.services.install.InstallationServiceImpl">
-	</bean>
-	
-	<bean id="entityDAO" class="de.mediapool.core.persistence.dao.entitys.EntityDAOImpl">
-	 <property name="sessionFactory" ref="entityManagerFactory" />
-	</bean>
-	
-	<bean id="entityAttributeDAO" class="de.mediapool.core.persistence.dao.entitys.EntityAttributeDAOImpl">
-	 <property name="sessionFactory" ref="entityManagerFactory" />
-	</bean>
-
-	<bean id="entityTypeDAO" class="de.mediapool.core.persistence.dao.entitys.EntityTypeDAOImpl">
-	 <property name="sessionFactory" ref="entityManagerFactory" />
-	</bean>
-	
-	<bean id="entityAttributeDefsDAO" class="de.mediapool.core.persistence.dao.entitys.EntityAttributeDefsDAOImpl">
-	 <property name="sessionFactory" ref="entityManagerFactory" />
-	</bean>
-	
-	<bean id="MediaProductsDAO" class="de.mediapool.core.persistence.dao.entitys.products.MediaProductsDAOImpl">
-	 <property name="sessionFactory" ref="entityManagerFactory" />
-	</bean>
-	
-	<bean id="psTransaction" class="de.mediapool.core.persistence.core.PSTransaction" singleton="false">
-	 <property name="sessionFactory" ref="entityManagerFactory" />
 	</bean>
 	
 </beans>

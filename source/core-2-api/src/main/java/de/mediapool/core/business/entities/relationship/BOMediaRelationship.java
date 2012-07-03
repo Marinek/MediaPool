@@ -1,11 +1,11 @@
-package de.mediapool.core.business.entitys.relationship;
+package de.mediapool.core.business.entities.relationship;
 
 import de.mediapool.core.beans.AbstractBean;
 import de.mediapool.core.beans.authentication.UserBean;
 import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.beans.entity.products.MediaProductBean;
-import de.mediapool.core.business.entitys.media.BOAttributedMedia;
-import de.mediapool.core.business.entitys.products.BOMediaProduct;
+import de.mediapool.core.business.entities.media.BOAttributedMedia;
+import de.mediapool.core.business.entities.products.BOMediaProduct;
 import de.mediapool.core.business.relationship.BOAbstractRelation;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.persistence.vo.relationship.RelationshipVO;

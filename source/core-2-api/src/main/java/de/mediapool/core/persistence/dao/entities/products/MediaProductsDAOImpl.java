@@ -1,15 +1,17 @@
-package de.mediapool.core.persistence.dao.entitys.products;
+package de.mediapool.core.persistence.dao.entities.products;
 
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Service;
 
 import de.mediapool.core.persistence.core.PSAbstractDAOImpl;
 import de.mediapool.core.persistence.core.PSCriteria;
 import de.mediapool.core.persistence.core.PSException;
-import de.mediapool.core.persistence.dao.interfaces.media.products.IMediaProductsDAO;
-import de.mediapool.core.persistence.vo.media.products.MediaProductVO;
+import de.mediapool.core.persistence.dao.interfaces.entities.products.IMediaProductsDAO;
+import de.mediapool.core.persistence.vo.entities.products.MediaProductVO;
 
+@Service
 public class MediaProductsDAOImpl extends PSAbstractDAOImpl<MediaProductVO> implements IMediaProductsDAO {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

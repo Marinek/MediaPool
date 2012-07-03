@@ -41,9 +41,9 @@ public class Database {
 			installationService.installDB();
 			AttributedMediaBean lMovieBean = mediaService.createNewMedia("Movie");
 
-			lMovieBean.setAttribute("duration", "12345");
+			lMovieBean.setAttribute("duration", "54321");
 			
-			lMovieBean.setName("Dies ist ein Test.");
+			lMovieBean.setName("Dies dwdwdwdw ein Test.");
 			
 			mediaService.createMedia(lMovieBean, lUserBean);
 			

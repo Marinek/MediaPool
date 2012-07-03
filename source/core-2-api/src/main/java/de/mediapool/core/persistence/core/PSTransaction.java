@@ -3,10 +3,15 @@ package de.mediapool.core.persistence.core;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.core.interfaces.IPSTransaction;
 
+@Component
+@Scope("prototype")
 public class PSTransaction implements IPSTransaction {
 
 	private SessionFactory sessionFactory;
@@ -27,6 +32,7 @@ public class PSTransaction implements IPSTransaction {
 		currentTransaction = currentSession.beginTransaction();
 	}
 	
+	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) throws PSException {
 		this.sessionFactory = sessionFactory;
 		
