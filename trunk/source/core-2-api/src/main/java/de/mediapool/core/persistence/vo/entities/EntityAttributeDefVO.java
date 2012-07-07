@@ -1,48 +1,41 @@
 package de.mediapool.core.persistence.vo.entities;
 
-import java.util.UUID;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
-import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 import de.mediapool.core.persistence.dao.interfaces.entities.IEntityAttributeDefsDAO;
 import de.mediapool.core.persistence.enums.AttributeMandatoryType;
+import de.mediapool.core.persistence.vo.AbstractIdVO;
 
 @Entity
 @Table(name = "entityattributedefs")
-public class EntityAttributeDefVO implements IPSValueObject {
+public class EntityAttributeDefVO extends AbstractIdVO {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@Column(name = "entityDefId")
-	private String entityDefId = null;
-	
-	@Column(name = "attributeName")
+	@Column(name = "attributename")
 	private String attributeName = null;
 	
-	@Column(name = "attributeType")
+	@Column(name = "attributetype")
 	private String attributeType = null;
 
-	@Column(name = "attributeOrder")
+	@Column(name = "attributeorder")
 	private Integer attributeOrder = null;
 
-	@Column(name = "attributeMandatory")
+	@Column(name = "attributemandatory")
 	private AttributeMandatoryType attributeMandatory = AttributeMandatoryType.NOTHING;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="mediaTypeId")
-	private EntityTypeVO mediaTypeVO = null;
+	@JoinColumn(name="entitytypeid")
+	private EntityTypeVO entityTypeVO = null;
 
 	public String getEntityTypeName() {
-		return this.getMediaTypeVO().getEntityTypeName();
+		return this.getEntityTypeVO().getEntityTypeName();
 	}
 
 	public String getAttributeName() {
@@ -81,19 +74,12 @@ public class EntityAttributeDefVO implements IPSValueObject {
 		return (IEntityAttributeDefsDAO) PersistenceContext.getInstance().getDAO(IEntityAttributeDefsDAO.class);
 	}
 
-	public EntityTypeVO getMediaTypeVO() {
-		return mediaTypeVO;
+	public EntityTypeVO getEntityTypeVO() {
+		return entityTypeVO;
 	}
 
-	public void setMediaTypeVO(EntityTypeVO mediaTypeVO) {
-		this.mediaTypeVO = mediaTypeVO;
+	public void setEntityTypeVO(EntityTypeVO mediaTypeVO) {
+		this.entityTypeVO = mediaTypeVO;
 	}
 
-	public String getEntityDefId() {
-		return entityDefId;
-	}
-
-	public void setEntityDefId(UUID entityDefId) {
-		this.entityDefId = entityDefId.toString();
-	}
 }

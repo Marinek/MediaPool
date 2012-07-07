@@ -66,7 +66,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		
 		RelationshipVO relationshipVO = new RelationshipVO();
 		
-		relationshipVO.setRelationId(UUID.randomUUID().toString());
+		relationshipVO.setId(UUID.randomUUID().toString());
 		
 		relationshipVO.setChildId(pChild.getIdAsString());
 		relationshipVO.setChildType(pChild.getClass().getSimpleName());
@@ -91,7 +91,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		
 		RelationshipVO relationshipVO = new RelationshipVO();
 		
-		relationshipVO.setRelationId(UUID.randomUUID().toString());
+		relationshipVO.setId(UUID.randomUUID().toString());
 
 		relationshipVO.setChildId(this.currentReferentId.toString());
 		relationshipVO.setChildType(this.currentReferentType);
@@ -120,12 +120,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		return lValidation;
 	}
 
-
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	protected List<C> getChildsList() throws MPExeption {
+	public List<C> getChildsList() throws MPExeption {
 		List<C> childList = new ArrayList<C>();
 		
 		try {
@@ -142,7 +137,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		return childList;
 	}
 
-	protected List<P> getParentsList() throws MPExeption {
+	public List<P> getParentsList() throws MPExeption {
 		List<P> parentlist = new ArrayList<P>();
 		
 		try {
@@ -158,7 +153,10 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		
 		return parentlist;
 	}
-
+	
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	// protected Methoden 
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 

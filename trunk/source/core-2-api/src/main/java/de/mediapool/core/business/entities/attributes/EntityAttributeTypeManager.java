@@ -1,5 +1,6 @@
 package de.mediapool.core.business.entities.attributes;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,10 +8,10 @@ import java.util.Map.Entry;
 
 import de.mediapool.core.beans.PersistentStatus;
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.beans.business.entity.attributes.BeanAttributeMandatoryType;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
+import de.mediapool.core.exceptions.MPBusinessExeption;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
@@ -62,10 +63,12 @@ public class EntityAttributeTypeManager {
 	}
 
 	public void initialAttributes(AbstractEntityBean pReturnNewMedia) throws MPExeption {
-		if(this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
-			for(Entry<String, EntityAttributeBean> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getEntityType()).entrySet()) {
-				pReturnNewMedia.addAttribute(lAttributeEntry.getValue());
-			}
+		if(!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
+			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
+		}
+		
+		for(Entry<String, EntityAttributeBean> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getEntityType()).entrySet()) {
+			pReturnNewMedia.addAttribute(lAttributeEntry.getValue());
 		}
 	}
 	
@@ -74,5 +77,13 @@ public class EntityAttributeTypeManager {
 			this.attributeMap.put(lBean.getMediaType(), new HashMap<String, EntityAttributeBean>());
 		}
 		this.attributeMap.get(lBean.getMediaType()).put(lBean.getAttributeName(), lBean);
+	}
+
+	public  Map<String, EntityAttributeBean> getDefinedAttributes(AbstractEntityBean pReturnNewMedia) throws MPExeption {
+		if(!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
+			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
+		}
+		
+		return Collections.unmodifiableMap(this.attributeMap.get(pReturnNewMedia.getEntityType()));
 	}
 }
