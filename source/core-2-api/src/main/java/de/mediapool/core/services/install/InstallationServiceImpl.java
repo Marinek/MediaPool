@@ -41,17 +41,17 @@ public class InstallationServiceImpl implements IInstallationService {
 		
 		EntityTypeVO lMediaTypeVO = new EntityTypeVO();
 		
-		lMediaTypeVO.setEntityTypeId(UUID.randomUUID());
+		lMediaTypeVO.setId(UUID.randomUUID().toString());
 		lMediaTypeVO.setEntityTypeName("Medien");
 		
 		EntityAttributeDefVO lVO = new EntityAttributeDefVO();
 		
-		lVO.setEntityDefId(UUID.randomUUID());
+		lVO.setId(UUID.randomUUID().toString());
 		lVO.setAttributeName("duration");
 		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
 		lVO.setAttributeOrder(10);
 		lVO.setAttributeType("String");
-		lVO.setMediaTypeVO(lMediaTypeVO);
+		lVO.setEntityTypeVO(lMediaTypeVO);
 		
 		try {
 			EntityTypeVO.getDAO().saveOrUpdate(lMediaTypeVO);
@@ -66,17 +66,17 @@ public class InstallationServiceImpl implements IInstallationService {
 	private void installMoreDB() throws MPExeption {
 		EntityTypeVO lMediaTypeVO = new EntityTypeVO();
 		
-		lMediaTypeVO.setEntityTypeId(UUID.randomUUID());
+		lMediaTypeVO.setId(UUID.randomUUID().toString());
 		lMediaTypeVO.setEntityTypeName("Produkte");
 		
 		EntityAttributeDefVO lVO = new EntityAttributeDefVO();
 		
-		lVO.setEntityDefId(UUID.randomUUID());
+		lVO.setId(UUID.randomUUID().toString());
 		lVO.setAttributeName("ean");
 		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
 		lVO.setAttributeOrder(10);
 		lVO.setAttributeType("String");
-		lVO.setMediaTypeVO(lMediaTypeVO);
+		lVO.setEntityTypeVO(lMediaTypeVO);
 		
 		try {
 			EntityTypeVO.getDAO().saveOrUpdate(lMediaTypeVO);

@@ -1,42 +1,35 @@
 package de.mediapool.core.persistence.vo.entities;
 
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
-import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 import de.mediapool.core.persistence.dao.interfaces.entities.IEntityAttributesDAO;
+import de.mediapool.core.persistence.vo.AbstractTrackingVO;
 
 @Entity()
 @Table(name = "EntityAttributes")
-public class EntityAttributeVO implements IPSValueObject {
+public class EntityAttributeVO extends AbstractTrackingVO {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@Column(name = "id")
-	private String id = UUID.randomUUID().toString();
-
-	@Column(name = "mediaid")
-	private String mediaid = null;
+	@Column(name = "entityid")
+	private String entityid = null;
 	
-    @Column(name = "attributeName")
-    private String attributeName = "";
+    @Column(name = "attributename")
+    private String attributeName = null;
 
-    @Column(name = "attributeValue")
-	private String attributeValue = "";
+    @Column(name = "attributevalue")
+	private String attributeValue = null;
 	
 
-	public String getMediaID() {
-		return this.mediaid;
+	public String getEntityId() {
+		return this.entityid;
 	}
 
-	public void setMediaID(String mediaID) {
-		this.mediaid = mediaID;
+	public void setEntityId(String mediaID) {
+		this.entityid = mediaID;
 	}
 
 	public String getAttributeValue() {
@@ -57,13 +50,5 @@ public class EntityAttributeVO implements IPSValueObject {
 	
 	public static IEntityAttributesDAO getDAO() {
 		return (IEntityAttributesDAO) PersistenceContext.getInstance().getDAO(IEntityAttributesDAO.class);
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 }

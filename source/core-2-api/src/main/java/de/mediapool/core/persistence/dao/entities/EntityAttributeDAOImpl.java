@@ -21,7 +21,7 @@ public class EntityAttributeDAOImpl extends PSAbstractDAOImpl<EntityAttributeVO>
 	public List<EntityAttributeVO> getAttributesFor(String pMediaId) throws PSException {
 		PSCriteria criteria = this.createCriteria();
 		
-		criteria.add(Restrictions.eq("mediaid", pMediaId));
+		criteria.add(Restrictions.eq("entityid", pMediaId));
 		
 		return this.findByCriteria(criteria);
 	}

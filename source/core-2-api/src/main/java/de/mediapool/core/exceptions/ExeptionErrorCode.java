@@ -19,7 +19,11 @@ public enum ExeptionErrorCode {
 	
 	// BOError
 	BO_INIT(10000, "Fehler beim Initialisieren des BOs. Unzureichende Daten."),
-	BO_VALIDATION(10001, "Die Validierung für die ausgefühere Funktion konnte nicht erfolgreich durchgeführt werden.");
+	BO_VALIDATION(10001, "Die Validierung für die ausgefühere Funktion konnte nicht erfolgreich durchgeführt werden."),
+	
+	// EntityDefinitions
+	ENTITY_TYPE_NO_TYPE_DEF(20000, "Der angegebene Entity-Type existiert nicht.");
+	
 	
 	private int errorCode = -1;
 	

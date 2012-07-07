@@ -2,6 +2,7 @@ package de.mediapool.core.business.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import de.mediapool.core.beans.PersistentStatus;
@@ -19,6 +20,7 @@ import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.entities.EntityAttributeVO;
+import de.mediapool.core.persistence.vo.entities.EntityTypeVO;
 import de.mediapool.core.persistence.vo.entities.EntityVO;
 import de.mediapool.core.utils.ValidationUtil;
 
@@ -46,7 +48,7 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 
 	protected void init(UUID mediaID) throws MPExeption {
 		try {
-			
+
 			if(mediaID == null) {
 				throw new MPBusinessExeption(ExeptionErrorCode.BO_INIT, "Es wurde keine ID für dieses Businessobjekt angegeben!");
 			}
@@ -101,37 +103,39 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 	public List<ValidationResultBean> save() throws MPExeption {
 		List<ValidationResultBean> validationResult = this.validate();
 
-		if(ValidationUtil.canProceed(validationResult)) {
-			this.currentEntityVO = this.getEntityVO();
+		if(!ValidationUtil.canProceed(validationResult)) {
+			throw new MPBusinessExeption(ExeptionErrorCode.BO_VALIDATION, "Fehler beim Speichern: " + ValidationUtil.toString(validationResult));
+		}
 
-			try {
-				EntityVO.getDAO().saveOrUpdate(currentEntityVO, this.getTransaction());
+		this.currentEntityVO = this.getEntityVO();
+		
+		try {
+			EntityVO.getDAO().saveOrUpdate(currentEntityVO, this.getTransaction());
 
-				this.currentAttributes.clear();
+			this.currentAttributes.clear();
 
-				for(EntityAttributeBean lAttribute : this.getCurrentEntityBean().getAttributes()) {
-					EntityAttributeVO lVO = new EntityAttributeVO();
+			for(EntityAttributeBean lAttribute : this.getCurrentEntityBean().getAttributes()) {
+				EntityAttributeVO lVO = new EntityAttributeVO();
 
-					lVO.setAttributeName(lAttribute.getIdAsString());
-					lVO.setAttributeName(lAttribute.getAttributeName());
-					lVO.setMediaID(currentEntityVO.getId());
-					lVO.setAttributeValue(lAttribute.getAttributeValue());
+				lVO.setAttributeName(lAttribute.getIdAsString());
+				lVO.setAttributeName(lAttribute.getAttributeName());
+				lVO.setEntityId(currentEntityVO.getId());
+				lVO.setAttributeValue(lAttribute.getAttributeValue());
 
-					EntityAttributeVO.getDAO().saveOrUpdate(lVO, this.getTransaction());
+				EntityAttributeVO.getDAO().saveOrUpdate(lVO, this.getTransaction());
 
-					this.currentAttributes.add(lVO);
-				}
-
-				this.protectedSave();
-
-				this.doCommit();
-
-				this.currentEntity.setPersistentStatus(PersistentStatus.PERSISTENT);
-			} catch (PSException e) {
-				this.doRollback();
-
-				throw new MPTechnicalExeption(ExeptionErrorCode.DB_UPDATE, "Could not Update MediaVO", e);
+				this.currentAttributes.add(lVO);
 			}
+
+			this.protectedSave();
+
+			this.doCommit();
+
+			this.currentEntity.setPersistentStatus(PersistentStatus.PERSISTENT);
+		} catch (PSException e) {
+			this.doRollback();
+
+			throw new MPTechnicalExeption(ExeptionErrorCode.DB_UPDATE, "Could not Update MediaVO", e);
 		}
 		return validationResult;
 	}
@@ -145,18 +149,27 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 			lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Feld Name muss ist ein Pflichtfeld."));
 		}
 
+		Map<String, EntityAttributeBean> definedAttributes = EntityAttributeTypeManager.getInstance().getDefinedAttributes(currentMediaBean2);
+
+		for(EntityAttributeBean lAttributeBean : currentMediaBean2.getAttributes()) {
+			if(!definedAttributes.containsKey(lAttributeBean.getAttributeName())) {
+				lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Attribut 'lAttributeBean.getAttributeName()' ist nicht definiert."));
+			}
+		}
+
 		return lValidation;
 	}
 
 
 	private EntityVO getEntityVO() throws MPExeption {
 		AbstractEntityBean lCurrentBean = this.getCurrentEntityBean();
-		EntityVO lMediaVO = new EntityVO();
+		EntityVO lEntityVO = new EntityVO();
 
-		lMediaVO.setId(lCurrentBean.getIdAsString());
-		lMediaVO.setName(lCurrentBean.getName());
-
-		return lMediaVO;
+		lEntityVO.setId(lCurrentBean.getIdAsString());
+		lEntityVO.setName(lCurrentBean.getName());
+		lEntityVO.setEntityType(lCurrentBean.getEntityType());
+		
+		return lEntityVO;
 	}
 
 	protected T getMediaBean() throws MPExeption {

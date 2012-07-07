@@ -30,6 +30,14 @@ public class BOMediaRelationship extends BOAbstractRelation<AttributedProductBea
 		super(pUserBean, pReferentId);
 	}
 
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	// public Methoden 
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	// protected Methoden 
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
 	protected String getChildType() throws MPExeption {
 		return AttributedMediaBean.class.getName();
 	}
@@ -49,14 +57,6 @@ public class BOMediaRelationship extends BOAbstractRelation<AttributedProductBea
 	protected AttributedMediaBean getChildEntity(RelationshipVO lRelationShipVO) throws MPExeption {
 		return BOAttributedMedia.getInstance(lRelationShipVO.getChildId(), getCurrentUserBean()).getCurrentEntityBean();
 	}
-	
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 

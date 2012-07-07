@@ -4,23 +4,18 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
-import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 import de.mediapool.core.persistence.dao.interfaces.relationship.IRelationshipDAO;
+import de.mediapool.core.persistence.vo.AbstractTrackingVO;
 
-@Entity
+@Entity()
 @Table(name = "relationships")
-public class RelationshipVO implements IPSValueObject {
+public class RelationshipVO extends AbstractTrackingVO {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@Column(name = "relationid")
-	private String relationId = null;
-
 	@Column(name = "childId")
 	private String childId = null;
 	
@@ -36,13 +31,6 @@ public class RelationshipVO implements IPSValueObject {
 	@Column(name = "relationType")
 	private Integer relationType = null;
 
-	public String getRelationId() {
-		return relationId != null ? UUID.fromString(relationId).toString() : null;
-	}
-
-	public void setRelationId(String relationId) {
-		this.relationId = relationId;
-	}
 
 	public UUID getChildId() {
 		return UUID.fromString(childId);

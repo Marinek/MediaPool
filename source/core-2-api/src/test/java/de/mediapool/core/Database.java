@@ -41,10 +41,10 @@ public class Database {
 		
 		try {
 			installationService.installDB();
-			AttributedMediaBean lMovieBean = mediaService.createNewMedia("Movie");
+			AttributedMediaBean lMovieBean = mediaService.createNewMedia("Medien");
 
 			lMovieBean.setAttribute("duration", "54321");
-			
+						
 			lMovieBean.setName("Dies dwdwdwdw ein Test.");
 			
 			AttributedMediaBean lBean = mediaService.saveMedia(lMovieBean, lUserBean);

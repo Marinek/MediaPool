@@ -24,13 +24,14 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
+				<value>de.mediapool.core.persistence.vo.AbstractTrackingVO</value>
+				<value>de.mediapool.core.persistence.vo.AbstractIdVO</value>
 				<value>de.mediapool.core.persistence.vo.entities.EntityTypeVO</value>
 				<value>de.mediapool.core.persistence.vo.entities.EntityVO</value>
 				<value>de.mediapool.core.persistence.vo.entities.EntityAttributeVO</value>
 				<value>de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO</value>
 				<value>de.mediapool.core.persistence.vo.relationship.RelationshipVO</value>
 				<value>de.mediapool.core.persistence.vo.user.UserVO</value>
-				<value>de.mediapool.core.persistence.vo.entities.products.MediaProductVO</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
