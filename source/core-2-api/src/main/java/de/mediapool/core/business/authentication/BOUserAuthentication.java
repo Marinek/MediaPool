@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
-import de.mediapool.core.beans.authentication.UserBean;
+import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.business.authentication.shiro.UniqueUsernameAndPasswortAuth;
 import de.mediapool.core.exceptions.ExeptionErrorCode;

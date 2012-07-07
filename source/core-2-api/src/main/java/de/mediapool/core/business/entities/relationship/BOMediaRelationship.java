@@ -1,16 +1,16 @@
 package de.mediapool.core.business.entities.relationship;
 
 import de.mediapool.core.beans.AbstractBean;
-import de.mediapool.core.beans.authentication.UserBean;
-import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
-import de.mediapool.core.beans.entity.products.MediaProductBean;
+import de.mediapool.core.beans.business.authentication.UserBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.business.entity.products.AttributedProductBean;
 import de.mediapool.core.business.entities.media.BOAttributedMedia;
 import de.mediapool.core.business.entities.products.BOMediaProduct;
 import de.mediapool.core.business.relationship.BOAbstractRelation;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
 
-public class BOMediaRelationship extends BOAbstractRelation<MediaProductBean, AttributedMediaBean> {
+public class BOMediaRelationship extends BOAbstractRelation<AttributedProductBean, AttributedMediaBean> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -35,14 +35,14 @@ public class BOMediaRelationship extends BOAbstractRelation<MediaProductBean, At
 	}
 
 	protected String getParentType() throws MPExeption {
-		return MediaProductBean.class.getName();
+		return AttributedProductBean.class.getName();
 	}
 
 	protected Integer getRelationTypeId() throws MPExeption {
 		return TYPEID;
 	}
 
-	protected MediaProductBean getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption {
+	protected AttributedProductBean getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption {
 		return BOMediaProduct.getInstance(lRelationShipVO.getParentId(), this.getCurrentUserBean()).getCurrentEntityBean();
 	}
 

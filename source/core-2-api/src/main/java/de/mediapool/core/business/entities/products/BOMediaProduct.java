@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import de.mediapool.core.beans.authentication.UserBean;
-import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
-import de.mediapool.core.beans.entity.products.MediaProductBean;
+import de.mediapool.core.beans.business.authentication.UserBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.business.entity.products.AttributedProductBean;
 import de.mediapool.core.business.entities.BOAbstractEntity;
 import de.mediapool.core.exceptions.MPExeption;
 
-public class BOMediaProduct extends BOAbstractEntity<MediaProductBean> {
+public class BOMediaProduct extends BOAbstractEntity<AttributedProductBean> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -24,7 +24,7 @@ public class BOMediaProduct extends BOAbstractEntity<MediaProductBean> {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected BOMediaProduct(MediaProductBean pMediaBean, UserBean pUserBean) throws MPExeption {
+	protected BOMediaProduct(AttributedProductBean pMediaBean, UserBean pUserBean) throws MPExeption {
 		super(pUserBean, pMediaBean);
 
 	}
@@ -33,8 +33,16 @@ public class BOMediaProduct extends BOAbstractEntity<MediaProductBean> {
 		super(pMediaBean, pUserBean);
 		
 	}
+	
+	protected BOMediaProduct(UserBean pUserBean) throws MPExeption {
+		super(pUserBean);
+	}
 
-	public static BOMediaProduct getInstance(MediaProductBean pMediaBean, UserBean pUserBean) throws MPExeption {
+	public static BOMediaProduct getInstance(UserBean pUserBean) throws MPExeption {
+		return new BOMediaProduct(pUserBean);
+	}
+	
+	public static BOMediaProduct getInstance(AttributedProductBean pMediaBean, UserBean pUserBean) throws MPExeption {
 		return new BOMediaProduct(pMediaBean, pUserBean);
 	}
 	
@@ -52,22 +60,6 @@ public class BOMediaProduct extends BOAbstractEntity<MediaProductBean> {
 		return lReturnList;
 	}
 
-//	public void save () throws MPExeption {
-//		if(ValidationUtil.canProceed(this.validate())) {
-//			try {
-//				for(MediaProductBean lProductBean : updateProducts) {
-//					MediaProductVO lVO = this.getMediaProductVO(lProductBean);
-//
-//					MediaProductVO.getDAO().saveOrUpdate(lVO, this.getTransaction());
-//				}
-//				this.doCommit();
-//			} catch (PSException e) {
-//				this.doRollback();
-//				throw new MPTechnicalExeption(ExeptionErrorCode.DB_UPDATE, "Kann auf Tabelle 'MediaProducts' nicht schreiben.", e);
-//			}
-//		}
-//	}
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -84,8 +76,8 @@ public class BOMediaProduct extends BOAbstractEntity<MediaProductBean> {
 		
 	}
 
-	protected MediaProductBean getCurrentEntityBeanInstance() throws MPExeption {
-		return new MediaProductBean();
+	protected AttributedProductBean getCurrentEntityBeanInstance() throws MPExeption {
+		return new AttributedProductBean();
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

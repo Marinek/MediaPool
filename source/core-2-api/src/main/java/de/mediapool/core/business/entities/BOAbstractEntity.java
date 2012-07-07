@@ -5,10 +5,9 @@ import java.util.List;
 import java.util.UUID;
 
 import de.mediapool.core.beans.PersistentStatus;
-import de.mediapool.core.beans.authentication.UserBean;
-import de.mediapool.core.beans.entity.AbstractEntityBean;
-import de.mediapool.core.beans.entity.attributes.EntityAttributeBean;
-import de.mediapool.core.beans.entity.products.MediaProductBean;
+import de.mediapool.core.beans.business.authentication.UserBean;
+import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
 import de.mediapool.core.beans.utils.PersistenceUtils;
 import de.mediapool.core.beans.validation.ValidationErrorType;
 import de.mediapool.core.beans.validation.ValidationResultBean;
@@ -41,7 +40,7 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 		this.init(entityID);
 	}
 
-	protected BOAbstractEntity(UserBean pUserBean, MediaProductBean pMediaBean) throws MPExeption {
+	protected BOAbstractEntity(UserBean pUserBean, T pMediaBean) throws MPExeption {
 		this(pMediaBean.getId(), pUserBean);
 	}
 
@@ -122,7 +121,6 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 
 					this.currentAttributes.add(lVO);
 				}
-
 
 				this.protectedSave();
 

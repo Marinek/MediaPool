@@ -1,4 +1,4 @@
-package de.mediapool.core.beans.entity;
+package de.mediapool.core.beans.business.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.mediapool.core.beans.AbstractBean;
-import de.mediapool.core.beans.entity.attributes.EntityAttributeBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
 
 public abstract class AbstractEntityBean extends AbstractBean {
 

@@ -6,9 +6,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.mediapool.core.beans.PersistentStatus;
-import de.mediapool.core.beans.attributes.BeanAttributeMandatoryType;
-import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
-import de.mediapool.core.beans.entity.attributes.EntityAttributeBean;
+import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.business.entity.attributes.BeanAttributeMandatoryType;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
@@ -60,7 +61,7 @@ public class EntityAttributeTypeManager {
 		return lAttributeType;
 	}
 
-	public void initialAttributes(AttributedMediaBean pReturnNewMedia) throws MPExeption {
+	public void initialAttributes(AbstractEntityBean pReturnNewMedia) throws MPExeption {
 		if(this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
 			for(Entry<String, EntityAttributeBean> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getEntityType()).entrySet()) {
 				pReturnNewMedia.addAttribute(lAttributeEntry.getValue());

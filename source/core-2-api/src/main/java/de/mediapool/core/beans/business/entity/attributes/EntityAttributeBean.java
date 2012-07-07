@@ -1,6 +1,5 @@
-package de.mediapool.core.beans.entity.attributes;
+package de.mediapool.core.beans.business.entity.attributes;
 
-import de.mediapool.core.beans.attributes.AttributeBean;
 
 public class EntityAttributeBean extends AttributeBean {
 

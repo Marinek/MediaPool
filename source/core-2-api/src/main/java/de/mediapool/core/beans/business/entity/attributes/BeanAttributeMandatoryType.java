@@ -1,4 +1,4 @@
-package de.mediapool.core.beans.attributes;
+package de.mediapool.core.beans.business.entity.attributes;
 
 public enum BeanAttributeMandatoryType {
 	MANDATORY("*", true),

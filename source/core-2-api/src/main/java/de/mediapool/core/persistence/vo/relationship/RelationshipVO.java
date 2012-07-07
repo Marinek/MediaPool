@@ -34,7 +34,7 @@ public class RelationshipVO implements IPSValueObject {
 	private String parentType = null;
 
 	@Column(name = "relationType")
-	private String relationType = null;
+	private Integer relationType = null;
 
 	public String getRelationId() {
 		return relationId != null ? UUID.fromString(relationId).toString() : null;
@@ -76,11 +76,11 @@ public class RelationshipVO implements IPSValueObject {
 		this.parentType = parentType;
 	}
 
-	public String getRelationType() {
+	public Integer getRelationType() {
 		return relationType;
 	}
 
-	public void setRelationType(String relationType) {
+	public void setRelationType(Integer relationType) {
 		this.relationType = relationType;
 	}
 	

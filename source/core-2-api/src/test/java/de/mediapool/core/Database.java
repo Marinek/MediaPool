@@ -6,8 +6,9 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 
-import de.mediapool.core.beans.authentication.UserBean;
-import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.business.authentication.UserBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.business.entity.products.AttributedProductBean;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IInstallationService;
 import de.mediapool.core.services.interfaces.IMediaService;
@@ -51,6 +52,16 @@ public class Database {
 			AttributedMediaBean media = mediaService.getMedia(lBean.getId(), null);
 			
 			Assert.assertTrue(media != null);
+			
+			AttributedProductBean createNewProduct = mediaService.createNewProduct();
+	
+			createNewProduct.setName("Das Produkt des Jahrtausends.");
+			
+			createNewProduct.setAttribute("ean", "12345678");
+			
+			mediaService.saveProduct(createNewProduct);
+			
+			mediaService.addChild(createNewProduct, media);
 			
 		} catch (MPExeption e) {
 			// TODO Auto-generated catch block

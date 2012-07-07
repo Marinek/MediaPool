@@ -47,4 +47,8 @@ public class ValidationResultBean extends AbstractBean {
 	public boolean isPersistent () {
 		return false;
 	}
+	
+	public String toString() {
+		return validationErrorType + ": '" + fieldName + "' -> " + message;
+	}
 }

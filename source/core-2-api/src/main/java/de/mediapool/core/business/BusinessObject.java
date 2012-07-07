@@ -3,7 +3,7 @@ package de.mediapool.core.business;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mediapool.core.beans.authentication.UserBean;
+import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
