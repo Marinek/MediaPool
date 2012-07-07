@@ -1,10 +1,8 @@
 package de.mediapool.core;
 
-import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributedMediaBean;
@@ -21,13 +19,13 @@ public class Database {
 		ClassPathXmlApplicationContext beanFactory = new ClassPathXmlApplicationContext(new String[] {"spring.xml"});
 		
 		
-		AnnotationSessionFactoryBean o = (AnnotationSessionFactoryBean)beanFactory.getBean("&entityManagerFactory");
-		
-		SchemaExport lExpport  = new SchemaExport(o.getConfiguration());
-		
-		lExpport.setOutputFile("database.sql");
-		
-		lExpport.create(true, true);
+//		AnnotationSessionFactoryBean o = (AnnotationSessionFactoryBean)beanFactory.getBean("&entityManagerFactory");
+//		
+//		SchemaExport lExpport  = new SchemaExport(o.getConfiguration());
+//		
+//		lExpport.setOutputFile("database.sql");
+//		
+//		lExpport.create(true, true);
 		
 		
 
@@ -41,7 +39,7 @@ public class Database {
 		
 		try {
 			installationService.installDB();
-			AttributedMediaBean lMovieBean = mediaService.createNewMedia("Medien");
+			AttributedMediaBean lMovieBean = mediaService.createNewMedia("Movie");
 
 			lMovieBean.setAttribute("duration", "54321");
 						
