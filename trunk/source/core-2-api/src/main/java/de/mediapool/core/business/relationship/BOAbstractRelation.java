@@ -124,7 +124,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		List<C> childList = new ArrayList<C>();
 		
 		try {
-			List<RelationshipVO> currentRelations = RelationshipVO.getDAO().findChilds(this.getRelationTypeId() , currentReferentId.toString(), this.getChildType());
+			List<RelationshipVO> currentRelations = RelationshipVO.getDAO().findChilds(this.getRelationTypeId() , currentReferentId.toString());
 			
 			for(RelationshipVO lRelationShipVO : currentRelations) {
 				childList.add(this.getChildEntity(lRelationShipVO));
@@ -141,7 +141,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		List<P> parentlist = new ArrayList<P>();
 		
 		try {
-			List<RelationshipVO> currentRelations = RelationshipVO.getDAO().findParents(this.getRelationTypeId() , currentReferentId.toString(), this.getParentType());
+			List<RelationshipVO> currentRelations = RelationshipVO.getDAO().findParents(this.getRelationTypeId() , currentReferentId.toString());
 			
 			for(RelationshipVO lRelationShipVO : currentRelations) {
 				parentlist.add(this.getParentEntity(lRelationShipVO));
@@ -171,6 +171,4 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 	protected abstract P getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption;
 	protected abstract C getChildEntity(RelationshipVO lRelationShipVO) throws MPExeption;
 
-	protected abstract String getChildType() throws MPExeption;
-	protected abstract String getParentType() throws MPExeption;
 }

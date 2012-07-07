@@ -72,7 +72,7 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 	public AttributedProductBean createNewProduct() throws MPExeption {
 		AttributedProductBean lReturnNewMedia = new AttributedProductBean();
 		
-		lReturnNewMedia.setEntityType("Produkte");
+		lReturnNewMedia.setEntityType("Product");
 		
 		EntityAttributeTypeManager.getInstance().initialAttributes(lReturnNewMedia);
 		

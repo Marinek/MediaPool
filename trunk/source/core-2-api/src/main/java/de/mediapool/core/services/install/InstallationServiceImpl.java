@@ -42,7 +42,7 @@ public class InstallationServiceImpl implements IInstallationService {
 		EntityTypeVO lMediaTypeVO = new EntityTypeVO();
 		
 		lMediaTypeVO.setId(UUID.randomUUID().toString());
-		lMediaTypeVO.setEntityTypeName("Medien");
+		lMediaTypeVO.setEntityTypeName("Movie");
 		
 		EntityAttributeDefVO lVO = new EntityAttributeDefVO();
 		
@@ -67,7 +67,7 @@ public class InstallationServiceImpl implements IInstallationService {
 		EntityTypeVO lMediaTypeVO = new EntityTypeVO();
 		
 		lMediaTypeVO.setId(UUID.randomUUID().toString());
-		lMediaTypeVO.setEntityTypeName("Produkte");
+		lMediaTypeVO.setEntityTypeName("Product");
 		
 		EntityAttributeDefVO lVO = new EntityAttributeDefVO();
 		

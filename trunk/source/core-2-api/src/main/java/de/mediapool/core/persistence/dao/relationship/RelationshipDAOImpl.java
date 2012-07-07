@@ -30,12 +30,12 @@ public class RelationshipDAOImpl extends PSAbstractDAOImpl<RelationshipVO> imple
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public List<RelationshipVO> findParents(Integer pRelationTypeId, String pChildId, String pParentType) throws PSException {
-		return this.findRelations(pRelationTypeId, pChildId, pParentType, "childId", "childType");
+	public List<RelationshipVO> findParents(Integer pRelationTypeId, String pChildId) throws PSException {
+		return this.findRelations(pRelationTypeId, pChildId, "childid");
 	}
 	
-	public List<RelationshipVO> findChilds(Integer pRelationTypeId, String pParentId, String pChildType) throws PSException {
-		return this.findRelations(pRelationTypeId, pParentId, pChildType, "parentId", "parentType");
+	public List<RelationshipVO> findChilds(Integer pRelationTypeId, String pParentId) throws PSException {
+		return this.findRelations(pRelationTypeId, pParentId, "parentid");
 	}
 
 	public List<RelationshipVO> findRelationShipType(Integer pType) throws PSException {
@@ -58,12 +58,11 @@ public class RelationshipDAOImpl extends PSAbstractDAOImpl<RelationshipVO> imple
 	// private Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private List<RelationshipVO> findRelations(Integer pRelationTypeId, String pRelationId, String pChildType, String pRelationIdProperty, String pRelationTypeProperty) throws PSException {
+	private List<RelationshipVO> findRelations(Integer pRelationTypeId, String pRelationId, String pRelationIdProperty) throws PSException {
 		PSCriteria lCriteria = this.createCriteria();
 		
-		lCriteria.add(Restrictions.eq("relationType", pRelationTypeId));
+		lCriteria.add(Restrictions.eq("relationtype", pRelationTypeId));
 		lCriteria.add(Restrictions.eq(pRelationIdProperty, pRelationId));
-		lCriteria.add(Restrictions.eq(pRelationTypeProperty, pChildType));
 		
 		return this.findByCriteria(lCriteria);
 	}

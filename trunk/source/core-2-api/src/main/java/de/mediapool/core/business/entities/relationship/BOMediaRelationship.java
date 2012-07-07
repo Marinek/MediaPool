@@ -38,13 +38,6 @@ public class BOMediaRelationship extends BOAbstractRelation<AttributedProductBea
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	
-	protected String getChildType() throws MPExeption {
-		return AttributedMediaBean.class.getName();
-	}
-
-	protected String getParentType() throws MPExeption {
-		return AttributedProductBean.class.getName();
-	}
 
 	protected Integer getRelationTypeId() throws MPExeption {
 		return TYPEID;
