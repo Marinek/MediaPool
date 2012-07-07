@@ -18,7 +18,8 @@ public enum ExeptionErrorCode {
 	AUTH_LOGIN_CACHE(3001, "Fehler beim Authentifizieren: Unzureichende Identifizierung."),
 	
 	// BOError
-	BO_INIT(10000, "Fehler beim Initialisieren des BOs. Unzureichende Daten.");
+	BO_INIT(10000, "Fehler beim Initialisieren des BOs. Unzureichende Daten."),
+	BO_VALIDATION(10001, "Die Validierung für die ausgefühere Funktion konnte nicht erfolgreich durchgeführt werden.");
 	
 	private int errorCode = -1;
 	

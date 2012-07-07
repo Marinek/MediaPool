@@ -3,6 +3,7 @@ package de.mediapool.core.persistence.dao.relationship;
 import java.util.List;
 
 import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Service;
 
 import de.mediapool.core.persistence.core.PSAbstractDAOImpl;
 import de.mediapool.core.persistence.core.PSCriteria;
@@ -10,6 +11,7 @@ import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.dao.interfaces.relationship.IRelationshipDAO;
 import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
 
+@Service
 public class RelationshipDAOImpl extends PSAbstractDAOImpl<RelationshipVO> implements IRelationshipDAO {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

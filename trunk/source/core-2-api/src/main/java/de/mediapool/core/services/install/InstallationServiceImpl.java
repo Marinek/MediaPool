@@ -59,6 +59,32 @@ public class InstallationServiceImpl implements IInstallationService {
 		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_INSERT, "Konnte in Tabelle nicht schreiben", e);
 		}
+		
+		this.installMoreDB();
+	}
+
+	private void installMoreDB() throws MPExeption {
+		EntityTypeVO lMediaTypeVO = new EntityTypeVO();
+		
+		lMediaTypeVO.setEntityTypeId(UUID.randomUUID());
+		lMediaTypeVO.setEntityTypeName("Produkte");
+		
+		EntityAttributeDefVO lVO = new EntityAttributeDefVO();
+		
+		lVO.setEntityDefId(UUID.randomUUID());
+		lVO.setAttributeName("ean");
+		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
+		lVO.setAttributeOrder(10);
+		lVO.setAttributeType("String");
+		lVO.setMediaTypeVO(lMediaTypeVO);
+		
+		try {
+			EntityTypeVO.getDAO().saveOrUpdate(lMediaTypeVO);
+			EntityAttributeDefVO.getDAO().saveOrUpdate(lVO);
+		} catch (PSException e) {
+			throw new MPTechnicalExeption(ExeptionErrorCode.DB_INSERT, "Konnte in Tabelle nicht schreiben", e);
+		}
+		
 	}
 	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

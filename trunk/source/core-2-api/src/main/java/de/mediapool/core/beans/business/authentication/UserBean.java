@@ -1,4 +1,4 @@
-package de.mediapool.core.beans.authentication;
+package de.mediapool.core.beans.business.authentication;
 
 import java.util.UUID;
 

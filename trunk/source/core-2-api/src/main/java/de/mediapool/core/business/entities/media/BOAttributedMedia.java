@@ -2,8 +2,8 @@ package de.mediapool.core.business.entities.media;
 
 import java.util.UUID;
 
-import de.mediapool.core.beans.authentication.UserBean;
-import de.mediapool.core.beans.entity.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.business.authentication.UserBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.business.entities.BOAbstractEntity;
 import de.mediapool.core.exceptions.MPExeption;
 

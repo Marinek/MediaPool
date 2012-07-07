@@ -32,4 +32,17 @@ public class ValidationUtil {
 		
 		return true;
 	}
+	
+	public static String toString (List<ValidationResultBean> pValidationResultList) {
+		StringBuffer lBuffer = new StringBuffer();
+		if(pValidationResultList != null) {
+			for(ValidationResultBean lBean : pValidationResultList) {
+				lBuffer.append(lBean);
+				lBuffer.append("\n");
+			}
+		} else {
+			lBuffer.append("<Leere Liste>");
+		}
+		return lBuffer.toString();
+	}
 }
