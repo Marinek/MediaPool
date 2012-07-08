@@ -47,6 +47,8 @@
 	</bean>
 	<bean id="installationService" class="de.mediapool.core.services.install.InstallationServiceImpl">
 	</bean>
+	<bean id="authService" class="de.mediapool.core.services.authentication.AuthServiceImpl">
+	</bean>
 	
 </beans>
 

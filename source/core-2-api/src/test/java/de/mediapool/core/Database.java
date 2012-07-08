@@ -8,6 +8,7 @@ import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributedMediaBean;
 import de.mediapool.core.beans.business.entity.products.AttributedProductBean;
 import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.services.interfaces.IAuthService;
 import de.mediapool.core.services.interfaces.IInstallationService;
 import de.mediapool.core.services.interfaces.IMediaService;
 
@@ -32,12 +33,16 @@ public class Database {
 		IMediaService<AttributedMediaBean> mediaService = (IMediaService<AttributedMediaBean>) beanFactory.getBean("movieService");
 
 		IInstallationService installationService = (IInstallationService)beanFactory.getBean("installationService");
+
+		IAuthService authService = (IAuthService)beanFactory.getBean("authService");
 		
 		
 		
-		UserBean lUserBean = new UserBean();
 		
 		try {
+			UserBean lUserBean = authService.auth("test", "test");
+			
+			
 			installationService.installDB();
 			AttributedMediaBean lMovieBean = mediaService.createNewMedia("Movie");
 
