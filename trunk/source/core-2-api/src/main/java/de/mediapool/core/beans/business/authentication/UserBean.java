@@ -1,15 +1,16 @@
 package de.mediapool.core.beans.business.authentication;
 
-import java.util.UUID;
-
 import de.mediapool.core.beans.AbstractBean;
 
 public class UserBean extends AbstractBean {
 
-	private UUID uuid = null;
 	
 	private String displayName = null;
-
+	
+	private boolean isAuthed = false;
+	
+	private String accountName = "";
+	
 	public String getDisplayName() {
 		return displayName;
 	}
@@ -18,12 +19,20 @@ public class UserBean extends AbstractBean {
 		this.displayName = displayName;
 	}
 
-	public UUID getUuid() {
-		return uuid;
+	public boolean isAuthed() {
+		return isAuthed;
 	}
 
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
+	public void setAuthed(boolean isAuthed) {
+		this.isAuthed = isAuthed;
 	}
-	
+
+	public String getAccountName() {
+		return accountName;
+	}
+
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+
 }
