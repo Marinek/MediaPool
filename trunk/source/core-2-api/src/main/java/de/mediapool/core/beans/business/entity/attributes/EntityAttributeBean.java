@@ -1,9 +1,16 @@
 package de.mediapool.core.beans.business.entity.attributes;
 
+import de.mediapool.core.beans.AbstractBean;
 
-public class EntityAttributeBean extends AttributeBean {
 
-	private String mediaType = null;
+public class EntityAttributeBean extends AbstractBean {
+
+	private String entityType = null;
+	
+	private String attributeType;
+	private String attributeName;
+	private String attributeDisplay;
+	private BeanAttributeMandatoryType mandatoryType =  BeanAttributeMandatoryType.NOTHING;
 	
 	private String attributeValue = null;
 
@@ -16,11 +23,43 @@ public class EntityAttributeBean extends AttributeBean {
 	}
 
 	public String getMediaType() {
-		return mediaType;
+		return entityType;
 	}
 
 	public void setEntityType(String mediaType) {
-		this.mediaType = mediaType;
+		this.entityType = mediaType;
+	}
+
+	public String getAttributeType() {
+		return attributeType;
+	}
+
+	public void setAttributeType(String attributeType) {
+		this.attributeType = attributeType;
+	}
+
+	public String getAttributeName() {
+		return attributeName;
+	}
+
+	public void setAttributeName(String attributeName) {
+		this.attributeName = attributeName;
+	}
+
+	public String getAttributeDisplay() {
+		return attributeDisplay;
+	}
+
+	public void setAttributeDisplay(String attributeDisplay) {
+		this.attributeDisplay = attributeDisplay;
+	}
+
+	public BeanAttributeMandatoryType getMandatoryType() {
+		return mandatoryType;
+	}
+
+	public void setMandatoryType(BeanAttributeMandatoryType mandatoryType) {
+		this.mandatoryType = mandatoryType;
 	}
 
 }
