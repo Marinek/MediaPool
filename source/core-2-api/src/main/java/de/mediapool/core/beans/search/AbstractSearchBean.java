@@ -1,11 +1,9 @@
-package de.mediapool.core.business.search.media;
+package de.mediapool.core.beans.search;
 
-import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.business.search.BOAbstractEntitySearch;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.beans.AbstractBean;
 
-public class BOMediaSearch extends BOAbstractEntitySearch {
-
+public abstract class AbstractSearchBean extends AbstractBean {
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -18,15 +16,9 @@ public class BOMediaSearch extends BOAbstractEntitySearch {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOMediaSearch(UserBean pUserBean) throws MPExeption {
-		super(pUserBean);
-	}
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 

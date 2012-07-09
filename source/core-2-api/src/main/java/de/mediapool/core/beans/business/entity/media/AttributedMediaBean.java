@@ -1,4 +1,4 @@
-package de.mediapool.core.beans.business.entity.attributes;
+package de.mediapool.core.beans.business.entity.media;
 
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.attributes.AttributedMediaBean;
+import de.mediapool.core.beans.business.entity.media.AttributedMediaBean;
 import de.mediapool.core.beans.business.entity.products.AttributedProductBean;
 import de.mediapool.core.business.entities.BOAbstractEntity;
 import de.mediapool.core.exceptions.MPExeption;
