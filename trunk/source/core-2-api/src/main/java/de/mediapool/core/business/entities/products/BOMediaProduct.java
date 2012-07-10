@@ -24,32 +24,20 @@ public class BOMediaProduct extends BOAbstractEntity<AttributedProductBean> {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected BOMediaProduct(AttributedProductBean pMediaBean, UserBean pUserBean) throws MPExeption {
+	public BOMediaProduct(AttributedProductBean pMediaBean, UserBean pUserBean) throws MPExeption {
 		super(pUserBean, pMediaBean);
 
 	}
 
-	protected BOMediaProduct(UUID pMediaBean, UserBean pUserBean) throws MPExeption {
+	public BOMediaProduct(UUID pMediaBean, UserBean pUserBean) throws MPExeption {
 		super(pMediaBean, pUserBean);
 		
 	}
 	
-	protected BOMediaProduct(UserBean pUserBean) throws MPExeption {
+	public BOMediaProduct(UserBean pUserBean) throws MPExeption {
 		super(pUserBean);
 	}
-
-	public static BOMediaProduct getInstance(UserBean pUserBean) throws MPExeption {
-		return new BOMediaProduct(pUserBean);
-	}
 	
-	public static BOMediaProduct getInstance(AttributedProductBean pMediaBean, UserBean pUserBean) throws MPExeption {
-		return new BOMediaProduct(pMediaBean, pUserBean);
-	}
-	
-	public static BOMediaProduct getInstance(UUID pMediaBean, UserBean pUserBean) throws MPExeption {
-		return new BOMediaProduct(pMediaBean, pUserBean);
-	}
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

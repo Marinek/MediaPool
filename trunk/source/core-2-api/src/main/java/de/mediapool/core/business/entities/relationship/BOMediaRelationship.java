@@ -44,11 +44,11 @@ public class BOMediaRelationship extends BOAbstractRelation<AttributedProductBea
 	}
 
 	protected AttributedProductBean getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption {
-		return BOMediaProduct.getInstance(lRelationShipVO.getParentId(), this.getCurrentUserBean()).getCurrentEntityBean();
+		return new BOMediaProduct(lRelationShipVO.getParentId(), this.getCurrentUserBean()).getCurrentEntityBean();
 	}
 
 	protected AttributedMediaBean getChildEntity(RelationshipVO lRelationShipVO) throws MPExeption {
-		return BOAttributedMedia.getInstance(lRelationShipVO.getChildId(), getCurrentUserBean()).getCurrentEntityBean();
+		return new BOAttributedMedia(lRelationShipVO.getChildId(), getCurrentUserBean()).getCurrentEntityBean();
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

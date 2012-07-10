@@ -16,7 +16,7 @@ import de.mediapool.core.services.interfaces.IMediaService;
 public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 
 	public AttributedMediaBean saveMedia(AttributedMediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
-		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(pUserBean);
+		BOAttributedMedia boInstance = new BOAttributedMedia(pUserBean);
 		
 		boInstance.setCurrentEntityBean(abstractMediaBean);
 		
@@ -28,13 +28,13 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 	}
 
 	public void deleteMedia(AttributedMediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
-		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(abstractMediaBean.getId(), pUserBean);
+		BOAttributedMedia boInstance = new BOAttributedMedia(abstractMediaBean.getId(), pUserBean);
 		
 		boInstance.delete();
 	}
 
 	public AttributedMediaBean getMedia(UUID id, UserBean pUserBean) throws MPExeption {
-		BOAttributedMedia boInstance = BOAttributedMedia.getInstance(id, pUserBean);
+		BOAttributedMedia boInstance = new BOAttributedMedia(id, pUserBean);
 		
 		return boInstance.getCurrentEntityBean();
 	}
@@ -80,7 +80,7 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 	}
 
 	public void saveProduct(AttributedProductBean createNewProduct) throws MPExeption {
-		BOMediaProduct boInstance = BOMediaProduct.getInstance(null);
+		BOMediaProduct boInstance = new BOMediaProduct(null);
 		
 		boInstance.setCurrentEntityBean(createNewProduct);
 		
