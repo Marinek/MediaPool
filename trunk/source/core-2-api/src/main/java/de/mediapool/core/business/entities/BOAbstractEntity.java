@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import de.mediapool.core.beans.PersistentStatus;
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
 import de.mediapool.core.beans.utils.PersistenceUtils;
 import de.mediapool.core.beans.validation.ValidationErrorType;
@@ -20,11 +20,10 @@ import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.entities.EntityAttributeVO;
-import de.mediapool.core.persistence.vo.entities.EntityTypeVO;
 import de.mediapool.core.persistence.vo.entities.EntityVO;
 import de.mediapool.core.utils.ValidationUtil;
 
-public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends BusinessObject {
+public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> extends BusinessObject {
 
 	protected T currentEntity = null;
 
@@ -143,7 +142,7 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 	public List<ValidationResultBean> validate() throws MPExeption {
 		List<ValidationResultBean> lValidation = super.validate();
 
-		AbstractEntityBean currentMediaBean2 = this.getCurrentEntityBean();
+		AbstractSingleEntityBean currentMediaBean2 = this.getCurrentEntityBean();
 
 		if(currentMediaBean2.getName() == null) {
 			lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Feld Name muss ist ein Pflichtfeld."));
@@ -162,7 +161,7 @@ public abstract class BOAbstractEntity<T extends AbstractEntityBean> extends Bus
 
 
 	private EntityVO getEntityVO() throws MPExeption {
-		AbstractEntityBean lCurrentBean = this.getCurrentEntityBean();
+		AbstractSingleEntityBean lCurrentBean = this.getCurrentEntityBean();
 		EntityVO lEntityVO = new EntityVO();
 
 		lEntityVO.setId(lCurrentBean.getIdAsString());
