@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import de.mediapool.core.beans.PersistentStatus;
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.BeanAttributeMandatoryType;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
@@ -62,7 +62,7 @@ public class EntityAttributeTypeManager {
 		return lAttributeType;
 	}
 
-	public void initialAttributes(AbstractEntityBean pReturnNewMedia) throws MPExeption {
+	public void initialAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPExeption {
 		if(!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
 			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
 		}
@@ -79,7 +79,7 @@ public class EntityAttributeTypeManager {
 		this.attributeMap.get(lBean.getMediaType()).put(lBean.getAttributeName(), lBean);
 	}
 
-	public  Map<String, EntityAttributeBean> getDefinedAttributes(AbstractEntityBean pReturnNewMedia) throws MPExeption {
+	public  Map<String, EntityAttributeBean> getDefinedAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPExeption {
 		if(!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
 			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
 		}

@@ -4,6 +4,8 @@ import de.mediapool.core.beans.AbstractBean;
 
 public class ValidationResultBean extends AbstractBean {
 	
+	private static final long serialVersionUID = 1L;
+
 	private String fieldName;
 	
 	private String message;

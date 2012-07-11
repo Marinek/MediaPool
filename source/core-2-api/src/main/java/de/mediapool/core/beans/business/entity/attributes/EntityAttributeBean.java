@@ -5,6 +5,8 @@ import de.mediapool.core.beans.AbstractBean;
 
 public class EntityAttributeBean extends AbstractBean {
 
+	private static final long serialVersionUID = 1L;
+
 	private String entityType = null;
 	
 	private String attributeType;

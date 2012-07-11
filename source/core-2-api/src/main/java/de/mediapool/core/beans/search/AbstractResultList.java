@@ -1,30 +1,28 @@
-package de.mediapool.core.beans.search.entity;
+package de.mediapool.core.beans.search;
 
-import de.mediapool.core.beans.search.AbstractCriteriaBean;
-import de.mediapool.core.beans.search.SearchOperation;
+import java.util.ArrayList;
 
-public class EntityCriteriaBean extends AbstractCriteriaBean {
+import de.mediapool.core.beans.AbstractBean;
+
+public class AbstractResultList<E extends AbstractBean> extends ArrayList<E> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	private static final long serialVersionUID = 1L;
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	private static final long serialVersionUID = 1L;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 
-	public EntityCriteriaBean() {
-	}
-
-	public EntityCriteriaBean(SearchOperation pOperation, String... pValues) {
-		super(pOperation, pValues);
+	public AbstractResultList() {
+		
 	}
 	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

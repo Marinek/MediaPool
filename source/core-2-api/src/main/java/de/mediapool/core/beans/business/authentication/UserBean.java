@@ -3,8 +3,9 @@ package de.mediapool.core.beans.business.authentication;
 import de.mediapool.core.beans.AbstractBean;
 
 public class UserBean extends AbstractBean {
-
 	
+	private static final long serialVersionUID = 1L;
+
 	private String displayName = null;
 	
 	private boolean isAuthed = false;

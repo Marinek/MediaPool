@@ -1,10 +1,13 @@
 package de.mediapool.core.beans;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 
-public abstract class AbstractBean {
+public abstract class AbstractBean implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	private PersistentStatus persistentStatus = PersistentStatus.NOTPERSISTENT;
 	
 	private UUID beanId = UUID.randomUUID();

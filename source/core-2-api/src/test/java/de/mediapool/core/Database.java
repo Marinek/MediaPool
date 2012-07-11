@@ -67,7 +67,6 @@ public class Database {
 			mediaService.addChild(createNewProduct, media);
 			
 		} catch (MPExeption e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
