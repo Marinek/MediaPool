@@ -3,11 +3,11 @@ package de.mediapool.core.business.entities.media;
 import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.media.AttributedMediaBean;
+import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.business.entities.BOAbstractEntity;
 import de.mediapool.core.exceptions.MPExeption;
 
-public class BOAttributedMedia extends BOAbstractEntity<AttributedMediaBean> {
+public class BOAttributedMedia extends BOAbstractEntity<MediaBean> {
 
 	public BOAttributedMedia(UserBean pUserBean) throws MPExeption {
 		super(pUserBean);
@@ -25,8 +25,8 @@ public class BOAttributedMedia extends BOAbstractEntity<AttributedMediaBean> {
 
 	}
 
-	protected AttributedMediaBean getCurrentEntityBeanInstance() throws MPExeption {
-		return new AttributedMediaBean();
+	protected MediaBean getCurrentEntityBeanInstance() throws MPExeption {
+		return new MediaBean();
 	}
 
 }

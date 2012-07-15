@@ -1,8 +1,15 @@
 package de.mediapool.core.beans.search.entity;
 
-import de.mediapool.core.beans.search.AbstractSearchBean;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
 
-public abstract class AbstractEntitySearchBean extends AbstractSearchBean {
+import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeDefinitionBean;
+import de.mediapool.core.beans.search.AbstractResultList;
+
+public class EntityResultList<E extends AbstractEntityBean> extends AbstractResultList<E> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -13,14 +20,31 @@ public abstract class AbstractEntitySearchBean extends AbstractSearchBean {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	private Map<String, EntityAttributeDefinitionBean> mapHeaderInformation = new TreeMap<String, EntityAttributeDefinitionBean>();
 	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	public EntityResultList() {
+	
+	}
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
+	public void addHeaderInformation (EntityAttributeDefinitionBean pHeaderDefinition) {
+		if(!this.mapHeaderInformation.containsKey(pHeaderDefinition.getAttributeIdentifier())) {
+			this.mapHeaderInformation.put(pHeaderDefinition.getAttributeIdentifier(), pHeaderDefinition);
+		}
+	}
+	
+	public Collection<EntityAttributeDefinitionBean> getHeaderInformation() {
+		return Collections.unmodifiableCollection(this.mapHeaderInformation.values());
+	}
+
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 

@@ -1,27 +1,34 @@
-package de.mediapool.core.beans.business.entity.products;
+package de.mediapool.core.business.search;
 
-import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
+import de.mediapool.core.beans.business.authentication.UserBean;
+import de.mediapool.core.beans.search.AbstractResultList;
+import de.mediapool.core.beans.search.AbstractSearchBean;
+import de.mediapool.core.business.BusinessObject;
+import de.mediapool.core.exceptions.MPExeption;
 
-public class AttributedProductBean extends AbstractSingleEntityBean {
+public abstract class BOAbstractSearch<S extends AbstractSearchBean, R extends AbstractResultList<?>> extends BusinessObject {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private static final long serialVersionUID = 1L;
-	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	protected BOAbstractSearch(UserBean pUserBean) throws MPExeption {
+		super(pUserBean);
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -33,4 +40,6 @@ public class AttributedProductBean extends AbstractSingleEntityBean {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	public abstract R executeSearch (S pSearchQuery) throws MPExeption;
 }

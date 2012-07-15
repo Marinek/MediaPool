@@ -1,18 +1,16 @@
-package de.mediapool.core.business.search;
+package de.mediapool.core.business.search.entities.media;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.business.BusinessObject;
+import de.mediapool.core.beans.search.entity.media.MediaResultList;
+import de.mediapool.core.beans.search.entity.media.MediaSearchBean;
+import de.mediapool.core.business.search.entities.BOAbstractEntitySearch;
 import de.mediapool.core.exceptions.MPExeption;
 
-public abstract class BOAbstractEntitySearch extends BusinessObject {
+public class BOMediaSearch extends BOAbstractEntitySearch<MediaSearchBean, MediaResultList> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	protected BOAbstractEntitySearch(UserBean pUserBean) throws MPExeption {
-		super(pUserBean);
-	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
@@ -22,9 +20,19 @@ public abstract class BOAbstractEntitySearch extends BusinessObject {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	public BOMediaSearch(UserBean pUserBean) throws MPExeption {
+		super(pUserBean);
+	}
+
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
+	public MediaResultList executeSearch(MediaSearchBean pSearchQuery) throws MPExeption {
+		return null;
+	}
+	
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 

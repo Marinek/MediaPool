@@ -1,22 +1,16 @@
-package de.mediapool.core.business.entities.relationship;
+package de.mediapool.core.beans.search.entity.media;
 
-import de.mediapool.core.beans.AbstractBean;
-import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
-import de.mediapool.core.beans.business.entity.product.ProductBean;
-import de.mediapool.core.business.entities.media.BOAttributedMedia;
-import de.mediapool.core.business.entities.products.BOMediaProduct;
-import de.mediapool.core.business.relationship.BOAbstractRelation;
-import de.mediapool.core.exceptions.MPExeption;
-import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
+import de.mediapool.core.beans.search.entity.EntityResultList;
 
-public class BOMediaRelationship extends BOAbstractRelation<ProductBean, MediaBean> {
+public class MediaResultList extends EntityResultList<MediaBean> {
 
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	public static final Integer TYPEID = 100;
+
+	private static final long serialVersionUID = 1L;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
@@ -26,10 +20,6 @@ public class BOMediaRelationship extends BOAbstractRelation<ProductBean, MediaBe
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOMediaRelationship(UserBean pUserBean, AbstractBean pReferentId) throws MPExeption {
-		super(pUserBean, pReferentId);
-	}
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -37,19 +27,6 @@ public class BOMediaRelationship extends BOAbstractRelation<ProductBean, MediaBe
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-
-	protected Integer getRelationTypeId() throws MPExeption {
-		return TYPEID;
-	}
-
-	protected ProductBean getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption {
-		return new BOMediaProduct(lRelationShipVO.getParentId(), this.getCurrentUserBean()).getCurrentEntityBean();
-	}
-
-	protected MediaBean getChildEntity(RelationshipVO lRelationShipVO) throws MPExeption {
-		return new BOAttributedMedia(lRelationShipVO.getChildId(), getCurrentUserBean()).getCurrentEntityBean();
-	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 
