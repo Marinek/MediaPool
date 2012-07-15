@@ -1,16 +1,9 @@
-package de.mediapool.core.beans.search.entity;
+package de.mediapool.core.beans.business.entity.attributes;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
+import de.mediapool.core.beans.AbstractBean;
 
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeDefinitionBean;
-import de.mediapool.core.beans.search.AbstractResultList;
-
-public class AbstractEntityResultList<E extends AbstractEntityBean> extends AbstractResultList<E> {
-
+public class EntityAttributeDefinitionBean extends AbstractBean {
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -21,30 +14,56 @@ public class AbstractEntityResultList<E extends AbstractEntityBean> extends Abst
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private Map<String, EntityAttributeDefinitionBean> mapHeaderInformation = new TreeMap<String, EntityAttributeDefinitionBean>();
+	private String entityType;
 	
+	private String attributeType;
+	private String attributeName;
+	
+	private BeanAttributeMandatoryType mandatoryType =  BeanAttributeMandatoryType.NOTHING;
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public AbstractEntityResultList() {
-	
-	}
-	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	
-	public void addHeaderInformation (EntityAttributeDefinitionBean pHeaderDefinition) {
-		if(!this.mapHeaderInformation.containsKey(pHeaderDefinition.getAttributeIdentifier())) {
-			this.mapHeaderInformation.put(pHeaderDefinition.getAttributeIdentifier(), pHeaderDefinition);
-		}
-	}
-	
-	public Collection<EntityAttributeDefinitionBean> getHeaderInformation() {
-		return Collections.unmodifiableCollection(this.mapHeaderInformation.values());
+	public String getMediaType() {
+		return entityType;
 	}
 
+	public void setEntityType(String mediaType) {
+		this.entityType = mediaType;
+	}
+
+	public String getAttributeType() {
+		return attributeType;
+	}
+
+	public void setAttributeType(String attributeType) {
+		this.attributeType = attributeType;
+	}
+
+	public String getAttributeName() {
+		return attributeName;
+	}
+
+	public void setAttributeName(String attributeName) {
+		this.attributeName = attributeName;
+	}
+	
+	public BeanAttributeMandatoryType getMandatoryType() {
+		return mandatoryType;
+	}
+
+	public void setMandatoryType(BeanAttributeMandatoryType mandatoryType) {
+		this.mandatoryType = mandatoryType;
+	}
+	
+	public String getAttributeIdentifier() {
+		return this.getMediaType()+ "#" + this.getAttributeName();
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 

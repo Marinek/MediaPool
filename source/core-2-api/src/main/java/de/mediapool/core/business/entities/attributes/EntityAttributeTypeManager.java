@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import de.mediapool.core.beans.PersistentStatus;
 import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.BeanAttributeMandatoryType;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPBusinessExeption;
 import de.mediapool.core.exceptions.MPExeption;
@@ -21,7 +21,7 @@ public class EntityAttributeTypeManager {
 
 	private static EntityAttributeTypeManager instance = null;
 	
-	private Map<String, Map<String, EntityAttributeBean>>  attributeMap = new HashMap<String, Map<String,EntityAttributeBean>>(); 
+	private Map<String, Map<String, EntityAttributeValueBean>>  attributeMap = new HashMap<String, Map<String,EntityAttributeValueBean>>(); 
 	
 	public static final EntityAttributeTypeManager getInstance() throws MPExeption {
 		if(instance == null) {
@@ -36,7 +36,7 @@ public class EntityAttributeTypeManager {
 			List<EntityAttributeDefVO> listDefs = EntityAttributeDefVO.getDAO().findAll();
 			
 			for(EntityAttributeDefVO lDefinition : listDefs) {
-				EntityAttributeBean lBean = new EntityAttributeBean();
+				EntityAttributeValueBean lBean = new EntityAttributeValueBean();
 				
 				lBean.setAttributeDisplay(lDefinition.getAttributeName());
 				lBean.setAttributeType(lDefinition.getAttributeType());
@@ -52,8 +52,8 @@ public class EntityAttributeTypeManager {
 		}
 	}
 
-	public EntityAttributeBean getAttribute(String pAttributeName, String pEntityType) throws MPExeption {
-		EntityAttributeBean lAttributeType = null;
+	public EntityAttributeValueBean getAttribute(String pAttributeName, String pEntityType) throws MPExeption {
+		EntityAttributeValueBean lAttributeType = null;
 		
 		if(this.attributeMap.containsKey(pEntityType)) {
 			lAttributeType = this.attributeMap.get(pEntityType).get(pAttributeName);
@@ -67,19 +67,19 @@ public class EntityAttributeTypeManager {
 			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
 		}
 		
-		for(Entry<String, EntityAttributeBean> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getEntityType()).entrySet()) {
+		for(Entry<String, EntityAttributeValueBean> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getEntityType()).entrySet()) {
 			pReturnNewMedia.addAttribute(lAttributeEntry.getValue());
 		}
 	}
 	
-	private void registerAttribute(EntityAttributeBean lBean) {
+	private void registerAttribute(EntityAttributeValueBean lBean) {
 		if(!this.attributeMap.containsKey(lBean.getMediaType())) {
-			this.attributeMap.put(lBean.getMediaType(), new HashMap<String, EntityAttributeBean>());
+			this.attributeMap.put(lBean.getMediaType(), new HashMap<String, EntityAttributeValueBean>());
 		}
 		this.attributeMap.get(lBean.getMediaType()).put(lBean.getAttributeName(), lBean);
 	}
 
-	public  Map<String, EntityAttributeBean> getDefinedAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPExeption {
+	public  Map<String, EntityAttributeValueBean> getDefinedAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPExeption {
 		if(!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
 			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
 		}

@@ -3,7 +3,7 @@ package de.mediapool.core.services.media;
 import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.AttributedMediaBean;
 import de.mediapool.core.beans.business.entity.products.AttributedProductBean;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
@@ -42,8 +42,8 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 	public void getAllMedia(UserBean pUserBea) throws MPExeption {
 	}
 	
-	public EntityAttributeBean createAttribute (String pMediaType, String pAttributeName, String pValue) throws MPExeption {
-		EntityAttributeBean lAttribute =  EntityAttributeTypeManager.getInstance().getAttribute(pAttributeName, pMediaType);
+	public EntityAttributeValueBean createAttribute (String pMediaType, String pAttributeName, String pValue) throws MPExeption {
+		EntityAttributeValueBean lAttribute =  EntityAttributeTypeManager.getInstance().getAttribute(pAttributeName, pMediaType);
 		
 		lAttribute.setAttributeValue(pValue);
 		

@@ -54,7 +54,7 @@ public class Database {
 			
 			AttributedMediaBean media = mediaService.getMedia(lBean.getId(), null);
 			
-			Assert.assertTrue(media != null);
+			Assert.assertTrue(media != null && lBean.getId().equals(media.getId()));
 			
 			AttributedProductBean createNewProduct = mediaService.createNewProduct();
 	
