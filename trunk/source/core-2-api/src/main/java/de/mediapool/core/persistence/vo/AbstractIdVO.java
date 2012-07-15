@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 
 @MappedSuperclass
-public class AbstractIdVO implements IPSValueObject {
+public abstract class AbstractIdVO implements IPSValueObject {
 
 	private static final long serialVersionUID = 1L;
 

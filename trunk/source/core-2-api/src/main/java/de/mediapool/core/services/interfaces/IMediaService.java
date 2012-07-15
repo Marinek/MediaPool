@@ -5,8 +5,8 @@ import java.util.UUID;
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
-import de.mediapool.core.beans.business.entity.media.AttributedMediaBean;
-import de.mediapool.core.beans.business.entity.products.AttributedProductBean;
+import de.mediapool.core.beans.business.entity.media.MediaBean;
+import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.exceptions.MPExeption;
 
 public interface IMediaService <T extends AbstractEntityBean> extends IService {
@@ -18,12 +18,12 @@ public interface IMediaService <T extends AbstractEntityBean> extends IService {
 	
 	public EntityAttributeValueBean createAttribute (String pMediaType, String pAttributeName, String pValue) throws MPExeption;
 	
-	public AttributedMediaBean createNewMedia(String pMediaType) throws MPExeption;
+	public MediaBean createNewMedia(String pMediaType) throws MPExeption;
 
-	public AttributedProductBean createNewProduct() throws MPExeption;
+	public ProductBean createNewProduct() throws MPExeption;
 	
-	public void addChild(AttributedProductBean pReferent, T pChild ) throws MPExeption;
-	public void addParent(T pReferent, AttributedProductBean pParent ) throws MPExeption;
+	public void addChild(ProductBean pReferent, T pChild ) throws MPExeption;
+	public void addParent(T pReferent, ProductBean pParent ) throws MPExeption;
 	
-	public void saveProduct(AttributedProductBean createNewProduct) throws MPExeption;
+	public void saveProduct(ProductBean createNewProduct) throws MPExeption;
 }

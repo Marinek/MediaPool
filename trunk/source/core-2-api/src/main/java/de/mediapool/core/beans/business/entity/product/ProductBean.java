@@ -1,15 +1,15 @@
-package de.mediapool.core.beans.search.entity;
+package de.mediapool.core.beans.business.entity.product;
 
-import de.mediapool.core.beans.search.AbstractSearchBean;
+import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
 
-public abstract class AbstractEntitySearchBean extends AbstractSearchBean {
+public class ProductBean extends AbstractSingleEntityBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	private static final long serialVersionUID = 1L;
-
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public class AbstractTrackingVO extends AbstractIdVO {
+public abstract class AbstractTrackingVO extends AbstractIdVO {
 	
 	private static final long serialVersionUID = 1L;
 	

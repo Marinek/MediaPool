@@ -4,8 +4,8 @@ import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
-import de.mediapool.core.beans.business.entity.media.AttributedMediaBean;
-import de.mediapool.core.beans.business.entity.products.AttributedProductBean;
+import de.mediapool.core.beans.business.entity.media.MediaBean;
+import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
 import de.mediapool.core.business.entities.media.BOAttributedMedia;
 import de.mediapool.core.business.entities.products.BOMediaProduct;
@@ -13,9 +13,9 @@ import de.mediapool.core.business.entities.relationship.BOMediaRelationship;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 
-public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
+public class MediaServiceImpl implements IMediaService<MediaBean> {
 
-	public AttributedMediaBean saveMedia(AttributedMediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
+	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
 		BOAttributedMedia boInstance = new BOAttributedMedia(pUserBean);
 		
 		boInstance.setCurrentEntityBean(abstractMediaBean);
@@ -27,13 +27,13 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 		return boInstance.getCurrentEntityBean();
 	}
 
-	public void deleteMedia(AttributedMediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
+	public void deleteMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
 		BOAttributedMedia boInstance = new BOAttributedMedia(abstractMediaBean.getId(), pUserBean);
 		
 		boInstance.delete();
 	}
 
-	public AttributedMediaBean getMedia(UUID id, UserBean pUserBean) throws MPExeption {
+	public MediaBean getMedia(UUID id, UserBean pUserBean) throws MPExeption {
 		BOAttributedMedia boInstance = new BOAttributedMedia(id, pUserBean);
 		
 		return boInstance.getCurrentEntityBean();
@@ -50,8 +50,8 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 		return lAttribute;
 	}
 
-	public AttributedMediaBean createNewMedia(String pMediaType) throws MPExeption {
-		AttributedMediaBean lReturnNewMedia = new AttributedMediaBean();
+	public MediaBean createNewMedia(String pMediaType) throws MPExeption {
+		MediaBean lReturnNewMedia = new MediaBean();
 		
 		lReturnNewMedia.setEntityType(pMediaType);
 		
@@ -60,17 +60,17 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 		return lReturnNewMedia;
 	}
 
-	public void addChild(AttributedProductBean pReferent, AttributedMediaBean pChild) throws MPExeption {
+	public void addChild(ProductBean pReferent, MediaBean pChild) throws MPExeption {
 		new BOMediaRelationship(null, pReferent).addChild(pChild);
 	}
 
-	public void addParent(AttributedMediaBean pReferent, AttributedProductBean pParent) throws MPExeption {
+	public void addParent(MediaBean pReferent, ProductBean pParent) throws MPExeption {
 		new BOMediaRelationship(null, pReferent).addParent(pParent);
 		
 	}
 
-	public AttributedProductBean createNewProduct() throws MPExeption {
-		AttributedProductBean lReturnNewMedia = new AttributedProductBean();
+	public ProductBean createNewProduct() throws MPExeption {
+		ProductBean lReturnNewMedia = new ProductBean();
 		
 		lReturnNewMedia.setEntityType("Product");
 		
@@ -79,7 +79,7 @@ public class MediaServiceImpl implements IMediaService<AttributedMediaBean> {
 		return lReturnNewMedia;
 	}
 
-	public void saveProduct(AttributedProductBean createNewProduct) throws MPExeption {
+	public void saveProduct(ProductBean createNewProduct) throws MPExeption {
 		BOMediaProduct boInstance = new BOMediaProduct(null);
 		
 		boInstance.setCurrentEntityBean(createNewProduct);
