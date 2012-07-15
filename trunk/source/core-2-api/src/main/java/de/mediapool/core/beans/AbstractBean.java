@@ -1,10 +1,11 @@
 package de.mediapool.core.beans;
 
-import java.io.Serializable;
 import java.util.UUID;
 
+import de.mediapool.core.beans.interfaces.IBean;
 
-public abstract class AbstractBean implements Serializable {
+
+public abstract class AbstractBean implements IBean {
 	
 	private static final long serialVersionUID = 1L;
 

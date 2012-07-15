@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 
 public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 
@@ -24,7 +24,7 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 	private String name;
 	private String entityType;
 	
-	private Map<String, EntityAttributeBean> attributes = new HashMap<String, EntityAttributeBean>();
+	private Map<String, EntityAttributeValueBean> attributes = new HashMap<String, EntityAttributeValueBean>();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -54,29 +54,29 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 	}
 	
 
-	public String getAttribute(String pName) {
+	public String getAttribute(String pAttributeName) {
 		String lReturnString = "";
-		if(attributes.containsKey(pName)) {
-			lReturnString = attributes.get(pName).getAttributeValue();
+		
+		if(attributes.containsKey(pAttributeName)) {
+			lReturnString = attributes.get(this.getAttributeIdentifier(pAttributeName)).getAttributeValue();
 		}
+		
 		return lReturnString;
 	}
 
-	public void setAttribute(String pName, String pValue) {
-		if(!attributes.containsKey(pName)) {
-			EntityAttributeBean mediaAttributeBean = new EntityAttributeBean();
-			mediaAttributeBean.setAttributeName(pName);
-			this.attributes.put(pName, mediaAttributeBean);
+	public void setAttribute(String pAttributeName, String pValue) {
+		if(!attributes.containsKey(this.getAttributeIdentifier(pAttributeName))) {
+			throw new IllegalArgumentException("Attribute '"+pAttributeName+"' existiert nicht.");
 		}
-		this.attributes.get(pName).setAttributeValue(pValue);
+		this.attributes.get(this.getAttributeIdentifier(pAttributeName)).setAttributeValue(pValue);
 	}
 
-	public void addAttribute (EntityAttributeBean pAttributeBean) {
-		attributes.put(pAttributeBean.getAttributeName(), pAttributeBean);
+	public void addAttribute (EntityAttributeValueBean pAttributeBean) {
+		attributes.put(pAttributeBean.getAttributeIdentifier(), pAttributeBean);
 	}
 
-	public Collection<EntityAttributeBean> getAttributes() {
-		List<EntityAttributeBean> lReturnList = new ArrayList<EntityAttributeBean>();
+	public Collection<EntityAttributeValueBean> getAttributes() {
+		List<EntityAttributeValueBean> lReturnList = new ArrayList<EntityAttributeValueBean>();
 
 		for(String lKey : this.attributes.keySet()) {
 			lReturnList.add(this.attributes.get(lKey));
@@ -92,6 +92,10 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
+	private String getAttributeIdentifier(String pAttributeName) {
+		return this.getEntityType() +"#" + pAttributeName;
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden

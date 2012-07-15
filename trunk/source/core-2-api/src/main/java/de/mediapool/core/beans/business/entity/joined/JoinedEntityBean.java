@@ -9,7 +9,7 @@ import java.util.TreeSet;
 
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 
 public class JoinedEntityBean extends AbstractEntityBean {
 
@@ -41,11 +41,11 @@ public class JoinedEntityBean extends AbstractEntityBean {
 		this.joinedEntitys.add(pJoinedEntity);
 	}
 	
-	public Collection<EntityAttributeBean> getAttributes() {
-		List<EntityAttributeBean> lReturnList = new ArrayList<EntityAttributeBean>();
+	public Collection<EntityAttributeValueBean> getAttributes() {
+		List<EntityAttributeValueBean> lReturnList = new ArrayList<EntityAttributeValueBean>();
 
 		for(AbstractEntityBean lAbstractEntityBean : this.joinedEntitys) {
-			for(EntityAttributeBean lEntityAttributeBean : lAbstractEntityBean.getAttributes()) {
+			for(EntityAttributeValueBean lEntityAttributeBean : lAbstractEntityBean.getAttributes()) {
 				lReturnList.add(lEntityAttributeBean);
 			}
 		}
