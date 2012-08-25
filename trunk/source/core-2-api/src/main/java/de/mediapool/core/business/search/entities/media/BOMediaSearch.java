@@ -24,20 +24,24 @@ public class BOMediaSearch extends BOAbstractEntitySearch<MediaSearchBean, Media
 		super(pUserBean);
 	}
 
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	
 	public MediaResultList executeSearch(MediaSearchBean pSearchQuery) throws MPExeption {
-		return null;
+		MediaResultList lResultList = super.executeSearch(pSearchQuery);
+		
+		return lResultList;
 	}
-	
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	protected MediaResultList getSearchResultList() throws MPExeption {
+		return new MediaResultList();
+	}
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

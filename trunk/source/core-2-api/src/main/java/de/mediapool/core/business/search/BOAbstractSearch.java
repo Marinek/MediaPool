@@ -32,6 +32,8 @@ public abstract class BOAbstractSearch<S extends AbstractSearchBean, R extends A
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
+	protected abstract R getSearchResultList() throws MPExeption;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 

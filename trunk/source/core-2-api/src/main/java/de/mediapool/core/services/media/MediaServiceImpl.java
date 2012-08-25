@@ -6,10 +6,12 @@ import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
+import de.mediapool.core.beans.search.entity.media.MediaSearchBean;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
 import de.mediapool.core.business.entities.media.BOAttributedMedia;
 import de.mediapool.core.business.entities.products.BOMediaProduct;
 import de.mediapool.core.business.entities.relationship.BOMediaRelationship;
+import de.mediapool.core.business.search.entities.media.BOMediaSearch;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 
@@ -40,6 +42,7 @@ public class MediaServiceImpl implements IMediaService<MediaBean> {
 	}
 
 	public void getAllMedia(UserBean pUserBea) throws MPExeption {
+		new BOMediaSearch(null).executeSearch(new MediaSearchBean());
 	}
 	
 	public EntityAttributeValueBean createAttribute (String pMediaType, String pAttributeName, String pValue) throws MPExeption {

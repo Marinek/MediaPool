@@ -1,42 +1,35 @@
-package de.mediapool.core.beans.search;
+package de.mediapool.core.persistence.core;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 
-import de.mediapool.core.beans.AbstractBean;
+public class PSCriteriaBuilder {
 
-public abstract class AbstractSearchBean<C extends AbstractCriteriaBean> extends AbstractBean {
-
-	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private static final long serialVersionUID = 1L;
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	private List<C> criteriaCollection = new ArrayList<C>();
+	
+	protected PSCriteria currentCriteria;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
+	public PSCriteriaBuilder (Class<? extends IPSValueObject> pRootEntity) throws PSException {
+		super();
+
+		this.currentCriteria = new PSCriteria(pRootEntity.getName());
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	
-	public void addCriteria (C pCriteria) {
-		if(!this.criteriaCollection.contains(pCriteria)) {
-			this.criteriaCollection.add(pCriteria);
-		}
-	}
-	
-	public List<C> getCriteriaList() {
-		return Collections.unmodifiableList(this.criteriaCollection);
+	public PSCriteria getPSCriteria () throws PSException {
+		return this.currentCriteria;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

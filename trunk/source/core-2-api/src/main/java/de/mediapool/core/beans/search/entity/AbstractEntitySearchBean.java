@@ -2,7 +2,7 @@ package de.mediapool.core.beans.search.entity;
 
 import de.mediapool.core.beans.search.AbstractSearchBean;
 
-public abstract class AbstractEntitySearchBean extends AbstractSearchBean {
+public abstract class AbstractEntitySearchBean extends AbstractSearchBean<EntityCriteriaBean> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
