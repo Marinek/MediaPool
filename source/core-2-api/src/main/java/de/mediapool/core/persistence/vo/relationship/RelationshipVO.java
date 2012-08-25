@@ -4,11 +4,13 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.dao.interfaces.relationship.IRelationshipDAO;
 import de.mediapool.core.persistence.vo.AbstractTrackingVO;
+import de.mediapool.core.persistence.vo.entities.EntityVO;
 
 @Entity()
 @Table(name = "relationships")
@@ -18,6 +20,9 @@ public class RelationshipVO extends AbstractTrackingVO {
 	
 	@Column(name = "childId")
 	private String childId = null;
+	
+	@JoinColumn(name = "childEntity")
+	private EntityVO childEntity = null;
 	
 	@Column(name = "childType")
 	private String childType = null;

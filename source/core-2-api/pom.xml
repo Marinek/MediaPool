@@ -11,11 +11,18 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<querydsl.version>1.8.2</querydsl.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<repositories>
+		<repository>
+			<id>Mysema</id>
+			<name>Maven 2 repo of  Source</name>
+			<url>http://source.mysema.com/maven2/releases</url>
+			<layout>default</layout>
+		</repository>
 		<repository>
 			<id>JBoss repository</id>
 			<url>http://repository.jboss.com/maven2/</url>
@@ -60,7 +67,7 @@
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<version>1.2.17</version>
 		</dependency>
 
 		<dependency>
@@ -119,13 +126,38 @@
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>20030203.000129</version>
+			<version>2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-all</artifactId>
 			<version>1.2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-hql</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-sql</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.6</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -143,7 +175,98 @@
 					</archive>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.mysema.querydsl</groupId>
+				<artifactId>querydsl-maven-plugin</artifactId>
+				<version>${querydsl.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>export</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
+					<jdbcUrl>jdbc:mysql://localhost:3306/mediapool</jdbcUrl>
+					<jdbcUser>root</jdbcUser>
+					<jdbcPassword>root</jdbcPassword>
+					<namePrefix>S</namePrefix>
+					<packageName>de.mediapool.core.persistence.vo</packageName>
+					<targetFolder>${project.basedir}/src/generated-sources/java</targetFolder>
+					<!-- optional elements : * jdbcUser = connection user * jdbcPassword 
+						= connection password * namePrefix = name prefix for generated query classes 
+						(default: Q) * schemaPattern = ant style pattern to restrict code generation 
+						to certain schemas (default: null) * tableNamePattern = ant style pattern 
+						to restrict code generation to certain tables (default: null) * exportBeans 
+						= set to true to generate beans as well, see section 2.14.13 (default: false) 
+						* innerClassesForKeys = set to true to generate inner classes for keys (default: 
+						false) * validationAnnotations = set to false to disable serialization of 
+						validation annotations (default: true) -->
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>5.1.18</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>maven-apt-plugin</artifactId>
+				<version>0.3.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>src/generated-sources/java/</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											com.mysema.maven
+										</groupId>
+										<artifactId>
+											maven-apt-plugin
+										</artifactId>
+										<versionRange>
+											[0.3.2,)
+										</versionRange>
+										<goals>
+											<goal>process</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 
 	<reporting>
