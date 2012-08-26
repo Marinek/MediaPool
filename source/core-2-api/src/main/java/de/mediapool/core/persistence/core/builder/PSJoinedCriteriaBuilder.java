@@ -2,12 +2,9 @@ package de.mediapool.core.persistence.core.builder;
 
 import java.util.List;
 
-import org.hibernate.criterion.CriteriaSpecification;
-
 import de.mediapool.core.persistence.core.PSCriteriaBuilder;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
-import de.mediapool.core.persistence.vo.entities.EntityVO;
 
 public class PSJoinedCriteriaBuilder extends PSCriteriaBuilder {
 

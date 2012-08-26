@@ -6,8 +6,6 @@ import de.mediapool.core.beans.search.entity.EntityCriteriaBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
 import de.mediapool.core.business.search.BOAbstractSearch;
 import de.mediapool.core.exceptions.MPExeption;
-import de.mediapool.core.persistence.core.PSException;
-import de.mediapool.core.persistence.core.builder.PSRelationshipCriteriaBuilder;
 import de.mediapool.core.persistence.vo.entities.EntityVO;
 
 public abstract class BOAbstractEntitySearch<S extends AbstractEntitySearchBean, R extends EntityResultList<?>> extends BOAbstractSearch<S,R> {
