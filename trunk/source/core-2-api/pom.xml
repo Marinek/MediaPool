@@ -177,44 +177,6 @@
 			</plugin>
 
 			<plugin>
-				<groupId>com.mysema.querydsl</groupId>
-				<artifactId>querydsl-maven-plugin</artifactId>
-				<version>${querydsl.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>export</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<jdbcDriver>com.mysql.jdbc.Driver</jdbcDriver>
-					<jdbcUrl>jdbc:mysql://localhost:3306/mediapool</jdbcUrl>
-					<jdbcUser>root</jdbcUser>
-					<jdbcPassword>root</jdbcPassword>
-					<namePrefix>S</namePrefix>
-					<packageName>de.mediapool.core.persistence.vo</packageName>
-					<targetFolder>${project.basedir}/src/generated-sources/java</targetFolder>
-					<!-- optional elements : * jdbcUser = connection user * jdbcPassword 
-						= connection password * namePrefix = name prefix for generated query classes 
-						(default: Q) * schemaPattern = ant style pattern to restrict code generation 
-						to certain schemas (default: null) * tableNamePattern = ant style pattern 
-						to restrict code generation to certain tables (default: null) * exportBeans 
-						= set to true to generate beans as well, see section 2.14.13 (default: false) 
-						* innerClassesForKeys = set to true to generate inner classes for keys (default: 
-						false) * validationAnnotations = set to false to disable serialization of 
-						validation annotations (default: true) -->
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>mysql</groupId>
-						<artifactId>mysql-connector-java</artifactId>
-						<version>5.1.18</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-
-			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>maven-apt-plugin</artifactId>
 				<version>0.3.2</version>

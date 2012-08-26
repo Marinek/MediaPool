@@ -14,6 +14,7 @@ import de.mediapool.core.persistence.vo.entities.EntityVO;
 
 @Entity()
 @Table(name = "relationships")
+@com.mysema.query.sql.Table("relationships")
 public class RelationshipVO extends AbstractTrackingVO {
 
 	private static final long serialVersionUID = 1L;
