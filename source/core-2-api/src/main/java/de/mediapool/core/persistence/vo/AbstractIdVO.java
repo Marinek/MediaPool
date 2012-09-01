@@ -25,4 +25,8 @@ public abstract class AbstractIdVO implements IPSValueObject {
 		this.id = id;
 	}
 
+	public String toString() {
+		return "AbstractIdVO [id=" + id + "]";
+	}
+
 }

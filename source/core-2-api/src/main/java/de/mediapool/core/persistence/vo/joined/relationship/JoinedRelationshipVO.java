@@ -1,50 +1,50 @@
-package de.mediapool.core.persistence.dao.search;
+package de.mediapool.core.persistence.vo.joined.relationship;
 
-import java.util.List;
+import java.util.Map;
 
-import org.springframework.stereotype.Service;
-
-import de.mediapool.core.persistence.core.PSAbstractDAOImpl;
 import de.mediapool.core.persistence.core.PSException;
-import de.mediapool.core.persistence.core.querybuilder.relationship.PSEntityRelationshipSQLBuilder;
-import de.mediapool.core.persistence.dao.interfaces.search.IProductMediaSearchDAO;
-import de.mediapool.core.persistence.vo.entities.EntityVO;
-import de.mediapool.core.persistence.vo.joined.relationship.ProductMediaJoinedVO;
+import de.mediapool.core.persistence.vo.joined.AbstractJoinedVO;
+import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
 
-@Service
-public class ProductMediaSearchDAOImpl extends PSAbstractDAOImpl<ProductMediaJoinedVO> implements IProductMediaSearchDAO {
+public class JoinedRelationshipVO extends AbstractJoinedVO {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
+	private static final String PREFIX_RELATIONSHIP = "r";
+
+	private static final long serialVersionUID = 1L;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	public List<ProductMediaJoinedVO> search () throws PSException {
-			PSEntityRelationshipSQLBuilder lBuilder = new PSEntityRelationshipSQLBuilder(this.getSession());
-			
-			
-		
-			return this.findByBuilder(lBuilder);
+
+	public JoinedRelationshipVO(Map<String, Object> valueMap) throws PSException {
+		super(valueMap);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected Class<ProductMediaJoinedVO> getValueObjectClass() throws PSException {
-		return ProductMediaJoinedVO.class;
-	}
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
+	protected void initializeTransientVO() throws PSException {
+		super.initializeTransientVO();
+		
+		this.joinedVOsMap.put(PREFIX_RELATIONSHIP, this.getTransientVO(PREFIX_RELATIONSHIP, RelationshipVO.class));
+	}
+	
+	public RelationshipVO getRelation () throws PSException {
+		return (RelationshipVO) this.joinedVOsMap.get(PREFIX_RELATIONSHIP);
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 

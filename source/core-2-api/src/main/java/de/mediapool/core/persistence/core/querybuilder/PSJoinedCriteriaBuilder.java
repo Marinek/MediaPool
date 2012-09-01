@@ -1,20 +1,11 @@
-package de.mediapool.core.persistence.transformer;
+package de.mediapool.core.persistence.core.querybuilder;
 
-import java.util.List;
+import org.hibernate.Session;
 
-import org.hibernate.transform.ResultTransformer;
+import de.mediapool.core.persistence.core.PSException;
 
-public class PSResultTransformer implements ResultTransformer {
+public class PSJoinedCriteriaBuilder extends PSQueryBuilder {
 
-	public Object transformTuple(Object[] tuple, String[] aliases) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public List transformList(List collection) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -22,19 +13,23 @@ public class PSResultTransformer implements ResultTransformer {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	public PSJoinedCriteriaBuilder(Session session) throws PSException {
+		super(session);
+	}
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

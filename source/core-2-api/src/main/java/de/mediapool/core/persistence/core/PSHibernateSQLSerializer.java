@@ -1,4 +1,4 @@
-package de.mediapool.core.persistence.core.sqlbuilder;
+package de.mediapool.core.persistence.core;
 
 import java.util.ArrayList;
 import java.util.List;
