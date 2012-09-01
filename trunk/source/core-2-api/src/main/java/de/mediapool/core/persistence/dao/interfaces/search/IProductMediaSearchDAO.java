@@ -4,9 +4,9 @@ import java.util.List;
 
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.core.interfaces.IPSDataAccessObject;
-import de.mediapool.core.persistence.vo.entities.EntityVO;
+import de.mediapool.core.persistence.vo.joined.relationship.ProductMediaJoinedVO;
 
-public interface IProductMediaSearchDAO extends IPSDataAccessObject<EntityVO>  {
+public interface IProductMediaSearchDAO extends IPSDataAccessObject<ProductMediaJoinedVO>  {
 
-	public List<EntityVO> search () throws PSException;
+	public List<ProductMediaJoinedVO> search () throws PSException;
 }

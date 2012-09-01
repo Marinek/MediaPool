@@ -54,4 +54,10 @@ public abstract class AbstractTrackingVO extends AbstractIdVO {
 		this.changedBy = changedBy;
 	}
 
+	public String toString() {
+		return "AbstractTrackingVO [createdAt=" + createdAt + ", changedAt="
+				+ changedAt + ", createdBy=" + createdBy + ", changedBy="
+				+ changedBy + "] " + super.toString();
+	}	
+
 }

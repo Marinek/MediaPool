@@ -28,4 +28,10 @@ public class EntityTypeVO extends AbstractIdVO {
 	public static IEntityTypeDAO getDAO() {
 		return (IEntityTypeDAO) PersistenceContext.getInstance().getDAO(IEntityTypeDAO.class);
 	}
+
+	public String toString() {
+		return "EntityTypeVO [entityTypeName=" + entityTypeName + "] " + super.toString();
+	}
+	
+	
 }

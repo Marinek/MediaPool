@@ -82,4 +82,14 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 		this.entityTypeVO = mediaTypeVO;
 	}
 
+	@Override
+	public String toString() {
+		return "EntityAttributeDefVO [attributeName=" + attributeName
+				+ ", attributeType=" + attributeType + ", attributeOrder="
+				+ attributeOrder + ", attributeMandatory=" + attributeMandatory
+				+ ", entityTypeVO=" + entityTypeVO + "] " + super.toString();
+	}
+	
+	
+
 }

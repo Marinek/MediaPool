@@ -47,4 +47,8 @@ public class EntityVO extends AbstractTrackingVO {
 		return (IProductMediaSearchDAO) PersistenceContext.getInstance().getDAO(IProductMediaSearchDAO.class);
 	}
 
+	public String toString() {
+		return "EntityVO [name=" + name + ", entityType=" + entityType + "] " + super.toString();
+	}
+	
 }

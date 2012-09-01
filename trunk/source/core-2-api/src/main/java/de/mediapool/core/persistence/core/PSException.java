@@ -7,4 +7,8 @@ public class PSException extends Exception {
 	public PSException(String pMessage) {
 		super(pMessage);
 	}
+	
+	public PSException(String pMessage, Throwable couse) {
+		super(pMessage, couse);
+	}
 }

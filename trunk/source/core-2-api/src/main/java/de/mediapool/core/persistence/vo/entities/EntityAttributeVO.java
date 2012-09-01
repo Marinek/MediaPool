@@ -51,4 +51,11 @@ public class EntityAttributeVO extends AbstractTrackingVO {
 	public static IEntityAttributesDAO getDAO() {
 		return (IEntityAttributesDAO) PersistenceContext.getInstance().getDAO(IEntityAttributesDAO.class);
 	}
+
+	public String toString() {
+		return "EntityAttributeVO [entityid=" + entityid + ", attributeName="
+				+ attributeName + ", attributeValue=" + attributeValue + "] " + super.toString();
+	}
+	
+	
 }

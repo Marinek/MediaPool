@@ -81,5 +81,12 @@ public class RelationshipVO extends AbstractTrackingVO {
 	public static IRelationshipDAO getDAO() {
 		return (IRelationshipDAO) PersistenceContext.getInstance().getDAO(IRelationshipDAO.class);
 	}
+
+	public String toString() {
+		return "RelationshipVO [childId=" + childId + ", childEntity="
+				+ childEntity + ", childType=" + childType + ", parentId="
+				+ parentId + ", parentType=" + parentType + ", relationType="
+				+ relationType + "] " + super.toString();
+	}
 	
 }
