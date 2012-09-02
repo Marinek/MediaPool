@@ -7,7 +7,6 @@ import com.mysema.query.sql.SQLSerializer;
 import com.mysema.query.sql.SQLTemplates;
 import com.mysema.query.types.Constant;
 import com.mysema.query.types.Path;
-import com.mysema.query.types.PathType;
 
 
 public final class PSHibernateSQLSerializer extends SQLSerializer{

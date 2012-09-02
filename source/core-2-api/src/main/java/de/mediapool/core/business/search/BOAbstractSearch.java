@@ -6,7 +6,7 @@ import de.mediapool.core.beans.search.AbstractSearchBean;
 import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.exceptions.MPExeption;
 
-public abstract class BOAbstractSearch<S extends AbstractSearchBean, R extends AbstractResultList<?>> extends BusinessObject {
+public abstract class BOAbstractSearch<S extends AbstractSearchBean<?>, R extends AbstractResultList<?>> extends BusinessObject {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -33,8 +33,6 @@ public abstract class BOAbstractSearch<S extends AbstractSearchBean, R extends A
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	
-	protected abstract R getSearchResultList() throws MPExeption;
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

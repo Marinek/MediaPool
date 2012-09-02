@@ -88,7 +88,6 @@ public final class HibernateSQLQuery extends AbstractSQLQuery<HibernateSQLQuery>
         return createQuery(toQueryString());
     }
 
-    @SuppressWarnings("unchecked")
     private Query createQuery(String queryString) {
         logQuery(queryString);
         org.hibernate.SQLQuery query = session.createSQLQuery(queryString);

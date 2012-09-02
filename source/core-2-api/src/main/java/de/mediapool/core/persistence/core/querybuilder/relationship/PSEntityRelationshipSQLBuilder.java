@@ -1,16 +1,19 @@
 package de.mediapool.core.persistence.core.querybuilder.relationship;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
 
 import com.mysema.query.types.path.PEntity;
+import com.mysema.query.types.path.PString;
 
+import de.mediapool.core.beans.search.entity.EntityCriteriaBean;
 import de.mediapool.core.persistence.core.HibernateSQLQuery;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
+import de.mediapool.core.persistence.vo.entities.QEntityAttributeVO;
 import de.mediapool.core.persistence.vo.entities.QEntityVO;
-import de.mediapool.core.persistence.vo.relationship.QRelationshipVO;
 
 public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
 
@@ -21,9 +24,14 @@ public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	private final QEntityVO parent = new QEntityVO("parent");
 	private final QEntityVO child = new QEntityVO("child");
+
+	private List<EntityCriteriaBean> parentAttributes = new ArrayList<EntityCriteriaBean>();
+	private List<EntityCriteriaBean> childAttributes = new ArrayList<EntityCriteriaBean>();
+	
+	private int criteriaCount = 0;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -32,14 +40,14 @@ public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
 	public PSEntityRelationshipSQLBuilder(Session session) throws PSException {
 		super(session);
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	public List<PEntity<? extends IPSValueObject>> getMapping() throws PSException {
 		List<PEntity<? extends IPSValueObject>> mapping = super.getMapping();
-		
+
 		mapping.add(new QEntityVO(getSelection(parent.changedAt)));
 		mapping.add(new QEntityVO(getSelection(parent.changedBy)));
 		mapping.add(new QEntityVO(getSelection(parent.createdAt)));
@@ -55,21 +63,69 @@ public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
 		mapping.add(new QEntityVO(getSelection(child.name)));
 
 		return mapping;
-		
+
 	}
 
 	public HibernateSQLQuery getSQLQuery() throws PSException {
-		 HibernateSQLQuery sqlQuery = super.getSQLQuery();
-		 
-		 sqlQuery.leftJoin(parent).on(parent.id.eq(new QRelationshipVO("r").parentId));
-		 sqlQuery.leftJoin(child).on(child.id.eq(new QRelationshipVO("r").childId));
-		 
-		 return sqlQuery;
+		HibernateSQLQuery sqlQuery = super.getSQLQuery();
+
+		sqlQuery.leftJoin(parent).on(parent.id.eq(this.getRelationship().parentId));
+		sqlQuery.leftJoin(child).on(child.id.eq(this.getRelationship().childId));
+		
+		this.addAttributeRestrictions(parentAttributes, this.getRelationship().parentId, sqlQuery);
+		this.addAttributeRestrictions(childAttributes,this.getRelationship().childId, sqlQuery);
+
+		return sqlQuery;
+	}
+
+	public void addEntityCriteria (PSEntityRelationType pType, List<EntityCriteriaBean> criteria) throws PSException {
+		switch (pType) {
+		case PARENT:
+			this.parentAttributes.addAll(criteria);
+			break;
+		case CHILD:
+			this.childAttributes.addAll(criteria);
+			break;
+		default:
+			throw new IllegalArgumentException("Undefined RelationType!"); 
+		}
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
+	protected void addAttributeRestrictions (List<EntityCriteriaBean> pCriteriaList, PString matchingField, HibernateSQLQuery sqlQuery) throws PSException {
+		for (EntityCriteriaBean entityCriteria : pCriteriaList) {
+			QEntityAttributeVO qEntityAttributeVO = new QEntityAttributeVO("attr" + String.valueOf(criteriaCount++));
+			
+			sqlQuery.leftJoin(qEntityAttributeVO).on(qEntityAttributeVO.entityid.eq(matchingField));
+			
+			sqlQuery.where(qEntityAttributeVO.attributeName.eq(entityCriteria.getSingleKey()));
+			switch (entityCriteria.getOperation()) {
+			case BETWEEN:
+				sqlQuery.where(qEntityAttributeVO.attributeValue.between(entityCriteria.getKeyValues().get(0).getValue(), entityCriteria.getKeyValues().get(1).getValue()));
+				break;
+			case EQ:
+				sqlQuery.where(qEntityAttributeVO.attributeValue.eq(entityCriteria.getSingleValue()));
+				break;
+			case GT:
+				sqlQuery.where(qEntityAttributeVO.attributeValue.gt(entityCriteria.getSingleValue()));
+				break;
+			case IN:
+				sqlQuery.where(qEntityAttributeVO.attributeValue.in(entityCriteria.getValuesAsList()));
+				break;
+			case LIKE:
+				sqlQuery.where(qEntityAttributeVO.attributeValue.like(entityCriteria.getSingleValue()));
+				break;
+			case LT:
+				sqlQuery.where(qEntityAttributeVO.attributeValue.lt(entityCriteria.getSingleValue()));
+				break;
+			default:
+				throw new IllegalArgumentException("Undefined OperationType!"); 
+			}
+		}
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 
