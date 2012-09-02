@@ -2,7 +2,9 @@ package de.mediapool.core.beans.search;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.mediapool.core.beans.AbstractBean;
 
@@ -19,7 +21,7 @@ public abstract class AbstractSearchBean<C extends AbstractCriteriaBean> extends
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private List<C> criteriaCollection = new ArrayList<C>();
+	private Map<String,List<C>> criteriaCollectionMap = new HashMap<String, List<C>>();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -30,13 +32,27 @@ public abstract class AbstractSearchBean<C extends AbstractCriteriaBean> extends
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	
 	public void addCriteria (C pCriteria) {
-		if(!this.criteriaCollection.contains(pCriteria)) {
-			this.criteriaCollection.add(pCriteria);
+		this.addCriteria("", pCriteria);
+	}
+	
+	public void addCriteria (String prefix, C pCriteria) {
+		
+		if(!this.criteriaCollectionMap.containsKey(prefix)) {
+			this.criteriaCollectionMap.put(prefix, new ArrayList<C>());
 		}
+		
+		this.criteriaCollectionMap.get(prefix).add(pCriteria);
 	}
 	
 	public List<C> getCriteriaList() {
-		return Collections.unmodifiableList(this.criteriaCollection);
+		return this.getCriteriaList("");
+	}
+	
+	public List<C> getCriteriaList(String prefix) {
+		if(!this.criteriaCollectionMap.containsKey(prefix))	 {
+			this.criteriaCollectionMap.put(prefix, Collections.<C> emptyList());
+		}
+		return Collections.unmodifiableList(this.criteriaCollectionMap.get(prefix));
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

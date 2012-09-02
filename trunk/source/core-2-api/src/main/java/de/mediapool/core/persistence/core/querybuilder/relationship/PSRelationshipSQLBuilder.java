@@ -36,16 +36,16 @@ public class PSRelationshipSQLBuilder extends PSJoinedCriteriaBuilder {
 	public List<PEntity<? extends IPSValueObject>> getMapping() throws PSException {
 		List<PEntity<? extends IPSValueObject>> mapping = super.getMapping();
 		
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.changedAt)));
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.childEntity)));
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.childId)));
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.childType)));
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.createdAt)));
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.createdBy)));
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.id)));
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.parentId)));
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.parentType)));
-		mapping.add(new QRelationshipVO(this.getSelection(relationship.relationType)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().changedAt)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().childEntity)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().childId)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().childType)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().createdAt)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().createdBy)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().id)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().parentId)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().parentType)));
+		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().relationType)));
 		
 		return mapping;
 	}
@@ -53,11 +53,11 @@ public class PSRelationshipSQLBuilder extends PSJoinedCriteriaBuilder {
 	public HibernateSQLQuery getSQLQuery() throws PSException {
 		 HibernateSQLQuery sqlQuery = super.getSQLQuery();
 
-		 sqlQuery.from(relationship);
+		 sqlQuery.from(getRelationship());
 		 
 		 return sqlQuery;
 	}
-
+	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -65,6 +65,10 @@ public class PSRelationshipSQLBuilder extends PSJoinedCriteriaBuilder {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	protected QRelationshipVO getRelationship() {
+		return relationship;
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 

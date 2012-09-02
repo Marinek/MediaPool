@@ -1,59 +1,60 @@
-package de.mediapool.core.persistence.vo.joined.relationship;
+package de.mediapool.core.beans.keyvalue;
 
-import java.util.Map;
+import de.mediapool.core.beans.AbstractBean;
 
-import de.mediapool.core.persistence.PersistenceContext;
-import de.mediapool.core.persistence.core.PSException;
-import de.mediapool.core.persistence.dao.interfaces.search.IProductMediaSearchDAO;
-import de.mediapool.core.persistence.vo.entities.EntityVO;
+public class GenericKeyValueBean<K, V> extends AbstractBean {
 
-public class ProductMediaJoinedVO extends JoinedRelationshipVO {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	private static final String PREFIX_PARENT = "parent";
-	private static final String PREFIX_CHILD = "child";
-	
 
 	private static final long serialVersionUID = 1L;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	
+	private K key;
+	
+	private V value;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public ProductMediaJoinedVO(Map<String, Object> valueMap) throws PSException {
-		super(valueMap);
-		
-		this.joinedVOsMap.put(PREFIX_PARENT, this.getTransientVO(PREFIX_PARENT, EntityVO.class));
-		
-		this.joinedVOsMap.put(PREFIX_CHILD, this.getTransientVO(PREFIX_CHILD, EntityVO.class));
+	public GenericKeyValueBean() {
 	}
 	
-	public EntityVO getProduct () {
-		return (EntityVO) this.joinedVOsMap.get(PREFIX_PARENT);
+	public GenericKeyValueBean (K key, V value) {
+		this.key = key;
+		this.value = value;
 	}
-	
-	public EntityVO getMedia () {
-		return (EntityVO) this.joinedVOsMap.get(PREFIX_CHILD);
-	}
-	
+
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	public K getKey() {
+		return key;
+	}
+	
+	public void setKey(K key) {
+		this.key = key;
+	}
+	
+	public V getValue() {
+		return value;
+	}
+	
+	public void setValue(V value) {
+		this.value = value;
+	}
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	protected void initializeTransientVO() throws PSException {
-		super.initializeTransientVO();
-	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden 
@@ -62,8 +63,4 @@ public class ProductMediaJoinedVO extends JoinedRelationshipVO {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	public static IProductMediaSearchDAO getProductMediaSearchDAO() {
-		return (IProductMediaSearchDAO) PersistenceContext.getInstance().getDAO(IProductMediaSearchDAO.class);
-	}
 }

@@ -29,7 +29,9 @@ public class BOMediaSearch extends BOAbstractEntitySearch<MediaSearchBean, Media
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	
 	public MediaResultList executeSearch(MediaSearchBean pSearchQuery) throws MPExeption {
-		MediaResultList lResultList = super.executeSearch(pSearchQuery);
+		MediaResultList lResultList = this.getSearchResultList();
+		
+		
 		
 		return lResultList;
 	}
