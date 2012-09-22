@@ -75,6 +75,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	private List<String> situationvalues;
 
 	private MediaView view;
+	private MovieEntryType entryType;
 
 	@Autowired
 	private MediaService mediaService;
@@ -273,7 +274,8 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	}
 
 	public void setMediaItem(BeanItem<MediaInterface> selectedItem, MovieEntryType type) {
-		switch (type) {
+		this.entryType = type;
+		switch (entryType) {
 		case MOVIEHOLDINGENTRY:
 			initMovieHoldingEntry(selectedItem);
 			break;
@@ -323,7 +325,16 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	}
 
 	private void addHoldingToProduct() {
-		Product product = ((MovieProductEntry) getMediaItem().getBean()).getProduct();
+		Product product;
+		switch (entryType) {
+		case MOVIEENTRY:
+			product = new Product();
+			break;
+		default:
+			product = ((MovieProductEntry) getMediaItem().getBean()).getProduct();
+			break;
+		}
+
 		Holding holding = new Holding();
 		holding.setMuser(getMUser());
 		holding.setProduct(product);

@@ -4,7 +4,6 @@ import com.vaadin.event.ItemClickEvent;
 import com.vaadin.event.ItemClickEvent.ItemClickListener;
 import com.vaadin.ui.Table;
 
-
 @SuppressWarnings("serial")
 public class MediaList extends Table {
 
@@ -12,7 +11,6 @@ public class MediaList extends Table {
 
 		setSizeFull();
 		setContainerDataSource(view.getMovieItems());
-
 		setColumnCollapsingAllowed(true);
 		setColumnReorderingAllowed(true);
 

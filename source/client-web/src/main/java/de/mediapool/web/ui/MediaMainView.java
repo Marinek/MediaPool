@@ -18,8 +18,10 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.themes.BaseTheme;
 
+import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
+import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.elements.MediaAccordion;
 import de.mediapool.web.ui.elements.MediaMenuBar;
@@ -233,6 +235,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	}
 
 	private void addListTab(MovieContainer movieitems, String caption) {
+		dataFromCore();
 		if (movieitems != null) {
 			MediaView searchView = new MediaView(movieitems, caption);
 			String newCaption = caption + " (" + movieitems.getItemIds().size() + ")";
@@ -245,7 +248,15 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	private void meineFilme() {
 		MovieContainer movieHoldingEntrys = getMediaService().getUserMovieEntrys(getMUser());
 		addListTab(movieHoldingEntrys, "Meine Filme");
+	}
 
+	private void dataFromCore() {
+		try {
+			ProductBean p = getMediaService().getDataFromCore();
+		} catch (MPExeption e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
