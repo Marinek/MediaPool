@@ -37,6 +37,7 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 	private HorizontalLayout listtoolbar;
 	private MediaForm movieForm;
 	private MediaList movieList;
+	private AbstractEntityTableView newView;
 	private MediaDetailList movieImages;
 	private MediaDetailList movieDetails;
 
@@ -74,12 +75,16 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 
 		movieForm = new MediaForm(this);
 		movieList = new MediaList(this, header_order, header_names);
+
+		newView = new AbstractEntityTableView(null, null);
+
 		movieImages = new MediaDetailList(this, false);
 		movieDetails = new MediaDetailList(this, true);
 
 		viewMode = new VerticalLayout();
 		viewMode.addComponent(listtoolbar);
-		viewMode.addComponent(movieList);
+		// viewMode.addComponent(movieList);
+		viewMode.addComponent(newView);
 
 		currentView = ViewMode.LISTVIEW;
 

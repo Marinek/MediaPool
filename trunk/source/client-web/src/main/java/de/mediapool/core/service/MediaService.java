@@ -28,6 +28,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 
 import de.mediapool.core.MediaInterface;
+import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.domain.Holding;
 import de.mediapool.core.domain.MRating;
 import de.mediapool.core.domain.MRelated;
@@ -42,7 +43,9 @@ import de.mediapool.core.domain.container.MovieEntryType;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
 import de.mediapool.core.domain.migration.Filme;
+import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.service.grab.DataGrabber;
+import de.mediapool.core.services.media.MediaServiceImpl;
 
 public class MediaService implements Serializable {
 	private final Logger logger = LoggerFactory.getLogger(MediaService.class);
@@ -56,6 +59,8 @@ public class MediaService implements Serializable {
 	public MediaService() {
 
 	}
+
+	private MediaServiceImpl movieService;
 
 	public JPAContainer<Participation> getAllParticipation() {
 		return JPAContainerFactory.make(Participation.class, PERSISTENCE_UNIT);
@@ -127,6 +132,12 @@ public class MediaService implements Serializable {
 		}
 		em.getTransaction().commit();
 		return movieEntryItems;
+
+	}
+
+	public ProductBean getDataFromCore() throws MPExeption {
+		ProductBean p = getMovieService().createNewProduct();
+		return p;
 
 	}
 
@@ -469,6 +480,14 @@ public class MediaService implements Serializable {
 				logger.error(e.getMessage());
 			}
 		}
+	}
+
+	public MediaServiceImpl getMovieService() {
+		return movieService;
+	}
+
+	public void setMovieService(MediaServiceImpl movieService) {
+		this.movieService = movieService;
 	}
 
 }

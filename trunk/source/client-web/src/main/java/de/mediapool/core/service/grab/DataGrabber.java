@@ -370,10 +370,15 @@ public class DataGrabber implements Serializable {
 		return 99;
 	}
 
-	private String getValueFromElement(Elements element) {
+	private String getValueFromElement(Elements elements) {
 		String value = null;
 		try {
-			value = element.first().getElementsByClass("value").first().text();
+			for (Element element : elements) {
+				if (element.getElementsByClass("value").first() != null) {
+					value = element.getElementsByClass("value").first().text();
+					return value;
+				}
+			}
 		} catch (NullPointerException e) {
 			logger.debug(e.getMessage());
 		}
