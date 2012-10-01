@@ -1,6 +1,7 @@
 package de.mediapool.core;
 
-import org.junit.Assert;
+import java.util.List;
+
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -37,30 +38,44 @@ public class Database {
 			UserBean lUserBean = authService.auth("test", "test");
 
 			installationService.installDB();
+			MediaBean lMovieBean = mediaService.createNewMedia("movie");
+			ProductBean lProductBean = mediaService.createNewProduct();
 
-			MediaBean lMovieBean = mediaService.createNewMedia("Movie");
+			List<MediaBean> movieList = TestData.generateTestMovieData(lMovieBean);
+			List<ProductBean> productList = TestData.generateTestProductData(lProductBean);
 
-			lMovieBean.setAttribute("duration", "54321");
+			for (int i = 0; i < movieList.size(); i++) {
+				ProductBean product = productList.get(i);
+				MediaBean movie = movieList.get(i);
+				mediaService.saveMedia(movie, lUserBean);
+				mediaService.saveProduct(product);
+				mediaService.addChild(product, movie);
+			}
 
-			lMovieBean.setName("Dies dwdwdwdw ein Test.");
+			// MediaBean lMovieBean = mediaService.createNewMedia("movie");
+			//
+			// lMovieBean.setAttribute("duration", "54321");
+			//
+			// lMovieBean.setName("Dies dwdwdwdw ein Test.");
+			//
+			// MediaBean lBean = mediaService.saveMedia(lMovieBean, lUserBean);
+			//
+			// MediaBean media = mediaService.getMedia(lBean.getId(), null);
+			//
+			// Assert.assertTrue(media != null &&
+			// lBean.getId().equals(media.getId()));
 
-			MediaBean lBean = mediaService.saveMedia(lMovieBean, lUserBean);
+			// ProductBean createNewProduct = mediaService.createNewProduct();
+			//
+			// createNewProduct.setName("Das Produkt des Jahrtausends.");
+			//
+			// createNewProduct.setAttribute("ean", "12345678");
+			//
+			// mediaService.saveProduct(createNewProduct);
+			//
+			// mediaService.addChild(createNewProduct, media);
 
-			MediaBean media = mediaService.getMedia(lBean.getId(), null);
-
-			Assert.assertTrue(media != null && lBean.getId().equals(media.getId()));
-
-			ProductBean createNewProduct = mediaService.createNewProduct();
-
-			createNewProduct.setName("Das Produkt des Jahrtausends.");
-
-			createNewProduct.setAttribute("ean", "12345678");
-
-			mediaService.saveProduct(createNewProduct);
-
-			mediaService.addChild(createNewProduct, media);
-
-			mediaService.getAllMedia(null);
+			// mediaService.getAllMedia(null);
 
 		} catch (MPExeption e) {
 			e.printStackTrace();

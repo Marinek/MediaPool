@@ -17,10 +17,23 @@ import de.mediapool.core.persistence.vo.AbstractIdVO;
 public class EntityAttributeDefVO extends AbstractIdVO {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	public EntityAttributeDefVO() {
+	}
+
+	public EntityAttributeDefVO(String id, String attributeName, String attributeType, Integer attributeOrder, AttributeMandatoryType attributeMandatory, EntityTypeVO entityTypeVO) {
+		super();
+		this.setId(id);
+		this.attributeName = attributeName;
+		this.attributeType = attributeType;
+		this.attributeOrder = attributeOrder;
+		this.attributeMandatory = attributeMandatory;
+		this.entityTypeVO = entityTypeVO;
+	}
+
 	@Column(name = "attributename")
 	private String attributeName = null;
-	
+
 	@Column(name = "attributetype")
 	private String attributeType = null;
 
@@ -29,9 +42,9 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 
 	@Column(name = "attributemandatory")
 	private AttributeMandatoryType attributeMandatory = AttributeMandatoryType.NOTHING;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="entitytypeid")
+	@JoinColumn(name = "entitytypeid")
 	private EntityTypeVO entityTypeVO = null;
 
 	public String getEntityTypeName() {
@@ -69,7 +82,7 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 	public void setAttributeMandatory(AttributeMandatoryType attributeMandatory) {
 		this.attributeMandatory = attributeMandatory;
 	}
-	
+
 	public static IEntityAttributeDefsDAO getDAO() {
 		return (IEntityAttributeDefsDAO) PersistenceContext.getInstance().getDAO(IEntityAttributeDefsDAO.class);
 	}
@@ -84,12 +97,8 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 
 	@Override
 	public String toString() {
-		return "EntityAttributeDefVO [attributeName=" + attributeName
-				+ ", attributeType=" + attributeType + ", attributeOrder="
-				+ attributeOrder + ", attributeMandatory=" + attributeMandatory
+		return "EntityAttributeDefVO [attributeName=" + attributeName + ", attributeType=" + attributeType + ", attributeOrder=" + attributeOrder + ", attributeMandatory=" + attributeMandatory
 				+ ", entityTypeVO=" + entityTypeVO + "] " + super.toString();
 	}
-	
-	
 
 }
