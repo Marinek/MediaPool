@@ -14,16 +14,15 @@ import de.mediapool.core.persistence.vo.AbstractTrackingVO;
 public class EntityAttributeVO extends AbstractTrackingVO {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Column(name = "entityid")
 	private String entityid = null;
-	
-    @Column(name = "attributename")
-    private String attributeName = null;
 
-    @Column(name = "attributevalue")
+	@Column(name = "attributename")
+	private String attributeName = null;
+
+	@Column(name = "attributevalue")
 	private String attributeValue = null;
-	
 
 	public String getEntityId() {
 		return this.entityid;
@@ -48,15 +47,13 @@ public class EntityAttributeVO extends AbstractTrackingVO {
 	public void setAttributeName(String attributeName) {
 		this.attributeName = attributeName;
 	}
-	
+
 	public static IEntityAttributesDAO getDAO() {
 		return (IEntityAttributesDAO) PersistenceContext.getInstance().getDAO(IEntityAttributesDAO.class);
 	}
 
 	public String toString() {
-		return "EntityAttributeVO [entityid=" + entityid + ", attributeName="
-				+ attributeName + ", attributeValue=" + attributeValue + "] " + super.toString();
+		return "EntityAttributeVO [entityid=" + entityid + ", attributeName=" + attributeName + ", attributeValue=" + attributeValue + "] " + super.toString();
 	}
-	
-	
+
 }

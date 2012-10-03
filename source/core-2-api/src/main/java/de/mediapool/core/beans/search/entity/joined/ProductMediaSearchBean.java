@@ -22,31 +22,31 @@ public class ProductMediaSearchBean extends AbstractEntitySearchBean {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	public List<EntityCriteriaBean> getParentCriteria () {
+
+	public List<EntityCriteriaBean> getParentCriteria() {
 		return this.getCriteriaList("parent");
 	}
-	
-	public List<EntityCriteriaBean> geChildCriteria () {
+
+	public List<EntityCriteriaBean> geChildCriteria() {
 		return this.getCriteriaList("child");
 	}
-	
-	public void addParentCriteria (EntityCriteriaBean pCriteria) {
+
+	public void addParentCriteria(EntityCriteriaBean pCriteria) {
 		this.addCriteria("parent", pCriteria);
 	}
-	
-	public void addChildtCriteria (EntityCriteriaBean pCriteria) {
+
+	public void addChildtCriteria(EntityCriteriaBean pCriteria) {
 		this.addCriteria("child", pCriteria);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

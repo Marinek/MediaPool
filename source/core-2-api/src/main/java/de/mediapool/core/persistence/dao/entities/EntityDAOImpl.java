@@ -24,16 +24,15 @@ public class EntityDAOImpl extends PSAbstractDAOImpl<EntityVO> implements IEntit
 
 	public EntityVO getByPrimaryKey(String pPrimaryKey) throws PSException {
 		PSCriteria criteria = this.createCriteria();
-		
+
 		criteria.add(Restrictions.eq("id", pPrimaryKey));
-		
+
 		List<EntityVO> results = this.findByCriteria(criteria);
-		
-		if(results.size() == 1) {
+
+		if (results.size() == 1) {
 			return results.get(0);
 		}
 		return null;
 	}
-
 
 }

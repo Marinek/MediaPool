@@ -9,12 +9,12 @@ import de.mediapool.core.persistence.dao.interfaces.entities.IEntityTypeDAO;
 import de.mediapool.core.persistence.vo.AbstractIdVO;
 
 @Entity
-@Table(name="entitytypes")
+@Table(name = "entitytypes")
 public class EntityTypeVO extends AbstractIdVO {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="entitytypename")
+	@Column(name = "entitytypename")
 	private String entityTypeName;
 
 	public String getEntityTypeName() {
@@ -24,7 +24,7 @@ public class EntityTypeVO extends AbstractIdVO {
 	public void setEntityTypeName(String typeName) {
 		entityTypeName = typeName;
 	}
-	
+
 	public static IEntityTypeDAO getDAO() {
 		return (IEntityTypeDAO) PersistenceContext.getInstance().getDAO(IEntityTypeDAO.class);
 	}
@@ -32,6 +32,5 @@ public class EntityTypeVO extends AbstractIdVO {
 	public String toString() {
 		return "EntityTypeVO [entityTypeName=" + entityTypeName + "] " + super.toString();
 	}
-	
-	
+
 }

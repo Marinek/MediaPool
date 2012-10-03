@@ -31,11 +31,11 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 
 	private List<EntityAttributeVO> currentAttributes = new ArrayList<EntityAttributeVO>();
 
-	protected BOAbstractEntity (UserBean pUserBean) throws MPExeption {
+	protected BOAbstractEntity(UserBean pUserBean) throws MPExeption {
 		super(pUserBean);
 	}
 
-	protected BOAbstractEntity (UUID entityID, UserBean pUserBean) throws MPExeption {
+	protected BOAbstractEntity(UUID entityID, UserBean pUserBean) throws MPExeption {
 		this(pUserBean);
 
 		this.init(entityID);
@@ -48,7 +48,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 	protected void init(UUID mediaID) throws MPExeption {
 		try {
 
-			if(mediaID == null) {
+			if (mediaID == null) {
 				throw new MPBusinessExeption(ExeptionErrorCode.BO_INIT, "Es wurde keine ID für dieses Businessobjekt angegeben!");
 			}
 			currentEntityVO = EntityVO.getDAO().getByPrimaryKey(mediaID.toString());
@@ -63,16 +63,16 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		this.currentEntity = abstractMediaBean;
 	}
 
-	public T getCurrentEntityBean () throws MPExeption {
-		if(this.currentEntity == null) {
-			this.currentEntity = this.getCurrentEntityBeanInstance(); 
-			
+	public T getCurrentEntityBean() throws MPExeption {
+		if (this.currentEntity == null) {
+			this.currentEntity = this.getCurrentEntityBeanInstance();
+
 			this.currentEntity.setId(this.currentEntityVO.getId());
 			this.currentEntity.setName(this.currentEntityVO.getName());
 		}
 
-		if(this.currentAttributes != null) {
-			for(EntityAttributeVO lVO : this.currentAttributes) {
+		if (this.currentAttributes != null) {
+			for (EntityAttributeVO lVO : this.currentAttributes) {
 				EntityAttributeValueBean lAttributeBean = new EntityAttributeValueBean();
 
 				EntityAttributeTypeManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
@@ -87,7 +87,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		return this.currentEntity;
 	}
 
-	public void delete()  throws MPExeption {
+	public void delete() throws MPExeption {
 		EntityVO deleteMovie = this.getEntityVO();
 
 		try {
@@ -101,22 +101,21 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		}
 	}
 
-
 	public List<ValidationResultBean> save() throws MPExeption {
 		List<ValidationResultBean> validationResult = this.validate();
 
-		if(!ValidationUtil.canProceed(validationResult)) {
+		if (!ValidationUtil.canProceed(validationResult)) {
 			throw new MPBusinessExeption(ExeptionErrorCode.BO_VALIDATION, "Fehler beim Speichern: " + ValidationUtil.toString(validationResult));
 		}
 
 		this.currentEntityVO = this.getEntityVO();
-		
+
 		try {
 			EntityVO.getDAO().saveOrUpdate(currentEntityVO, this.getTransaction());
 
 			this.currentAttributes.clear();
 
-			for(EntityAttributeValueBean lAttribute : this.getCurrentEntityBean().getAttributes()) {
+			for (EntityAttributeValueBean lAttribute : this.getCurrentEntityBean().getAttributes()) {
 				EntityAttributeVO lVO = new EntityAttributeVO();
 
 				lVO.setAttributeName(lAttribute.getIdAsString());
@@ -147,21 +146,20 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 
 		AbstractSingleEntityBean currentMediaBean2 = this.getCurrentEntityBean();
 
-		if(currentMediaBean2.getName() == null) {
+		if (currentMediaBean2.getName() == null) {
 			lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Feld Name muss ist ein Pflichtfeld."));
 		}
 
 		Map<String, EntityAttributeValueBean> definedAttributes = EntityAttributeTypeManager.getInstance().getDefinedAttributes(currentMediaBean2);
 
-		for(EntityAttributeValueBean lAttributeBean : currentMediaBean2.getAttributes()) {
-			if(!definedAttributes.containsKey(lAttributeBean.getAttributeName())) {
+		for (EntityAttributeValueBean lAttributeBean : currentMediaBean2.getAttributes()) {
+			if (!definedAttributes.containsKey(lAttributeBean.getAttributeName())) {
 				lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Attribut 'lAttributeBean.getAttributeName()' ist nicht definiert."));
 			}
 		}
 
 		return lValidation;
 	}
-
 
 	private EntityVO getEntityVO() throws MPExeption {
 		AbstractSingleEntityBean lCurrentBean = this.getCurrentEntityBean();
@@ -170,12 +168,12 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		lEntityVO.setId(lCurrentBean.getIdAsString());
 		lEntityVO.setName(lCurrentBean.getName());
 		lEntityVO.setEntityType(lCurrentBean.getEntityType());
-		
+
 		return lEntityVO;
 	}
 
 	protected T getMediaBean() throws MPExeption {
-		return PersistenceUtils.<T>toBean(this.currentEntity, this.currentEntityVO);
+		return PersistenceUtils.<T> toBean(this.currentEntity, this.currentEntityVO);
 	}
 
 	protected abstract void protectedSave() throws MPExeption;

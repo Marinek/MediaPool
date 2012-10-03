@@ -15,7 +15,7 @@ import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
 import de.mediapool.core.persistence.vo.entities.QEntityAttributeVO;
 import de.mediapool.core.persistence.vo.entities.QEntityVO;
 
-public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
+public class PSEntityRelationshipSQLBuilder extends PSRelationshipSQLBuilder {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -30,7 +30,7 @@ public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
 
 	private List<EntityCriteriaBean> parentAttributes = new ArrayList<EntityCriteriaBean>();
 	private List<EntityCriteriaBean> childAttributes = new ArrayList<EntityCriteriaBean>();
-	
+
 	private int criteriaCount = 0;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -42,7 +42,7 @@ public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	public List<PEntity<? extends IPSValueObject>> getMapping() throws PSException {
@@ -71,14 +71,14 @@ public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
 
 		sqlQuery.leftJoin(parent).on(parent.id.eq(this.getRelationship().parentId));
 		sqlQuery.leftJoin(child).on(child.id.eq(this.getRelationship().childId));
-		
+
 		this.addAttributeRestrictions(parentAttributes, this.getRelationship().parentId, sqlQuery);
-		this.addAttributeRestrictions(childAttributes,this.getRelationship().childId, sqlQuery);
+		this.addAttributeRestrictions(childAttributes, this.getRelationship().childId, sqlQuery);
 
 		return sqlQuery;
 	}
 
-	public void addEntityCriteria (PSEntityRelationType pType, List<EntityCriteriaBean> criteria) throws PSException {
+	public void addEntityCriteria(PSEntityRelationType pType, List<EntityCriteriaBean> criteria) throws PSException {
 		switch (pType) {
 		case PARENT:
 			this.parentAttributes.addAll(criteria);
@@ -87,20 +87,20 @@ public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
 			this.childAttributes.addAll(criteria);
 			break;
 		default:
-			throw new IllegalArgumentException("Undefined RelationType!"); 
+			throw new IllegalArgumentException("Undefined RelationType!");
 		}
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	protected void addAttributeRestrictions (List<EntityCriteriaBean> pCriteriaList, PString matchingField, HibernateSQLQuery sqlQuery) throws PSException {
+
+	protected void addAttributeRestrictions(List<EntityCriteriaBean> pCriteriaList, PString matchingField, HibernateSQLQuery sqlQuery) throws PSException {
 		for (EntityCriteriaBean entityCriteria : pCriteriaList) {
 			QEntityAttributeVO qEntityAttributeVO = new QEntityAttributeVO("attr" + String.valueOf(criteriaCount++));
-			
+
 			sqlQuery.leftJoin(qEntityAttributeVO).on(qEntityAttributeVO.entityid.eq(matchingField));
-			
+
 			sqlQuery.where(qEntityAttributeVO.attributeName.eq(entityCriteria.getSingleKey()));
 			switch (entityCriteria.getOperation()) {
 			case BETWEEN:
@@ -122,13 +122,13 @@ public class PSEntityRelationshipSQLBuilder extends	PSRelationshipSQLBuilder {
 				sqlQuery.where(qEntityAttributeVO.attributeValue.lt(entityCriteria.getSingleValue()));
 				break;
 			default:
-				throw new IllegalArgumentException("Undefined OperationType!"); 
+				throw new IllegalArgumentException("Undefined OperationType!");
 			}
 		}
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

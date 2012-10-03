@@ -1,7 +1,5 @@
 package de.mediapool.core.beans.business.entity.attributes;
 
-
-
 public class EntityAttributeValueBean extends EntityAttributeDefinitionBean {
 
 	private static final long serialVersionUID = 1L;

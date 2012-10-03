@@ -7,7 +7,7 @@ import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.core.interfaces.IPSDataAccessObject;
 import de.mediapool.core.persistence.vo.joined.relationship.ProductMediaJoinedVO;
 
-public interface IProductMediaSearchDAO extends IPSDataAccessObject<ProductMediaJoinedVO>  {
+public interface IProductMediaSearchDAO extends IPSDataAccessObject<ProductMediaJoinedVO> {
 
-	public List<ProductMediaJoinedVO> search (ProductMediaSearchBean searchCriteria) throws PSException;
+	public List<ProductMediaJoinedVO> search(ProductMediaSearchBean searchCriteria) throws PSException;
 }

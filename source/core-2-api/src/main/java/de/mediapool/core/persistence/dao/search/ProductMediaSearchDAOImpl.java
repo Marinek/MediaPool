@@ -26,18 +26,18 @@ public class ProductMediaSearchDAOImpl extends PSAbstractDAOImpl<ProductMediaJoi
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	public List<ProductMediaJoinedVO> search (ProductMediaSearchBean searchCriteria) throws PSException {
-			PSEntityRelationshipSQLBuilder lBuilder = new PSEntityRelationshipSQLBuilder(this.getSession());
 
-			lBuilder.addEntityCriteria(PSEntityRelationType.PARENT, searchCriteria.getParentCriteria());
-			lBuilder.addEntityCriteria(PSEntityRelationType.CHILD, searchCriteria.geChildCriteria());
-			
-			return this.findByBuilder(lBuilder);
+	public List<ProductMediaJoinedVO> search(ProductMediaSearchBean searchCriteria) throws PSException {
+		PSEntityRelationshipSQLBuilder lBuilder = new PSEntityRelationshipSQLBuilder(this.getSession());
+
+		lBuilder.addEntityCriteria(PSEntityRelationType.PARENT, searchCriteria.getParentCriteria());
+		lBuilder.addEntityCriteria(PSEntityRelationType.CHILD, searchCriteria.geChildCriteria());
+
+		return this.findByBuilder(lBuilder);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	protected Class<ProductMediaJoinedVO> getValueObjectClass() throws PSException {
@@ -45,11 +45,11 @@ public class ProductMediaSearchDAOImpl extends PSAbstractDAOImpl<ProductMediaJoi
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

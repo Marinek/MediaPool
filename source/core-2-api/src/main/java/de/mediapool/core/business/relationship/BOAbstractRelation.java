@@ -32,65 +32,64 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	protected BOAbstractRelation(UserBean pUserBean, UUID pReferentId, String pReferentType) throws MPExeption {
 		super(pUserBean);
 
 		this.currentReferentId = pReferentId;
 		this.currentReferentType = pReferentType;
-		
+
 		this.init();
 	}
-
 
 	protected BOAbstractRelation(UserBean pUserBean, AbstractBean pReferent) throws MPExeption {
 		this(pUserBean, pReferent.getId(), pReferent.getClass().getSimpleName());
 	}
 
 	private void init() throws MPExeption {
-		if(this.currentReferentId == null) {
+		if (this.currentReferentId == null) {
 			throw new MPBusinessExeption(ExeptionErrorCode.BO_INIT, "Es wurde keine Referenz für die Beziehung übergeben!");
 		}
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	public void addChild(C pChild) throws MPExeption {
 		List<ValidationResultBean> lValidation = this.validateAddChild(pChild);
-		
-		if(lValidation.size() > 0) {
+
+		if (lValidation.size() > 0) {
 			throw new MPBusinessExeption(ExeptionErrorCode.BO_VALIDATION, "Validierung fehlgeschlagen: " + ValidationUtil.toString(lValidation));
 		}
-		
+
 		RelationshipVO relationshipVO = new RelationshipVO();
-		
+
 		relationshipVO.setId(UUID.randomUUID().toString());
-		
+
 		relationshipVO.setChildId(pChild.getIdAsString());
 		relationshipVO.setChildType(pChild.getClass().getSimpleName());
 		relationshipVO.setParentId(this.currentReferentId.toString());
 		relationshipVO.setParentType(this.currentReferentType);
 		relationshipVO.setRelationType(this.getRelationTypeId());
-		
+
 		try {
 			RelationshipVO.getDAO().saveOrUpdate(relationshipVO);
 		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_INSERT, "Konnte auf Tabelle 'Relationship' nicht schreiben.");
 		}
-		
+
 	}
-	
+
 	public void addParent(P pParent) throws MPExeption {
 		List<ValidationResultBean> lValidation = this.validateAddParent(pParent);
 
-		if(lValidation.size() > 0) {
+		if (lValidation.size() > 0) {
 			throw new MPBusinessExeption(ExeptionErrorCode.BO_VALIDATION, "Validierung fehlgeschlagen: " + ValidationUtil.toString(lValidation));
 		}
-		
+
 		RelationshipVO relationshipVO = new RelationshipVO();
-		
+
 		relationshipVO.setId(UUID.randomUUID().toString());
 
 		relationshipVO.setChildId(this.currentReferentId.toString());
@@ -98,68 +97,67 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		relationshipVO.setParentId(pParent.getIdAsString());
 		relationshipVO.setParentType(pParent.getClass().getSimpleName());
 		relationshipVO.setRelationType(this.getRelationTypeId());
-		
+
 		try {
 			RelationshipVO.getDAO().saveOrUpdate(relationshipVO);
 		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_INSERT, "Konnte auf Tabelle 'Relationship' nicht schreiben.");
 		}
-		
+
 	}
 
 	public List<ValidationResultBean> validateAddParent(P pParent) {
 		List<ValidationResultBean> lValidation = new ArrayList<ValidationResultBean>();
-		
+
 		return lValidation;
 	}
 
-
 	public List<ValidationResultBean> validateAddChild(C pChild) {
 		List<ValidationResultBean> lValidation = new ArrayList<ValidationResultBean>();
-		
+
 		return lValidation;
 	}
 
 	public List<C> getChildsList() throws MPExeption {
 		List<C> childList = new ArrayList<C>();
-		
+
 		try {
-			List<RelationshipVO> currentRelations = RelationshipVO.getDAO().findChilds(this.getRelationTypeId() , currentReferentId.toString());
-			
-			for(RelationshipVO lRelationShipVO : currentRelations) {
+			List<RelationshipVO> currentRelations = RelationshipVO.getDAO().findChilds(this.getRelationTypeId(), currentReferentId.toString());
+
+			for (RelationshipVO lRelationShipVO : currentRelations) {
 				childList.add(this.getChildEntity(lRelationShipVO));
 			}
 
 		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Konnte Tabelle 'RelationsShips' nicht lesen.", e);
 		}
-		
+
 		return childList;
 	}
 
 	public List<P> getParentsList() throws MPExeption {
 		List<P> parentlist = new ArrayList<P>();
-		
+
 		try {
-			List<RelationshipVO> currentRelations = RelationshipVO.getDAO().findParents(this.getRelationTypeId() , currentReferentId.toString());
-			
-			for(RelationshipVO lRelationShipVO : currentRelations) {
+			List<RelationshipVO> currentRelations = RelationshipVO.getDAO().findParents(this.getRelationTypeId(), currentReferentId.toString());
+
+			for (RelationshipVO lRelationShipVO : currentRelations) {
 				parentlist.add(this.getParentEntity(lRelationShipVO));
 			}
-			
+
 		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Konnte auf Tabelle 'RelationsShips' nicht lesen.", e);
 		}
-		
+
 		return parentlist;
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -169,6 +167,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 	protected abstract Integer getRelationTypeId() throws MPExeption;
 
 	protected abstract P getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption;
+
 	protected abstract C getChildEntity(RelationshipVO lRelationShipVO) throws MPExeption;
 
 }

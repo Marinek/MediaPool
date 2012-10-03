@@ -4,5 +4,5 @@ import de.mediapool.core.exceptions.MPExeption;
 
 public interface IInstallationService extends IService {
 
-	public void installDB () throws MPExeption;
+	public void installDB() throws MPExeption;
 }

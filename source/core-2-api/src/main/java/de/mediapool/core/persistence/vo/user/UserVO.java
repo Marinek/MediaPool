@@ -6,14 +6,13 @@ import javax.persistence.Table;
 import de.mediapool.core.persistence.vo.AbstractTrackingVO;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class UserVO extends AbstractTrackingVO {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public String toString() {
 		return "UserVO [] " + super.toString();
 	}
-	
-	
+
 }

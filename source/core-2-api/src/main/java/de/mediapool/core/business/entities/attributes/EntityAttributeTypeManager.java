@@ -20,11 +20,11 @@ import de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO;
 public class EntityAttributeTypeManager {
 
 	private static EntityAttributeTypeManager instance = null;
-	
-	private Map<String, Map<String, EntityAttributeValueBean>>  attributeMap = new HashMap<String, Map<String,EntityAttributeValueBean>>(); 
-	
+
+	private Map<String, Map<String, EntityAttributeValueBean>> attributeMap = new HashMap<String, Map<String, EntityAttributeValueBean>>();
+
 	public static final EntityAttributeTypeManager getInstance() throws MPExeption {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new EntityAttributeTypeManager();
 			instance.reload();
 		}
@@ -34,17 +34,17 @@ public class EntityAttributeTypeManager {
 	private void reload() throws MPExeption {
 		try {
 			List<EntityAttributeDefVO> listDefs = EntityAttributeDefVO.getDAO().findAll();
-			
-			for(EntityAttributeDefVO lDefinition : listDefs) {
+
+			for (EntityAttributeDefVO lDefinition : listDefs) {
 				EntityAttributeValueBean lBean = new EntityAttributeValueBean();
-				
+
 				lBean.setAttributeDisplay(lDefinition.getAttributeName());
 				lBean.setAttributeType(lDefinition.getAttributeType());
 				lBean.setMandatoryType(BeanAttributeMandatoryType.valueOf(lDefinition.getAttributeMandatory().toString()));
 				lBean.setPersistentStatus(PersistentStatus.PERSISTENT);
 				lBean.setAttributeName(lDefinition.getAttributeName());
 				lBean.setEntityType(lDefinition.getEntityTypeName());
-				
+
 				this.registerAttribute(lBean);
 			}
 		} catch (PSException e) {
@@ -54,36 +54,36 @@ public class EntityAttributeTypeManager {
 
 	public EntityAttributeValueBean getAttribute(String pAttributeName, String pEntityType) throws MPExeption {
 		EntityAttributeValueBean lAttributeType = null;
-		
-		if(this.attributeMap.containsKey(pEntityType)) {
+
+		if (this.attributeMap.containsKey(pEntityType)) {
 			lAttributeType = this.attributeMap.get(pEntityType).get(pAttributeName);
 		}
-		
+
 		return lAttributeType;
 	}
 
 	public void initialAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPExeption {
-		if(!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
+		if (!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
 			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
 		}
-		
-		for(Entry<String, EntityAttributeValueBean> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getEntityType()).entrySet()) {
+
+		for (Entry<String, EntityAttributeValueBean> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getEntityType()).entrySet()) {
 			pReturnNewMedia.addAttribute(lAttributeEntry.getValue());
 		}
 	}
-	
+
 	private void registerAttribute(EntityAttributeValueBean lBean) {
-		if(!this.attributeMap.containsKey(lBean.getMediaType())) {
+		if (!this.attributeMap.containsKey(lBean.getMediaType())) {
 			this.attributeMap.put(lBean.getMediaType(), new HashMap<String, EntityAttributeValueBean>());
 		}
 		this.attributeMap.get(lBean.getMediaType()).put(lBean.getAttributeName(), lBean);
 	}
 
-	public  Map<String, EntityAttributeValueBean> getDefinedAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPExeption {
-		if(!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
+	public Map<String, EntityAttributeValueBean> getDefinedAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPExeption {
+		if (!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
 			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
 		}
-		
+
 		return Collections.unmodifiableMap(this.attributeMap.get(pReturnNewMedia.getEntityType()));
 	}
 }

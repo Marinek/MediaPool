@@ -33,43 +33,42 @@ public class BOProductMediaSearch extends BOAbstractEntitySearch<ProductMediaSea
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	public ProductMediaResultList executeSearch(ProductMediaSearchBean pSearchQuery) throws MPExeption {
 		ProductMediaResultList lProductMediaResultList = new ProductMediaResultList();
 		try {
 			List<ProductMediaJoinedVO> search = ProductMediaJoinedVO.getProductMediaSearchDAO().search(pSearchQuery);
-			
-			for(ProductMediaJoinedVO lVO : search) {
+
+			for (ProductMediaJoinedVO lVO : search) {
 				lProductMediaResultList.add(this.getProductMediaBean(lVO));
 			}
-			
+
 		} catch (PSException e) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Konnte Suche 'ProductMeadia' nicht durchführen.", e);
 		}
-		
+
 		return lProductMediaResultList;
 	}
 
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	// protected Methoden
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	private ProductMediaBean getProductMediaBean(ProductMediaJoinedVO lVO) {
 		ProductMediaBean lProductMediaBean = new ProductMediaBean();
 		// TODO: Das hier muss man noch in den Griff bekommen. KA wie.
 		MediaBean mediaBean = new MediaBean();
-		
+
 		mediaBean.setId(lVO.getMedia().getId());
-		
+
 		lProductMediaBean.join(mediaBean);
-		
+
 		return lProductMediaBean;
 	}
 

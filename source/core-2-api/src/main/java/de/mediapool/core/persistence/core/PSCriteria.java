@@ -13,10 +13,9 @@ public class PSCriteria extends DetachedCriteria {
 	private static final long serialVersionUID = 1L;
 
 	public DetachedCriteria add(Criterion criterion) {
-		
-		
+
 		return super.add(criterion);
-		
+
 	}
 
 	public DetachedCriteria addOrder(Order order) {

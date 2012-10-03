@@ -21,8 +21,8 @@ public class PSRelationshipSQLBuilder extends PSJoinedCriteriaBuilder {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	private final QRelationshipVO relationship  =  new QRelationshipVO("r");
+
+	private final QRelationshipVO relationship = new QRelationshipVO("r");
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -30,12 +30,12 @@ public class PSRelationshipSQLBuilder extends PSJoinedCriteriaBuilder {
 
 	public PSRelationshipSQLBuilder(Session session) throws PSException {
 		super(session);
-		
+
 	}
-	
+
 	public List<PEntity<? extends IPSValueObject>> getMapping() throws PSException {
 		List<PEntity<? extends IPSValueObject>> mapping = super.getMapping();
-		
+
 		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().changedAt)));
 		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().childEntity)));
 		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().childId)));
@@ -46,24 +46,24 @@ public class PSRelationshipSQLBuilder extends PSJoinedCriteriaBuilder {
 		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().parentId)));
 		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().parentType)));
 		mapping.add(new QRelationshipVO(this.getSelection(getRelationship().relationType)));
-		
+
 		return mapping;
 	}
-	
+
 	public HibernateSQLQuery getSQLQuery() throws PSException {
-		 HibernateSQLQuery sqlQuery = super.getSQLQuery();
+		HibernateSQLQuery sqlQuery = super.getSQLQuery();
 
-		 sqlQuery.from(getRelationship());
-		 
-		 return sqlQuery;
+		sqlQuery.from(getRelationship());
+
+		return sqlQuery;
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	protected QRelationshipVO getRelationship() {
@@ -71,9 +71,9 @@ public class PSRelationshipSQLBuilder extends PSJoinedCriteriaBuilder {
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

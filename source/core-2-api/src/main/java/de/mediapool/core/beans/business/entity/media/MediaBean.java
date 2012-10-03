@@ -6,6 +6,4 @@ public class MediaBean extends AbstractSingleEntityBean {
 
 	private static final long serialVersionUID = 1L;
 
-	
-
 }
