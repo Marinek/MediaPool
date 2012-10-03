@@ -7,3 +7,4 @@ public interface IAuthService extends IService {
 
 	public UserBean auth (String pUserName, String pPasswort) throws MPExeption;
 }
+
