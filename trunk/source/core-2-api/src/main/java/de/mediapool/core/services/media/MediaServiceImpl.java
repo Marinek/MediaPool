@@ -13,7 +13,7 @@ import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
 import de.mediapool.core.business.entities.media.BOAttributedMedia;
 import de.mediapool.core.business.entities.products.BOMediaProduct;
-import de.mediapool.core.business.entities.relationship.BOMediaRelationship;
+import de.mediapool.core.business.entities.relationship.BOProductMediaRelationship;
 import de.mediapool.core.business.search.entities.joined.BOProductMediaSearch;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
@@ -72,11 +72,11 @@ public class MediaServiceImpl implements IMediaService<MediaBean> {
 	}
 
 	public void addChild(ProductBean pReferent, MediaBean pChild) throws MPExeption {
-		new BOMediaRelationship(null, pReferent).addChild(pChild);
+		new BOProductMediaRelationship(null, pReferent).addChild(pChild);
 	}
 
 	public void addParent(MediaBean pReferent, ProductBean pParent) throws MPExeption {
-		new BOMediaRelationship(null, pReferent).addParent(pParent);
+		new BOProductMediaRelationship(null, pReferent).addParent(pParent);
 
 	}
 

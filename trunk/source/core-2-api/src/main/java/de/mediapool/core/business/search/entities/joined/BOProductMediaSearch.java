@@ -66,7 +66,6 @@ public class BOProductMediaSearch extends BOAbstractEntitySearch<ProductMediaSea
 		// TODO: Das hier muss man noch in den Griff bekommen. KA wie.
 		MediaBean mediaBean = new MediaBean();
 		
-		mediaBean.setEntityType(lVO.getMedia().getEntityType());
 		mediaBean.setId(lVO.getMedia().getId());
 		
 		lProductMediaBean.join(mediaBean);

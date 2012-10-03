@@ -10,7 +10,7 @@ import de.mediapool.core.business.relationship.BOAbstractRelation;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
 
-public class BOMediaRelationship extends BOAbstractRelation<ProductBean, MediaBean> {
+public class BOProductMediaRelationship extends BOAbstractRelation<ProductBean, MediaBean> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -26,7 +26,7 @@ public class BOMediaRelationship extends BOAbstractRelation<ProductBean, MediaBe
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOMediaRelationship(UserBean pUserBean, AbstractBean pReferentId) throws MPExeption {
+	public BOProductMediaRelationship(UserBean pUserBean, AbstractBean pReferentId) throws MPExeption {
 		super(pUserBean, pReferentId);
 	}
 

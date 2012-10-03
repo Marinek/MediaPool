@@ -1,8 +1,6 @@
-package de.mediapool.core.beans.business.entity.product;
+package de.mediapool.core.beans.business.entity;
 
-import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
-
-public class ProductBean extends AbstractSingleEntityBean {
+public class HoldingBean extends AbstractSingleEntityBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -17,6 +15,10 @@ public class ProductBean extends AbstractSingleEntityBean {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	public HoldingBean() {
+
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
