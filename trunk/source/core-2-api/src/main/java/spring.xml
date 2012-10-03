@@ -49,6 +49,8 @@
 
 	<bean id="movieService" class="de.mediapool.core.services.media.MediaServiceImpl">
 	</bean>
+	<bean id="productService" class="de.mediapool.core.services.product.ProductServiceImpl">
+	</bean>
 	<bean id="installationService"
 		class="de.mediapool.core.services.install.InstallationServiceImpl">
 	</bean>

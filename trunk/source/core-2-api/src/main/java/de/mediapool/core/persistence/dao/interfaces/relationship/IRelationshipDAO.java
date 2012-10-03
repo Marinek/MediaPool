@@ -8,9 +8,9 @@ import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
 
 public interface IRelationshipDAO extends IPSDataAccessObject<RelationshipVO> {
 
-	public List<RelationshipVO> findParents (Integer pRelationTypeId, String pChildId) throws PSException;
+	public List<RelationshipVO> findParents(Integer pRelationTypeId, String pChildId) throws PSException;
 
-	public List<RelationshipVO> findChilds (Integer pRelationTypeId, String pParentId) throws PSException;
+	public List<RelationshipVO> findChilds(Integer pRelationTypeId, String pParentId) throws PSException;
 
 	public List<RelationshipVO> findRelationShipType(Integer pType) throws PSException;
 }

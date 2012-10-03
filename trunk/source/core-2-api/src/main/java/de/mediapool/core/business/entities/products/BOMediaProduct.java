@@ -18,7 +18,7 @@ public class BOMediaProduct extends BOAbstractEntity<ProductBean> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
-	// * * * * * * * * * * * * * * * * * *  * * * * * * * * * * * * * * * * * * *
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -31,37 +31,37 @@ public class BOMediaProduct extends BOAbstractEntity<ProductBean> {
 
 	public BOMediaProduct(UUID pMediaBean, UserBean pUserBean) throws MPExeption {
 		super(pMediaBean, pUserBean);
-		
+
 	}
-	
+
 	public BOMediaProduct(UserBean pUserBean) throws MPExeption {
 		super(pUserBean);
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public List<MediaBean> getMedia () throws MPExeption {
+	public List<MediaBean> getMedia() throws MPExeption {
 		List<MediaBean> lReturnList = new ArrayList<MediaBean>();
 
 		return lReturnList;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	protected void protectedSave() throws MPExeption {
-		
+
 	}
 
 	protected void protectedDelete() throws MPExeption {
-		
+
 	}
 
 	protected ProductBean getCurrentEntityBeanInstance() throws MPExeption {

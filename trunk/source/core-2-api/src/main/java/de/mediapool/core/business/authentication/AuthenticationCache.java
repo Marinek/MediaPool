@@ -13,27 +13,27 @@ import de.mediapool.core.exceptions.MPExeption;
 public class AuthenticationCache {
 
 	private static AuthenticationCache instance;
-	
+
 	private Map<UUID, Subject> currentKnownUser = new HashMap<UUID, Subject>();
-	
+
 	public static final AuthenticationCache getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new AuthenticationCache();
 		}
-		
+
 		return instance;
 	}
-	
-	public void addSubject (Subject pSubject) throws MPExeption {
-		if(pSubject.getPrincipal() instanceof UUID) {
+
+	public void addSubject(Subject pSubject) throws MPExeption {
+		if (pSubject.getPrincipal() instanceof UUID) {
 			this.currentKnownUser.put((UUID) pSubject.getPrincipal(), pSubject);
 		} else {
 			throw new MPBusinessExeption(ExeptionErrorCode.AUTH_LOGIN, "Konnte Benutzer nicht im Cache Speichern!");
 		}
 	}
-	
+
 	public Subject getSubject(UUID pUUID) throws MPExeption {
 		return this.currentKnownUser.get(pUUID);
 	}
-	
+
 }

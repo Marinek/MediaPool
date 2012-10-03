@@ -22,41 +22,41 @@ public class JoinedEntityBean extends AbstractEntityBean {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	private List<AbstractSingleEntityBean> joinedEntitys = new ArrayList<AbstractSingleEntityBean>();
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	public JoinedEntityBean() {
 
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public void join (AbstractSingleEntityBean pJoinedEntity) {
+	public void join(AbstractSingleEntityBean pJoinedEntity) {
 		this.joinedEntitys.add(pJoinedEntity);
 	}
-	
+
 	public Collection<EntityAttributeValueBean> getAttributes() {
 		List<EntityAttributeValueBean> lReturnList = new ArrayList<EntityAttributeValueBean>();
 
-		for(AbstractEntityBean lAbstractEntityBean : this.joinedEntitys) {
-			for(EntityAttributeValueBean lEntityAttributeBean : lAbstractEntityBean.getAttributes()) {
+		for (AbstractEntityBean lAbstractEntityBean : this.joinedEntitys) {
+			for (EntityAttributeValueBean lEntityAttributeBean : lAbstractEntityBean.getAttributes()) {
 				lReturnList.add(lEntityAttributeBean);
 			}
 		}
 
 		return Collections.unmodifiableCollection(lReturnList);
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

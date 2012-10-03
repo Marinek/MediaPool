@@ -15,7 +15,7 @@ public class BOProductMediaRelationship extends BOAbstractRelation<ProductBean, 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	public static final Integer TYPEID = 100;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -31,13 +31,12 @@ public class BOProductMediaRelationship extends BOAbstractRelation<ProductBean, 
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
 
 	protected Integer getRelationTypeId() throws MPExeption {
 		return TYPEID;
@@ -52,7 +51,7 @@ public class BOProductMediaRelationship extends BOAbstractRelation<ProductBean, 
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -12,13 +12,12 @@ import de.mediapool.core.beans.search.entity.EntityCriteriaBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
 import de.mediapool.core.business.entities.media.BOAttributedMedia;
-import de.mediapool.core.business.entities.products.BOMediaProduct;
 import de.mediapool.core.business.entities.relationship.BOProductMediaRelationship;
 import de.mediapool.core.business.search.entities.joined.BOProductMediaSearch;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 
-public class MediaServiceImpl implements IMediaService<MediaBean> {
+public class MediaServiceImpl implements IMediaService {
 
 	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
 		BOAttributedMedia boInstance = new BOAttributedMedia(pUserBean);
@@ -71,33 +70,12 @@ public class MediaServiceImpl implements IMediaService<MediaBean> {
 		return lReturnNewMedia;
 	}
 
-	public void addChild(ProductBean pReferent, MediaBean pChild) throws MPExeption {
+	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPExeption {
 		new BOProductMediaRelationship(null, pReferent).addChild(pChild);
 	}
 
-	public void addParent(MediaBean pReferent, ProductBean pParent) throws MPExeption {
+	public void addMediaToProduct(MediaBean pReferent, ProductBean pParent) throws MPExeption {
 		new BOProductMediaRelationship(null, pReferent).addParent(pParent);
-
-	}
-
-	public ProductBean createNewProduct() throws MPExeption {
-		ProductBean lReturnNewMedia = new ProductBean();
-
-		lReturnNewMedia.setEntityType("product");
-
-		EntityAttributeTypeManager.getInstance().initialAttributes(lReturnNewMedia);
-
-		return lReturnNewMedia;
-	}
-
-	public void saveProduct(ProductBean createNewProduct) throws MPExeption {
-		BOMediaProduct boInstance = new BOMediaProduct(null);
-
-		boInstance.setCurrentEntityBean(createNewProduct);
-
-		boInstance.save();
-
-		// TODO: Exception bei Validierungsfehler.
 
 	}
 

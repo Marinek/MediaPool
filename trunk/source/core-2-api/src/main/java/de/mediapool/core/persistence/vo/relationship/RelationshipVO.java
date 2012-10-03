@@ -18,25 +18,24 @@ import de.mediapool.core.persistence.vo.entities.EntityVO;
 public class RelationshipVO extends AbstractTrackingVO {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Column(name = "childId")
 	private String childId = null;
-	
+
 	@JoinColumn(name = "childEntity")
 	private EntityVO childEntity = null;
-	
+
 	@Column(name = "childType")
 	private String childType = null;
-	
+
 	@Column(name = "parentId")
 	private String parentId = null;
-	
+
 	@Column(name = "parentType")
 	private String parentType = null;
 
 	@Column(name = "relationType")
 	private Integer relationType = null;
-
 
 	public UUID getChildId() {
 		return UUID.fromString(childId);
@@ -77,16 +76,14 @@ public class RelationshipVO extends AbstractTrackingVO {
 	public void setRelationType(Integer relationType) {
 		this.relationType = relationType;
 	}
-	
+
 	public static IRelationshipDAO getDAO() {
 		return (IRelationshipDAO) PersistenceContext.getInstance().getDAO(IRelationshipDAO.class);
 	}
 
 	public String toString() {
-		return "RelationshipVO [childId=" + childId + ", childEntity="
-				+ childEntity + ", childType=" + childType + ", parentId="
-				+ parentId + ", parentType=" + parentType + ", relationType="
+		return "RelationshipVO [childId=" + childId + ", childEntity=" + childEntity + ", childType=" + childType + ", parentId=" + parentId + ", parentType=" + parentType + ", relationType="
 				+ relationType + "] " + super.toString();
 	}
-	
+
 }

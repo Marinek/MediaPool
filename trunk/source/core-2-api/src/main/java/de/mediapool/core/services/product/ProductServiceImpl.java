@@ -1,12 +1,12 @@
-package de.mediapool.core.business.search;
+package de.mediapool.core.services.product;
 
-import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.search.AbstractResultList;
-import de.mediapool.core.beans.search.AbstractSearchBean;
-import de.mediapool.core.business.BusinessObject;
+import de.mediapool.core.beans.business.entity.product.ProductBean;
+import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
+import de.mediapool.core.business.entities.products.BOMediaProduct;
 import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.services.interfaces.IProductService;
 
-public abstract class BOAbstractSearch<S extends AbstractSearchBean<?>, R extends AbstractResultList<?>> extends BusinessObject {
+public class ProductServiceImpl implements IProductService {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -20,13 +20,28 @@ public abstract class BOAbstractSearch<S extends AbstractSearchBean<?>, R extend
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected BOAbstractSearch(UserBean pUserBean) throws MPExeption {
-		super(pUserBean);
-	}
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	public ProductBean createNewProduct() throws MPExeption {
+		ProductBean lReturnNewMedia = new ProductBean();
+
+		lReturnNewMedia.setEntityType("product");
+
+		EntityAttributeTypeManager.getInstance().initialAttributes(lReturnNewMedia);
+
+		return lReturnNewMedia;
+	}
+
+	public void saveProduct(ProductBean createNewProduct) throws MPExeption {
+		BOMediaProduct boInstance = new BOMediaProduct(null);
+
+		boInstance.setCurrentEntityBean(createNewProduct);
+
+		boInstance.save();
+
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
@@ -39,6 +54,4 @@ public abstract class BOAbstractSearch<S extends AbstractSearchBean<?>, R extend
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	public abstract R executeSearch(S pSearchQuery) throws MPExeption;
 }

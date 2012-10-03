@@ -27,13 +27,13 @@ public class RelationshipDAOImpl extends PSAbstractDAOImpl<RelationshipVO> imple
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	public List<RelationshipVO> findParents(Integer pRelationTypeId, String pChildId) throws PSException {
 		return this.findRelations(pRelationTypeId, pChildId, "childid");
 	}
-	
+
 	public List<RelationshipVO> findChilds(Integer pRelationTypeId, String pParentId) throws PSException {
 		return this.findRelations(pRelationTypeId, pParentId, "parentid");
 	}
@@ -42,12 +42,12 @@ public class RelationshipDAOImpl extends PSAbstractDAOImpl<RelationshipVO> imple
 		PSCriteria lCriteria = this.createCriteria();
 
 		lCriteria.add(Restrictions.eq("relationType", pType));
-		
+
 		return this.findByCriteria(lCriteria);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	protected Class<RelationshipVO> getValueObjectClass() throws PSException {
@@ -55,19 +55,18 @@ public class RelationshipDAOImpl extends PSAbstractDAOImpl<RelationshipVO> imple
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	private List<RelationshipVO> findRelations(Integer pRelationTypeId, String pRelationId, String pRelationIdProperty) throws PSException {
 		PSCriteria lCriteria = this.createCriteria();
-		
+
 		lCriteria.add(Restrictions.eq("relationtype", pRelationTypeId));
 		lCriteria.add(Restrictions.eq(pRelationIdProperty, pRelationId));
-		
+
 		return this.findByCriteria(lCriteria);
 	}
 
-	
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -15,7 +15,7 @@ public class BOHoldingProductRelationship extends BOAbstractRelation<HoldingBean
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	public static final Integer TYPEID = 200;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -30,22 +30,22 @@ public class BOHoldingProductRelationship extends BOAbstractRelation<HoldingBean
 		super(pUserBean, pReferentId, pReferentType);
 	}
 
-	public BOHoldingProductRelationship(UserBean pUserBean, AbstractBean pReferent) 	throws MPExeption {
+	public BOHoldingProductRelationship(UserBean pUserBean, AbstractBean pReferent) throws MPExeption {
 		super(pUserBean, pReferent);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	protected ProductBean getChildEntity(RelationshipVO lRelationShipVO) throws MPExeption {
 		return null;
 	}
-	
+
 	protected HoldingBean getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption {
 		return null;
 	}
@@ -53,9 +53,9 @@ public class BOHoldingProductRelationship extends BOAbstractRelation<HoldingBean
 	protected Integer getRelationTypeId() throws MPExeption {
 		return TYPEID;
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

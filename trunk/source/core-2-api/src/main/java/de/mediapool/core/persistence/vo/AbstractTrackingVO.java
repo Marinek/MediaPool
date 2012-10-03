@@ -7,18 +7,18 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class AbstractTrackingVO extends AbstractIdVO {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Column(name = "createdat")
 	private Date createdAt = new Date();
-	
+
 	@Column(name = "changedat")
 	private Date changedAt = new Date();
-	
+
 	@Column(name = "createdby")
 	private String createdBy = null;
-	
+
 	@Column(name = "changedby")
 	private String changedBy = null;
 
@@ -55,9 +55,7 @@ public abstract class AbstractTrackingVO extends AbstractIdVO {
 	}
 
 	public String toString() {
-		return "AbstractTrackingVO [createdAt=" + createdAt + ", changedAt="
-				+ changedAt + ", createdBy=" + createdBy + ", changedBy="
-				+ changedBy + "] " + super.toString();
-	}	
+		return "AbstractTrackingVO [createdAt=" + createdAt + ", changedAt=" + changedAt + ", createdBy=" + createdBy + ", changedBy=" + changedBy + "] " + super.toString();
+	}
 
 }

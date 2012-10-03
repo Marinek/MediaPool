@@ -22,36 +22,35 @@ public class EntityResultList<E extends AbstractEntityBean> extends AbstractResu
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	private Map<String, EntityAttributeDefinitionBean> mapHeaderInformation = new TreeMap<String, EntityAttributeDefinitionBean>();
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	public EntityResultList() {
-	
+
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
-	public void addHeaderInformation (EntityAttributeDefinitionBean pHeaderDefinition) {
-		if(!this.mapHeaderInformation.containsKey(pHeaderDefinition.getAttributeIdentifier())) {
+
+	public void addHeaderInformation(EntityAttributeDefinitionBean pHeaderDefinition) {
+		if (!this.mapHeaderInformation.containsKey(pHeaderDefinition.getAttributeIdentifier())) {
 			this.mapHeaderInformation.put(pHeaderDefinition.getAttributeIdentifier(), pHeaderDefinition);
 		}
 	}
-	
+
 	public Collection<EntityAttributeDefinitionBean> getHeaderInformation() {
 		return Collections.unmodifiableCollection(this.mapHeaderInformation.values());
 	}
 
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	// protected Methoden
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

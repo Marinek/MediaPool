@@ -17,18 +17,18 @@ public class EntityVO extends AbstractTrackingVO {
 
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "entitytype")
 	private String entityType;
-	
-    public void setName(String name) {
+
+	public void setName(String name) {
 		this.name = name;
 	}
 
-    public String getName()
-    {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
+
 	public String getEntityType() {
 		return entityType;
 	}
@@ -36,14 +36,13 @@ public class EntityVO extends AbstractTrackingVO {
 	public void setEntityType(String entityType) {
 		this.entityType = entityType;
 	}
-	
-    
+
 	public static IEntityDAO getDAO() {
 		return (IEntityDAO) PersistenceContext.getInstance().getDAO(IEntityDAO.class);
 	}
-	
+
 	public String toString() {
 		return "EntityVO [name=" + name + ", entityType=" + entityType + "] " + super.toString();
 	}
-	
+
 }

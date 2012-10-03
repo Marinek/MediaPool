@@ -15,14 +15,14 @@ import de.mediapool.core.persistence.core.interfaces.IPSTransaction;
 public abstract class BusinessObject {
 
 	private UserBean currentUserBean = null;
-	
+
 	private IPSTransaction currentTransaction = null;
 	private boolean isOwnTransaction = true;
 
-	protected BusinessObject (UserBean pUserBean) throws MPExeption {
+	protected BusinessObject(UserBean pUserBean) throws MPExeption {
 		this.setCurrentUserBean(pUserBean);
 	}
-	
+
 	public List<ValidationResultBean> validate() throws MPExeption {
 		List<ValidationResultBean> validatationResultList = new ArrayList<ValidationResultBean>();
 
@@ -34,17 +34,17 @@ public abstract class BusinessObject {
 		this.isOwnTransaction = false;
 	}
 
-	public IPSTransaction getTransaction () throws MPExeption {
-		if(this.currentTransaction == null) {
+	public IPSTransaction getTransaction() throws MPExeption {
+		if (this.currentTransaction == null) {
 			isOwnTransaction = true;
 			this.currentTransaction = PSTransaction.createTransaction();
 		}
 		return this.currentTransaction;
 	}
 
-	public void doCommit () throws MPExeption {
+	public void doCommit() throws MPExeption {
 		try {
-			if(this.isOwnTransaction) {
+			if (this.isOwnTransaction) {
 				this.getTransaction().commit();
 			}
 		} catch (PSException e) {
@@ -52,9 +52,9 @@ public abstract class BusinessObject {
 		}
 	}
 
-	public void doRollback () {
+	public void doRollback() {
 		try {
-			if(this.isOwnTransaction) {
+			if (this.isOwnTransaction) {
 				this.getTransaction().commit();
 			}
 		} catch (Exception e) {

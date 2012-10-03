@@ -18,7 +18,7 @@ public class BOAttributedMedia extends BOAbstractEntity<MediaBean> {
 	}
 
 	protected void protectedSave() throws MPExeption {
-		
+
 	}
 
 	protected void protectedDelete() throws MPExeption {

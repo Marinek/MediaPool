@@ -3,7 +3,7 @@ package de.mediapool.core.beans.business.entity.attributes;
 import de.mediapool.core.beans.AbstractBean;
 
 public class EntityAttributeDefinitionBean extends AbstractBean {
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -15,20 +15,20 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	private String entityType;
-	
+
 	private String attributeType;
 	private String attributeName;
-	
-	private BeanAttributeMandatoryType mandatoryType =  BeanAttributeMandatoryType.NOTHING;
+
+	private BeanAttributeMandatoryType mandatoryType = BeanAttributeMandatoryType.NOTHING;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	
+
 	public String getMediaType() {
 		return entityType;
 	}
@@ -52,7 +52,7 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 	public void setAttributeName(String attributeName) {
 		this.attributeName = attributeName;
 	}
-	
+
 	public BeanAttributeMandatoryType getMandatoryType() {
 		return mandatoryType;
 	}
@@ -60,17 +60,17 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 	public void setMandatoryType(BeanAttributeMandatoryType mandatoryType) {
 		this.mandatoryType = mandatoryType;
 	}
-	
+
 	public String getAttributeIdentifier() {
-		return this.getMediaType()+ "#" + this.getAttributeName();
+		return this.getMediaType() + "#" + this.getAttributeName();
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

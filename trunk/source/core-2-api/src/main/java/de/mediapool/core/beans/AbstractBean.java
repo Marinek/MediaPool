@@ -4,16 +4,15 @@ import java.util.UUID;
 
 import de.mediapool.core.beans.interfaces.IBean;
 
-
 public abstract class AbstractBean implements IBean {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private PersistentStatus persistentStatus = PersistentStatus.NOTPERSISTENT;
-	
+
 	private UUID beanId = UUID.randomUUID();
-	
-	public boolean isPersistent () {
+
+	public boolean isPersistent() {
 		return this.getPersistentStatus() == PersistentStatus.PERSISTENT;
 	}
 
@@ -28,7 +27,7 @@ public abstract class AbstractBean implements IBean {
 	public UUID getId() {
 		return beanId;
 	}
-	
+
 	public String getIdAsString() {
 		return this.beanId != null ? this.beanId.toString() : null;
 	}
@@ -40,6 +39,5 @@ public abstract class AbstractBean implements IBean {
 	public void setId(String beanId) {
 		this.beanId = UUID.fromString(beanId);
 	}
-
 
 }

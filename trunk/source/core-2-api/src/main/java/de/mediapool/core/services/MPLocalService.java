@@ -1,53 +1,59 @@
-package de.mediapool.core.beans.keyvalue;
+package de.mediapool.core.services;
 
-import de.mediapool.core.beans.AbstractBean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class GenericKeyValueBean<K, V> extends AbstractBean {
+import de.mediapool.core.services.interfaces.IAuthService;
+import de.mediapool.core.services.interfaces.IInstallationService;
+import de.mediapool.core.services.interfaces.IMediaService;
+import de.mediapool.core.services.interfaces.IProductService;
 
+public class MPLocalService {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private static final long serialVersionUID = 1L;
+	private static MPLocalService myInstance = null;
+
+	ClassPathXmlApplicationContext beanFactory = null;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private K key;
-
-	private V value;
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public GenericKeyValueBean() {
+	private MPLocalService() {
 	}
 
-	public GenericKeyValueBean(K key, V value) {
-		this.key = key;
-		this.value = value;
+	public static MPLocalService getInstance() {
+		if (myInstance == null) {
+			myInstance = new MPLocalService();
+
+			myInstance.init();
+		}
+		return myInstance;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public K getKey() {
-		return key;
+	public IMediaService getMediaService() {
+		return (IMediaService) beanFactory.getBean("movieService");
 	}
 
-	public void setKey(K key) {
-		this.key = key;
+	public IProductService getProductService() {
+		return (IProductService) beanFactory.getBean("productService");
 	}
 
-	public V getValue() {
-		return value;
+	public IAuthService getAuthService() {
+		return (IAuthService) beanFactory.getBean("authService");
 	}
 
-	public void setValue(V value) {
-		this.value = value;
+	public IInstallationService getInstallationService() {
+		return (IInstallationService) beanFactory.getBean("installationService");
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -57,6 +63,10 @@ public class GenericKeyValueBean<K, V> extends AbstractBean {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	private void init() {
+		beanFactory = new ClassPathXmlApplicationContext(new String[] { "spring.xml" });
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden

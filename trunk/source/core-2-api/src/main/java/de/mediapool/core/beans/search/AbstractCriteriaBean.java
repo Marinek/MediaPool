@@ -9,7 +9,7 @@ import de.mediapool.core.beans.AbstractBean;
 import de.mediapool.core.beans.keyvalue.string.KeyValueBean;
 
 public abstract class AbstractCriteriaBean extends AbstractBean {
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -23,7 +23,7 @@ public abstract class AbstractCriteriaBean extends AbstractBean {
 	private SearchOperation operation = null;
 
 	private List<KeyValueBean> values = new ArrayList<KeyValueBean>();
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -31,30 +31,30 @@ public abstract class AbstractCriteriaBean extends AbstractBean {
 	protected AbstractCriteriaBean(SearchOperation pOperation, KeyValueBean... pValues) {
 		operation = pOperation;
 		values = Arrays.asList(pValues);
-		
+
 		this.check();
 	}
-	
+
 	private void check() {
-		if(this.values == null) {
+		if (this.values == null) {
 			this.values = Collections.emptyList();
 		}
-		
-		if(this.operation == null) {
+
+		if (this.operation == null) {
 			throw new IllegalArgumentException("Operationtype must not be null.");
 		}
-		
-		if(this.values.size() < this.operation.getMinParams()) {
+
+		if (this.values.size() < this.operation.getMinParams()) {
 			throw new IllegalArgumentException("Not enough values for this Operation: " + this.operation);
 		}
-		
-		if(this.values.size() > this.operation.getMaxParams()) {
+
+		if (this.values.size() > this.operation.getMaxParams()) {
 			throw new IllegalArgumentException("Maximum values exeeded for this Operation: " + this.operation);
 		}
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// public Methoden 
+	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	public SearchOperation getOperation() {
@@ -64,31 +64,31 @@ public abstract class AbstractCriteriaBean extends AbstractBean {
 	public List<KeyValueBean> getKeyValues() {
 		return Collections.unmodifiableList(this.values);
 	}
-	
+
 	public String getSingleValue() {
 		return this.values.get(0).getValue();
 	}
-	
+
 	public String getSingleKey() {
 		return this.values.get(0).getKey();
 	}
-	
-	public List<String> getValuesAsList () {
+
+	public List<String> getValuesAsList() {
 		List<String> listValues = new ArrayList<String>();
-		
+
 		for (KeyValueBean keyValueBean : this.values) {
 			listValues.add(keyValueBean.getValue());
 		}
-		
+
 		return listValues;
 	}
-	
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// protected Methoden 
+	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden 
+	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
