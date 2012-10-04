@@ -2,246 +2,65 @@ package de.mediapool.core.services.install;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import de.mediapool.core.persistence.enums.AttributeMandatoryType;
-import de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO;
-import de.mediapool.core.persistence.vo.entities.EntityTypeVO;
 
 public class InstallData {
 
-	public static List<EntityAttributeDefVO> getMediaAttributeList(EntityTypeVO lMediaTypeVO) {
+	private static final String movieAttribute1[] = { "duration", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute2[] = { "contenttype", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute3[] = { "image", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute4[] = { "description", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute5[] = { "genre", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute6[] = { "mediatype", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute7[] = { "mlanguage", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute8[] = { "title", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute9[] = { "orginaltitle", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute10[] = { "dtype", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute11[] = { "approvedage", "RECOMMENDED", "10", "String" };
+	private static final String movieAttribute12[] = { "launchyear", "RECOMMENDED", "10", "String" };
 
-		List<EntityAttributeDefVO> attributeMediaList = new ArrayList<EntityAttributeDefVO>();
+	private static final String productAttribute1[] = { "ean", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute2[] = { "carrier", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute3[] = { "cover", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute4[] = { "mlanguage", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute5[] = { "quality", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute6[] = { "launchdate", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute7[] = { "price", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute8[] = { "numberdiscs", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute9[] = { "duration", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute10[] = { "approvedage", "RECOMMENDED", "10", "String" };
+	private static final String productAttribute11[] = { "special", "RECOMMENDED", "10", "String" };
 
-		EntityAttributeDefVO lVO;
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("duration");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("contenttype");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("cover");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("description");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("genre");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("mediatype");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("mlanguage");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("title");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("orginaltitle");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("dtype");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("approvedage");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("int");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("duration");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("int");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("launchyear");
-		lVO.setAttributeMandatory(AttributeMandatoryType.RECOMMENDED);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("int");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeMediaList.add(lVO);
-
-		return attributeMediaList;
+	public static List<String[]> getProductAttributes() {
+		List<String[]> productAttributes = new ArrayList<String[]>();
+		productAttributes.add(productAttribute1);
+		productAttributes.add(productAttribute2);
+		productAttributes.add(productAttribute3);
+		productAttributes.add(productAttribute4);
+		productAttributes.add(productAttribute5);
+		productAttributes.add(productAttribute6);
+		productAttributes.add(productAttribute7);
+		productAttributes.add(productAttribute8);
+		productAttributes.add(productAttribute9);
+		productAttributes.add(productAttribute10);
+		productAttributes.add(productAttribute11);
+		return productAttributes;
 	}
 
-	public static List<EntityAttributeDefVO> getProductAttributeList(EntityTypeVO lMediaTypeVO) {
-
-		List<EntityAttributeDefVO> attributeProductList = new ArrayList<EntityAttributeDefVO>();
-
-		EntityAttributeDefVO lVO;
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("ean");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("int");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("carrier");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("image");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("mlanguage");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("quality");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("special");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("String");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("approvedage");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("int");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("duration");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("int");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("numberdiscs");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("int");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("price");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("double");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		lVO = new EntityAttributeDefVO();
-		lVO.setId(UUID.randomUUID().toString());
-		lVO.setAttributeName("launchdate");
-		lVO.setAttributeMandatory(AttributeMandatoryType.MANDATORY);
-		lVO.setAttributeOrder(10);
-		lVO.setAttributeType("date");
-		lVO.setEntityTypeVO(lMediaTypeVO);
-		attributeProductList.add(lVO);
-
-		return attributeProductList;
+	public static List<String[]> getMovieAttributes() {
+		List<String[]> movieAttributes = new ArrayList<String[]>();
+		movieAttributes.add(movieAttribute1);
+		movieAttributes.add(movieAttribute2);
+		movieAttributes.add(movieAttribute3);
+		movieAttributes.add(movieAttribute4);
+		movieAttributes.add(movieAttribute5);
+		movieAttributes.add(movieAttribute6);
+		movieAttributes.add(movieAttribute7);
+		movieAttributes.add(movieAttribute8);
+		movieAttributes.add(movieAttribute9);
+		movieAttributes.add(movieAttribute10);
+		movieAttributes.add(movieAttribute11);
+		movieAttributes.add(movieAttribute12);
+		return movieAttributes;
 	}
 
 }

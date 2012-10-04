@@ -33,7 +33,7 @@ public class InstallationServiceImpl implements IInstallationService {
 
 		try {
 			EntityTypeVO.getDAO().saveOrUpdate(lMediaTypeVO);
-			for (EntityAttributeDefVO lVO : InstallData.getMediaAttributeList(lMediaTypeVO)) {
+			for (EntityAttributeDefVO lVO : InstallBindingData.getMediaAttributeList(lMediaTypeVO)) {
 				EntityAttributeDefVO.getDAO().saveOrUpdate(lVO);
 			}
 		} catch (PSException e) {
@@ -50,7 +50,7 @@ public class InstallationServiceImpl implements IInstallationService {
 
 		try {
 			EntityTypeVO.getDAO().saveOrUpdate(lMediaTypeVO);
-			for (EntityAttributeDefVO lVO : InstallData.getProductAttributeList(lMediaTypeVO)) {
+			for (EntityAttributeDefVO lVO : InstallBindingData.getProductAttributeList(lMediaTypeVO)) {
 				EntityAttributeDefVO.getDAO().saveOrUpdate(lVO);
 			}
 		} catch (PSException e) {
