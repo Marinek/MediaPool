@@ -1,5 +1,6 @@
 package de.mediapool.core;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -31,11 +32,20 @@ public class Database {
 			UserBean lUserBean = authService.auth("test", "test");
 
 			installationService.installDB();
-			MediaBean lMovieBean = mediaService.createNewMedia("movie");
-			ProductBean lProductBean = productService.createNewProduct();
 
-			List<MediaBean> movieList = TestData.generateTestMovieData(lMovieBean);
-			List<ProductBean> productList = TestData.generateTestProductData(lProductBean);
+			List<MediaBean> movieList = new ArrayList<MediaBean>();
+
+			for (String[] movieData : TestData.getMovies()) {
+				MediaBean lMovieBean = mediaService.createNewMedia("movie");
+				movieList.add(TestDataBinding.generateTestMovieData(lMovieBean, movieData));
+			}
+
+			List<ProductBean> productList = new ArrayList<ProductBean>();
+
+			for (String[] productData : TestData.getProducts()) {
+				ProductBean lProductBean = productService.createNewProduct();
+				productList.add(TestDataBinding.generateTestProductData(lProductBean, productData));
+			}
 
 			for (int i = 0; i < movieList.size(); i++) {
 				ProductBean product = productList.get(i);

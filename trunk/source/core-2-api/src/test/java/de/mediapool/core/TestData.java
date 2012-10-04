@@ -3,76 +3,30 @@ package de.mediapool.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.mediapool.core.beans.business.entity.media.MediaBean;
-import de.mediapool.core.beans.business.entity.product.ProductBean;
-
 public class TestData {
 
-	public static List<MediaBean> generateTestMovieData(MediaBean lMovieBean) {
+	private static final String movie1[] = { "90", "image.jpg", "spannend", "Action", "Thriller", "Deutsch", "Der Pate", "Godfather", "Spielfilm", "12", "1980" };
+	private static final String movie2[] = { "90", "image.jpg", "spannend", "Action", "Thriller", "Deutsch", "Der Pate II", "Godfather II", "Spielfilm", "12", "1980" };
+	private static final String movie3[] = { "90", "image.jpg", "spannend", "Action", "Thriller", "Deutsch", "Der Pate III", "Godfather III", "Spielfilm", "12", "1980" };
 
-		List<MediaBean> mediaBeanList = new ArrayList<MediaBean>();
+	private static final String product1[] = { "12345678", "Blueray", "cover.jpg", "english", "good", "uncut", "16", "120", "1", "10", "01.01.1980" };
+	private static final String product2[] = { "12345678", "Blueray", "cover.jpg", "english", "good", "uncut", "16", "120", "1", "10", "01.01.1980" };
+	private static final String product3[] = { "12345678", "Blueray", "cover.jpg", "english", "good", "uncut", "16", "120", "1", "10", "01.01.1980" };
 
-		lMovieBean.setAttribute("duration", "90");
-
-		lMovieBean.setAttribute("cover", "cover.jpg");
-
-		lMovieBean.setAttribute("description", "spannend");
-
-		lMovieBean.setAttribute("genre", "Action");
-
-		lMovieBean.setAttribute("mediatype", "Thriller");
-
-		lMovieBean.setAttribute("mlanguage", "Deutsch");
-
-		lMovieBean.setAttribute("title", "Der Pate");
-
-		lMovieBean.setAttribute("orginaltitle", "Godfather");
-
-		lMovieBean.setAttribute("dtype", "Spielfilm");
-
-		lMovieBean.setAttribute("approvedage", "12");
-
-		lMovieBean.setAttribute("launchyear", "1980");
-
-		lMovieBean.setName("Der Pate");
-
-		mediaBeanList.add(lMovieBean);
-
-		return mediaBeanList;
-
+	public static List<String[]> getProducts() {
+		List<String[]> products = new ArrayList<String[]>();
+		products.add(product1);
+		products.add(product2);
+		products.add(product3);
+		return products;
 	}
 
-	public static List<ProductBean> generateTestProductData(ProductBean lProductBean) {
-
-		List<ProductBean> productBeanList = new ArrayList<ProductBean>();
-
-		lProductBean.setName("Der Pate DVD");
-
-		lProductBean.setAttribute("ean", "12345678");
-
-		lProductBean.setAttribute("carrier", "Blueray");
-
-		lProductBean.setAttribute("image", "productcover.jpg");
-
-		lProductBean.setAttribute("mlanguage", "english");
-
-		lProductBean.setAttribute("quality", "good");
-
-		lProductBean.setAttribute("special", "uncut");
-
-		lProductBean.setAttribute("approvedage", "16");
-
-		lProductBean.setAttribute("duration", "120");
-
-		lProductBean.setAttribute("numberdiscs", "1");
-
-		lProductBean.setAttribute("price", "10");
-
-		lProductBean.setAttribute("launchdate", "01.01.1980");
-
-		productBeanList.add(lProductBean);
-
-		return productBeanList;
-
+	public static List<String[]> getMovies() {
+		List<String[]> movies = new ArrayList<String[]>();
+		movies.add(movie1);
+		movies.add(movie2);
+		movies.add(movie3);
+		return movies;
 	}
+
 }
