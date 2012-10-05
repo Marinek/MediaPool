@@ -9,6 +9,7 @@ import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.keyvalue.string.KeyValueBean;
 import de.mediapool.core.beans.search.SearchOperation;
 import de.mediapool.core.beans.search.entity.EntityCriteriaBean;
+import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
 import de.mediapool.core.business.entities.media.BOAttributedMedia;
@@ -43,13 +44,16 @@ public class MediaServiceImpl implements IMediaService {
 		return boInstance.getCurrentEntityBean();
 	}
 
-	public void getAllMedia(UserBean pUserBea) throws MPExeption {
+	public ProductMediaResultList getAllProductMedia(UserBean pUserBean) throws MPExeption {
 		ProductMediaSearchBean lSearchBean = new ProductMediaSearchBean();
 
 		lSearchBean.addParentCriteria(new EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("ean", "12345678")));
-		lSearchBean.addChildtCriteria(new EntityCriteriaBean(SearchOperation.GT, new KeyValueBean("duration", "54320")));
+		lSearchBean.addChildtCriteria(new EntityCriteriaBean(SearchOperation.GT, new KeyValueBean("duration", "120")));
 
-		new BOProductMediaSearch(null).executeSearch(lSearchBean);
+		BOProductMediaSearch productMediaSearch = new BOProductMediaSearch(pUserBean);
+
+		ProductMediaResultList pmList = productMediaSearch.executeSearch(lSearchBean);
+		return pmList;
 	}
 
 	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPExeption {
