@@ -3,11 +3,15 @@ package de.mediapool.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
+import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.MPLocalService;
 import de.mediapool.core.services.interfaces.IAuthService;
@@ -16,6 +20,8 @@ import de.mediapool.core.services.interfaces.IMediaService;
 import de.mediapool.core.services.interfaces.IProductService;
 
 public class Database {
+
+	private static final Logger logger = LoggerFactory.getLogger(Database.class);
 
 	@Test
 	public void basicOperationTest() {
@@ -55,10 +61,12 @@ public class Database {
 				mediaService.setProductForMedia(product, movie);
 			}
 
-			mediaService.getAllMedia(null);
+			ProductMediaResultList pmList = mediaService.getAllProductMedia(null);
+			Assert.assertTrue("size bigger one", pmList.size() > 0);
+			logger.info(pmList.get(0).getIdAsString());
 
 		} catch (MPExeption e) {
-			e.printStackTrace();
+			logger.error(e.getLocalizedMessage());
 		}
 	}
 

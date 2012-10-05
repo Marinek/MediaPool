@@ -46,7 +46,7 @@ public class BOProductMediaSearch extends BOAbstractEntitySearch<ProductMediaSea
 			}
 
 		} catch (PSException e) {
-			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Konnte Suche 'ProductMeadia' nicht durchführen.", e);
+			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Konnte Suche 'ProductMedia' nicht durchführen.", e);
 		}
 
 		return lProductMediaResultList;
