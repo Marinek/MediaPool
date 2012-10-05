@@ -1,5 +1,8 @@
 package de.mediapool.web.ui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.terminal.ThemeResource;
@@ -18,19 +21,23 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
 import com.vaadin.ui.themes.BaseTheme;
 
-import de.mediapool.core.beans.business.entity.product.ProductBean;
+import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.service.MediaService;
+import de.mediapool.web.ui.container.AbstractEntityBeanContainer;
 import de.mediapool.web.ui.elements.MediaAccordion;
 import de.mediapool.web.ui.elements.MediaMenuBar;
 import de.mediapool.web.ui.login.MediaLoginForm;
 import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
 import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
+import de.mediapool.web.ui.view.MediaTableView;
 import de.mediapool.web.ui.view.MediaView;
 
 public class MediaMainView extends VerticalSplitPanel implements ComponentContainer, LoggedinListener, ClickListener {
+
+	private final Logger logger = LoggerFactory.getLogger(MediaMainView.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +45,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private MediaAccordion accordion;
 
-	private MovieContainer movies;
+	// private MovieContainer movies;
 	private MovieContainer movieEntrys;
 
 	private MovieContainer productList;
@@ -88,7 +95,9 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		tabsheet = new TabSheet();
 		tabsheet.setHeight("100%");
 		tabsheet.setStyleName("tabsheet");
-		addListTab(movieEntrys, "Filme");
+		// addListTab(movieEntrys, "Filme");
+
+		dataFromCore();
 
 		// addListTab(filme, "Migration");
 		contentView = new HorizontalSplitPanel();
@@ -245,18 +254,33 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		}
 	}
 
+	private void addListNewTab(AbstractEntityBeanContainer items, String caption) {
+		dataFromCore();
+		if (items != null) {
+			MediaTableView searchView = new MediaTableView(items, caption);
+			String newCaption = caption + " (" + items.getItemIds().size() + ")";
+			tabsheet.addTab(searchView, newCaption);
+			tabsheet.setSelectedTab(searchView);
+			tabsheet.getTab(searchView).setClosable(true);
+		}
+	}
+
 	private void meineFilme() {
 		MovieContainer movieHoldingEntrys = getMediaService().getUserMovieEntrys(getMUser());
 		addListTab(movieHoldingEntrys, "Meine Filme");
 	}
 
-	private void dataFromCore() {
+	private ProductMediaResultList dataFromCore() {
+		ProductMediaResultList pmList = null;
+
 		try {
-			ProductBean p = getMediaService().getDataFromCore();
+			pmList = getMediaService().getDataFromCore();
+			AbstractEntityBeanContainer cont = new AbstractEntityBeanContainer(pmList);
+			addListNewTab(cont, "test");
 		} catch (MPExeption e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
+		return pmList;
 	}
 
 	@Override

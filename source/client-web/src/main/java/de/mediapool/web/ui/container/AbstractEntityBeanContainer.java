@@ -8,13 +8,29 @@ import com.vaadin.data.util.IndexedContainer;
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeDefinitionBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
+import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 
 public class AbstractEntityBeanContainer extends IndexedContainer {
 
 	private static final long serialVersionUID = 1L;
 
-	public AbstractEntityBeanContainer(List<AbstractEntityBean> pDataSource,
-			List<EntityAttributeDefinitionBean> headerInformation) {
+	public AbstractEntityBeanContainer(ProductMediaResultList pmList) {
+		super();
+		for (EntityAttributeDefinitionBean lValueBean : pmList.getHeaderInformation()) {
+			this.addContainerProperty(lValueBean.getAttributeIdentifier(), String.class, null);
+		}
+
+		for (int i = 0; i < pmList.size(); i++) {
+			ProductMediaBean lBean = pmList.get(i);
+			Item added = this.addItem(lBean.getIdAsString());
+			for (EntityAttributeValueBean lValueBean : lBean.getAttributes()) {
+				added.getItemProperty(lValueBean.getAttributeIdentifier()).setValue(lValueBean.getAttributeValue());
+			}
+		}
+	}
+
+	public AbstractEntityBeanContainer(List<AbstractEntityBean> pDataSource, List<EntityAttributeDefinitionBean> headerInformation) {
 		super();
 
 		// ProductBean lBean = new ProductBean();
