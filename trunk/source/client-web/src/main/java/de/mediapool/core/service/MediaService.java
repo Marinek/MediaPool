@@ -28,7 +28,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 
 import de.mediapool.core.MediaInterface;
-import de.mediapool.core.beans.business.entity.product.ProductBean;
+import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.domain.Holding;
 import de.mediapool.core.domain.MRating;
 import de.mediapool.core.domain.MRelated;
@@ -135,10 +135,9 @@ public class MediaService implements Serializable {
 
 	}
 
-	public ProductBean getDataFromCore() throws MPExeption {
-		ProductBean p = getMovieService().createNewProduct();
-		return p;
-
+	public ProductMediaResultList getDataFromCore() throws MPExeption {
+		ProductMediaResultList pmList = getMovieService().getAllProductMedia(null);
+		return pmList;
 	}
 
 	public MUser loginMUser(String email, String password) throws WrongUserException {
@@ -192,8 +191,7 @@ public class MediaService implements Serializable {
 	}
 
 	public MovieContainer searchMovieProductsEanWeb(String search) {
-		MovieContainer movieProductEntries = new MovieContainer(MovieProductEntry.class,
-				MovieEntryType.MOVIEPRODUCTENTRY);
+		MovieContainer movieProductEntries = new MovieContainer(MovieProductEntry.class, MovieEntryType.MOVIEPRODUCTENTRY);
 		Product product = getDataGrabber().searchEanProduct(search);
 		movieProductEntries.addBean(new MovieProductEntry(product));
 
@@ -201,8 +199,7 @@ public class MediaService implements Serializable {
 	}
 
 	public MovieContainer searchMovieProductsEanDB(String search) {
-		MovieContainer movieProductEntries = new MovieContainer(MovieProductEntry.class,
-				MovieEntryType.MOVIEPRODUCTENTRY);
+		MovieContainer movieProductEntries = new MovieContainer(MovieProductEntry.class, MovieEntryType.MOVIEPRODUCTENTRY);
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
 		Query q = em.createQuery("SELECT p FROM Product p where p.ean=:ean");
@@ -215,8 +212,7 @@ public class MediaService implements Serializable {
 	}
 
 	public MovieContainer searchMovieProductsWeb(String search) {
-		MovieContainer movieProductEntries = new MovieContainer(MovieProductEntry.class,
-				MovieEntryType.MOVIEPRODUCTENTRY);
+		MovieContainer movieProductEntries = new MovieContainer(MovieProductEntry.class, MovieEntryType.MOVIEPRODUCTENTRY);
 		List<Product> productList = getDataGrabber().searchMovieProducts(search);
 		for (Product product : productList) {
 			movieProductEntries.addBean(new MovieProductEntry(product));
@@ -225,8 +221,7 @@ public class MediaService implements Serializable {
 	}
 
 	public MovieContainer searchMovieProductsDB(String search) {
-		MovieContainer movieProductEntries = new MovieContainer(MovieProductEntry.class,
-				MovieEntryType.MOVIEPRODUCTENTRY);
+		MovieContainer movieProductEntries = new MovieContainer(MovieProductEntry.class, MovieEntryType.MOVIEPRODUCTENTRY);
 		EntityManager em = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT).createEntityManager();
 		em.getTransaction().begin();
 		Query q = em.createQuery("SELECT p FROM Product p where p.movie.title=:title");

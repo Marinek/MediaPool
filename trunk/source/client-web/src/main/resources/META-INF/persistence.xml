@@ -11,9 +11,9 @@
 			<property name="eclipselink.jdbc.platform"
 				value="org.eclipse.persistence.platform.database.MySQLPlatform" />
 			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/mediapool" />
+			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/mediapoolweb" />
 			<property name="eclipselink.jdbc.user" value="root" />
-			<property name="eclipselink.jdbc.password" value="" />
+			<property name="eclipselink.jdbc.password" value="root" />
 			<property name="eclipselink.logging.level" value="FINE" />
 			
 			<!-- drop-and-create-tables -->
