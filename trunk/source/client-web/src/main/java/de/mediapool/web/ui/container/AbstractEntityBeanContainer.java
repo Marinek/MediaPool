@@ -21,8 +21,7 @@ public class AbstractEntityBeanContainer extends IndexedContainer {
 			this.addContainerProperty(lValueBean.getAttributeIdentifier(), String.class, null);
 		}
 
-		for (int i = 0; i < pmList.size(); i++) {
-			ProductMediaBean lBean = pmList.get(i);
+		for (ProductMediaBean lBean : pmList) {
 			Item added = this.addItem(lBean.getIdAsString());
 			for (EntityAttributeValueBean lValueBean : lBean.getAttributes()) {
 				added.getItemProperty(lValueBean.getAttributeIdentifier()).setValue(lValueBean.getAttributeValue());
