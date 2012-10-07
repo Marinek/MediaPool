@@ -23,4 +23,7 @@ public class EntityAttributeValueBean extends EntityAttributeDefinitionBean {
 		this.attributeDisplay = attributeDisplay;
 	}
 
+	public String toString() {
+		return "EntityAttributeValueBean [attributeDisplay=" + attributeDisplay + ", attributeValue=" + attributeValue + "]";
+	}
 }

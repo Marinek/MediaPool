@@ -69,13 +69,14 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 
 			this.currentEntity.setId(this.currentEntityVO.getId());
 			this.currentEntity.setName(this.currentEntityVO.getName());
+			this.currentEntity.setEntityType(this.currentEntityVO.getEntityType());
 		}
 
 		if (this.currentAttributes != null) {
 			for (EntityAttributeVO lVO : this.currentAttributes) {
 				EntityAttributeValueBean lAttributeBean = new EntityAttributeValueBean();
 
-				EntityAttributeTypeManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
+				lAttributeBean = EntityAttributeTypeManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
 
 				lAttributeBean.setAttributeValue(lVO.getAttributeValue());
 				lAttributeBean.setId(lVO.getId());
