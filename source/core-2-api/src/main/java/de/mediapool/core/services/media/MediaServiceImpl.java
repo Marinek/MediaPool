@@ -6,9 +6,6 @@ import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
-import de.mediapool.core.beans.keyvalue.string.KeyValueBean;
-import de.mediapool.core.beans.search.SearchOperation;
-import de.mediapool.core.beans.search.entity.EntityCriteriaBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
@@ -47,8 +44,12 @@ public class MediaServiceImpl implements IMediaService {
 	public ProductMediaResultList getAllProductMedia(UserBean pUserBean) throws MPExeption {
 		ProductMediaSearchBean lSearchBean = new ProductMediaSearchBean();
 
-		lSearchBean.addParentCriteria(new EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("ean", "12345678")));
-		lSearchBean.addChildtCriteria(new EntityCriteriaBean(SearchOperation.GT, new KeyValueBean("duration", "120")));
+		// lSearchBean.addProductCriteria(new
+		// EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("ean",
+		// "12345678")));
+		// lSearchBean.addMediaCriteria(new
+		// EntityCriteriaBean(SearchOperation.GT, new KeyValueBean("duration",
+		// "120")));
 
 		BOProductMediaSearch productMediaSearch = new BOProductMediaSearch(pUserBean);
 

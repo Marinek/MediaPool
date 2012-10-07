@@ -1,12 +1,16 @@
 package de.mediapool.core.business.search.entities.joined;
 
 import java.util.List;
+import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
+import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
+import de.mediapool.core.business.entities.media.BOAttributedMedia;
+import de.mediapool.core.business.entities.products.BOMediaProduct;
 import de.mediapool.core.business.search.entities.BOAbstractEntitySearch;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
@@ -60,14 +64,20 @@ public class BOProductMediaSearch extends BOAbstractEntitySearch<ProductMediaSea
 	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private ProductMediaBean getProductMediaBean(ProductMediaJoinedVO lVO) {
+	private ProductMediaBean getProductMediaBean(ProductMediaJoinedVO lVO) throws MPExeption {
 		ProductMediaBean lProductMediaBean = new ProductMediaBean();
 		// TODO: Das hier muss man noch in den Griff bekommen. KA wie.
-		MediaBean mediaBean = new MediaBean();
+		MediaBean mediaBean = null;
 
-		mediaBean.setId(lVO.getMedia().getId());
+		mediaBean = new BOAttributedMedia(UUID.fromString(lVO.getMedia().getId()), this.getCurrentUserBean()).getCurrentEntityBean();
 
 		lProductMediaBean.join(mediaBean);
+
+		ProductBean lProductBean = null;
+
+		lProductBean = new BOMediaProduct(UUID.fromString(lVO.getProduct().getId()), this.getCurrentUserBean()).getCurrentEntityBean();
+
+		lProductMediaBean.join(lProductBean);
 
 		return lProductMediaBean;
 	}

@@ -13,6 +13,9 @@ public class ProductMediaSearchBean extends AbstractEntitySearchBean {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final String PARENT = "parent";
+	private static final String CHILD = "child";
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -25,20 +28,20 @@ public class ProductMediaSearchBean extends AbstractEntitySearchBean {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public List<EntityCriteriaBean> getParentCriteria() {
-		return this.getCriteriaList("parent");
+	public List<EntityCriteriaBean> getProductCriteria() {
+		return this.getCriteriaList(PARENT);
 	}
 
-	public List<EntityCriteriaBean> geChildCriteria() {
-		return this.getCriteriaList("child");
+	public List<EntityCriteriaBean> geMediaCriteria() {
+		return this.getCriteriaList(CHILD);
 	}
 
-	public void addParentCriteria(EntityCriteriaBean pCriteria) {
-		this.addCriteria("parent", pCriteria);
+	public void addProductCriteria(EntityCriteriaBean pCriteria) {
+		this.addCriteria(PARENT, pCriteria);
 	}
 
-	public void addChildtCriteria(EntityCriteriaBean pCriteria) {
-		this.addCriteria("child", pCriteria);
+	public void addMediaCriteria(EntityCriteriaBean pCriteria) {
+		this.addCriteria(CHILD, pCriteria);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
