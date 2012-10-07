@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
@@ -53,17 +55,27 @@ public class Database {
 				productList.add(TestDataBinding.generateTestProductData(lProductBean, productData));
 			}
 
-			for (int i = 0; i < movieList.size(); i++) {
-				ProductBean product = productList.get(i);
-				MediaBean movie = movieList.get(i);
-				mediaService.saveMedia(movie, lUserBean);
-				productService.saveProduct(product);
-				mediaService.setProductForMedia(product, movie);
+			if (movieList.size() <= productList.size()) {
+				for (int i = 0; i < movieList.size(); i++) {
+					ProductBean product = productList.get(i);
+					MediaBean movie = movieList.get(i);
+					mediaService.saveMedia(movie, lUserBean);
+					productService.saveProduct(product);
+					mediaService.setProductForMedia(product, movie);
+				}
 			}
 
 			ProductMediaResultList pmList = mediaService.getAllProductMedia(null);
 			Assert.assertTrue("size bigger one", pmList.size() > 0);
-			logger.info(pmList.get(0).getIdAsString());
+
+			for (ProductMediaBean lBean : pmList) {
+				StringBuffer output = new StringBuffer();
+				for (EntityAttributeValueBean lValueBean : lBean.getAttributes()) {
+					output.append("\n");
+					output.append(lValueBean.getAttributeIdentifier() + " : " + lValueBean.getAttributeValue());
+				}
+				logger.info(output.toString());
+			}
 
 		} catch (MPExeption e) {
 			logger.error(e.getLocalizedMessage());
