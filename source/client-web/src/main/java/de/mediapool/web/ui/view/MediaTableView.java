@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.terminal.ThemeResource;
-import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -66,8 +65,7 @@ public class MediaTableView extends SplitPanelImpl implements SplitterPositionCh
 		// movieForm = new MediaForm(this);
 		// movieList = new MediaList(this, header_order, header_names);
 
-		newView = new AbstractEntityTableView();
-		newView.setContainerDataSource(movieItems);
+		newView = new AbstractEntityTableView(movieItems);
 
 		// movieImages = new MediaDetailList(this, false);
 		// movieDetails = new MediaDetailList(this, true);
@@ -139,17 +137,17 @@ public class MediaTableView extends SplitPanelImpl implements SplitterPositionCh
 		// }
 		// });
 
-		listButton.setStyleName("listtoolbar");
-		listtoolbar.addComponent(saveButton);
-		listtoolbar.addComponent(saveField);
-		listtoolbar.addComponent(listButton);
-		listtoolbar.addComponent(detailButton);
-		listtoolbar.addComponent(imageButton);
-		listtoolbar.addComponent(filterSearch);
-		listtoolbar.addComponent(removeFilter);
-		listtoolbar.setWidth("100%");
-		listtoolbar.setExpandRatio(filterSearch, 1);
-		listtoolbar.setComponentAlignment(filterSearch, Alignment.TOP_RIGHT);
+		// listButton.setStyleName("listtoolbar");
+		// listtoolbar.addComponent(saveButton);
+		// listtoolbar.addComponent(saveField);
+		// listtoolbar.addComponent(listButton);
+		// listtoolbar.addComponent(detailButton);
+		// listtoolbar.addComponent(imageButton);
+		// listtoolbar.addComponent(filterSearch);
+		// listtoolbar.addComponent(removeFilter);
+		// listtoolbar.setWidth("100%");
+		// listtoolbar.setExpandRatio(filterSearch, 1);
+		// listtoolbar.setComponentAlignment(filterSearch, Alignment.TOP_RIGHT);
 	}
 
 	// @Override
