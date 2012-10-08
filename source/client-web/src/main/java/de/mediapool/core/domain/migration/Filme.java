@@ -1,25 +1,18 @@
 package de.mediapool.core.domain.migration;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import de.mediapool.core.MediaInterface;
 
-@Entity
-@Table(name = "Filme")
+//@Entity
+//@Table(name = "Filme")
 public class Filme implements MediaInterface {
 
 	public Filme() {
 
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// @Column(name = "id")
 	private Long id;
 
 	private String name;

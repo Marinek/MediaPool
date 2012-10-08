@@ -1,6 +1,5 @@
 package de.mediapool.web.ui.widgets.ratingstars;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,15 +12,13 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
-import de.mediapool.core.domain.MRating;
-
 @SuppressWarnings("serial")
 public class MediaRatingStars extends VerticalLayout {
 
 	private TextArea description;
 	private Label mcaption;
 	private RatingStars ratingStars;
-	private MRating mrating;
+	// private MRating mrating;
 	private Button saveRatingButton;
 	private Button editRatingButton;
 	private Button deleteRatingButton;
@@ -120,15 +117,16 @@ public class MediaRatingStars extends VerticalLayout {
 
 	public void refreshStars(RatingMode mode) {
 		this.mode = mode;
-		if (mrating != null) {
-			setDescriptionValue(mrating.getDescription());
-			setRatingStarsValue(mrating.getVoting());
-			SimpleDateFormat sdf = new SimpleDateFormat();
-			sdf.applyPattern("dd.MM.yyyy");
-			String fdate = sdf.format(mrating.getRatingDate());
-			mcaption.setValue(mrating.getMuser().getUsername() + " (" + fdate + ")");
-			setViewForMode();
-		}
+		// if (mrating != null) {
+		// setDescriptionValue(mrating.getDescription());
+		// setRatingStarsValue(mrating.getVoting());
+		// SimpleDateFormat sdf = new SimpleDateFormat();
+		// sdf.applyPattern("dd.MM.yyyy");
+		// String fdate = sdf.format(mrating.getRatingDate());
+		// mcaption.setValue(mrating.getMuser().getUsername() + " (" + fdate +
+		// ")");
+		// setViewForMode();
+		// }
 	}
 
 	private void setDescriptionValue(String value) {
@@ -190,16 +188,16 @@ public class MediaRatingStars extends VerticalLayout {
 	// mcaption.setValue(old + " " + value);
 	// }
 
-	public MRating bindAndGetRating() {
-		mrating.setDescription((String) description.getValue());
-		mrating.setVoting((Double) ratingStars.getValue());
-		return mrating;
-	}
-
-	public void setMrating(MRating mrating, RatingMode mode) {
-		this.mrating = mrating;
-		refreshStars(mode);
-	}
+	// public MRating bindAndGetRating() {
+	// mrating.setDescription((String) description.getValue());
+	// mrating.setVoting((Double) ratingStars.getValue());
+	// return mrating;
+	// }
+	//
+	// public void setMrating(MRating mrating, RatingMode mode) {
+	// this.mrating = mrating;
+	// refreshStars(mode);
+	// }
 
 	public String getMcaption() {
 		return (String) mcaption.getValue();

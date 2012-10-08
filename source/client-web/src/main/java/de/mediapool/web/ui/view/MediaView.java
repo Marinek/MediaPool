@@ -20,7 +20,6 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.MediaInterface;
-import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.web.ui.widgets.MediaFilterBox;
@@ -174,7 +173,8 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 		getMovieItems().removeAllContainerFilters();
 		MovieEntry entry = (MovieEntry) filterSearch.getFilterBox().getValue();
 		if (entry != null) {
-			getMovieItems().addContainerFilter("title", entry.getTitle(), true, false);
+			// getMovieItems().addContainerFilter("title", entry.getTitle(),
+			// true, false);
 			movieDetails.refreshView();
 			movieImages.refreshView();
 		}
@@ -266,9 +266,9 @@ public class MediaView extends SplitPanelImpl implements ValueChangeListener, La
 		}
 	}
 
-	public MUser getMUser() {
-		return (MUser) getApplication().getUser();
-	}
+	// public MUser getMUser() {
+	// return (MUser) getApplication().getUser();
+	// }
 
 	public MovieContainer getMovieItems() {
 		return movieItems;

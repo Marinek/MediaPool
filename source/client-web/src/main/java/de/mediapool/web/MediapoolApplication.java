@@ -8,12 +8,10 @@ import com.vaadin.ui.Window;
 
 import de.mediapool.core.service.MediaService;
 import de.mediapool.web.ui.MediaMainView;
-import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
-import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
 
 @SuppressWarnings("serial")
 @Configurable
-public class MediapoolApplication extends Application implements LoggedinListener {
+public class MediapoolApplication extends Application {
 
 	@Autowired
 	private MediaService mediaService;
@@ -34,11 +32,11 @@ public class MediapoolApplication extends Application implements LoggedinListene
 
 	}
 
-	@Override
-	public void loggedin(LoggedinEvent event) {
-		setUser(event.getUser());
-		mainWindow.loggedin(event);
-	}
+	// @Override
+	// public void loggedin(LoggedinEvent event) {
+	// // setUser(event.getUser());
+	// mainWindow.loggedin(event);
+	// }
 
 	public MediaService getMediaService() {
 		return mediaService;
@@ -47,5 +45,11 @@ public class MediapoolApplication extends Application implements LoggedinListene
 	public void setMediaService(MediaService mediaService) {
 		this.mediaService = mediaService;
 	}
+
+	// @Override
+	// public void loggedin(LoggedinEvent event) {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
 }

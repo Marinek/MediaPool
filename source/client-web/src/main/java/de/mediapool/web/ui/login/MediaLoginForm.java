@@ -15,21 +15,14 @@
  */
 package de.mediapool.web.ui.login;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
-import com.vaadin.ui.Component;
 import com.vaadin.ui.LoginForm;
 import com.vaadin.ui.LoginForm.LoginEvent;
 import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Window.Notification;
 
-import de.mediapool.core.domain.MUser;
 import de.mediapool.core.service.MediaService;
-import de.mediapool.core.service.MediaService.WrongUserException;
 
 @SuppressWarnings("serial")
 @Configurable
@@ -56,45 +49,48 @@ public class MediaLoginForm extends VerticalLayout implements LoginForm.LoginLis
 
 	// below is all about events & handling them
 
-	private static final Method LOGGEDIN_METHOD;
-	static {
-		try {
-			LOGGEDIN_METHOD = LoggedinListener.class.getDeclaredMethod("loggedin", new Class[] { LoggedinEvent.class });
-		} catch (NoSuchMethodException e) {
-			// This should never happen
-			throw new java.lang.RuntimeException("Internal error finding methods in Button");
-		}
-	}
+	// private static final Method LOGGEDIN_METHOD;
 
-	public class LoggedinEvent extends Component.Event {
-		private static final long serialVersionUID = 1L;
-		private MUser user;
+	// static {
+	// try {
+	// LOGGEDIN_METHOD = LoggedinListener.class.getDeclaredMethod("loggedin",
+	// new Class[] { LoggedinEvent.class });
+	// } catch (NoSuchMethodException e) {
+	// // This should never happen
+	// throw new
+	// java.lang.RuntimeException("Internal error finding methods in Button");
+	// }
+	// }
 
-		public LoggedinEvent(Component source, MUser user) {
-			super(source);
-			this.user = user;
-		}
+	// public class LoggedinEvent extends Component.Event {
+	// private static final long serialVersionUID = 1L;
+	// private MUser user;
+	//
+	// public LoggedinEvent(Component source, MUser user) {
+	// super(source);
+	// this.user = user;
+	// }
+	//
+	// public MUser getUser() {
+	// return user;
+	// }
+	// }
 
-		public MUser getUser() {
-			return user;
-		}
-	}
+	// public interface LoggedinListener extends Serializable {
+	// public void loggedin(LoggedinEvent event);
+	// }
+	//
+	// public void addLoginListener(LoggedinListener listener) {
+	// addListener(LoggedinEvent.class, listener, LOGGEDIN_METHOD);
+	// }
+	//
+	// public void removeLoginListener(LoggedinListener listener) {
+	// removeListener(LoggedinEvent.class, listener, LOGGEDIN_METHOD);
+	// }
 
-	public interface LoggedinListener extends Serializable {
-		public void loggedin(LoggedinEvent event);
-	}
-
-	public void addLoginListener(LoggedinListener listener) {
-		addListener(LoggedinEvent.class, listener, LOGGEDIN_METHOD);
-	}
-
-	public void removeLoginListener(LoggedinListener listener) {
-		removeListener(LoggedinEvent.class, listener, LOGGEDIN_METHOD);
-	}
-
-	protected void fireLoggedin(MUser user) {
-		fireEvent(new LoggedinEvent(this, user));
-	}
+	// protected void fireLoggedin(MUser user) {
+	// fireEvent(new LoggedinEvent(this, user));
+	// }
 
 	public MediaService getMediaService() {
 		return mediaService;
@@ -106,16 +102,17 @@ public class MediaLoginForm extends VerticalLayout implements LoginForm.LoginLis
 
 	@Override
 	public void onLogin(LoginEvent event) {
-		String email = event.getLoginParameter("username");
-		String password = event.getLoginParameter("password");
-		MUser user;
-		try {
-			user = getMediaService().loginMUser(email, password);
-			fireLoggedin(user);
-		} catch (WrongUserException e) {
-			getWindow().showNotification(LOGIN_FAILED, Notification.TYPE_ERROR_MESSAGE);
-
-		}
-
+		// String email = event.getLoginParameter("username");
+		// String password = event.getLoginParameter("password");
+		// MUser user;
+		// try {
+		// // user = getMediaService().loginMUser(email, password);
+		// // fireLoggedin(user);
+		// } catch (WrongUserException e) {
+		// getWindow().showNotification(LOGIN_FAILED,
+		// Notification.TYPE_ERROR_MESSAGE);
+		//
+		// }
+		//
 	}
 }

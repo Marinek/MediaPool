@@ -1,8 +1,5 @@
 package de.mediapool.web.ui.view;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +28,6 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window.Notification;
 
 import de.mediapool.core.MediaInterface;
-import de.mediapool.core.domain.Holding;
-import de.mediapool.core.domain.MUser;
-import de.mediapool.core.domain.Movie;
-import de.mediapool.core.domain.Product;
 import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.container.MovieEntryType;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
@@ -166,8 +159,8 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	// TODO move in central Area of Application
 	private void initFieldValues() {
 		if (!initialzied) {
-			knownvalues = getMediaService().getMpresetsFor("known");
-			situationvalues = getMediaService().getMpresetsFor("situation");
+			// knownvalues = getMediaService().getMpresetsFor("known");
+			// situationvalues = getMediaService().getMpresetsFor("situation");
 			initialzied = true;
 		}
 	}
@@ -192,18 +185,16 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	}
 
 	private void askFirst() {
-		getWindow().addWindow(
-				new ConfirmationDialog("Really remove ?", "Are you sure to remove this item", "Yes", "No",
-						new ConfirmationDialog.ConfirmationDialogCallback() {
-							public void response(boolean remove) {
-								deleteProduct(remove);
-							}
-						}));
+		getWindow().addWindow(new ConfirmationDialog("Really remove ?", "Are you sure to remove this item", "Yes", "No", new ConfirmationDialog.ConfirmationDialogCallback() {
+			public void response(boolean remove) {
+				deleteProduct(remove);
+			}
+		}));
 	}
 
 	private void saveProduct() {
 		holdingForm.commit();
-		mediaItem = getMediaService().saveMovieHoldingEntry(mediaItem);
+		// mediaItem = getMediaService().saveMovieHoldingEntry(mediaItem);
 		initMovieHoldingEntry(mediaItem);
 		getWindow().showNotification("Saved Successfully", Notification.TYPE_HUMANIZED_MESSAGE);
 		inDB = true;
@@ -212,7 +203,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 
 	private void deleteProduct(boolean remove) {
 		if (remove) {
-			getMediaService().removeMovieHoldingEntry(mediaItem);
+			// getMediaService().removeMovieHoldingEntry(mediaItem);
 			inHolding = false;
 			view.getMovieItems().removeItem(mediaItem.getBean());
 			refreshForm();
@@ -293,59 +284,68 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	}
 
 	private void initMovieEntry(BeanItem<MediaInterface> selectedItem) {
-		MovieEntry entry = (MovieEntry) selectedItem.getBean();
-		Movie movie = entry.getMovie();
-		BeanItem<MovieEntry> movieItem = new BeanItem<MovieEntry>(new MovieEntry(movie));
-		movieForm.setItemDataSource(movieItem, Arrays.asList(new MovieEntry().form_fields()));
-		movieForm.setReadOnly(true);
-		holdingForm.setVisible(loggedIn());
-		mratingStars.setMovieEntry(entry);
+		// MovieEntry entry = (MovieEntry) selectedItem.getBean();
+		// // Movie movie = entry.getMovie();
+		// BeanItem<MovieEntry> movieItem = new BeanItem<MovieEntry>(new
+		// MovieEntry(movie));
+		// movieForm.setItemDataSource(movieItem, Arrays.asList(new
+		// MovieEntry().form_fields()));
+		// movieForm.setReadOnly(true);
+		// holdingForm.setVisible(loggedIn());
+		// mratingStars.setMovieEntry(entry);
 	}
 
 	private void initMovieHoldingEntry(BeanItem<MediaInterface> selectedItem) {
-		if (loggedIn()) {
-			MovieHoldingEntry movieHoldingEntry = ((MovieHoldingEntry) selectedItem.getBean());
-			Holding holding = movieHoldingEntry.getHolding();
-			Collection form_fields = Arrays.asList(movieHoldingEntry.form_fields());
-			inDB = holding.getId() != null;
-			inHolding = holding.getMuser().equals(getMUser());
-			holdingForm.setReadOnly(inHolding);
-			holdingForm.setItemDataSource(selectedItem, form_fields);
-		}
-		initMovieProductEntry(selectedItem);
+		// if (loggedIn()) {
+		// MovieHoldingEntry movieHoldingEntry = ((MovieHoldingEntry)
+		// selectedItem.getBean());
+		// // Holding holding = movieHoldingEntry.getHolding();
+		// Collection form_fields =
+		// Arrays.asList(movieHoldingEntry.form_fields());
+		// // inDB = holding.getId() != null;
+		// // inHolding = holding.getMuser().equals(getMUser());
+		// holdingForm.setReadOnly(inHolding);
+		// holdingForm.setItemDataSource(selectedItem, form_fields);
+		// }
+		// initMovieProductEntry(selectedItem);
 
 	}
 
 	private void initMovieProductEntry(BeanItem<MediaInterface> selectedItem) {
-		Product product = ((MovieProductEntry) selectedItem.getBean()).getProduct();
-		BeanItem<MovieProductEntry> productItem = new BeanItem<MovieProductEntry>(new MovieProductEntry(product));
-		productForm.setItemDataSource(productItem, Arrays.asList(new MovieProductEntry().form_fields()));
-		productForm.setReadOnly(true);
-		initMovieEntry(selectedItem);
+		// Product product = ((MovieProductEntry)
+		// selectedItem.getBean()).getProduct();
+		// BeanItem<MovieProductEntry> productItem = new
+		// BeanItem<MovieProductEntry>(new MovieProductEntry(product));
+		// productForm.setItemDataSource(productItem, Arrays.asList(new
+		// MovieProductEntry().form_fields()));
+		// productForm.setReadOnly(true);
+		// initMovieEntry(selectedItem);
 	}
 
 	private void addHoldingToProduct() {
-		Product product;
-		switch (entryType) {
-		case MOVIEENTRY:
-			product = new Product();
-			break;
-		default:
-			product = ((MovieProductEntry) getMediaItem().getBean()).getProduct();
-			break;
-		}
-
-		Holding holding = new Holding();
-		holding.setMuser(getMUser());
-		holding.setProduct(product);
-		holding.setSince(new Date());
-		holding.setSituation("new");
-		holding.setKnown("unknown");
-		holding.setVisible(true);
-		MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
-		BeanItem<MediaInterface> holdingItem = new BeanItem<MediaInterface>(movieHoldingEntry);
-		initMovieHoldingEntry(holdingItem);
-		mediaItem = holdingItem;
+		// Product product;
+		// switch (entryType) {
+		// case MOVIEENTRY:
+		// product = new Product();
+		// break;
+		// default:
+		// product = ((MovieProductEntry)
+		// getMediaItem().getBean()).getProduct();
+		// break;
+		// }
+		//
+		// Holding holding = new Holding();
+		// holding.setMuser(getMUser());
+		// holding.setProduct(product);
+		// holding.setSince(new Date());
+		// holding.setSituation("new");
+		// holding.setKnown("unknown");
+		// holding.setVisible(true);
+		// MovieHoldingEntry movieHoldingEntry = new MovieHoldingEntry(holding);
+		// BeanItem<MediaInterface> holdingItem = new
+		// BeanItem<MediaInterface>(movieHoldingEntry);
+		// initMovieHoldingEntry(holdingItem);
+		// mediaItem = holdingItem;
 		refreshForm();
 	}
 
@@ -371,15 +371,15 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		cancelButton.setEnabled(false);
 		saveButton.setEnabled(false);
 
-		if (loggedIn()) {
-			if (inHolding) {
-				saveButton.setEnabled(true);
-				cancelButton.setEnabled(true);
-				removeButton.setEnabled(inDB);
-			} else {
-				addButton.setEnabled(true);
-			}
-		}
+		// if (loggedIn()) {
+		// if (inHolding) {
+		// saveButton.setEnabled(true);
+		// cancelButton.setEnabled(true);
+		// removeButton.setEnabled(inDB);
+		// } else {
+		// addButton.setEnabled(true);
+		// }
+		// }
 
 	}
 
@@ -402,13 +402,13 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		this.mediaService = mediaService;
 	}
 
-	public MUser getMUser() {
-		return (MUser) getApplication().getUser();
-	}
-
-	public boolean loggedIn() {
-		return getMUser() != null;
-	}
+	// public MUser getMUser() {
+	// return (MUser) getApplication().getUser();
+	// }
+	//
+	// public boolean loggedIn() {
+	// return getMUser() != null;
+	// }
 
 	/*
 	 * unused ?
