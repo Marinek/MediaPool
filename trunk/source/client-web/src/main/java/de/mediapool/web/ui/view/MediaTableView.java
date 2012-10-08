@@ -13,8 +13,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
-import de.mediapool.core.domain.MUser;
-import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.web.ui.container.AbstractEntityBeanContainer;
 import de.mediapool.web.ui.widgets.MediaFilterBox;
 import de.mediapool.web.ui.widgets.SplitPanelImpl;
@@ -167,13 +165,15 @@ public class MediaTableView extends SplitPanelImpl implements SplitterPositionCh
 	// }
 
 	private void applyFilter() {
-		getMovieItems().removeAllContainerFilters();
-		MovieEntry entry = (MovieEntry) filterSearch.getFilterBox().getValue();
-		if (entry != null) {
-			getMovieItems().addContainerFilter("title", entry.getTitle(), true, false);
-			movieDetails.refreshView();
-			movieImages.refreshView();
-		}
+		// getMovieItems().removeAllContainerFilters();
+		// MovieEntry entry = (MovieEntry)
+		// filterSearch.getFilterBox().getValue();
+		// if (entry != null) {
+		// getMovieItems().addContainerFilter("title", entry.getTitle(), true,
+		// false);
+		// movieDetails.refreshView();
+		// movieImages.refreshView();
+		// }
 
 	}
 
@@ -261,9 +261,9 @@ public class MediaTableView extends SplitPanelImpl implements SplitterPositionCh
 		}
 	}
 
-	public MUser getMUser() {
-		return (MUser) getApplication().getUser();
-	}
+	// public MUser getMUser() {
+	// return (MUser) getApplication().getUser();
+	// }
 
 	public AbstractEntityBeanContainer getMovieItems() {
 		return items;

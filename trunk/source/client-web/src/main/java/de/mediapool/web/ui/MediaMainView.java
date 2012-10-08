@@ -13,16 +13,13 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.ComponentContainer;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.HorizontalSplitPanel;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.VerticalSplitPanel;
-import com.vaadin.ui.themes.BaseTheme;
 
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
-import de.mediapool.core.domain.MUser;
 import de.mediapool.core.domain.container.MovieContainer;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.service.MediaService;
@@ -30,12 +27,10 @@ import de.mediapool.web.ui.container.AbstractEntityBeanContainer;
 import de.mediapool.web.ui.elements.MediaAccordion;
 import de.mediapool.web.ui.elements.MediaMenuBar;
 import de.mediapool.web.ui.login.MediaLoginForm;
-import de.mediapool.web.ui.login.MediaLoginForm.LoggedinEvent;
-import de.mediapool.web.ui.login.MediaLoginForm.LoggedinListener;
 import de.mediapool.web.ui.view.MediaTableView;
 import de.mediapool.web.ui.view.MediaView;
 
-public class MediaMainView extends VerticalSplitPanel implements ComponentContainer, LoggedinListener, ClickListener {
+public class MediaMainView extends VerticalSplitPanel implements ComponentContainer, ClickListener {
 
 	private final Logger logger = LoggerFactory.getLogger(MediaMainView.class);
 
@@ -77,7 +72,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	public MediaMainView(MediaService mediaService) {
 		setMediaService(mediaService);
-		movieEntrys = getMediaService().getAllMovieEntries();
+		// movieEntrys = getMediaService().getAllMovieEntries();
 
 		// filme = getMediaService().getFilme();
 		buildMainArea();
@@ -107,7 +102,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		leftSide = new VerticalSplitPanel();
 
 		loginForm = new MediaLoginForm();
-		loginForm.addLoginListener(this);
+		// loginForm.addLoginListener(this);
 
 		accordion = new MediaAccordion();
 
@@ -215,28 +210,29 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		// movies.applyFilters();
 	}
 
-	@Override
-	public void loggedin(LoggedinEvent event) {
-		login(event);
-	}
-
-	@SuppressWarnings("serial")
-	private void login(LoggedinEvent event) {
-		MUser user = event.getUser();
-		VerticalLayout logoutform = new VerticalLayout();
-		logoutform.addComponent(new Label("loggedin as: " + user.getEmail()));
-		Button logoutLink = new Button("logout");
-		logoutLink.setStyleName(BaseTheme.BUTTON_LINK);
-		logoutLink.addListener(new Button.ClickListener() {
-			public void buttonClick(ClickEvent event) {
-				logout();
-			}
-		});
-		logoutform.addComponent(logoutLink);
-		leftSide.setFirstComponent(logoutform);
-		getApplication().setUser(user);
-		meineFilme();
-	}
+	// @Override
+	// public void loggedin(LoggedinEvent event) {
+	// login(event);
+	// }
+	//
+	// @SuppressWarnings("serial")
+	// private void login(LoggedinEvent event) {
+	// // MUser user = event.getUser();
+	// // VerticalLayout logoutform = new VerticalLayout();
+	// // logoutform.addComponent(new Label("loggedin as: " +
+	// // user.getEmail()));
+	// // Button logoutLink = new Button("logout");
+	// // logoutLink.setStyleName(BaseTheme.BUTTON_LINK);
+	// // logoutLink.addListener(new Button.ClickListener() {
+	// // public void buttonClick(ClickEvent event) {
+	// // logout();
+	// // }
+	// // });
+	// // logoutform.addComponent(logoutLink);
+	// // leftSide.setFirstComponent(logoutform);
+	// // getApplication().setUser(user);
+	// // meineFilme();
+	// }
 
 	private void logout() {
 		leftSide.setFirstComponent(loginForm);
@@ -266,8 +262,9 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	}
 
 	private void meineFilme() {
-		MovieContainer movieHoldingEntrys = getMediaService().getUserMovieEntrys(getMUser());
-		addListTab(movieHoldingEntrys, "Meine Filme");
+		// MovieContainer movieHoldingEntrys =
+		// getMediaService().getUserMovieEntrys(getMUser());
+		// addListTab(movieHoldingEntrys, "Meine Filme");
 	}
 
 	private ProductMediaResultList dataFromCore() {
@@ -288,7 +285,8 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		final Button source = event.getButton();
 
 		if (source == searchButton) {
-			productList = getMediaService().searchMovieProducts((String) searchField.getValue());
+			// productList = getMediaService().searchMovieProducts((String)
+			// searchField.getValue());
 			addListTab(productList, "Suche " + searchField.getValue());
 		} else if (source == musicButton) {
 		} else if (source == movieButton) {
@@ -301,9 +299,9 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	}
 
-	public MUser getMUser() {
-		return (MUser) getApplication().getUser();
-	}
+	// public MUser getMUser() {
+	// return (MUser) getApplication().getUser();
+	// }
 
 	public boolean loggedin() {
 		return getApplication().getUser() != null;
@@ -316,4 +314,10 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	public void setMediaService(MediaService mediaService) {
 		this.mediaService = mediaService;
 	}
+
+	// @Override
+	// public void loggedin(LoggedinEvent event) {
+	// // TODO Auto-generated method stub
+	//
+	// }
 }

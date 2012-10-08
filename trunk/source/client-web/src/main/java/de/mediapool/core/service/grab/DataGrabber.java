@@ -9,9 +9,7 @@ import java.io.Serializable;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
@@ -22,10 +20,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import de.mediapool.core.domain.Movie;
-import de.mediapool.core.domain.Participation;
-import de.mediapool.core.domain.Product;
 
 @SuppressWarnings("serial")
 public class DataGrabber implements Serializable {
@@ -93,65 +87,71 @@ public class DataGrabber implements Serializable {
 
 	}
 
-	public List<Product> searchMovieProducts(String search) {
-		List<TreeMap<String, String>> productDataMap = new ArrayList<TreeMap<String, String>>();
-		List<String> pageurls = getLinksFromBuch(search, "FILM", false);
-		List<Product> products = new ArrayList<Product>();
-		List<Product> secondproducts = new ArrayList<Product>();
-		HashMap<String, String> uniqueProducts = new HashMap<String, String>();
-
-		for (String url : pageurls) {
-			productDataMap.add(getMovieDataFromPage(url));
-		}
-		int count = 0;
-		for (TreeMap<String, String> productData : productDataMap) {
-			// printMap(productData);
-			boolean rightMedium = true;// productData.get(MEDIUM).equals(media);
-			boolean righttitle = titleContainsTitle(productData.get(TITLE), search);
-			boolean alreadyIn = "inserted".equals(uniqueProducts.get(productData.get(EAN)));
-			if (rightMedium && !alreadyIn) {
-				uniqueProducts.put(productData.get(EAN), "inserted");
-				if (righttitle) {
-					count++;
-					products.add(dataToProduct(productData));
-				} else {
-					secondproducts.add(dataToProduct(productData));
-				}
-			}
-		}
-		if (count == 0) {
-			products = secondproducts;
-		}
-
-		logger.info("Gefundene Filme ingesamt: " + search + " " + pageurls.size() + " davon passend " + count);
-		return products;
-	}
-
-	public Product searchEanProduct(String ean) {
-		String url = getSearchUrl("buch.de", ean, "FILM");
-
-		TreeMap<String, String> productData = getMovieDataFromPage(url);
-		Product product = dataToProduct(productData);
-
-		logger.info("Gefundener Film für: " + ean + " " + product.getMovie().getTitle());
-
-		Product newproduct = complementMovie(product);
-		logger.info(product.getMovie().getParticipation().toString());
-		return newproduct;
-	}
-
-	public Product complementMovie(Product product) {
-
-		List<TreeMap<String, String>> filmdaten = new ArrayList<TreeMap<String, String>>();
-		List<String> pageurls = getLinksFromWiki(product.getMovie().getTitle());
-
-		for (String url : pageurls) {
-			filmdaten.add(getFilmDataFromPage(url));
-		}
-
-		return findMovieFromProduct(filmdaten, product);
-
-	}
+	// public List<Product> searchMovieProducts(String search) {
+	// List<TreeMap<String, String>> productDataMap = new
+	// ArrayList<TreeMap<String, String>>();
+	// List<String> pageurls = getLinksFromBuch(search, "FILM", false);
+	// List<Product> products = new ArrayList<Product>();
+	// List<Product> secondproducts = new ArrayList<Product>();
+	// HashMap<String, String> uniqueProducts = new HashMap<String, String>();
+	//
+	// for (String url : pageurls) {
+	// productDataMap.add(getMovieDataFromPage(url));
+	// }
+	// int count = 0;
+	// for (TreeMap<String, String> productData : productDataMap) {
+	// // printMap(productData);
+	// boolean rightMedium = true;// productData.get(MEDIUM).equals(media);
+	// boolean righttitle = titleContainsTitle(productData.get(TITLE), search);
+	// boolean alreadyIn =
+	// "inserted".equals(uniqueProducts.get(productData.get(EAN)));
+	// if (rightMedium && !alreadyIn) {
+	// uniqueProducts.put(productData.get(EAN), "inserted");
+	// if (righttitle) {
+	// count++;
+	// products.add(dataToProduct(productData));
+	// } else {
+	// secondproducts.add(dataToProduct(productData));
+	// }
+	// }
+	// }
+	// if (count == 0) {
+	// products = secondproducts;
+	// }
+	//
+	// logger.info("Gefundene Filme ingesamt: " + search + " " + pageurls.size()
+	// + " davon passend " + count);
+	// return products;
+	// }
+	//
+	// public Product searchEanProduct(String ean) {
+	// String url = getSearchUrl("buch.de", ean, "FILM");
+	//
+	// TreeMap<String, String> productData = getMovieDataFromPage(url);
+	// Product product = dataToProduct(productData);
+	//
+	// logger.info("Gefundener Film für: " + ean + " " +
+	// product.getMovie().getTitle());
+	//
+	// Product newproduct = complementMovie(product);
+	// logger.info(product.getMovie().getParticipation().toString());
+	// return newproduct;
+	// }
+	//
+	// public Product complementMovie(Product product) {
+	//
+	// List<TreeMap<String, String>> filmdaten = new ArrayList<TreeMap<String,
+	// String>>();
+	// List<String> pageurls = getLinksFromWiki(product.getMovie().getTitle());
+	//
+	// for (String url : pageurls) {
+	// filmdaten.add(getFilmDataFromPage(url));
+	// }
+	//
+	// return findMovieFromProduct(filmdaten, product);
+	//
+	// }
+	//
 
 	private boolean sameTitle(String title1, String title2) {
 		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem
@@ -175,138 +175,145 @@ public class DataGrabber implements Serializable {
 		return contains;
 	}
 
-	private Product findMovieFromProduct(List<TreeMap<String, String>> filmdaten, Product product) {
-		String searchfilm = product.getMovie().getTitle();
-
-		Participation regie = product.getMovie().getParticipation().iterator().next();
-
-		List<Movie> movieList = new ArrayList<Movie>();
-
-		StringBuffer notExact = new StringBuffer();
-		for (TreeMap<String, String> film : filmdaten) {
-			String dtitel = film.get(DEUTSCHERTITEL);
-			if (dtitel != null) {
-				// Entferne Untertitel aus dem eigentlichen Titel
-				film.put(DEUTSCHERTITEL, dtitel.split("\\s+\\w+titel:")[0]);
-				if (sameTitle(film.get(DEUTSCHERTITEL), searchfilm)) {
-					movieList.add(putMovieWikiDataToObject(film));
-				} else {
-					notExact.append(film.get(DEUTSCHERTITEL)).append(", ");
-				}
-			}
-		}
-		Movie movie = null;
-		if (movieList.size() > 1) {
-			for (Movie movieCheck : movieList) {
-				for (Participation part : movieCheck.getParticipation()) {
-					if (("Regie").equals(part.getMpart())) {
-						if (part.getName().equals(regie.getName())) {
-							movie = movieCheck;
-						}
-					}
-				}
-			}
-		} else {
-			movie = movieList.get(0);
-		}
-
-		String gefunden = movie != null ? "EIN" : "KEIN";
-		logger.info("Es wurde " + gefunden + " Film zum Titel : " + searchfilm + " gefunden");
-
-		writeToFile("Filmeinfo", notExact.toString(), "txt");
-		product.setMovie(movie);
-		return product;
-	}
-
-	@Deprecated
-	private List<Movie> findeFilm(List<TreeMap<String, String>> filmdaten, String searchfilm, boolean exakt,
-			List<String> pageurls) {
-		List<TreeMap<String, String>> rightfilms = new ArrayList<TreeMap<String, String>>();
-		List<Movie> movieList = new ArrayList<Movie>();
-		StringBuffer toprint = new StringBuffer();
-		StringBuffer notExact = new StringBuffer();
-		// Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem
-		// Suchtitel
-		// entspricht
-		for (TreeMap<String, String> film : filmdaten) {
-			String dtitel = film.get(DEUTSCHERTITEL);
-			if (dtitel != null) {
-				// Entferne Untertitel aus dem eigentlichen Titel
-				film.put(DEUTSCHERTITEL, dtitel.split("\\s+\\w+:")[0]);
-				if (!exakt || film.get(DEUTSCHERTITEL).equalsIgnoreCase(searchfilm)) {
-					rightfilms.add(film);
-				} else {
-					notExact.append(film.get(DEUTSCHERTITEL)).append(", ");
-				}
-			}
-		}
-		logger.info("------------------------------------------");
-		logger.info("Gefundene Filme zum Titel: " + searchfilm + " " + rightfilms.size());
-
-		// Markiere alle Filme mit identischem Titel mit einem #
-		for (int i = 0; i < rightfilms.size(); i++) {
-			TreeMap<String, String> film = rightfilms.get(i);
-			if (exakt && rightfilms.size() > 1) {
-				String dtitel = film.get(DEUTSCHERTITEL);
-				int nummer = i + 1;
-				film.put(DEUTSCHERTITEL, "#" + nummer + " " + dtitel);
-			}
-			Movie movie = putMovieWikiDataToObject(film);
-			movieList.add(movie);
-		}
-		if (XMLOUTPUT) {
-			writeToFile("Filme", moviesToXML(movieList), "xml");
-		}
-
-		String logfileString = "NOT EXAKT: " + searchfilm + " : " + notExact.toString() + " 0 ";
-		if (rightfilms.size() > 0) {
-			logfileString = searchfilm + " : " + rightfilms.size();
-		}
-
-		logger.info("Gefundene Filme ingesamt: " + searchfilm + " " + pageurls.size());
-		String prefix = pageurls.size() > 0 ? "" : "NOT FOUND ";
-		toprint.append(prefix);
-		toprint.append(logfileString);
-		toprint.append(" / " + pageurls.size());
-		toprint.append(System.getProperty("line.separator"));
-		writeToFile("Filmeinfo", toprint.toString(), "txt");
-
-		return movieList;
-	}
-
-	private Movie putMovieWikiDataToObject(TreeMap<String, String> film) {
-		Movie movie = new Movie();
-		Set<Participation> parts = new HashSet<Participation>();
-
-		for (String name : film.keySet()) {
-
-			if (name.equals(DEUTSCHERTITEL)) {
-				movie.setTitle(film.get(name));
-			} else if (name.equals(ORIGINALTITEL)) {
-				movie.setOriginaltitle(film.get(name));
-			} else if (name.equals(ALTERSFREIGABE)) {
-				movie.setApprovedage(getAge(film.get(name)));
-			} else if (name.equals(ORIGINALSPRACHE)) {
-				movie.setMlanguage(film.get(name));
-			} else if (name.equals(PRODUKTIONSLAND)) {
-				movie.setProductionland(film.get(name));
-			} else if (name.equals(ERSCHEINUNGSJAHR)) {
-				movie.setLaunchyear(firstNumberInString(film.get(name)));
-			} else if (name.equals(LAENGE)) {
-				movie.setDuration(firstNumberInString(film.get(name)));
-			} else {
-				String[] values = film.get(name).split(", ");
-				for (int k = 0; k < values.length; k++) {
-					parts.add(checkPart(name, values[k]));
-				}
-			}
-
-		}
-		movie.setParticipation(parts);
-
-		logger.debug("putMovieWikiDataToObject " + movie.toString());
-		return movie;
-	}
+	// private Product findMovieFromProduct(List<TreeMap<String, String>>
+	// filmdaten, Product product) {
+	// String searchfilm = product.getMovie().getTitle();
+	//
+	// Participation regie =
+	// product.getMovie().getParticipation().iterator().next();
+	//
+	// List<Movie> movieList = new ArrayList<Movie>();
+	//
+	// StringBuffer notExact = new StringBuffer();
+	// for (TreeMap<String, String> film : filmdaten) {
+	// String dtitel = film.get(DEUTSCHERTITEL);
+	// if (dtitel != null) {
+	// // Entferne Untertitel aus dem eigentlichen Titel
+	// film.put(DEUTSCHERTITEL, dtitel.split("\\s+\\w+titel:")[0]);
+	// if (sameTitle(film.get(DEUTSCHERTITEL), searchfilm)) {
+	// movieList.add(putMovieWikiDataToObject(film));
+	// } else {
+	// notExact.append(film.get(DEUTSCHERTITEL)).append(", ");
+	// }
+	// }
+	// }
+	// Movie movie = null;
+	// if (movieList.size() > 1) {
+	// for (Movie movieCheck : movieList) {
+	// for (Participation part : movieCheck.getParticipation()) {
+	// if (("Regie").equals(part.getMpart())) {
+	// if (part.getName().equals(regie.getName())) {
+	// movie = movieCheck;
+	// }
+	// }
+	// }
+	// }
+	// } else {
+	// movie = movieList.get(0);
+	// }
+	//
+	// String gefunden = movie != null ? "EIN" : "KEIN";
+	// logger.info("Es wurde " + gefunden + " Film zum Titel : " + searchfilm +
+	// " gefunden");
+	//
+	// writeToFile("Filmeinfo", notExact.toString(), "txt");
+	// product.setMovie(movie);
+	// return product;
+	// }
+	//
+	// @Deprecated
+	// private List<Movie> findeFilm(List<TreeMap<String, String>> filmdaten,
+	// String searchfilm, boolean exakt, List<String> pageurls) {
+	// List<TreeMap<String, String>> rightfilms = new ArrayList<TreeMap<String,
+	// String>>();
+	// List<Movie> movieList = new ArrayList<Movie>();
+	// StringBuffer toprint = new StringBuffer();
+	// StringBuffer notExact = new StringBuffer();
+	// // Überprüfe ob der Deutsche Titel exakt oder nicht exakt dem
+	// // Suchtitel
+	// // entspricht
+	// for (TreeMap<String, String> film : filmdaten) {
+	// String dtitel = film.get(DEUTSCHERTITEL);
+	// if (dtitel != null) {
+	// // Entferne Untertitel aus dem eigentlichen Titel
+	// film.put(DEUTSCHERTITEL, dtitel.split("\\s+\\w+:")[0]);
+	// if (!exakt || film.get(DEUTSCHERTITEL).equalsIgnoreCase(searchfilm)) {
+	// rightfilms.add(film);
+	// } else {
+	// notExact.append(film.get(DEUTSCHERTITEL)).append(", ");
+	// }
+	// }
+	// }
+	// logger.info("------------------------------------------");
+	// logger.info("Gefundene Filme zum Titel: " + searchfilm + " " +
+	// rightfilms.size());
+	//
+	// // Markiere alle Filme mit identischem Titel mit einem #
+	// for (int i = 0; i < rightfilms.size(); i++) {
+	// TreeMap<String, String> film = rightfilms.get(i);
+	// if (exakt && rightfilms.size() > 1) {
+	// String dtitel = film.get(DEUTSCHERTITEL);
+	// int nummer = i + 1;
+	// film.put(DEUTSCHERTITEL, "#" + nummer + " " + dtitel);
+	// }
+	// Movie movie = putMovieWikiDataToObject(film);
+	// movieList.add(movie);
+	// }
+	// if (XMLOUTPUT) {
+	// writeToFile("Filme", moviesToXML(movieList), "xml");
+	// }
+	//
+	// String logfileString = "NOT EXAKT: " + searchfilm + " : " +
+	// notExact.toString() + " 0 ";
+	// if (rightfilms.size() > 0) {
+	// logfileString = searchfilm + " : " + rightfilms.size();
+	// }
+	//
+	// logger.info("Gefundene Filme ingesamt: " + searchfilm + " " +
+	// pageurls.size());
+	// String prefix = pageurls.size() > 0 ? "" : "NOT FOUND ";
+	// toprint.append(prefix);
+	// toprint.append(logfileString);
+	// toprint.append(" / " + pageurls.size());
+	// toprint.append(System.getProperty("line.separator"));
+	// writeToFile("Filmeinfo", toprint.toString(), "txt");
+	//
+	// return movieList;
+	// }
+	//
+	// private Movie putMovieWikiDataToObject(TreeMap<String, String> film) {
+	// Movie movie = new Movie();
+	// Set<Participation> parts = new HashSet<Participation>();
+	//
+	// for (String name : film.keySet()) {
+	//
+	// if (name.equals(DEUTSCHERTITEL)) {
+	// movie.setTitle(film.get(name));
+	// } else if (name.equals(ORIGINALTITEL)) {
+	// movie.setOriginaltitle(film.get(name));
+	// } else if (name.equals(ALTERSFREIGABE)) {
+	// movie.setApprovedage(getAge(film.get(name)));
+	// } else if (name.equals(ORIGINALSPRACHE)) {
+	// movie.setMlanguage(film.get(name));
+	// } else if (name.equals(PRODUKTIONSLAND)) {
+	// movie.setProductionland(film.get(name));
+	// } else if (name.equals(ERSCHEINUNGSJAHR)) {
+	// movie.setLaunchyear(firstNumberInString(film.get(name)));
+	// } else if (name.equals(LAENGE)) {
+	// movie.setDuration(firstNumberInString(film.get(name)));
+	// } else {
+	// String[] values = film.get(name).split(", ");
+	// for (int k = 0; k < values.length; k++) {
+	// parts.add(checkPart(name, values[k]));
+	// }
+	// }
+	//
+	// }
+	// movie.setParticipation(parts);
+	//
+	// logger.debug("putMovieWikiDataToObject " + movie.toString());
+	// return movie;
+	// }
 
 	private void printMap(TreeMap<String, String> map) {
 		for (String name : map.keySet()) {
@@ -314,13 +321,14 @@ public class DataGrabber implements Serializable {
 		}
 	}
 
-	private Participation checkPart(String part, String name) {
-		if (part.startsWith("Rolle")) {
-			part = "Actor";
-		}
-		return new Participation(part, name);
-	}
-
+	// private Participation checkPart(String part, String name) {
+	// if (part.startsWith("Rolle")) {
+	// part = "Actor";
+	// }
+	// return new Participation(part, name);
+	// }
+	//
+	//
 	@Deprecated
 	private int toInt(String svalue) {
 		String[] cuttime = svalue.split(" ");
@@ -699,37 +707,37 @@ public class DataGrabber implements Serializable {
 		logger.info("Gefundene Bücher ingesamt: " + searchBook + " " + pageurls.size());
 	}
 
-	private String moviesToXML(List<Movie> movieList) {
-		StringBuffer str = new StringBuffer();
-		String next = System.getProperty("line.separator");
-		str.append("<movies>").append(next);
-		for (Movie movie : movieList) {
-			str.append("\t<movie");
-			str.append(" title=");
-			str.append("\"" + movie.getTitle() + "\"");
-			str.append(" otitle=");
-			str.append("\"" + movie.getOriginaltitle() + "\"");
-			str.append(" year=");
-			str.append("\"" + movie.getLaunchyear() + "\"");
-			str.append(" length=");
-			str.append("\"" + movie.getDuration() + "\"");
-			str.append(" age=");
-			str.append("\"" + movie.getApprovedage() + "\"");
-			str.append(" land=");
-			str.append("\"" + movie.getProductionland() + "\"");
-			str.append(">").append(next);
-			str.append("\t\t<cooperations>").append(next);
-			for (Participation part : movie.getParticipation()) {
-				str.append("\t\t\t<coop part=\"").append(part.getMpart() + "\"");
-				str.append(" name=\"").append(part.getName() + "\"");
-				str.append("/>").append(next);
-			}
-			str.append("\t\t</cooperations>").append(next);
-			str.append("\t</movie>").append(next);
-		}
-		str.append("</movies>");
-		return str.toString();
-	}
+	// private String moviesToXML(List<Movie> movieList) {
+	// StringBuffer str = new StringBuffer();
+	// String next = System.getProperty("line.separator");
+	// str.append("<movies>").append(next);
+	// for (Movie movie : movieList) {
+	// str.append("\t<movie");
+	// str.append(" title=");
+	// str.append("\"" + movie.getTitle() + "\"");
+	// str.append(" otitle=");
+	// str.append("\"" + movie.getOriginaltitle() + "\"");
+	// str.append(" year=");
+	// str.append("\"" + movie.getLaunchyear() + "\"");
+	// str.append(" length=");
+	// str.append("\"" + movie.getDuration() + "\"");
+	// str.append(" age=");
+	// str.append("\"" + movie.getApprovedage() + "\"");
+	// str.append(" land=");
+	// str.append("\"" + movie.getProductionland() + "\"");
+	// str.append(">").append(next);
+	// str.append("\t\t<cooperations>").append(next);
+	// for (Participation part : movie.getParticipation()) {
+	// str.append("\t\t\t<coop part=\"").append(part.getMpart() + "\"");
+	// str.append(" name=\"").append(part.getName() + "\"");
+	// str.append("/>").append(next);
+	// }
+	// str.append("\t\t</cooperations>").append(next);
+	// str.append("\t</movie>").append(next);
+	// }
+	// str.append("</movies>");
+	// return str.toString();
+	// }
 
 	private TreeMap<String, String> getMovieDataFromPage(String url) {
 		TreeMap<String, String> hm = new TreeMap<String, String>();
@@ -752,8 +760,7 @@ public class DataGrabber implements Serializable {
 			Elements priceClass = doc.select("span[class=pm_preis b9Value]");
 			Elements descriptioncon = doc.select("div[id=pm_kurzbeschreibung]");
 
-			Elements descriptionClass = descriptioncon.first() != null ? descriptioncon.first().select(
-					"div[class=redaktion raw]") : null;
+			Elements descriptionClass = descriptioncon.first() != null ? descriptioncon.first().select("div[class=redaktion raw]") : null;
 
 			Elements eanCon = doc.getElementsByClass("ean");
 			Elements mediumCon = doc.getElementsByClass("mediumKurzbezeichnung");
@@ -851,58 +858,59 @@ public class DataGrabber implements Serializable {
 
 	}
 
-	private Product dataToProduct(TreeMap<String, String> productData) {
-		Product product = new Product();
-		Movie movie = new Movie();
-		Participation part;
-		Set<Participation> parts = new HashSet<Participation>();
-
-		for (String name : productData.keySet()) {
-
-			if (name.equals(EAN)) {
-				product.setEan(parseLong(productData.get(name)));
-			} else if (name.equals(MEDIUM)) {
-				product.setCarrier(productData.get(name));
-			} else if (name.equals(AGE)) {
-				product.setApprovedage(getAge(productData.get(name)));
-			} else if (name.equals(PRICE)) {
-				product.setPrice(getPrice(productData.get(name)));
-			} else if (name.equals(COUNTDISC)) {
-				product.setNumberdiscs(getInt(productData.get(name)));
-			} else if (name.equals(DURATION)) {
-				product.setDuration(firstNumberInString(productData.get(name)));
-			} else if (name.equals(IMAGE)) {
-				product.setImage(productData.get(name));
-			} else if (name.equals(LANGUAGE)) {
-				product.setMlanguage(cutLanguage(productData.get(name)));
-			} else if (name.equals(UTITLE)) {
-				product.setSpecial(productData.get(name));
-			} else if (name.equals(DATE)) {
-				product.setLaunchdate(productData.get(name));
-
-			} else if (name.equals(TITLE)) {
-				movie.setTitle(productData.get(name));
-			} else if (name.equals(GENRE)) {
-				movie.setGenre(productData.get(name));
-			} else if (name.equals(DESCRIPTION)) {
-				movie.setDescription(productData.get(name));
-			} else if (name.equals(STUDIO)) {
-				movie.setStudio(productData.get(name));
-			} else if (name.equals(AUTHOR)) {
-				part = new Participation("Regie", productData.get(name));
-				parts.add(part);
-			}
-
-		}
-		movie.setLocal(false);
-		movie.setParticipation(parts);
-		product.setMovie(movie);
-
-		logger.info("saveProduct" + product.toString());
-		return product;
-
-	}
-
+	// private Product dataToProduct(TreeMap<String, String> productData) {
+	// Product product = new Product();
+	// Movie movie = new Movie();
+	// Participation part;
+	// Set<Participation> parts = new HashSet<Participation>();
+	//
+	// for (String name : productData.keySet()) {
+	//
+	// if (name.equals(EAN)) {
+	// product.setEan(parseLong(productData.get(name)));
+	// } else if (name.equals(MEDIUM)) {
+	// product.setCarrier(productData.get(name));
+	// } else if (name.equals(AGE)) {
+	// product.setApprovedage(getAge(productData.get(name)));
+	// } else if (name.equals(PRICE)) {
+	// product.setPrice(getPrice(productData.get(name)));
+	// } else if (name.equals(COUNTDISC)) {
+	// product.setNumberdiscs(getInt(productData.get(name)));
+	// } else if (name.equals(DURATION)) {
+	// product.setDuration(firstNumberInString(productData.get(name)));
+	// } else if (name.equals(IMAGE)) {
+	// product.setImage(productData.get(name));
+	// } else if (name.equals(LANGUAGE)) {
+	// product.setMlanguage(cutLanguage(productData.get(name)));
+	// } else if (name.equals(UTITLE)) {
+	// product.setSpecial(productData.get(name));
+	// } else if (name.equals(DATE)) {
+	// product.setLaunchdate(productData.get(name));
+	//
+	// } else if (name.equals(TITLE)) {
+	// movie.setTitle(productData.get(name));
+	// } else if (name.equals(GENRE)) {
+	// movie.setGenre(productData.get(name));
+	// } else if (name.equals(DESCRIPTION)) {
+	// movie.setDescription(productData.get(name));
+	// } else if (name.equals(STUDIO)) {
+	// movie.setStudio(productData.get(name));
+	// } else if (name.equals(AUTHOR)) {
+	// part = new Participation("Regie", productData.get(name));
+	// parts.add(part);
+	// }
+	//
+	// }
+	// movie.setLocal(false);
+	// movie.setParticipation(parts);
+	// product.setMovie(movie);
+	//
+	// logger.info("saveProduct" + product.toString());
+	// return product;
+	//
+	// }
+	//
+	//
 	private String cutLanguage(String longString) {
 		if (longString != null && longString.contains("... i ")) {
 			longString = longString.split("... i ")[1];

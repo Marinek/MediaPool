@@ -15,12 +15,7 @@
  */
 package de.mediapool.web.ui.login;
 
-import java.io.Serializable;
-import java.lang.reflect.Method;
-
 import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanItem;
-import com.vaadin.terminal.UserError;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
@@ -32,8 +27,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.TextField;
 
-import de.mediapool.core.domain.MUser;
-
 public class MediaLoginFormSpring extends Form implements FormFieldFactory, ClickListener {
 
 	private static final long serialVersionUID = 1L;
@@ -41,7 +34,7 @@ public class MediaLoginFormSpring extends Form implements FormFieldFactory, Clic
 	private Button loginButton;
 	private HorizontalLayout buttonBar = new HorizontalLayout();
 
-	private MUser user = new MUser();
+	// private MUser user = new MUser();
 
 	public MediaLoginFormSpring() {
 
@@ -49,8 +42,8 @@ public class MediaLoginFormSpring extends Form implements FormFieldFactory, Clic
 		loginButton = new Button("Login", (ClickListener) this);
 		buttonBar.addComponent(loginButton);
 		setFormFieldFactory(this);
-		BeanItem<MUser> userItem = new BeanItem<MUser>(user);
-		setItemDataSource(userItem);
+		// BeanItem<MUser> userItem = new BeanItem<MUser>(user);
+		// setItemDataSource(userItem);
 	}
 
 	@Override
@@ -60,12 +53,13 @@ public class MediaLoginFormSpring extends Form implements FormFieldFactory, Clic
 
 		Button button = event.getButton();
 		if (button == loginButton) {
-			try {
-				user.authenticate();
-				fireLoggedin(user);
-			} catch (MUser.BadCredentialsException e) {
-				setComponentError(new UserError("LoginForm.BadCredentialsException"));
-			}
+			// try {
+			// user.authenticate();
+			// fireLoggedin(user);
+			// } catch (MUser.BadCredentialsException e) {
+			// setComponentError(new
+			// UserError("LoginForm.BadCredentialsException"));
+			// }
 		}
 	}
 
@@ -86,43 +80,45 @@ public class MediaLoginFormSpring extends Form implements FormFieldFactory, Clic
 
 	// below is all about events & handling them
 
-	private static final Method LOGGEDIN_METHOD;
-	static {
-		try {
-			LOGGEDIN_METHOD = LoggedinListener.class.getDeclaredMethod("loggedin", new Class[] { LoggedinEvent.class });
-		} catch (NoSuchMethodException e) {
-			// This should never happen
-			throw new java.lang.RuntimeException("Internal error finding methods in Button");
-		}
-	}
+	// private static final Method LOGGEDIN_METHOD;
+	// static {
+	// try {
+	// LOGGEDIN_METHOD = LoggedinListener.class.getDeclaredMethod("loggedin",
+	// new Class[] { LoggedinEvent.class });
+	// } catch (NoSuchMethodException e) {
+	// // This should never happen
+	// throw new
+	// java.lang.RuntimeException("Internal error finding methods in Button");
+	// }
+	// }
 
-	public class LoggedinEvent extends Component.Event {
-		private static final long serialVersionUID = 1L;
-		private MUser user;
+	// public class LoggedinEvent extends Component.Event {
+	// private static final long serialVersionUID = 1L;
+	// private MUser user;
+	//
+	// public LoggedinEvent(Component source, MUser user) {
+	// super(source);
+	// this.user = user;
+	// }
+	//
+	// public MUser getUser() {
+	// return user;
+	// }
+	// }
 
-		public LoggedinEvent(Component source, MUser user) {
-			super(source);
-			this.user = user;
-		}
-
-		public MUser getUser() {
-			return user;
-		}
-	}
-
-	public interface LoggedinListener extends Serializable {
-		public void loggedin(LoggedinEvent event);
-	}
-
-	public void addLoginListener(LoggedinListener listener) {
-		addListener(LoggedinEvent.class, listener, LOGGEDIN_METHOD);
-	}
-
-	public void removeLoginListener(LoggedinListener listener) {
-		removeListener(LoggedinEvent.class, listener, LOGGEDIN_METHOD);
-	}
-
-	protected void fireLoggedin(MUser user) {
-		fireEvent(new LoggedinEvent(this, user));
-	}
+	// public interface LoggedinListener extends Serializable {
+	// public void loggedin(LoggedinEvent event);
+	// }
+	//
+	// public void addLoginListener(LoggedinListener listener) {
+	// addListener(LoggedinEvent.class, listener, LOGGEDIN_METHOD);
+	// }
+	//
+	// public void removeLoginListener(LoggedinListener listener) {
+	// removeListener(LoggedinEvent.class, listener, LOGGEDIN_METHOD);
+	// }
+	//
+	// protected void fireLoggedin(MUser user) {
+	// fireEvent(new LoggedinEvent(this, user));
+	// }
 }
