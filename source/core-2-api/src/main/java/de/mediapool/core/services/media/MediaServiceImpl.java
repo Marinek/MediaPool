@@ -1,5 +1,6 @@
 package de.mediapool.core.services.media;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
@@ -15,7 +16,9 @@ import de.mediapool.core.business.search.entities.joined.BOProductMediaSearch;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.interfaces.IMediaService;
 
-public class MediaServiceImpl implements IMediaService {
+public class MediaServiceImpl implements IMediaService, Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
 		BOAttributedMedia boInstance = new BOAttributedMedia(pUserBean);
