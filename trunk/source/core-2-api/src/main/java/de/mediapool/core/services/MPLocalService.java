@@ -65,7 +65,7 @@ public class MPLocalService {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	private void init() {
-		beanFactory = new ClassPathXmlApplicationContext(new String[] { "spring.xml" });
+		beanFactory = new ClassPathXmlApplicationContext(new String[] { "applicationCoreContext.xml" });
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
