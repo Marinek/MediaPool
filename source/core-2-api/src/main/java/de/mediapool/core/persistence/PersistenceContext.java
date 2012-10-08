@@ -18,7 +18,7 @@ public class PersistenceContext {
 	}
 
 	private void startBeanFactory() {
-		beanFactory = new ClassPathXmlApplicationContext(new String[] { "spring.xml" });
+		beanFactory = new ClassPathXmlApplicationContext(new String[] { "applicationCoreContext.xml" });
 	}
 
 	public static final PersistenceContext getInstance() {
