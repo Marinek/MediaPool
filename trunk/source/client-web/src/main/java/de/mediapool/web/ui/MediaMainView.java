@@ -240,7 +240,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	}
 
 	private void addListTab(MovieContainer movieitems, String caption) {
-		dataFromCore();
 		if (movieitems != null) {
 			MediaView searchView = new MediaView(movieitems, caption);
 			String newCaption = caption + " (" + movieitems.getItemIds().size() + ")";
@@ -251,7 +250,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 	}
 
 	private void addListNewTab(AbstractEntityBeanContainer items, String caption) {
-		dataFromCore();
 		if (items != null) {
 			MediaTableView searchView = new MediaTableView(items, caption);
 			String newCaption = caption + " (" + items.getItemIds().size() + ")";
@@ -267,7 +265,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		// addListTab(movieHoldingEntrys, "Meine Filme");
 	}
 
-	private ProductMediaResultList dataFromCore() {
+	private void dataFromCore() {
 		ProductMediaResultList pmList = null;
 
 		try {
@@ -277,7 +275,6 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		} catch (MPExeption e) {
 			logger.error(e.getMessage());
 		}
-		return pmList;
 	}
 
 	@Override
