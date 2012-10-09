@@ -1,5 +1,6 @@
 package de.mediapool.web.ui.container;
 
+import java.util.Date;
 import java.util.List;
 
 import com.vaadin.data.Item;
@@ -27,7 +28,7 @@ public class AbstractEntityBeanContainer extends IndexedContainer {
 			ProductMediaBean lBeanHeader = pmList.get(0);
 
 			for (EntityAttributeValueBean lHeaderBean : lBeanHeader.getAttributes()) {
-				this.addContainerProperty(lHeaderBean.getAttributeIdentifier(), String.class, null);
+				this.addContainerProperty(lHeaderBean.getAttributeIdentifier(), resolveClass(lHeaderBean.getAttributeType()), null);
 			}
 
 			for (ProductMediaBean lBean : pmList) {
@@ -37,6 +38,16 @@ public class AbstractEntityBeanContainer extends IndexedContainer {
 				}
 			}
 		}
+	}
+
+	private Class<?> resolveClass(String type) {
+		if ("int".equals(type)) {
+			return int.class;
+		}
+		if ("date".equals(type)) {
+			return Date.class;
+		}
+		return String.class;
 	}
 
 	public AbstractEntityBeanContainer(List<AbstractEntityBean> pDataSource, List<EntityAttributeDefinitionBean> headerInformation) {
