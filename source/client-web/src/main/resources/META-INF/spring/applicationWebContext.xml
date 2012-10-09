@@ -22,6 +22,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 	
 	<bean id="mediaService" class="de.mediapool.core.service.MediaService">
 		<property name="dataGrabber" ref="dataGrabber"/>
-		<property name="movieService" ref="movieService"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="productService" ref="productService"/>
 	</bean>
 </beans>

@@ -17,6 +17,7 @@ import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.service.grab.DataGrabber;
 import de.mediapool.core.services.media.MediaServiceImpl;
+import de.mediapool.core.services.product.ProductServiceImpl;
 
 public class MediaService implements Serializable {
 	private final Logger logger = LoggerFactory.getLogger(MediaService.class);
@@ -31,7 +32,8 @@ public class MediaService implements Serializable {
 
 	}
 
-	private MediaServiceImpl movieService;
+	private MediaServiceImpl mediaService;
+	private ProductServiceImpl productService;
 
 	// public JPAContainer<Participation> getAllParticipation() {
 	// return JPAContainerFactory.make(Participation.class, PERSISTENCE_UNIT);
@@ -117,7 +119,7 @@ public class MediaService implements Serializable {
 	// }
 	//
 	public ProductMediaResultList getDataFromCore() throws MPExeption {
-		ProductMediaResultList pmList = getMovieService().getAllProductMedia(null);
+		ProductMediaResultList pmList = getProductService().getAllProductMedia(null);
 		return pmList;
 	}
 
@@ -492,12 +494,20 @@ public class MediaService implements Serializable {
 		}
 	}
 
-	public MediaServiceImpl getMovieService() {
-		return movieService;
+	public ProductServiceImpl getProductService() {
+		return productService;
 	}
 
-	public void setMovieService(MediaServiceImpl movieService) {
-		this.movieService = movieService;
+	public void setProductService(ProductServiceImpl productService) {
+		this.productService = productService;
+	}
+
+	public MediaServiceImpl getMediaService() {
+		return mediaService;
+	}
+
+	public void setMediaService(MediaServiceImpl mediaService) {
+		this.mediaService = mediaService;
 	}
 
 }
