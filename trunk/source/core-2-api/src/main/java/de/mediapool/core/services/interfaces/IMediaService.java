@@ -17,14 +17,12 @@ public interface IMediaService extends IService {
 
 	public MediaBean getMedia(UUID id, UserBean pUserBean) throws MPExeption;
 
-	public ProductMediaResultList getAllProductMedia(UserBean pUserBean) throws MPExeption;
+	public MediaBean createNewMedia(String pMediaType) throws MPExeption;
+
+	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPExeption;
 
 	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPExeption;
 
-	public MediaBean createNewMedia(String pMediaType) throws MPExeption;
-
 	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPExeption;
-
-	public void addMediaToProduct(MediaBean pReferent, ProductBean pParent) throws MPExeption;
 
 }

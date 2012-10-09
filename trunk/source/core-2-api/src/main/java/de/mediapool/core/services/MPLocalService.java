@@ -41,7 +41,7 @@ public class MPLocalService {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	public IMediaService getMediaService() {
-		return (IMediaService) beanFactory.getBean("movieService");
+		return (IMediaService) beanFactory.getBean("mediaService");
 	}
 
 	public IProductService getProductService() {

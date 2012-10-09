@@ -46,6 +46,7 @@ public class Database {
 			for (String[] movieData : TestData.getMovies()) {
 				MediaBean lMovieBean = mediaService.createNewMedia("movie");
 				movieList.add(TestDataBinding.generateTestMovieData(lMovieBean, movieData));
+				mediaService.saveMedia(lMovieBean, lUserBean);
 			}
 
 			List<ProductBean> productList = new ArrayList<ProductBean>();
@@ -53,19 +54,18 @@ public class Database {
 			for (String[] productData : TestData.getProducts()) {
 				ProductBean lProductBean = productService.createNewProduct();
 				productList.add(TestDataBinding.generateTestProductData(lProductBean, productData));
+				productService.saveProduct(lProductBean);
 			}
 
 			if (movieList.size() <= productList.size()) {
 				for (int i = 0; i < movieList.size(); i++) {
 					ProductBean product = productList.get(i);
 					MediaBean movie = movieList.get(i);
-					mediaService.saveMedia(movie, lUserBean);
-					productService.saveProduct(product);
 					mediaService.setProductForMedia(product, movie);
 				}
 			}
 
-			ProductMediaResultList pmList = mediaService.getAllProductMedia(null);
+			ProductMediaResultList pmList = productService.getAllProductMedia(null);
 			Assert.assertTrue("size bigger one", pmList.size() > 0);
 
 			for (ProductMediaBean lBean : pmList) {
