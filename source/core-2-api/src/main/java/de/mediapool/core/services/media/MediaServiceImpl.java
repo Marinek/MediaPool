@@ -44,7 +44,7 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 		return boInstance.getCurrentEntityBean();
 	}
 
-	public ProductMediaResultList getAllProductMedia(UserBean pUserBean) throws MPExeption {
+	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPExeption {
 		ProductMediaSearchBean lSearchBean = new ProductMediaSearchBean();
 
 		// lSearchBean.addProductCriteria(new
@@ -80,11 +80,6 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 
 	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPExeption {
 		new BOProductMediaRelationship(null, pReferent).addChild(pChild);
-	}
-
-	public void addMediaToProduct(MediaBean pReferent, ProductBean pParent) throws MPExeption {
-		new BOProductMediaRelationship(null, pReferent).addParent(pParent);
-
 	}
 
 }

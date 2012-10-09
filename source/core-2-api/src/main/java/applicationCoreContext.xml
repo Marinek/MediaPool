@@ -36,18 +36,19 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">create-drop</prop> -->
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<!-- prop key="hibernate.hbm2ddl.auto">create-drop</prop-->
 				<prop key="hibernate.show_sql">true</prop>
 				<prop key="hibernate.format_sql">true</prop>
 			</props>
 		</property>
 	</bean>
 
-	<bean id="movieService" class="de.mediapool.core.services.media.MediaServiceImpl"/>
+	<bean id="mediaService" class="de.mediapool.core.services.media.MediaServiceImpl"/>
+	<bean id="productService" class="de.mediapool.core.services.product.ProductServiceImpl"/>
+
 	<bean id="installationService" class="de.mediapool.core.services.install.InstallationServiceImpl"/>
 	<bean id="authService" class="de.mediapool.core.services.authentication.AuthServiceImpl"/>
-	<bean id="productService" class="de.mediapool.core.services.product.ProductServiceImpl"/>
 
 </beans>
 
