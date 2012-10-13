@@ -1,6 +1,7 @@
 package de.mediapool.core.beans.business.entity.attributes;
 
 import de.mediapool.core.beans.AbstractBean;
+import de.mediapool.core.persistence.enums.AttributeMandatoryType;
 
 public class EntityAttributeDefinitionBean extends AbstractBean {
 
@@ -18,8 +19,12 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 
 	private String attributeType;
 	private String attributeName;
-
-	private BeanAttributeMandatoryType mandatoryType = BeanAttributeMandatoryType.NOTHING;
+	private String attributeField;
+	private Integer attributeOrder;
+	private Boolean attributeVisible;
+	private Integer attributeSize;
+	private AttributeMandatoryType attributeMandatory;
+	private BeanAttributeMandatoryType mandatoryType;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -63,6 +68,46 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 
 	public String getAttributeIdentifier() {
 		return this.getMediaType() + "#" + this.getAttributeName();
+	}
+
+	public Integer getAttributeOrder() {
+		return attributeOrder;
+	}
+
+	public void setAttributeOrder(Integer attributeOrder) {
+		this.attributeOrder = attributeOrder;
+	}
+
+	public Boolean getAttributeVisible() {
+		return attributeVisible;
+	}
+
+	public void setAttributeVisible(Boolean attributeVisible) {
+		this.attributeVisible = attributeVisible;
+	}
+
+	public Integer getAttributeSize() {
+		return attributeSize;
+	}
+
+	public void setAttributeSize(Integer attributeSize) {
+		this.attributeSize = attributeSize;
+	}
+
+	public AttributeMandatoryType getAttributeMandatory() {
+		return attributeMandatory;
+	}
+
+	public void setAttributeMandatory(AttributeMandatoryType attributeMandatory) {
+		this.attributeMandatory = attributeMandatory;
+	}
+
+	public String getAttributeField() {
+		return attributeField;
+	}
+
+	public void setAttributeField(String attributeField) {
+		this.attributeField = attributeField;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

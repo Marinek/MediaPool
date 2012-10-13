@@ -21,13 +21,17 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 	public EntityAttributeDefVO() {
 	}
 
-	public EntityAttributeDefVO(String id, String attributeName, String attributeType, Integer attributeOrder, AttributeMandatoryType attributeMandatory, EntityTypeVO entityTypeVO) {
+	public EntityAttributeDefVO(String id, String attributeName, String attributeType, Integer attributeOrder, AttributeMandatoryType attributeMandatory, Boolean attributeVisible,
+			Integer attributeSize, String attributeField, EntityTypeVO entityTypeVO) {
 		super();
 		this.setId(id);
 		this.attributeName = attributeName;
 		this.attributeType = attributeType;
 		this.attributeOrder = attributeOrder;
 		this.attributeMandatory = attributeMandatory;
+		this.attributeVisible = attributeVisible;
+		this.attributeSize = attributeSize;
+		this.attributeField = attributeField;
 		this.entityTypeVO = entityTypeVO;
 	}
 
@@ -39,6 +43,15 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 
 	@Column(name = "attributeorder")
 	private Integer attributeOrder = null;
+
+	@Column(name = "attributevisible")
+	private Boolean attributeVisible = null;
+
+	@Column(name = "attributesize")
+	private Integer attributeSize = null;
+
+	@Column(name = "attributefield")
+	private String attributeField = null;
 
 	@Column(name = "attributemandatory")
 	private AttributeMandatoryType attributeMandatory = AttributeMandatoryType.NOTHING;
@@ -95,10 +108,34 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 		this.entityTypeVO = mediaTypeVO;
 	}
 
+	public Boolean getAttributeVisible() {
+		return attributeVisible;
+	}
+
+	public void setAttributeVisible(Boolean attributeVisible) {
+		this.attributeVisible = attributeVisible;
+	}
+
+	public Integer getAttributeSize() {
+		return attributeSize;
+	}
+
+	public void setAttributeSize(Integer attributeSize) {
+		this.attributeSize = attributeSize;
+	}
+
 	@Override
 	public String toString() {
-		return "EntityAttributeDefVO [attributeName=" + attributeName + ", attributeType=" + attributeType + ", attributeOrder=" + attributeOrder + ", attributeMandatory=" + attributeMandatory
-				+ ", entityTypeVO=" + entityTypeVO + "] " + super.toString();
+		return "EntityAttributeDefVO [attributeName=" + attributeName + ", attributeType=" + attributeType + ", attributeOrder=" + attributeOrder + ", attributeVisible=" + attributeVisible
+				+ ", attributeSize=" + attributeSize + ", attributeMandatory=" + attributeMandatory + ", entityTypeVO=" + entityTypeVO + "]";
+	}
+
+	public String getAttributeField() {
+		return attributeField;
+	}
+
+	public void setAttributeField(String attributeField) {
+		this.attributeField = attributeField;
 	}
 
 }

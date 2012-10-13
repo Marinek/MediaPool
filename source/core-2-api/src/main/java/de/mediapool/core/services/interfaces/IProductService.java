@@ -20,5 +20,9 @@ public interface IProductService extends IService {
 
 	public ProductMediaResultList getAllProductMedia(UserBean pUserBean) throws MPExeption;
 
+	public ProductMediaResultList getProductByEan(String ean, UserBean pUserBean) throws MPExeption;
+
+	public ProductMediaResultList getProductByTitle(String title, UserBean pUserBean) throws MPExeption;
+
 	public void addMediaToProduct(MediaBean pReferent, ProductBean pParent) throws MPExeption;
 }
