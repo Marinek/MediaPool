@@ -92,6 +92,10 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	public String toString() {
+		return "AbstractSingleEntityBean [name=" + name + ", entityType=" + entityType + ", attributes=" + attributes + "]";
+	}
+
 	private String getAttributeIdentifier(String pAttributeName) {
 		return this.getEntityType() + "#" + pAttributeName;
 	}
