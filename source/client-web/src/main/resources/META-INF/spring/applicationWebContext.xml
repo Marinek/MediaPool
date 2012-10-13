@@ -20,7 +20,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 	<!-- user functions -->
 	<bean id="dataGrabber" class="de.mediapool.core.service.grab.DataGrabber" />
 	
-	<bean id="mediaService" class="de.mediapool.core.service.MediaService">
+	<bean id="mediaWebService" class="de.mediapool.core.service.MediaWebService">
 		<property name="dataGrabber" ref="dataGrabber"/>
 		<property name="mediaService" ref="mediaService"/>
 		<property name="productService" ref="productService"/>

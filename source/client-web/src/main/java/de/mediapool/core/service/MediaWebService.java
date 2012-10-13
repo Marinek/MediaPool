@@ -19,8 +19,8 @@ import de.mediapool.core.service.grab.DataGrabber;
 import de.mediapool.core.services.media.MediaServiceImpl;
 import de.mediapool.core.services.product.ProductServiceImpl;
 
-public class MediaService implements Serializable {
-	private final Logger logger = LoggerFactory.getLogger(MediaService.class);
+public class MediaWebService implements Serializable {
+	private final Logger logger = LoggerFactory.getLogger(MediaWebService.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class MediaService implements Serializable {
 
 	private DataGrabber dataGrabber;
 
-	public MediaService() {
+	public MediaWebService() {
 
 	}
 

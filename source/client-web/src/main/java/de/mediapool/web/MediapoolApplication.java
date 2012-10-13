@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Configurable;
 import com.vaadin.Application;
 import com.vaadin.ui.Window;
 
-import de.mediapool.core.service.MediaService;
+import de.mediapool.core.service.MediaWebService;
 import de.mediapool.web.ui.MediaMainView;
 
 @SuppressWarnings("serial")
@@ -14,7 +14,7 @@ import de.mediapool.web.ui.MediaMainView;
 public class MediapoolApplication extends Application {
 
 	@Autowired
-	private MediaService mediaService;
+	private MediaWebService mediaWebService;
 
 	private MediaMainView mainWindow;
 
@@ -27,9 +27,17 @@ public class MediapoolApplication extends Application {
 
 		setTheme("media");
 
-		mainWindow = new MediaMainView(getMediaService());
+		mainWindow = new MediaMainView(getMediaWebService());
 		window.setContent(mainWindow);
 
+	}
+
+	public MediaWebService getMediaWebService() {
+		return mediaWebService;
+	}
+
+	public void setMediaWebService(MediaWebService mediaWebService) {
+		this.mediaWebService = mediaWebService;
 	}
 
 	// @Override
@@ -37,14 +45,6 @@ public class MediapoolApplication extends Application {
 	// // setUser(event.getUser());
 	// mainWindow.loggedin(event);
 	// }
-
-	public MediaService getMediaService() {
-		return mediaService;
-	}
-
-	public void setMediaService(MediaService mediaService) {
-		this.mediaService = mediaService;
-	}
 
 	// @Override
 	// public void loggedin(LoggedinEvent event) {
