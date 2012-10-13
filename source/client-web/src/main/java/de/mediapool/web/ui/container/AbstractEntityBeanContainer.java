@@ -25,16 +25,20 @@ public class AbstractEntityBeanContainer extends IndexedContainer {
 		// }
 
 		if (pmList.size() > 0) {
-			ProductMediaBean lBeanHeader = pmList.get(0);
+			ProductMediaBean lBeanHeader = pmList.get(1);
 
 			for (EntityAttributeValueBean lHeaderBean : lBeanHeader.getAttributes()) {
-				this.addContainerProperty(lHeaderBean.getAttributeIdentifier(), resolveClass(lHeaderBean.getAttributeType()), null);
+				if (lHeaderBean.getAttributeVisible()) {
+					this.addContainerProperty(lHeaderBean.getAttributeIdentifier(), resolveClass(lHeaderBean.getAttributeType()), null);
+				}
 			}
 
 			for (ProductMediaBean lBean : pmList) {
 				Item added = this.addItem(lBean.getIdAsString());
 				for (EntityAttributeValueBean lValueBean : lBean.getAttributes()) {
-					added.getItemProperty(lValueBean.getAttributeIdentifier()).setValue(lValueBean.getAttributeValue());
+					if (lValueBean.getAttributeVisible()) {
+						added.getItemProperty(lValueBean.getAttributeIdentifier()).setValue(lValueBean.getAttributeValue());
+					}
 				}
 			}
 		}

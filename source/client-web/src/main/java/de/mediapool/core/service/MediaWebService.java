@@ -117,13 +117,12 @@ public class MediaWebService implements Serializable {
 	// return movieEntryItems;
 	//
 	// }
-	//
+
 	public ProductMediaResultList getDataFromCore() throws MPExeption {
 		ProductMediaResultList pmList = getProductService().getAllProductMedia(null);
 		return pmList;
 	}
 
-	//
 	// public MUser loginMUser(String email, String password) throws
 	// WrongUserException {
 	// EntityManager em =
