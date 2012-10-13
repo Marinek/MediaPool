@@ -22,7 +22,7 @@ import com.vaadin.ui.VerticalSplitPanel;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.domain.container.MovieContainer;
 import de.mediapool.core.exceptions.MPExeption;
-import de.mediapool.core.service.MediaService;
+import de.mediapool.core.service.MediaWebService;
 import de.mediapool.web.ui.container.AbstractEntityBeanContainer;
 import de.mediapool.web.ui.elements.MediaAccordion;
 import de.mediapool.web.ui.elements.MediaMenuBar;
@@ -68,9 +68,9 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private TextField searchField;
 
-	private MediaService mediaService;
+	private MediaWebService mediaService;
 
-	public MediaMainView(MediaService mediaService) {
+	public MediaMainView(MediaWebService mediaService) {
 		setMediaService(mediaService);
 		// movieEntrys = getMediaService().getAllMovieEntries();
 
@@ -304,11 +304,11 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 		return getApplication().getUser() != null;
 	}
 
-	public MediaService getMediaService() {
+	public MediaWebService getMediaService() {
 		return mediaService;
 	}
 
-	public void setMediaService(MediaService mediaService) {
+	public void setMediaService(MediaWebService mediaService) {
 		this.mediaService = mediaService;
 	}
 

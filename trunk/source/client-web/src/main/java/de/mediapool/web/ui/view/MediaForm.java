@@ -32,7 +32,7 @@ import de.mediapool.core.domain.container.MovieEntry;
 import de.mediapool.core.domain.container.MovieEntryType;
 import de.mediapool.core.domain.container.MovieHoldingEntry;
 import de.mediapool.core.domain.container.MovieProductEntry;
-import de.mediapool.core.service.MediaService;
+import de.mediapool.core.service.MediaWebService;
 import de.mediapool.web.ui.elements.MediaImage;
 import de.mediapool.web.ui.widgets.ConfirmationDialog;
 import de.mediapool.web.ui.widgets.ratingstars.MediaRatingStarsPanel;
@@ -71,7 +71,7 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 	private MovieEntryType entryType;
 
 	@Autowired
-	private MediaService mediaService;
+	private MediaWebService mediaService;
 
 	public MediaForm(MediaView view) {
 		this.view = view;
@@ -394,11 +394,11 @@ public class MediaForm extends VerticalLayout implements Button.ClickListener, F
 		}
 	}
 
-	public MediaService getMediaService() {
+	public MediaWebService getMediaService() {
 		return mediaService;
 	}
 
-	public void setMediaService(MediaService mediaService) {
+	public void setMediaService(MediaWebService mediaService) {
 		this.mediaService = mediaService;
 	}
 
