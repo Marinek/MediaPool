@@ -1,6 +1,6 @@
 package de.mediapool.core.beans.business.entity.attributes;
 
-public class EntityAttributeValueBean extends EntityAttributeDefinitionBean {
+public class EntityAttributeValueBean extends EntityAttributeDefinitionBean implements Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,6 +21,16 @@ public class EntityAttributeValueBean extends EntityAttributeDefinitionBean {
 
 	public void setAttributeDisplay(String attributeDisplay) {
 		this.attributeDisplay = attributeDisplay;
+	}
+
+	public EntityAttributeValueBean clone() {
+		try {
+			return (EntityAttributeValueBean) super.clone();
+		} catch (CloneNotSupportedException e) {
+			// NOOP
+		}
+
+		return null;
 	}
 
 	public String toString() {

@@ -89,13 +89,11 @@ public class ProductServiceImpl implements IProductService {
 		new BOProductMediaRelationship(null, pReferent).addParent(pParent);
 	}
 
-	@Override
 	public void deleteProduct(ProductBean abstractProductBean, UserBean pUserBean) throws MPExeption {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public ProductBean getProduct(UUID id, UserBean pUserBean) throws MPExeption {
 		// TODO Auto-generated method stub
 		return null;

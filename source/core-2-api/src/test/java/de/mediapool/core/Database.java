@@ -69,12 +69,10 @@ public class Database {
 			Assert.assertTrue("size bigger one", pmList.size() > 0);
 
 			for (ProductMediaBean lBean : pmList) {
-				StringBuffer output = new StringBuffer();
+				logger.info(lBean.toString());
 				for (EntityAttributeValueBean lValueBean : lBean.getAttributes()) {
-					output.append("\n");
-					output.append(lValueBean.getAttributeIdentifier() + " : " + lValueBean.getAttributeValue());
+					logger.info(lValueBean.toString());
 				}
-				logger.info(output.toString());
 			}
 
 		} catch (MPExeption e) {

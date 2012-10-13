@@ -63,7 +63,7 @@ public class EntityAttributeTypeManager {
 			lAttributeType = this.attributeMap.get(pEntityType).get(pAttributeName);
 		}
 
-		return lAttributeType;
+		return lAttributeType.clone();
 	}
 
 	public void initialAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPExeption {
@@ -90,4 +90,5 @@ public class EntityAttributeTypeManager {
 
 		return Collections.unmodifiableMap(this.attributeMap.get(pReturnNewMedia.getEntityType()));
 	}
+
 }

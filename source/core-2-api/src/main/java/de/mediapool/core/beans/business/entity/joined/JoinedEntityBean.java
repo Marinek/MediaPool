@@ -51,6 +51,10 @@ public class JoinedEntityBean extends AbstractEntityBean {
 		return Collections.unmodifiableCollection(lReturnList);
 	}
 
+	public String toString() {
+		return "JoinedEntityBean [joinedEntitys=" + joinedEntitys + "]";
+	}
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -62,4 +66,5 @@ public class JoinedEntityBean extends AbstractEntityBean {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
 }
