@@ -41,8 +41,12 @@ public class EntityAttributeTypeManager {
 				lBean.setAttributeDisplay(lDefinition.getAttributeName());
 				lBean.setAttributeType(lDefinition.getAttributeType());
 				lBean.setMandatoryType(BeanAttributeMandatoryType.valueOf(lDefinition.getAttributeMandatory().toString()));
+				lBean.setAttributeVisible(lDefinition.getAttributeVisible());
+				lBean.setAttributeOrder(lDefinition.getAttributeOrder());
+				lBean.setAttributeSize(lDefinition.getAttributeSize());
 				lBean.setPersistentStatus(PersistentStatus.PERSISTENT);
 				lBean.setAttributeName(lDefinition.getAttributeName());
+				lBean.setAttributeField(lDefinition.getAttributeField());
 				lBean.setEntityType(lDefinition.getEntityTypeName());
 
 				this.registerAttribute(lBean);
