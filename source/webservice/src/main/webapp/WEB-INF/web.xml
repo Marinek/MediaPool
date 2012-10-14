@@ -21,7 +21,7 @@
         <servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
         <init-param>
             <param-name>application</param-name>
-            <param-value>de.mediapool.web.MediapoolApplication</param-value>
+            <param-value>de.mediapool.webservice.service.MediaWebservice</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
