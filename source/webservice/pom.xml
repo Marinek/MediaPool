@@ -6,7 +6,7 @@
 	<artifactId>webservice</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Mediapool web-service</name>
+	<name>Mediapool Web-Service</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<vaadin.version>6.7.4</vaadin.version>
@@ -21,30 +21,17 @@
 			<url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
 		</repository>
 		<repository>
-			<id>vaadin-addons</id>
-			<url>http://maven.vaadin.com/vaadin-addons</url>
-		</repository>
-		<repository>
-			<id>vaadin-snapshots</id>
-			<name>Vaadin snapshot repository</name>
-			<url>http://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+			<layout>default</layout>
 		</repository>
 	</repositories>
 	<dependencies>
 		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin</artifactId>
-			<version>${vaadin.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>mediapool-core</groupId>
 			<artifactId>mediapool-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql.version}</version>
 		</dependency>
 		<dependency>
             <groupId>org.slf4j</groupId>
@@ -67,26 +54,12 @@
 			<version>2.3</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.vaadin.addon</groupId>
-			<artifactId>jpacontainer-addon-agpl-3.0</artifactId>
-			<version>2.0.0-SNAPSHOT</version>
-		</dependency>
+		
 		<dependency>
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
             <version>1.8</version>
         </dependency>
-		<dependency>
-			<groupId>org.vaadin.addons</groupId>
-			<artifactId>customfield</artifactId>
-			<version>0.9.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.vaadin.addon</groupId>
-			<artifactId>beanvalidation-addon</artifactId>
-			<version>0.6.3-SNAPSHOT</version>
-		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
@@ -140,16 +113,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-dev</artifactId>
-            <version>2.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <version>2.1.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

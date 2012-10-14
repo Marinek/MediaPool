@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
+
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
@@ -14,63 +15,63 @@ import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.media.MediaServiceImpl;
 import de.mediapool.core.services.product.ProductServiceImpl;
 
-
 @WebService
-@SOAPBinding(style=Style.RPC)
-
+@SOAPBinding(style = Style.RPC)
 public class MediaWebservice {
 
 	private MediaServiceImpl mediaService;
 	private ProductServiceImpl productService;
 
 	/**
-	 * Function gets all Media for User 
+	 * Function gets all Media for User
+	 * 
 	 * @param pUserBean
-	 * @return 
+	 * @return
 	 */
-	public ProductMediaResultList getAllMedia(UserBean pUserBean){
+	public ProductMediaResultList getAllMedia(UserBean pUserBean) {
 		ProductMediaResultList lReturn = null;
 		try {
 			lReturn = this.mediaService.getAllMedia(pUserBean);
 		} catch (MPExeption e) {
-			//TODO return Fehler
+			// TODO return Fehler
 		}
 		return lReturn;
 	}
 
 	/**
 	 * Fuction to save a media for User
+	 * 
 	 * @param abstractMediaBean
 	 * @param pUserBean
 	 * @return
 	 */
-	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean){
+	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean) {
 		MediaBean lMedia = null;
-		try{
+		try {
 			lMedia = this.mediaService.saveMedia(abstractMediaBean, pUserBean);
-		}
-		catch(MPExeption e){
-			//TODO return Fehler
+		} catch (MPExeption e) {
+			// TODO return Fehler
 		}
 		return lMedia;
 	}
 
 	/**
 	 * Function to delete a media for User
+	 * 
 	 * @param abstractMediaBean
 	 * @param pUserBean
 	 */
-	public void deleteMedia(MediaBean abstractMediaBean, UserBean pUserBean){
-		try{
+	public void deleteMedia(MediaBean abstractMediaBean, UserBean pUserBean) {
+		try {
 			this.mediaService.deleteMedia(abstractMediaBean, pUserBean);
-		}
-		catch(MPExeption e){
-			//TODO return Fehler
+		} catch (MPExeption e) {
+			// TODO return Fehler
 		}
 	}
 
 	/**
 	 * Function to get a media specified by uuid for User
+	 * 
 	 * @param id
 	 * @param pUserBean
 	 * @return
@@ -78,68 +79,68 @@ public class MediaWebservice {
 	 */
 	public MediaBean getMedia(UUID id, UserBean pUserBean) throws MPExeption {
 		MediaBean lMedia = null;
-		try{
+		try {
 			lMedia = this.mediaService.getMedia(id, pUserBean);
-		}
-		catch(MPExeption e){
-			//TODO return Fehler
+		} catch (MPExeption e) {
+			// TODO return Fehler
 		}
 		return lMedia;
 	}
 
 	/**
 	 * Funktion to create an attribute for media
+	 * 
 	 * @param pMediaType
 	 * @param pAttributeName
 	 * @param pValue
 	 * @return
 	 */
-	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue){
+	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue) {
 		EntityAttributeValueBean lEntity = null;
-		try{
+		try {
 			lEntity = this.mediaService.createAttribute(pMediaType, pAttributeName, pValue);
-		}
-		catch(MPExeption e){
-			//			TODO return Fehler
+		} catch (MPExeption e) {
+			// TODO return Fehler
 		}
 		return lEntity;
 	}
 
 	/**
 	 * Function to create a new media for given type
+	 * 
 	 * @param pMediaType
 	 * @return
 	 */
-	public MediaBean createNewMedia(String pMediaType){
+	public MediaBean createNewMedia(String pMediaType) {
 		MediaBean lMedia = null;
-		try{
+		try {
 			lMedia = this.mediaService.createNewMedia(pMediaType);
-		}
-		catch(MPExeption e){
-			//TODO return Fehler
+		} catch (MPExeption e) {
+			// TODO return Fehler
 		}
 		return lMedia;
 	}
 
 	/**
 	 * Function to set a product for media
+	 * 
 	 * @param pReferent
 	 * @param pChild
 	 */
-	public void setProductForMedia(ProductBean pReferent, MediaBean pChild){
-		try{
+	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) {
+		try {
 			this.mediaService.setProductForMedia(pReferent, pChild);
-		}
-		catch(MPExeption e){
-			//			TODO return Fehler
+		} catch (MPExeption e) {
+			// TODO return Fehler
 		}
 
 	}
 
-	//**********  Getter und Setter **********//
+	// ********** Getter und Setter **********//
 
 	/**
 	 * Function to set the mediaservice
+	 * 
 	 * @return
 	 */
 	public MediaServiceImpl getMediaService() {
@@ -148,10 +149,11 @@ public class MediaWebservice {
 
 	/**
 	 * Function to get the mediaservice
+	 * 
 	 * @param mediaService
 	 */
 	public void setMediaService(MediaServiceImpl mediaService) {
 		this.mediaService = mediaService;
 	}
-	//****************************************//
+	// ****************************************//
 }
