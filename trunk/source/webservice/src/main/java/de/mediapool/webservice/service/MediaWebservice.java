@@ -2,6 +2,7 @@ package de.mediapool.webservice.service;
 
 import java.util.UUID;
 
+import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
@@ -35,14 +36,12 @@ public class MediaWebservice {
 	 * 
 	 * @param pUserBean
 	 * @return
+	 * @throws MPExeption
 	 */
-	public ProductMediaResultList getAllMedia(UserBean pUserBean) {
+	@WebMethod
+	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPExeption {
 		ProductMediaResultList lReturn = null;
-		try {
-			lReturn = this.mediaService.getAllMedia(pUserBean);
-		} catch (MPExeption e) {
-			logger.error(e.getLocalizedMessage());
-		}
+		lReturn = this.mediaService.getAllMedia(pUserBean);
 		return lReturn;
 	}
 

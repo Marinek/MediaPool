@@ -1,16 +1,13 @@
-package de.mediapool.core.business.entities.products;
+package de.mediapool.core.business.entities.holding;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.media.MediaBean;
-import de.mediapool.core.beans.business.entity.product.ProductBean;
+import de.mediapool.core.beans.business.entity.holding.HoldingBean;
 import de.mediapool.core.business.entities.BOAbstractEntity;
 import de.mediapool.core.exceptions.MPExeption;
 
-public class BOMediaProduct extends BOAbstractEntity<ProductBean> {
+public class BOHolding extends BOAbstractEntity<HoldingBean> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -24,36 +21,16 @@ public class BOMediaProduct extends BOAbstractEntity<ProductBean> {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOMediaProduct(ProductBean pMediaBean, UserBean pUserBean) throws MPExeption {
-		super(pUserBean, pMediaBean);
-
-	}
-
-	public BOMediaProduct(UUID pMediaBean, UserBean pUserBean) throws MPExeption {
-		super(pMediaBean, pUserBean);
-
-	}
-
-	public BOMediaProduct(UserBean pUserBean) throws MPExeption {
-		super(pUserBean);
+	public BOHolding(UUID entityID, UserBean pUserBean) throws MPExeption {
+		super(entityID, pUserBean);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public List<MediaBean> getMedia() throws MPExeption {
-		List<MediaBean> lReturnList = new ArrayList<MediaBean>();
-
-		return lReturnList;
-	}
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	protected void protectedSave() throws MPExeption {
@@ -64,9 +41,13 @@ public class BOMediaProduct extends BOAbstractEntity<ProductBean> {
 
 	}
 
-	protected ProductBean getCurrentEntityBeanInstance() throws MPExeption {
-		return new ProductBean();
+	protected HoldingBean getCurrentEntityBeanInstance() throws MPExeption {
+		return new HoldingBean();
 	}
+
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+	// private Methoden
+	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden

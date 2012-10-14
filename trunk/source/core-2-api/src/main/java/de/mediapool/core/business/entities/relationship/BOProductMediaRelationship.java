@@ -4,8 +4,8 @@ import de.mediapool.core.beans.AbstractBean;
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
-import de.mediapool.core.business.entities.media.BOAttributedMedia;
-import de.mediapool.core.business.entities.products.BOMediaProduct;
+import de.mediapool.core.business.entities.media.BOMedia;
+import de.mediapool.core.business.entities.products.BOProduct;
 import de.mediapool.core.business.relationship.BOAbstractRelation;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
@@ -43,11 +43,11 @@ public class BOProductMediaRelationship extends BOAbstractRelation<ProductBean, 
 	}
 
 	protected ProductBean getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption {
-		return new BOMediaProduct(lRelationShipVO.getParentId(), this.getCurrentUserBean()).getCurrentEntityBean();
+		return new BOProduct(lRelationShipVO.getParentId(), this.getCurrentUserBean()).getCurrentEntityBean();
 	}
 
 	protected MediaBean getChildEntity(RelationshipVO lRelationShipVO) throws MPExeption {
-		return new BOAttributedMedia(lRelationShipVO.getChildId(), getCurrentUserBean()).getCurrentEntityBean();
+		return new BOMedia(lRelationShipVO.getChildId(), getCurrentUserBean()).getCurrentEntityBean();
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -11,7 +11,7 @@ import de.mediapool.core.beans.search.entity.EntityCriteriaBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
-import de.mediapool.core.business.entities.products.BOMediaProduct;
+import de.mediapool.core.business.entities.products.BOProduct;
 import de.mediapool.core.business.entities.relationship.BOProductMediaRelationship;
 import de.mediapool.core.business.search.entities.joined.BOProductMediaSearch;
 import de.mediapool.core.exceptions.MPExeption;
@@ -46,7 +46,7 @@ public class ProductServiceImpl implements IProductService {
 	}
 
 	public void saveProduct(ProductBean createNewProduct) throws MPExeption {
-		BOMediaProduct boInstance = new BOMediaProduct(null);
+		BOProduct boInstance = new BOProduct(null);
 
 		boInstance.setCurrentEntityBean(createNewProduct);
 

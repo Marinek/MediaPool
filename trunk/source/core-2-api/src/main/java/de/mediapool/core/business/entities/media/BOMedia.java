@@ -7,13 +7,13 @@ import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.business.entities.BOAbstractEntity;
 import de.mediapool.core.exceptions.MPExeption;
 
-public class BOAttributedMedia extends BOAbstractEntity<MediaBean> {
+public class BOMedia extends BOAbstractEntity<MediaBean> {
 
-	public BOAttributedMedia(UserBean pUserBean) throws MPExeption {
+	public BOMedia(UserBean pUserBean) throws MPExeption {
 		super(pUserBean);
 	}
 
-	public BOAttributedMedia(UUID mediaID, UserBean pUserBean) throws MPExeption {
+	public BOMedia(UUID mediaID, UserBean pUserBean) throws MPExeption {
 		super(mediaID, pUserBean);
 	}
 

@@ -9,8 +9,8 @@ import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
-import de.mediapool.core.business.entities.media.BOAttributedMedia;
-import de.mediapool.core.business.entities.products.BOMediaProduct;
+import de.mediapool.core.business.entities.media.BOMedia;
+import de.mediapool.core.business.entities.products.BOProduct;
 import de.mediapool.core.business.search.entities.BOAbstractEntitySearch;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPExeption;
@@ -69,13 +69,13 @@ public class BOProductMediaSearch extends BOAbstractEntitySearch<ProductMediaSea
 		// TODO: Das hier muss man noch in den Griff bekommen. KA wie.
 		MediaBean mediaBean = null;
 
-		mediaBean = new BOAttributedMedia(UUID.fromString(lVO.getMedia().getId()), this.getCurrentUserBean()).getCurrentEntityBean();
+		mediaBean = new BOMedia(UUID.fromString(lVO.getMedia().getId()), this.getCurrentUserBean()).getCurrentEntityBean();
 
 		lProductMediaBean.join(mediaBean);
 
 		ProductBean lProductBean = null;
 
-		lProductBean = new BOMediaProduct(UUID.fromString(lVO.getProduct().getId()), this.getCurrentUserBean()).getCurrentEntityBean();
+		lProductBean = new BOProduct(UUID.fromString(lVO.getProduct().getId()), this.getCurrentUserBean()).getCurrentEntityBean();
 
 		lProductMediaBean.join(lProductBean);
 

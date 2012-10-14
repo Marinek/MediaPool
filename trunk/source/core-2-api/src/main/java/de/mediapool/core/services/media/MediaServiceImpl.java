@@ -10,7 +10,7 @@ import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
 import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
-import de.mediapool.core.business.entities.media.BOAttributedMedia;
+import de.mediapool.core.business.entities.media.BOMedia;
 import de.mediapool.core.business.entities.relationship.BOProductMediaRelationship;
 import de.mediapool.core.business.search.entities.joined.BOProductMediaSearch;
 import de.mediapool.core.exceptions.MPExeption;
@@ -21,7 +21,7 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
-		BOAttributedMedia boInstance = new BOAttributedMedia(pUserBean);
+		BOMedia boInstance = new BOMedia(pUserBean);
 
 		boInstance.setCurrentEntityBean(abstractMediaBean);
 
@@ -33,13 +33,13 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 	}
 
 	public void deleteMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
-		BOAttributedMedia boInstance = new BOAttributedMedia(abstractMediaBean.getId(), pUserBean);
+		BOMedia boInstance = new BOMedia(abstractMediaBean.getId(), pUserBean);
 
 		boInstance.delete();
 	}
 
 	public MediaBean getMedia(UUID id, UserBean pUserBean) throws MPExeption {
-		BOAttributedMedia boInstance = new BOAttributedMedia(id, pUserBean);
+		BOMedia boInstance = new BOMedia(id, pUserBean);
 
 		return boInstance.getCurrentEntityBean();
 	}
