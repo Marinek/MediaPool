@@ -6,6 +6,9 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
@@ -18,6 +21,8 @@ import de.mediapool.core.services.product.ProductServiceImpl;
 @WebService
 @SOAPBinding(style = Style.RPC)
 public class MediaWebservice {
+
+	private static final Logger logger = LoggerFactory.getLogger(MediaWebservice.class);
 
 	private MediaServiceImpl mediaService;
 	private ProductServiceImpl productService;
@@ -33,7 +38,7 @@ public class MediaWebservice {
 		try {
 			lReturn = this.mediaService.getAllMedia(pUserBean);
 		} catch (MPExeption e) {
-			// TODO return Fehler
+			logger.error(e.getLocalizedMessage());
 		}
 		return lReturn;
 	}
