@@ -5,8 +5,7 @@
     
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:META-INF/spring/applicationWebContext.xml
-        			 classpath*:applicationCoreContext.xml</param-value>
+        <param-value>classpath*:META-INF/spring/applicationServiceContext.xml</param-value>
     </context-param>
     
    
@@ -18,20 +17,15 @@
     
     
     <servlet>
-        <servlet-name>mediapool</servlet-name>
+        <servlet-name>mediapoolWebService</servlet-name>
         <servlet-class>com.vaadin.terminal.gwt.server.ApplicationServlet</servlet-class>
         <init-param>
             <param-name>application</param-name>
             <param-value>de.mediapool.web.MediapoolApplication</param-value>
         </init-param>
-        <init-param>
-			<description>Application widgetset</description>
-			<param-name>widgetset</param-name>
-			<param-value>de.mediapool.web.ui.widgets.ratingstars.gwt.RatingStarsWidgetset</param-value>
-		</init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>mediapool</servlet-name>
+        <servlet-name>mediapoolWebService</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 </web-app>
