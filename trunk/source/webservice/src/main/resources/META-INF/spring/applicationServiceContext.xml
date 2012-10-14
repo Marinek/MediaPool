@@ -15,10 +15,10 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 	
 	<!-- <context:component-scan base-package="de.mediapool" /> -->
 
-	<!-- user functions -->
+		<!-- user functions -->
+	<bean id="mediaService" class="de.mediapool.core.services.media.MediaServiceImpl" />
 	
 	<bean id="mediaWebService" class="de.mediapool.webservice.MediaWebservice">
 		<property name="mediaService" ref="mediaService"/>
-		<property name="productService" ref="productService"/>
 	</bean>
 </beans>
