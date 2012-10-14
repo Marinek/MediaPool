@@ -25,7 +25,7 @@ public class AbstractEntityBeanContainer extends IndexedContainer {
 		// }
 
 		if (pmList.size() > 0) {
-			ProductMediaBean lBeanHeader = pmList.get(1);
+			ProductMediaBean lBeanHeader = pmList.get(0);
 
 			for (EntityAttributeValueBean lHeaderBean : lBeanHeader.getAttributes()) {
 				if (lHeaderBean.getAttributeVisible()) {
