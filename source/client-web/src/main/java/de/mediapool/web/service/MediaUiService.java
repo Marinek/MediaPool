@@ -1,4 +1,4 @@
-package de.mediapool.core.service;
+package de.mediapool.web.service;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,8 +19,8 @@ import de.mediapool.core.service.grab.DataGrabber;
 import de.mediapool.core.services.media.MediaServiceImpl;
 import de.mediapool.core.services.product.ProductServiceImpl;
 
-public class MediaWebService implements Serializable {
-	private final Logger logger = LoggerFactory.getLogger(MediaWebService.class);
+public class MediaUiService implements Serializable {
+	private final Logger logger = LoggerFactory.getLogger(MediaUiService.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,7 @@ public class MediaWebService implements Serializable {
 
 	private DataGrabber dataGrabber;
 
-	public MediaWebService() {
+	public MediaUiService() {
 
 	}
 

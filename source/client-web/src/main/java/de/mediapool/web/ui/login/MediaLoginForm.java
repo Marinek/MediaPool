@@ -22,7 +22,7 @@ import com.vaadin.ui.LoginForm;
 import com.vaadin.ui.LoginForm.LoginEvent;
 import com.vaadin.ui.VerticalLayout;
 
-import de.mediapool.core.service.MediaWebService;
+import de.mediapool.web.service.MediaUiService;
 
 @SuppressWarnings("serial")
 @Configurable
@@ -31,7 +31,7 @@ public class MediaLoginForm extends VerticalLayout implements LoginForm.LoginLis
 	private static final String LOGIN_FAILED = "Der Login ist fehlgeschlagen";
 
 	@Autowired
-	private MediaWebService mediaService;
+	private MediaUiService mediaService;
 
 	public MediaLoginForm() {
 
@@ -92,11 +92,11 @@ public class MediaLoginForm extends VerticalLayout implements LoginForm.LoginLis
 	// fireEvent(new LoggedinEvent(this, user));
 	// }
 
-	public MediaWebService getMediaService() {
+	public MediaUiService getMediaService() {
 		return mediaService;
 	}
 
-	public void setMediaService(MediaWebService mediaService) {
+	public void setMediaService(MediaUiService mediaService) {
 		this.mediaService = mediaService;
 	}
 
