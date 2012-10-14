@@ -16,16 +16,19 @@ import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.media.MediaServiceImpl;
-import de.mediapool.core.services.product.ProductServiceImpl;
 
 @WebService
 @SOAPBinding(style = Style.RPC)
 public class MediaWebservice {
 
 	private static final Logger logger = LoggerFactory.getLogger(MediaWebservice.class);
-
 	private MediaServiceImpl mediaService;
-	private ProductServiceImpl productService;
+
+	public UserBean getAuthorizedUserBean() {
+		UserBean lUser = null;
+		// TODO get UserBean
+		return lUser;
+	}
 
 	/**
 	 * Function gets all Media for User
