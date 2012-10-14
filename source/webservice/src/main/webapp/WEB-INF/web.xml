@@ -5,9 +5,9 @@
     
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:META-INF/spring/applicationServiceContext.xml</param-value>
-    </context-param>
-    
+        <param-value>classpath*:META-INF/spring/applicationServiceContext.xml
+           			 classpath*:applicationCoreContext.xml</param-value>
+    </context-param>    
    
     <!-- Creates the Spring Container shared by all Servlets and Filters -->
     <listener>
