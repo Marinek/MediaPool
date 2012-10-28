@@ -1,5 +1,7 @@
 package de.mediapool.core.services.product;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
@@ -94,9 +96,45 @@ public class ProductServiceImpl implements IProductService {
 
 	}
 
+	// TODO remove DUMMY Implementation
 	public ProductBean getProduct(UUID id, UserBean pUserBean) throws MPExeption {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<ProductBean> productList = new ArrayList<ProductBean>();
+		String product1[] = { "12345677", "Blueray", "cover.jpg", "english", "good", "uncut", "12", "90", "1", "10", "01.01.1980" };
+		ProductBean lProductBean = createNewProduct();
+		productList.add(generateTestProductData(lProductBean, product1));
+
+		return productList.get(0);
+	}
+
+	public ProductBean generateTestProductData(ProductBean lProductBean, String[] product) {
+
+		lProductBean.setName(product[0]);
+
+		lProductBean.setAttribute("ean", product[0]);
+
+		lProductBean.setAttribute("carrier", product[1]);
+
+		lProductBean.setAttribute("cover", product[2]);
+
+		lProductBean.setAttribute("mlanguage", product[3]);
+
+		lProductBean.setAttribute("quality", product[4]);
+
+		lProductBean.setAttribute("special", product[5]);
+
+		lProductBean.setAttribute("approvedage", product[6]);
+
+		lProductBean.setAttribute("duration", product[7]);
+
+		lProductBean.setAttribute("numberdiscs", product[8]);
+
+		lProductBean.setAttribute("price", product[9]);
+
+		lProductBean.setAttribute("launchdate", product[10]);
+
+		return lProductBean;
+
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
