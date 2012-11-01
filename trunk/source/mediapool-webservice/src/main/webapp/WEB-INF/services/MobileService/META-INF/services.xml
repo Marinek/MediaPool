@@ -3,7 +3,7 @@
     <description>JNLPGenerator service</description>
     <schema schemaNamespace="http://webservice.mediapool.de/" />
     <parameter name="ServiceClass" locked="false">de.mediapool.webservice.MobileService</parameter>
-    <operation name="sayHello">
+    <operation name="serviceTest">
       <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
     </operation>
   </service>
