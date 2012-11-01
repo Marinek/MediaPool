@@ -1,6 +1,8 @@
 package de.mediapool.webservice;
 
-import de.mediapool.core.beans.business.entity.product.ProductBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
+import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.MPLocalService;
 import de.mediapool.core.services.interfaces.IProductService;
@@ -10,21 +12,22 @@ public class MobileService {
 
 	private ProductServiceImpl productService;
 
-	public String sayHello(String name) throws MPExeption {
+	public String serviceTest(String name) throws MPExeption {
 		IProductService productService = MPLocalService.getInstance().getProductService();
-		ProductBean pb = productService.getProduct(null, null);
+		// ProductBean pb = productService.getProduct(null, null);
+		ProductMediaResultList pmList = productService.getAllProductMedia(null);
 		// ProductMediaResultList pmList =
 		// productService.getProductByEan("12345677", null);
+
 		StringBuffer str = new StringBuffer();
-		str.append("ean ");
-		str.append(pb.getAttribute("ean"));
-		// for (ProductMediaBean lBean : pmList) {
-		// for (EntityAttributeValueBean lValueBean : lBean.getAttributes()) {
-		// if (lValueBean.getAttributeVisible()) {
-		// str.append(lValueBean.getAttributeValue());
-		// }
-		// }
-		// }
+		for (ProductMediaBean pb : pmList) {
+			for (EntityAttributeValueBean lValueBean : pb.getAttributes()) {
+				str.append(lValueBean.getAttributeName());
+				str.append(":");
+				str.append(lValueBean.getAttributeValue());
+				str.append(" - ");
+			}
+		}
 
 		if (name == null) {
 			return str.toString();
