@@ -100,7 +100,7 @@ public class ProductServiceImpl implements IProductService {
 	public ProductBean getProduct(UUID id, UserBean pUserBean) throws MPExeption {
 
 		List<ProductBean> productList = new ArrayList<ProductBean>();
-		String product1[] = { "12345677", "Blueray", "cover.jpg", "english", "good", "uncut", "12", "90", "1", "10", "01.01.1980" };
+		String product1[] = { "12345677", "Blue-ray", "cover.jpg", "english", "good", "uncut", "12", "90", "1", "10", "01.01.1980" };
 		ProductBean lProductBean = createNewProduct();
 		productList.add(generateTestProductData(lProductBean, product1));
 
