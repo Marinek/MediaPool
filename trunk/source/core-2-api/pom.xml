@@ -10,6 +10,7 @@
 	<name>mediapool-core</name>
 	<url>http://maven.apache.org</url>
 	
+    
 	<distributionManagement>
 	  <!-- use the following if you're not using a snapshot version. -->
 	  <repository>
@@ -43,6 +44,85 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+		        <groupId>org.apache.maven.plugins</groupId>
+		        <artifactId>maven-compiler-plugin</artifactId>
+			        <configuration>
+			          <source>1.6</source>
+			          <target>1.6</target>
+			        </configuration>
+	      	</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<outputDirectory>../../distribution/${project.build.finalName}/</outputDirectory>
+					<archive>
+						<manifest>
+							<addClasspath>false</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>maven-apt-plugin</artifactId>
+				<version>0.3.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>src/generated-sources/java/</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											com.mysema.maven
+										</groupId>
+										<artifactId>
+											maven-apt-plugin
+										</artifactId>
+										<versionRange>
+											[0.3.2,)
+										</versionRange>
+										<goals>
+											<goal>process</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
 	<dependencies>
 		<dependency>
@@ -168,77 +248,6 @@
 		</dependency>
 
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<outputDirectory>../../distribution/${project.build.finalName}/</outputDirectory>
-					<archive>
-						<manifest>
-							<addClasspath>false</addClasspath>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>com.mysema.maven</groupId>
-				<artifactId>maven-apt-plugin</artifactId>
-				<version>0.3.2</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>process</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>src/generated-sources/java/</outputDirectory>
-							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>
-											com.mysema.maven
-										</groupId>
-										<artifactId>
-											maven-apt-plugin
-										</artifactId>
-										<versionRange>
-											[0.3.2,)
-										</versionRange>
-										<goals>
-											<goal>process</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
 
 	<reporting>
 		<plugins>
