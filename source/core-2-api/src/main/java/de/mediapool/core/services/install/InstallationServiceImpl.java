@@ -8,6 +8,7 @@ import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO;
 import de.mediapool.core.persistence.vo.entities.EntityTypeVO;
+import de.mediapool.core.persistence.vo.user.UserVO;
 import de.mediapool.core.services.interfaces.IInstallationService;
 
 public class InstallationServiceImpl implements IInstallationService {
@@ -18,6 +19,21 @@ public class InstallationServiceImpl implements IInstallationService {
 	public void installDB() throws MPExeption {
 		installMediaDB();
 		installProductDB();
+		installUser();
+	}
+
+	private void installUser() throws MPExeption {
+		UserVO lUserVO = new UserVO();
+
+		lUserVO.setUsername("Test");
+		lUserVO.setPassword("Test");
+		lUserVO.setEmail("Test@Test.de");
+
+		try {
+			UserVO.getDAO().saveOrUpdate(lUserVO);
+		} catch (PSException e) {
+			throw new MPTechnicalExeption(ExeptionErrorCode.DB_INSERT, "Konnte in Bneutzer nicht anlegen.", e);
+		}
 	}
 
 	private void installMediaDB() throws MPExeption {
