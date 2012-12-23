@@ -1,19 +1,18 @@
-package de.mediapool.core.persistence.dao.search;
+package de.mediapool.core.persistence.dao.user;
 
 import java.util.List;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 
-import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
 import de.mediapool.core.persistence.core.PSAbstractDAOImpl;
+import de.mediapool.core.persistence.core.PSCriteria;
 import de.mediapool.core.persistence.core.PSException;
-import de.mediapool.core.persistence.core.querybuilder.relationship.PSEntityRelationType;
-import de.mediapool.core.persistence.core.querybuilder.relationship.PSEntityRelationshipSQLBuilder;
-import de.mediapool.core.persistence.dao.interfaces.search.IProductMediaSearchDAO;
-import de.mediapool.core.persistence.vo.joined.relationship.ProductMediaJoinedVO;
+import de.mediapool.core.persistence.dao.interfaces.user.IUserDAO;
+import de.mediapool.core.persistence.vo.user.UserVO;
 
 @Service
-public class ProductMediaSearchDAOImpl extends PSAbstractDAOImpl<ProductMediaJoinedVO> implements IProductMediaSearchDAO {
+public class UserDAOImpl extends PSAbstractDAOImpl<UserVO> implements IUserDAO {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -31,21 +30,21 @@ public class ProductMediaSearchDAOImpl extends PSAbstractDAOImpl<ProductMediaJoi
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public List<ProductMediaJoinedVO> search(ProductMediaSearchBean searchCriteria) throws PSException {
-		PSEntityRelationshipSQLBuilder lBuilder = new PSEntityRelationshipSQLBuilder(this.getSession());
+	public List<UserVO> findBy(String pUsername, String pPassword) throws PSException {
+		PSCriteria lCriteria = this.createCriteria();
 
-		lBuilder.addEntityCriteria(PSEntityRelationType.PARENT, searchCriteria.getProductCriteria());
-		lBuilder.addEntityCriteria(PSEntityRelationType.CHILD, searchCriteria.geMediaCriteria());
+		lCriteria.add(Restrictions.eq("username", pUsername));
+		lCriteria.add(Restrictions.eq("password", pPassword));
 
-		return this.findByBuilder(lBuilder);
+		return this.findByCriteria(lCriteria);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected Class<ProductMediaJoinedVO> getValueObjectClass() throws PSException {
-		return ProductMediaJoinedVO.class;
+	protected Class<UserVO> getValueObjectClass() throws PSException {
+		return UserVO.class;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

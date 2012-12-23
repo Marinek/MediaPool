@@ -37,9 +37,8 @@ public class Database {
 		IAuthService authService = MPLocalService.getInstance().getAuthService();
 
 		try {
-			UserBean lUserBean = authService.auth("test", "test");
-
 			installationService.installDB();
+			UserBean lUserBean = authService.auth("Test", "Test");
 
 			List<MediaBean> movieList = new ArrayList<MediaBean>();
 
@@ -69,9 +68,9 @@ public class Database {
 			Assert.assertTrue("size bigger one", pmList.size() > 0);
 
 			for (AbstractEntityBean lBean : pmList) {
-				logger.info(lBean.toString());
+				logger.debug(lBean.toString());
 				for (EntityAttributeValueBean lValueBean : lBean.getAttributes()) {
-					logger.info(lValueBean.toString());
+					logger.debug(lValueBean.toString());
 				}
 			}
 

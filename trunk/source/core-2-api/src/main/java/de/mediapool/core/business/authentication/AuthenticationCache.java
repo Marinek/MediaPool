@@ -4,17 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.apache.shiro.subject.Subject;
-
-import de.mediapool.core.exceptions.ExeptionErrorCode;
-import de.mediapool.core.exceptions.MPBusinessExeption;
+import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.exceptions.MPExeption;
 
 public class AuthenticationCache {
 
 	private static AuthenticationCache instance;
 
-	private Map<UUID, Subject> currentKnownUser = new HashMap<UUID, Subject>();
+	private Map<UUID, UserBean> currentKnownUser = new HashMap<UUID, UserBean>();
 
 	public static final AuthenticationCache getInstance() {
 		if (instance == null) {
@@ -24,16 +21,16 @@ public class AuthenticationCache {
 		return instance;
 	}
 
-	public void addSubject(Subject pSubject) throws MPExeption {
-		if (pSubject.getPrincipal() instanceof UUID) {
-			this.currentKnownUser.put((UUID) pSubject.getPrincipal(), pSubject);
-		} else {
-			throw new MPBusinessExeption(ExeptionErrorCode.AUTH_LOGIN, "Konnte Benutzer nicht im Cache Speichern!");
-		}
+	public void addSubject(UserBean pSubject) throws MPExeption {
+		this.currentKnownUser.put(pSubject.getSessionId(), pSubject);
 	}
 
-	public Subject getSubject(UUID pUUID) throws MPExeption {
+	public UserBean getSubject(UUID pUUID) throws MPExeption {
 		return this.currentKnownUser.get(pUUID);
+	}
+
+	public void removeSubject(UserBean pSubject) throws MPExeption {
+		this.currentKnownUser.remove(pSubject.getSessionId());
 	}
 
 }

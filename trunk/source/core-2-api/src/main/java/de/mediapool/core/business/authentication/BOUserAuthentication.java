@@ -1,14 +1,16 @@
 package de.mediapool.core.business.authentication;
 
+import java.util.List;
 import java.util.UUID;
-
-import org.apache.shiro.subject.Subject;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPBusinessExeption;
 import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPTechnicalExeption;
+import de.mediapool.core.persistence.core.PSException;
+import de.mediapool.core.persistence.vo.user.UserVO;
 
 public class BOUserAuthentication extends BusinessObject {
 
@@ -17,41 +19,45 @@ public class BOUserAuthentication extends BusinessObject {
 	}
 
 	public UserBean login(String pUsername, String pPassword) throws MPExeption {
-		// SecurityUtils.setSecurityManager(new DefaultSecurityManager());
-		// Subject currentUser = SecurityUtils.getSubject();
 		UserBean lUserBean = new UserBean();
 
 		try {
-			// UniqueUsernameAndPasswortAuth lToken = new
-			// UniqueUsernameAndPasswortAuth(pUsername, pPassword);
+			List<UserVO> lUserVOList = UserVO.getDAO().findBy(pUsername, pPassword);
 
-			// currentUser.login(lToken);
+			if (lUserVOList.size() != 1) {
+				throw new MPBusinessExeption(ExeptionErrorCode.AUTH_LOGIN, "Fehler beim Authentifizieren");
+			} else {
+				lUserBean = this.getUserBean(lUserVOList.get(0));
 
-			// Object principal = currentUser.getPrincipal();
+				lUserBean.setSessionId(UUID.randomUUID());
 
-			// if(principal != null) {
-			// AuthenticationCache.getInstance().addSubject(currentUser);
-
-			lUserBean.setId(UUID.randomUUID());
-			lUserBean.setAuthed(true);
-			lUserBean.setAccountName(pUsername);
-			lUserBean.setDisplayName(lUserBean.getIdAsString() + "-" + lUserBean.getAccountName());
-			// }
-		} catch (Exception e) {
-			throw new MPBusinessExeption(ExeptionErrorCode.AUTH_LOGIN_CACHE, "Fehler beim Authentifizieren", e);
+				AuthenticationCache.getInstance().addSubject(lUserBean);
+			}
+		} catch (PSException e) {
+			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Fehler beim Lesen auf Tabelle 'User'", e);
 		}
+
+		return lUserBean;
+	}
+
+	private UserBean getUserBean(UserVO userVO) {
+		UserBean lUserBean = new UserBean();
+
+		lUserBean.setId(userVO.getId());
+		lUserBean.setAccountName(userVO.getUsername() + " (" + userVO.getEmail() + ")");
+
 		return lUserBean;
 	}
 
 	public boolean isAuthenticated(UserBean pUserBean) throws MPExeption {
-		return getUserBean(pUserBean).isAuthenticated();
+		if (pUserBean == null) {
+			throw new MPTechnicalExeption(ExeptionErrorCode.AUTH_LOGIN, "Unbekannter Nutzer (NULL)");
+		}
+
+		return AuthenticationCache.getInstance().getSubject(pUserBean.getId()) != null;
 	}
 
 	public void logout(UserBean pUserBean) throws MPExeption {
-		this.getUserBean(pUserBean).logout();
-	}
-
-	private Subject getUserBean(UserBean pUserBean) throws MPExeption {
-		return AuthenticationCache.getInstance().getSubject(pUserBean.getId());
+		AuthenticationCache.getInstance().removeSubject(pUserBean);
 	}
 }
