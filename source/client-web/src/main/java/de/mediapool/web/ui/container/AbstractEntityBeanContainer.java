@@ -1,5 +1,6 @@
 package de.mediapool.web.ui.container;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,15 +10,21 @@ import com.vaadin.data.util.IndexedContainer;
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeDefinitionBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
-import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
-import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
+import de.mediapool.core.beans.search.entity.EntityResultList;
 
-public class AbstractEntityBeanContainer extends IndexedContainer {
+public class AbstractEntityBeanContainer<E extends EntityResultList<? extends AbstractEntityBean>> extends IndexedContainer {
 
 	private static final long serialVersionUID = 1L;
 
-	public AbstractEntityBeanContainer(ProductMediaResultList pmList) {
+	private List<Object> header_order;
+	private List<String> header_names;
+
+	public AbstractEntityBeanContainer(E pmList) {
 		super();
+
+		header_order = new ArrayList<Object>();
+		header_names = new ArrayList<String>();
+
 		// for (EntityAttributeDefinitionBean lValueBean :
 		// pmList.getHeaderInformation()) {
 		// this.addContainerProperty(lValueBean.getAttributeIdentifier(),
@@ -25,15 +32,17 @@ public class AbstractEntityBeanContainer extends IndexedContainer {
 		// }
 
 		if (pmList.size() > 0) {
-			ProductMediaBean lBeanHeader = pmList.get(0);
+			AbstractEntityBean lBeanHeader = pmList.get(0);
 
 			for (EntityAttributeValueBean lHeaderBean : lBeanHeader.getAttributes()) {
 				if (lHeaderBean.getAttributeVisible()) {
+					header_names.add(lHeaderBean.getAttributeDisplay());
+					header_order.add(lHeaderBean.getAttributeIdentifier());
 					this.addContainerProperty(lHeaderBean.getAttributeIdentifier(), resolveClass(lHeaderBean.getAttributeType()), null);
 				}
 			}
 
-			for (ProductMediaBean lBean : pmList) {
+			for (AbstractEntityBean lBean : pmList) {
 				Item added = this.addItem(lBean.getIdAsString());
 				for (EntityAttributeValueBean lValueBean : lBean.getAttributes()) {
 					if (lValueBean.getAttributeVisible()) {
@@ -101,5 +110,13 @@ public class AbstractEntityBeanContainer extends IndexedContainer {
 				added.getItemProperty(lValueBean.getAttributeIdentifier()).setValue(lValueBean.getAttributeValue());
 			}
 		}
+	}
+
+	public Object[] getHeader_order() {
+		return header_order.toArray();
+	}
+
+	public String[] getHeader_names() {
+		return header_names.toArray(new String[header_names.size()]);
 	}
 }

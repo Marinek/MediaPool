@@ -6,7 +6,6 @@ import java.util.Map;
 import com.vaadin.terminal.PaintException;
 import com.vaadin.terminal.PaintTarget;
 import com.vaadin.ui.AbstractField;
-import com.vaadin.ui.ClientWidget;
 
 /**
  * RatingStars is a typical rating component seen in many web applications.
@@ -14,7 +13,7 @@ import com.vaadin.ui.ClientWidget;
  * @author Teemu Pöntelin / IT Mill Ltd
  */
 @SuppressWarnings("unchecked")
-@ClientWidget(de.mediapool.web.ui.widgets.ratingstars.gwt.client.ui.VRatingStars.class)
+// @ClientWidget(de.mediapool.web.ui.widgets.ratingstars.gwt.client.ui.VRatingStars.class)
 public class RatingStars extends AbstractField implements Comparable<RatingStars> {
 
 	private static final long serialVersionUID = -3594458506374404590L;

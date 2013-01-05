@@ -3,6 +3,9 @@ package de.mediapool.web.ui.view;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.Property.ValueChangeListener;
 import com.vaadin.terminal.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -18,15 +21,16 @@ import de.mediapool.web.ui.widgets.SplitPanelImpl;
 import de.mediapool.web.ui.widgets.SplitPanelImpl.SplitterPositionChangedListener;
 
 @SuppressWarnings("serial")
-public class MediaTableView extends SplitPanelImpl implements SplitterPositionChangedListener, ClickListener {
+public class MediaTableView extends SplitPanelImpl implements SplitterPositionChangedListener, ClickListener, ValueChangeListener {
 	private static final Logger logger = LoggerFactory.getLogger(MediaTableView.class);
 
 	private AbstractEntityBeanContainer items;
 
 	private HorizontalLayout listtoolbar;
-	private MediaForm movieForm;
+	private MediaForm movieFor;
 	private MediaList movieList;
 	private AbstractEntityTableView newView;
+	private AbstractEntityFormView formView;
 	private MediaDetailList movieImages;
 	private MediaDetailList movieDetails;
 
@@ -62,10 +66,11 @@ public class MediaTableView extends SplitPanelImpl implements SplitterPositionCh
 
 		this.addListener((SplitterPositionChangedListener) this);
 
+		formView = new AbstractEntityFormView(this);
 		// movieForm = new MediaForm(this);
 		// movieList = new MediaList(this, header_order, header_names);
 
-		newView = new AbstractEntityTableView(movieItems);
+		newView = new AbstractEntityTableView(this);
 
 		// movieImages = new MediaDetailList(this, false);
 		// movieDetails = new MediaDetailList(this, true);
@@ -78,7 +83,8 @@ public class MediaTableView extends SplitPanelImpl implements SplitterPositionCh
 		currentView = ViewMode.LISTVIEW;
 
 		setFirstComponent(viewMode);
-		setSecondComponent(movieForm);
+		// setSecondComponent(movieForm);
+		setSecondComponent(formView);
 		setSplitPosition(40);
 
 		setImmediate(true);
@@ -150,17 +156,17 @@ public class MediaTableView extends SplitPanelImpl implements SplitterPositionCh
 		// listtoolbar.setComponentAlignment(filterSearch, Alignment.TOP_RIGHT);
 	}
 
-	// @Override
-	// public void valueChange(ValueChangeEvent event) {
-	// Property property = event.getProperty();
-	// if (property == movieList) {
-	// movieForm.setMediaItem(getMovieItems().getItem(movieList.getValue()),
-	// getMovieItems().getEntryType());
-	// }
-	// if (property == filterSearch.getFilterBox()) {
-	// applyFilter();
-	// }
-	// }
+	public void valueChange(ValueChangeEvent event) {
+		Property property = event.getProperty();
+
+		if (property == newView) {
+			getWindow().showNotification(newView.getValue().toString());
+			formView.setMediaItem(getMovieItems().getItem(newView.getValue()));
+		}
+		// if (property == filterSearch.getFilterBox()) {
+		// applyFilter();
+		// }
+	}
 
 	private void applyFilter() {
 		// getMovieItems().removeAllContainerFilters();
@@ -274,4 +280,5 @@ public class MediaTableView extends SplitPanelImpl implements SplitterPositionCh
 	public enum ViewMode {
 		LISTVIEW, DETAILVIEW, IMAGEVIEW
 	}
+
 }

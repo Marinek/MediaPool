@@ -24,15 +24,16 @@ import de.mediapool.core.domain.container.MovieContainer;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.web.service.MediaUiService;
 import de.mediapool.web.ui.container.AbstractEntityBeanContainer;
+import de.mediapool.web.ui.container.ProductMediaBeanContainer;
 import de.mediapool.web.ui.elements.MediaAccordion;
 import de.mediapool.web.ui.elements.MediaMenuBar;
 import de.mediapool.web.ui.login.MediaLoginForm;
 import de.mediapool.web.ui.view.MediaTableView;
 import de.mediapool.web.ui.view.MediaView;
 
-public class MediaMainView extends VerticalSplitPanel implements ComponentContainer, ClickListener {
+public class MediaMainContoller extends VerticalSplitPanel implements ComponentContainer, ClickListener {
 
-	private final Logger logger = LoggerFactory.getLogger(MediaMainView.class);
+	private final Logger logger = LoggerFactory.getLogger(MediaMainContoller.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -70,7 +71,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 	private MediaUiService mediaService;
 
-	public MediaMainView(MediaUiService mediaService) {
+	public MediaMainContoller(MediaUiService mediaService) {
 		setMediaService(mediaService);
 		// movieEntrys = getMediaService().getAllMovieEntries();
 
@@ -270,7 +271,7 @@ public class MediaMainView extends VerticalSplitPanel implements ComponentContai
 
 		try {
 			pmList = getMediaService().getDataFromCore();
-			AbstractEntityBeanContainer cont = new AbstractEntityBeanContainer(pmList);
+			ProductMediaBeanContainer cont = new ProductMediaBeanContainer(pmList);
 			addListNewTab(cont, "test");
 		} catch (MPExeption e) {
 			logger.error(e.getMessage());
