@@ -160,7 +160,6 @@ public class MediaTableView extends SplitPanelImpl implements SplitterPositionCh
 		Property property = event.getProperty();
 
 		if (property == newView) {
-			getWindow().showNotification(newView.getValue().toString());
 			formView.setMediaItem(getMovieItems().getItem(newView.getValue()));
 		}
 		// if (property == filterSearch.getFilterBox()) {

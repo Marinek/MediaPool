@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
-import com.vaadin.addon.beanvalidation.BeanValidationForm;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.terminal.ThemeResource;
@@ -82,7 +81,9 @@ public class AbstractEntityFormView extends VerticalLayout implements Button.Cli
 		HorizontalLayout formView = new HorizontalLayout();
 		VerticalLayout editArea = new VerticalLayout();
 
-		holdingForm = new BeanValidationForm<AbstractEntityBean>(AbstractEntityBean.class);
+		// holdingForm = new
+		// BeanForm<AbstractEntityBean>(AbstractEntityBean.class);
+		holdingForm = new Form();// <AbstractEntityBean>(AbstractEntityBean.class);
 		// productForm = new
 		// BeanValidationForm<MovieProductEntry>(MovieProductEntry.class);
 		// movieForm = new BeanValidationForm<MovieEntry>(MovieEntry.class);
