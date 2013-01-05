@@ -10,7 +10,7 @@ import de.mediapool.web.service.MediaUiService;
 import de.mediapool.web.ui.MediaMainView;
 
 @SuppressWarnings("serial")
-@Configurable
+@Configurable(preConstruction = true)
 public class MediapoolApplication extends Application {
 
 	@Autowired
@@ -33,6 +33,11 @@ public class MediapoolApplication extends Application {
 	}
 
 	public MediaUiService getMediaUiService() {
+		if (mediaUiService == null) {
+			SpringContextHelper helper = new SpringContextHelper(this);
+			mediaUiService = (MediaUiService) helper.getBean("mediaUiService");
+		}
+
 		return mediaUiService;
 	}
 
