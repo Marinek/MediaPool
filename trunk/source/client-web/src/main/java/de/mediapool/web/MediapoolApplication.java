@@ -7,7 +7,7 @@ import com.vaadin.Application;
 import com.vaadin.ui.Window;
 
 import de.mediapool.web.service.MediaUiService;
-import de.mediapool.web.ui.MediaMainView;
+import de.mediapool.web.ui.MediaMainContoller;
 
 @SuppressWarnings("serial")
 @Configurable(preConstruction = true)
@@ -16,7 +16,7 @@ public class MediapoolApplication extends Application {
 	@Autowired
 	private MediaUiService mediaUiService;
 
-	private MediaMainView mainWindow;
+	private MediaMainContoller mainWindow;
 
 	@Override
 	public void init() {
@@ -27,7 +27,7 @@ public class MediapoolApplication extends Application {
 
 		setTheme("media");
 
-		mainWindow = new MediaMainView(getMediaUiService());
+		mainWindow = new MediaMainContoller(getMediaUiService());
 		window.setContent(mainWindow);
 
 	}
