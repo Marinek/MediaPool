@@ -56,21 +56,24 @@ public class Database {
 
 		SearchProfileBean lProfilesBean = new SearchProfileBean();
 
-		lProfilesBean.setId(UUID.randomUUID());
-		lProfilesBean.setName("Meine Suchkriterien#Alle Medien mit A");
-
 		MediaSearchBean lSearch = new MediaSearchBean();
 
 		lSearch.addCriteria(new EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("name", "A*")));
+		lSearch.addCriteria(new EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("ean", "123")));
 
 		lProfilesBean.setSearchBean(lSearch);
 
 		try {
-			lProfilesBean = lService.saveSearchProfile(lProfilesBean, userBean);
 
-			lSearch.addCriteria(new EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("ean", "123")));
+			for (int i = 0; i < 10; i++) {
+				lProfilesBean.setId(UUID.randomUUID());
+				lProfilesBean.setName("Meine Suchkriterien#Suche #" + i);
+				lProfilesBean = lService.saveSearchProfile(lProfilesBean, userBean);
+			}
 
-			lService.saveSearchProfile(lProfilesBean, userBean);
+			List<SearchProfileBean> searchProfiles = lService.getSearchProfiles(userBean);
+
+			Assert.assertEquals(searchProfiles.size(), 10);
 		} catch (MPExeption e) {
 			logger.error(e.getLocalizedMessage(), e);
 		}
