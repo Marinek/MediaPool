@@ -248,10 +248,4 @@
 		</dependency>
 
 	</dependencies>
-
-	<reporting>
-		<plugins>
-
-		</plugins>
-	</reporting>
 </project>
