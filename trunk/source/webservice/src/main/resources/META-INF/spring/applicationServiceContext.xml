@@ -16,9 +16,9 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 	<!-- <context:component-scan base-package="de.mediapool" /> -->
 
 		<!-- user functions -->
-	<bean id="mediaService" class="de.mediapool.core.services.media.MediaServiceImpl" />
+	<bean id="authService" class="de.mediapool.core.services.authentication.AuthServiceImpl" />
 	
-	<bean id="mediaWebService" class="de.mediapool.webservice.MediaWebservice">
-		<property name="mediaService" ref="mediaService"/>
+	<bean id="mediaWebService" class="de.mediapool.webservice.service.MediaWebservice">
+		<property name="authService" ref="authService"/>
 	</bean>
 </beans>
