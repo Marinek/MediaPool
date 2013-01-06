@@ -35,7 +35,7 @@ public class SearchServiceImpl implements ISearchService {
 	}
 
 	public List<SearchProfileBean> getSearchProfiles(UserBean pUser) throws MPExeption {
-		return null;
+		return new BOEntitySearchProfile(pUser).getSearchProfiles();
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -1,5 +1,6 @@
 package de.mediapool.core.business.search.profiles;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.thoughtworks.xstream.XStream;
@@ -79,7 +80,23 @@ public class BOEntitySearchProfile extends BusinessObject {
 		this.init(pProfileId);
 	}
 
-	public SearchProfileBean getSearchProfileBean() {
+	public List<SearchProfileBean> getSearchProfiles() throws MPExeption {
+		List<SearchProfileBean> lReturnList = new ArrayList<SearchProfileBean>();
+
+		try {
+			List<SearchProfile> userProfileVOs = SearchProfile.getDAO().findByUser(this.getCurrentUserBean().getIdAsString());
+
+			for (SearchProfile lProfileVO : userProfileVOs) {
+				lReturnList.add(this.getBean(lProfileVO));
+			}
+		} catch (PSException e) {
+			throw new MPTechnicalExeption(ExeptionErrorCode.DB_READ, "Konnte auf Tabelle 'SuchProfil' nicht lesen.", e);
+		}
+
+		return lReturnList;
+	}
+
+	public SearchProfileBean getSearchProfileBean() throws MPExeption {
 		return this.currentSearchProfileBean;
 	}
 
@@ -132,6 +149,7 @@ public class BOEntitySearchProfile extends BusinessObject {
 
 		lVO.setId(searchProfileBean.getIdAsString());
 		lVO.setName(searchProfileBean.getName());
+		lVO.setOwnerId(this.getCurrentUserBean().getIdAsString());
 
 		XStream xstream = new XStream();
 
