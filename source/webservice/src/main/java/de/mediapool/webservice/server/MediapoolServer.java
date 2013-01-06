@@ -15,7 +15,7 @@ public class MediapoolServer {
 
 		Endpoint endpoint =
 
-		Endpoint.publish("http://localhost:8080/MediaWebservice", server);
+		Endpoint.publish("http://localhost:7979/MediaWebservice", server);
 
 	}
 }
