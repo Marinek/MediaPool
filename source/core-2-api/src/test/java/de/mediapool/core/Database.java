@@ -2,8 +2,10 @@ package de.mediapool.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,17 +15,66 @@ import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
+import de.mediapool.core.beans.keyvalue.string.KeyValueBean;
+import de.mediapool.core.beans.search.SearchOperation;
+import de.mediapool.core.beans.search.entity.EntityCriteriaBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
+import de.mediapool.core.beans.search.entity.media.MediaSearchBean;
+import de.mediapool.core.beans.search.profiles.SearchProfileBean;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.services.MPLocalService;
 import de.mediapool.core.services.interfaces.IAuthService;
 import de.mediapool.core.services.interfaces.IInstallationService;
 import de.mediapool.core.services.interfaces.IMediaService;
 import de.mediapool.core.services.interfaces.IProductService;
+import de.mediapool.core.services.interfaces.ISearchService;
 
 public class Database {
 
 	private static final Logger logger = LoggerFactory.getLogger(Database.class);
+
+	private UserBean userBean;
+
+	@Before
+	public void setUp() {
+		IAuthService authService = MPLocalService.getInstance().getAuthService();
+
+		IInstallationService installationService = MPLocalService.getInstance().getInstallationService();
+
+		try {
+			installationService.installDB();
+			userBean = authService.auth("Test", "Test");
+
+		} catch (MPExeption e) {
+			logger.error(e.getLocalizedMessage(), e);
+		}
+	}
+
+	@Test
+	public void testSearchProfiles() {
+		ISearchService lService = MPLocalService.getInstance().getSearchService();
+
+		SearchProfileBean lProfilesBean = new SearchProfileBean();
+
+		lProfilesBean.setId(UUID.randomUUID());
+		lProfilesBean.setName("Meine Suchkriterien#Alle Medien mit A");
+
+		MediaSearchBean lSearch = new MediaSearchBean();
+
+		lSearch.addCriteria(new EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("name", "A*")));
+
+		lProfilesBean.setSearchBean(lSearch);
+
+		try {
+			lProfilesBean = lService.saveSearchProfile(lProfilesBean, userBean);
+
+			lSearch.addCriteria(new EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("ean", "123")));
+
+			lService.saveSearchProfile(lProfilesBean, userBean);
+		} catch (MPExeption e) {
+			logger.error(e.getLocalizedMessage(), e);
+		}
+	}
 
 	@Test
 	public void basicOperationTest() {
@@ -32,20 +83,14 @@ public class Database {
 
 		IProductService productService = MPLocalService.getInstance().getProductService();
 
-		IInstallationService installationService = MPLocalService.getInstance().getInstallationService();
-
-		IAuthService authService = MPLocalService.getInstance().getAuthService();
-
 		try {
-			installationService.installDB();
-			UserBean lUserBean = authService.auth("Test", "Test");
 
 			List<MediaBean> movieList = new ArrayList<MediaBean>();
 
 			for (String[] movieData : TestData.getMovies()) {
 				MediaBean lMovieBean = mediaService.createNewMedia("movie");
 				movieList.add(TestDataBinding.generateTestMovieData(lMovieBean, movieData));
-				mediaService.saveMedia(lMovieBean, lUserBean);
+				mediaService.saveMedia(lMovieBean, userBean);
 			}
 
 			List<ProductBean> productList = new ArrayList<ProductBean>();
@@ -75,7 +120,7 @@ public class Database {
 			}
 
 		} catch (MPExeption e) {
-			logger.error(e.getLocalizedMessage());
+			logger.error(e.getLocalizedMessage(), e);
 		}
 	}
 

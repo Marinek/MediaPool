@@ -79,9 +79,14 @@ public abstract class PSAbstractDAOImpl<T extends IPSValueObject> implements IPS
 
 	@SuppressWarnings("unchecked")
 	private List<T> find(PSCriteria pCriteria) throws PSException {
-		Criteria executableCriteria = pCriteria.getExecutableCriteria(this.getSession());
+		Session session = this.getSession();
+		Criteria executableCriteria = pCriteria.getExecutableCriteria(session);
 
-		return executableCriteria.list();
+		List<T> lResult = executableCriteria.list();
+
+		session.close();
+
+		return lResult;
 	}
 
 	protected SessionFactory getSessionFactory() {
@@ -94,6 +99,16 @@ public abstract class PSAbstractDAOImpl<T extends IPSValueObject> implements IPS
 		}
 
 		return this.find(pCriteria);
+	}
+
+	protected T findOneByCriteria(PSCriteria pCriteria) throws PSException {
+		List<T> lSearchResult = this.findByCriteria(pCriteria);
+
+		if (lSearchResult.size() == 1) {
+			return lSearchResult.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	@SuppressWarnings("unchecked")

@@ -16,7 +16,10 @@ public enum ExeptionErrorCode {
 	BO_INIT(10000, "Fehler beim Initialisieren des BOs. Unzureichende Daten."), BO_VALIDATION(10001, "Die Validierung für die ausgefühere Funktion konnte nicht erfolgreich durchgeführt werden."),
 
 	// EntityDefinitions
-	ENTITY_TYPE_NO_TYPE_DEF(20000, "Der angegebene Entity-Type existiert nicht.");
+	ENTITY_TYPE_NO_TYPE_DEF(20000, "Der angegebene Entity-Type existiert nicht."),
+
+	// Technical Errors
+	T_NULL_REFERENCE(30000, "Der übergebene Parameter darf nicht NULL sein!"), T_ARRAY_LENGTH(30001, "Die länge des Arrays ist nicht korrekt.");
 
 	private int errorCode = -1;
 

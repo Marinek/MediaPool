@@ -1,32 +1,44 @@
-package de.mediapool.core.business.entities.relationship;
+package de.mediapool.core.beans.search.profiles;
 
 import de.mediapool.core.beans.AbstractBean;
-import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.media.MediaBean;
-import de.mediapool.core.beans.business.entity.product.ProductBean;
-import de.mediapool.core.business.entities.media.BOMedia;
-import de.mediapool.core.business.entities.products.BOProduct;
-import de.mediapool.core.exceptions.MPExeption;
-import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
+import de.mediapool.core.beans.search.entity.AbstractEntitySearchBean;
 
-public class BOProductMediaRelationship extends BOAbstractRelation<ProductBean, MediaBean> {
+public class SearchProfileBean extends AbstractBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public static final Integer TYPEID = 100;
+	private static final long serialVersionUID = 1L;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	private String name = null;
+	private AbstractEntitySearchBean searchBean = null;
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOProductMediaRelationship(UserBean pUserBean, AbstractBean pReferentId) throws MPExeption {
-		super(pUserBean, pReferentId);
+	public SearchProfileBean() {
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public AbstractEntitySearchBean getSearchBean() {
+		return searchBean;
+	}
+
+	public void setSearchBean(AbstractEntitySearchBean searchBean) {
+		this.searchBean = searchBean;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -36,18 +48,6 @@ public class BOProductMediaRelationship extends BOAbstractRelation<ProductBean, 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	protected Integer getRelationTypeId() throws MPExeption {
-		return TYPEID;
-	}
-
-	protected ProductBean getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption {
-		return new BOProduct(lRelationShipVO.getParentId(), this.getCurrentUserBean()).getCurrentEntityBean();
-	}
-
-	protected MediaBean getChildEntity(RelationshipVO lRelationShipVO) throws MPExeption {
-		return new BOMedia(lRelationShipVO.getChildId(), getCurrentUserBean()).getCurrentEntityBean();
-	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden
