@@ -8,24 +8,21 @@
 	<packaging>jar</packaging>
 
 	<name>mediapool-core</name>
-	<url>http://maven.apache.org</url>
-	
-    
+
 	<distributionManagement>
-	  <!-- use the following if you're not using a snapshot version. -->
-	  <repository>
-	    <id>local-repository</id>
-	    <name>Local Repository</name>
-	    <url>file://C:\Dokumente und Einstellungen\Mana204\.m2\repository</url>
-	  </repository>
+		<repository>
+			<id>local-repository</id>
+			<name>Local Repository</name>
+			<url>file://C:\Dokumente und Einstellungen\Marcinek\.m2\repository</url>
+		</repository>
 	</distributionManagement>
 
+	<url>http://maven.apache.org</url>
 	<properties>
 		<querydsl.version>1.8.2</querydsl.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
 	<repositories>
 		<repository>
 			<id>Mysema</id>
@@ -44,17 +41,16 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
-
 	<build>
 		<plugins>
 			<plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-compiler-plugin</artifactId>
-			        <configuration>
-			          <source>1.6</source>
-			          <target>1.6</target>
-			        </configuration>
-	      	</plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -148,6 +144,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.2.2</version>
+		</dependency>
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.18</version>
@@ -202,6 +203,12 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjtools</artifactId>
+			<version>1.6.2</version>
+		</dependency>
 		<dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
@@ -216,11 +223,6 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.shiro</groupId>
-			<artifactId>shiro-all</artifactId>
-			<version>1.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mysema.querydsl</groupId>

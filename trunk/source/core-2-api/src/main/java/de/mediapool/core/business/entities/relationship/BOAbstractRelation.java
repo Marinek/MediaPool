@@ -1,4 +1,4 @@
-package de.mediapool.core.business.relationship;
+package de.mediapool.core.business.entities.relationship;
 
 import java.util.ArrayList;
 import java.util.List;

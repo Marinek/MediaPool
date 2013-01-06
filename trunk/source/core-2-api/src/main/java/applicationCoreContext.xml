@@ -31,6 +31,7 @@
 				<value>de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO</value>
 				<value>de.mediapool.core.persistence.vo.relationship.RelationshipVO</value>
 				<value>de.mediapool.core.persistence.vo.user.UserVO</value>
+				<value>de.mediapool.core.persistence.vo.searchprofiles.SearchProfile</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -46,9 +47,9 @@
 
 	<bean id="mediaService" class="de.mediapool.core.services.media.MediaServiceImpl"/>
 	<bean id="productService" class="de.mediapool.core.services.product.ProductServiceImpl"/>
-
 	<bean id="installationService" class="de.mediapool.core.services.install.InstallationServiceImpl"/>
 	<bean id="authService" class="de.mediapool.core.services.authentication.AuthServiceImpl"/>
+	<bean id="searchService" class="de.mediapool.core.services.search.SearchServiceImpl"/>
 
 </beans>
 

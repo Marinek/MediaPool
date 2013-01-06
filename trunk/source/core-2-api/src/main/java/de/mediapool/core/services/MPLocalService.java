@@ -6,6 +6,7 @@ import de.mediapool.core.services.interfaces.IAuthService;
 import de.mediapool.core.services.interfaces.IInstallationService;
 import de.mediapool.core.services.interfaces.IMediaService;
 import de.mediapool.core.services.interfaces.IProductService;
+import de.mediapool.core.services.interfaces.ISearchService;
 
 public class MPLocalService {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -54,6 +55,10 @@ public class MPLocalService {
 
 	public IInstallationService getInstallationService() {
 		return (IInstallationService) beanFactory.getBean("installationService");
+	}
+
+	public ISearchService getSearchService() {
+		return (ISearchService) beanFactory.getBean("searchService");
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

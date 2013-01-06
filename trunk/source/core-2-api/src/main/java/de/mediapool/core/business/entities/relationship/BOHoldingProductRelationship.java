@@ -8,7 +8,6 @@ import de.mediapool.core.beans.business.entity.holding.HoldingBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.business.entities.holding.BOHolding;
 import de.mediapool.core.business.entities.products.BOProduct;
-import de.mediapool.core.business.relationship.BOAbstractRelation;
 import de.mediapool.core.exceptions.MPExeption;
 import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
 
