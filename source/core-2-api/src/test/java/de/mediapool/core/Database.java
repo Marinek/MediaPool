@@ -15,9 +15,6 @@ import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
-import de.mediapool.core.beans.keyvalue.string.KeyValueBean;
-import de.mediapool.core.beans.search.SearchOperation;
-import de.mediapool.core.beans.search.entity.EntityCriteriaBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
 import de.mediapool.core.beans.search.entity.media.MediaSearchBean;
 import de.mediapool.core.beans.search.profiles.SearchProfileBean;
@@ -28,6 +25,7 @@ import de.mediapool.core.services.interfaces.IInstallationService;
 import de.mediapool.core.services.interfaces.IMediaService;
 import de.mediapool.core.services.interfaces.IProductService;
 import de.mediapool.core.services.interfaces.ISearchService;
+import de.mediapool.core.utils.AttributeCriteriaUtil;
 
 public class Database {
 
@@ -58,8 +56,8 @@ public class Database {
 
 		MediaSearchBean lSearch = new MediaSearchBean();
 
-		lSearch.addCriteria(new EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("name", "A*")));
-		lSearch.addCriteria(new EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("ean", "123")));
+		lSearch.addCriteria(AttributeCriteriaUtil.eq("name", "A*"));
+		lSearch.addCriteria(AttributeCriteriaUtil.eq("ean", "123"));
 
 		lProfilesBean.setSearchBean(lSearch);
 

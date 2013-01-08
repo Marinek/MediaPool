@@ -8,7 +8,7 @@ import java.util.Map;
 
 import de.mediapool.core.beans.AbstractBean;
 
-public abstract class AbstractSearchBean<C extends AbstractCriteriaBean> extends AbstractBean {
+public abstract class AbstractSearchBean extends AbstractBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -20,7 +20,7 @@ public abstract class AbstractSearchBean<C extends AbstractCriteriaBean> extends
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private Map<String, List<C>> criteriaCollectionMap = new HashMap<String, List<C>>();
+	private Map<String, List<AbstractCriteriaBean>> criteriaCollectionMap = new HashMap<String, List<AbstractCriteriaBean>>();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -30,26 +30,26 @@ public abstract class AbstractSearchBean<C extends AbstractCriteriaBean> extends
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public void addCriteria(C pCriteria) {
+	public void addCriteria(AbstractCriteriaBean pCriteria) {
 		this.addCriteria("", pCriteria);
 	}
 
-	public void addCriteria(String prefix, C pCriteria) {
+	public void addCriteria(String prefix, AbstractCriteriaBean pCriteria) {
 
 		if (!this.criteriaCollectionMap.containsKey(prefix)) {
-			this.criteriaCollectionMap.put(prefix, new ArrayList<C>());
+			this.criteriaCollectionMap.put(prefix, new ArrayList<AbstractCriteriaBean>());
 		}
 
 		this.criteriaCollectionMap.get(prefix).add(pCriteria);
 	}
 
-	public List<C> getCriteriaList() {
+	public List<AbstractCriteriaBean> getCriteriaList() {
 		return this.getCriteriaList("");
 	}
 
-	public List<C> getCriteriaList(String prefix) {
+	public List<AbstractCriteriaBean> getCriteriaList(String prefix) {
 		if (!this.criteriaCollectionMap.containsKey(prefix)) {
-			this.criteriaCollectionMap.put(prefix, Collections.<C> emptyList());
+			this.criteriaCollectionMap.put(prefix, Collections.<AbstractCriteriaBean> emptyList());
 		}
 		return Collections.unmodifiableList(this.criteriaCollectionMap.get(prefix));
 	}

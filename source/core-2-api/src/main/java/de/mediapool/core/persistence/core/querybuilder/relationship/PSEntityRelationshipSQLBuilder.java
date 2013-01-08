@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import com.mysema.query.types.path.PEntity;
 import com.mysema.query.types.path.PString;
 
-import de.mediapool.core.beans.search.entity.EntityCriteriaBean;
+import de.mediapool.core.beans.search.AbstractCriteriaBean;
 import de.mediapool.core.persistence.core.HibernateSQLQuery;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.core.interfaces.IPSValueObject;
@@ -28,8 +28,8 @@ public class PSEntityRelationshipSQLBuilder extends PSRelationshipSQLBuilder {
 	private final QEntityVO parent = new QEntityVO("parent");
 	private final QEntityVO child = new QEntityVO("child");
 
-	private List<EntityCriteriaBean> parentAttributes = new ArrayList<EntityCriteriaBean>();
-	private List<EntityCriteriaBean> childAttributes = new ArrayList<EntityCriteriaBean>();
+	private List<AbstractCriteriaBean> parentAttributes = new ArrayList<AbstractCriteriaBean>();
+	private List<AbstractCriteriaBean> childAttributes = new ArrayList<AbstractCriteriaBean>();
 
 	private int criteriaCount = 0;
 
@@ -78,7 +78,7 @@ public class PSEntityRelationshipSQLBuilder extends PSRelationshipSQLBuilder {
 		return sqlQuery;
 	}
 
-	public void addEntityCriteria(PSEntityRelationType pType, List<EntityCriteriaBean> criteria) throws PSException {
+	public void addEntityCriteria(PSEntityRelationType pType, List<AbstractCriteriaBean> criteria) throws PSException {
 		switch (pType) {
 		case PARENT:
 			this.parentAttributes.addAll(criteria);
@@ -95,16 +95,16 @@ public class PSEntityRelationshipSQLBuilder extends PSRelationshipSQLBuilder {
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected void addAttributeRestrictions(List<EntityCriteriaBean> pCriteriaList, PString matchingField, HibernateSQLQuery sqlQuery) throws PSException {
-		for (EntityCriteriaBean entityCriteria : pCriteriaList) {
+	protected void addAttributeRestrictions(List<AbstractCriteriaBean> pCriteriaList, PString matchingField, HibernateSQLQuery sqlQuery) throws PSException {
+		for (AbstractCriteriaBean entityCriteria : pCriteriaList) {
 			QEntityAttributeVO qEntityAttributeVO = new QEntityAttributeVO("attr" + String.valueOf(criteriaCount++));
 
 			sqlQuery.leftJoin(qEntityAttributeVO).on(qEntityAttributeVO.entityid.eq(matchingField));
 
-			sqlQuery.where(qEntityAttributeVO.attributeName.eq(entityCriteria.getSingleKey()));
+			sqlQuery.where(qEntityAttributeVO.attributeName.eq(entityCriteria.getField()));
 			switch (entityCriteria.getOperation()) {
 			case BETWEEN:
-				sqlQuery.where(qEntityAttributeVO.attributeValue.between(entityCriteria.getKeyValues().get(0).getValue(), entityCriteria.getKeyValues().get(1).getValue()));
+				sqlQuery.where(qEntityAttributeVO.attributeValue.between(entityCriteria.getValues().get(0), entityCriteria.getValues().get(1)));
 				break;
 			case EQ:
 				sqlQuery.where(qEntityAttributeVO.attributeValue.eq(entityCriteria.getSingleValue()));
@@ -113,7 +113,7 @@ public class PSEntityRelationshipSQLBuilder extends PSRelationshipSQLBuilder {
 				sqlQuery.where(qEntityAttributeVO.attributeValue.gt(entityCriteria.getSingleValue()));
 				break;
 			case IN:
-				sqlQuery.where(qEntityAttributeVO.attributeValue.in(entityCriteria.getValuesAsList()));
+				sqlQuery.where(qEntityAttributeVO.attributeValue.in(entityCriteria.getValues()));
 				break;
 			case LIKE:
 				sqlQuery.where(qEntityAttributeVO.attributeValue.like(entityCriteria.getSingleValue()));
