@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import de.mediapool.core.beans.AbstractBean;
-import de.mediapool.core.beans.keyvalue.string.KeyValueBean;
 
 public abstract class AbstractCriteriaBean extends AbstractBean {
 
@@ -22,15 +21,18 @@ public abstract class AbstractCriteriaBean extends AbstractBean {
 
 	private SearchOperation operation = null;
 
-	private List<KeyValueBean> values = new ArrayList<KeyValueBean>();
+	private List<String> values = new ArrayList<String>();
+
+	private String field = null;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected AbstractCriteriaBean(SearchOperation pOperation, KeyValueBean... pValues) {
+	protected AbstractCriteriaBean(SearchOperation pOperation, String pField, String... pValues) {
 		operation = pOperation;
 		values = Arrays.asList(pValues);
+		this.field = pField;
 
 		this.check();
 	}
@@ -61,26 +63,16 @@ public abstract class AbstractCriteriaBean extends AbstractBean {
 		return operation;
 	}
 
-	public List<KeyValueBean> getKeyValues() {
+	public List<String> getValues() {
 		return Collections.unmodifiableList(this.values);
 	}
 
 	public String getSingleValue() {
-		return this.values.get(0).getValue();
+		return this.values.get(0);
 	}
 
-	public String getSingleKey() {
-		return this.values.get(0).getKey();
-	}
-
-	public List<String> getValuesAsList() {
-		List<String> listValues = new ArrayList<String>();
-
-		for (KeyValueBean keyValueBean : this.values) {
-			listValues.add(keyValueBean.getValue());
-		}
-
-		return listValues;
+	public String getField() {
+		return this.field;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

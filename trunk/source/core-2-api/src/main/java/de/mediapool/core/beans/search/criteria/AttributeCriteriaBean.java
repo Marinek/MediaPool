@@ -1,10 +1,9 @@
-package de.mediapool.core.beans.search.entity;
+package de.mediapool.core.beans.search.criteria;
 
-import de.mediapool.core.beans.keyvalue.string.KeyValueBean;
 import de.mediapool.core.beans.search.AbstractCriteriaBean;
 import de.mediapool.core.beans.search.SearchOperation;
 
-public class EntityCriteriaBean extends AbstractCriteriaBean {
+public class AttributeCriteriaBean extends AbstractCriteriaBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -20,8 +19,8 @@ public class EntityCriteriaBean extends AbstractCriteriaBean {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public EntityCriteriaBean(SearchOperation pOperation, KeyValueBean... pValues) {
-		super(pOperation, pValues);
+	public AttributeCriteriaBean(SearchOperation pOperation, String pField, String... pValues) {
+		super(pOperation, pField, pValues);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

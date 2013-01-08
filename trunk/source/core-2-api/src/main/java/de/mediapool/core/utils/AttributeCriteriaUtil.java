@@ -1,20 +1,14 @@
-package de.mediapool.core.beans.search.entity.joined;
-
-import java.util.List;
+package de.mediapool.core.utils;
 
 import de.mediapool.core.beans.search.AbstractCriteriaBean;
-import de.mediapool.core.beans.search.entity.AbstractEntitySearchBean;
+import de.mediapool.core.beans.search.SearchOperation;
+import de.mediapool.core.beans.search.criteria.AttributeCriteriaBean;
 
-public class ProductMediaSearchBean extends AbstractEntitySearchBean {
+public class AttributeCriteriaUtil {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	private static final long serialVersionUID = 1L;
-
-	private static final String PARENT = "parent";
-	private static final String CHILD = "child";
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
@@ -28,20 +22,24 @@ public class ProductMediaSearchBean extends AbstractEntitySearchBean {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public List<AbstractCriteriaBean> getProductCriteria() {
-		return this.getCriteriaList(PARENT);
+	public static AbstractCriteriaBean eq(String pAttributeName, String pValue) {
+		return new AttributeCriteriaBean(SearchOperation.EQ, pAttributeName, pValue);
 	}
 
-	public List<AbstractCriteriaBean> geMediaCriteria() {
-		return this.getCriteriaList(CHILD);
+	public static AbstractCriteriaBean between(String pAttributeName, String pValueFrom, String pValueTo) {
+		return new AttributeCriteriaBean(SearchOperation.BETWEEN, pAttributeName, pValueFrom, pValueTo);
 	}
 
-	public void addProductCriteria(AbstractCriteriaBean pCriteria) {
-		this.addCriteria(PARENT, pCriteria);
+	public static AbstractCriteriaBean in(String pAttributeName, String... pValue) {
+		return new AttributeCriteriaBean(SearchOperation.IN, pAttributeName, pValue);
 	}
 
-	public void addMediaCriteria(AbstractCriteriaBean pCriteria) {
-		this.addCriteria(CHILD, pCriteria);
+	public static AbstractCriteriaBean like(String pAttributeName, String pValue) {
+		return new AttributeCriteriaBean(SearchOperation.LIKE, pAttributeName, pValue);
+	}
+
+	public static AbstractCriteriaBean lt(String pAttributeName, String pValue) {
+		return new AttributeCriteriaBean(SearchOperation.LT, pAttributeName, pValue);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
