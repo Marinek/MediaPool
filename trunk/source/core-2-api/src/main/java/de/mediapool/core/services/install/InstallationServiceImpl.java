@@ -3,7 +3,7 @@ package de.mediapool.core.services.install;
 import java.util.UUID;
 
 import de.mediapool.core.exceptions.ExeptionErrorCode;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO;
@@ -16,13 +16,13 @@ public class InstallationServiceImpl implements IInstallationService {
 	private static final String MOVIE = "movie";
 	private static final String PRODUCT = "product";
 
-	public void installDB() throws MPExeption {
+	public void installDB() throws MPException {
 		installMediaDB();
 		installProductDB();
 		installUser();
 	}
 
-	private void installUser() throws MPExeption {
+	private void installUser() throws MPException {
 		UserVO lUserVO = new UserVO();
 
 		lUserVO.setUsername("Test");
@@ -36,7 +36,7 @@ public class InstallationServiceImpl implements IInstallationService {
 		}
 	}
 
-	private void installMediaDB() throws MPExeption {
+	private void installMediaDB() throws MPException {
 		// Achtung: Diese Implementierung ist NICHT Designkorrekt.
 		// Diese Schicht kommuniziert EIGENTLICH nur mit der BOSchicht!
 		// Die Installation sollte aber hier provisiorisch erfolgen, bis
@@ -58,7 +58,7 @@ public class InstallationServiceImpl implements IInstallationService {
 
 	}
 
-	private void installProductDB() throws MPExeption {
+	private void installProductDB() throws MPException {
 		EntityTypeVO lMediaTypeVO = new EntityTypeVO();
 
 		lMediaTypeVO.setId(UUID.randomUUID().toString());

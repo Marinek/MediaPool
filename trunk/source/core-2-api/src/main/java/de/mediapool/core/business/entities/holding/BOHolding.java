@@ -5,7 +5,7 @@ import java.util.UUID;
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.holding.HoldingBean;
 import de.mediapool.core.business.entities.BOAbstractEntity;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 
 public class BOHolding extends BOAbstractEntity<HoldingBean> {
 
@@ -21,7 +21,7 @@ public class BOHolding extends BOAbstractEntity<HoldingBean> {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOHolding(UUID entityID, UserBean pUserBean) throws MPExeption {
+	public BOHolding(UUID entityID, UserBean pUserBean) throws MPException {
 		super(entityID, pUserBean);
 	}
 
@@ -33,15 +33,15 @@ public class BOHolding extends BOAbstractEntity<HoldingBean> {
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected void protectedSave() throws MPExeption {
+	protected void protectedSave() throws MPException {
 
 	}
 
-	protected void protectedDelete() throws MPExeption {
+	protected void protectedDelete() throws MPException {
 
 	}
 
-	protected HoldingBean getCurrentEntityBeanInstance() throws MPExeption {
+	protected HoldingBean getCurrentEntityBeanInstance() throws MPException {
 		return new HoldingBean();
 	}
 

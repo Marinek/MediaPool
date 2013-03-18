@@ -13,7 +13,7 @@ import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPBusinessExeption;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.searchprofiles.SearchProfile;
@@ -36,12 +36,12 @@ public class BOEntitySearchProfile extends BusinessObject {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOEntitySearchProfile(UserBean pUserBean) throws MPExeption {
+	public BOEntitySearchProfile(UserBean pUserBean) throws MPException {
 		super(pUserBean);
 
 	}
 
-	public void save() throws MPExeption {
+	public void save() throws MPException {
 		NullValidationUtil.checkForNull(this.currentSearchProfileBean, "currentSearchProfileBean");
 
 		List<ValidationResultBean> validate = this.validate();
@@ -64,7 +64,7 @@ public class BOEntitySearchProfile extends BusinessObject {
 		}
 	}
 
-	public BOEntitySearchProfile(UserBean pUserBean, SearchProfileBean pAbstractEntitySearchBean) throws MPExeption {
+	public BOEntitySearchProfile(UserBean pUserBean, SearchProfileBean pAbstractEntitySearchBean) throws MPException {
 		this(pUserBean);
 
 		NullValidationUtil.checkForNull(pAbstractEntitySearchBean, "pAbstractEntitySearchBean");
@@ -72,7 +72,7 @@ public class BOEntitySearchProfile extends BusinessObject {
 		currentSearchProfileBean = pAbstractEntitySearchBean;
 	}
 
-	public BOEntitySearchProfile(UserBean pUserBean, String pProfileId) throws MPExeption {
+	public BOEntitySearchProfile(UserBean pUserBean, String pProfileId) throws MPException {
 		this(pUserBean);
 
 		NullValidationUtil.checkForNull(pProfileId, "pProfileId");
@@ -80,7 +80,7 @@ public class BOEntitySearchProfile extends BusinessObject {
 		this.init(pProfileId);
 	}
 
-	public List<SearchProfileBean> getSearchProfiles() throws MPExeption {
+	public List<SearchProfileBean> getSearchProfiles() throws MPException {
 		List<SearchProfileBean> lReturnList = new ArrayList<SearchProfileBean>();
 
 		try {
@@ -96,7 +96,7 @@ public class BOEntitySearchProfile extends BusinessObject {
 		return lReturnList;
 	}
 
-	public SearchProfileBean getSearchProfileBean() throws MPExeption {
+	public SearchProfileBean getSearchProfileBean() throws MPException {
 		return this.currentSearchProfileBean;
 	}
 
@@ -104,7 +104,7 @@ public class BOEntitySearchProfile extends BusinessObject {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public SearchProfileBean getSearchBean() throws MPExeption {
+	public SearchProfileBean getSearchBean() throws MPException {
 		return this.currentSearchProfileBean;
 	}
 
@@ -116,7 +116,7 @@ public class BOEntitySearchProfile extends BusinessObject {
 	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private void init(String pProfileId) throws MPExeption {
+	private void init(String pProfileId) throws MPException {
 		if (this.currentSearchProfileBean == null) {
 			try {
 				SearchProfile searchProfileVO = SearchProfile.getDAO().findById(pProfileId);

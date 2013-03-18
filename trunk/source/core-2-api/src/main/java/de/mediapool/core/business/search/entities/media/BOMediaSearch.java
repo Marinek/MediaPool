@@ -4,7 +4,7 @@ import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.search.entity.media.MediaResultList;
 import de.mediapool.core.beans.search.entity.media.MediaSearchBean;
 import de.mediapool.core.business.search.entities.BOAbstractEntitySearch;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 
 public class BOMediaSearch extends BOAbstractEntitySearch<MediaSearchBean, MediaResultList> {
 
@@ -20,7 +20,7 @@ public class BOMediaSearch extends BOAbstractEntitySearch<MediaSearchBean, Media
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOMediaSearch(UserBean pUserBean) throws MPExeption {
+	public BOMediaSearch(UserBean pUserBean) throws MPException {
 		super(pUserBean);
 	}
 
@@ -28,7 +28,7 @@ public class BOMediaSearch extends BOAbstractEntitySearch<MediaSearchBean, Media
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public MediaResultList executeSearch(MediaSearchBean pSearchQuery) throws MPExeption {
+	public MediaResultList executeSearch(MediaSearchBean pSearchQuery) throws MPException {
 		MediaResultList lResultList = this.getSearchResultList();
 
 		return lResultList;
@@ -38,7 +38,7 @@ public class BOMediaSearch extends BOAbstractEntitySearch<MediaSearchBean, Media
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected MediaResultList getSearchResultList() throws MPExeption {
+	protected MediaResultList getSearchResultList() throws MPException {
 		return new MediaResultList();
 	}
 

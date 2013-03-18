@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 
 public class AuthenticationCache {
 
@@ -21,15 +21,15 @@ public class AuthenticationCache {
 		return instance;
 	}
 
-	public void addSubject(UserBean pSubject) throws MPExeption {
+	public void addSubject(UserBean pSubject) throws MPException {
 		this.currentKnownUser.put(pSubject.getSessionId(), pSubject);
 	}
 
-	public UserBean getSubject(UUID pUUID) throws MPExeption {
+	public UserBean getSubject(UUID pUUID) throws MPException {
 		return this.currentKnownUser.get(pUUID);
 	}
 
-	public void removeSubject(UserBean pSubject) throws MPExeption {
+	public void removeSubject(UserBean pSubject) throws MPException {
 		this.currentKnownUser.remove(pSubject.getSessionId());
 	}
 

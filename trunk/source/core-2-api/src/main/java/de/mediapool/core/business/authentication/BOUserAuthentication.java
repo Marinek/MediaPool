@@ -7,18 +7,18 @@ import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPBusinessExeption;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.user.UserVO;
 
 public class BOUserAuthentication extends BusinessObject {
 
-	public BOUserAuthentication() throws MPExeption {
+	public BOUserAuthentication() throws MPException {
 		super(null);
 	}
 
-	public UserBean login(String pUsername, String pPassword) throws MPExeption {
+	public UserBean login(String pUsername, String pPassword) throws MPException {
 		UserBean lUserBean = new UserBean();
 
 		try {
@@ -49,15 +49,15 @@ public class BOUserAuthentication extends BusinessObject {
 		return lUserBean;
 	}
 
-	public boolean isAuthenticated(UserBean pUserBean) throws MPExeption {
+	public boolean isAuthenticated(UserBean pUserBean) throws MPException {
 		if (pUserBean == null) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.AUTH_LOGIN, "Unbekannter Nutzer (NULL)");
 		}
 
-		return AuthenticationCache.getInstance().getSubject(pUserBean.getId()) != null;
+		return AuthenticationCache.getInstance().getSubject(pUserBean.getSessionId()) != null;
 	}
 
-	public void logout(UserBean pUserBean) throws MPExeption {
+	public void logout(UserBean pUserBean) throws MPException {
 		AuthenticationCache.getInstance().removeSubject(pUserBean);
 	}
 }

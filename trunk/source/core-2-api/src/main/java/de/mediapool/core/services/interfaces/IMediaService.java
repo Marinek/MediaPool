@@ -7,22 +7,22 @@ import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBe
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 
 public interface IMediaService extends IService {
 
-	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption;
+	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPException;
 
-	public void deleteMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption;
+	public void deleteMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPException;
 
-	public MediaBean getMedia(UUID id, UserBean pUserBean) throws MPExeption;
+	public MediaBean getMedia(UUID id, UserBean pUserBean) throws MPException;
 
-	public MediaBean createNewMedia(String pMediaType) throws MPExeption;
+	public MediaBean createNewMedia(String pMediaType) throws MPException;
 
-	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPExeption;
+	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPException;
 
-	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPExeption;
+	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException;
 
-	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPExeption;
+	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPException;
 
 }

@@ -2,21 +2,21 @@ package de.mediapool.core.exceptions;
 
 import java.rmi.RemoteException;
 
-public abstract class MPExeption extends RemoteException {
+public abstract class MPException extends RemoteException {
 
 	private static final long serialVersionUID = 1L;
 
 	private ExeptionErrorCode errorCode;
 
-	public MPExeption() {
+	public MPException() {
 
 	}
 
-	public MPExeption(ExeptionErrorCode errorCode, String detailMessage) {
+	public MPException(ExeptionErrorCode errorCode, String detailMessage) {
 		this(errorCode, detailMessage, null);
 	}
 
-	public MPExeption(ExeptionErrorCode errorCode, String detailMessage, Throwable throwable) {
+	public MPException(ExeptionErrorCode errorCode, String detailMessage, Throwable throwable) {
 		super(detailMessage, throwable);
 
 		this.errorCode = errorCode;

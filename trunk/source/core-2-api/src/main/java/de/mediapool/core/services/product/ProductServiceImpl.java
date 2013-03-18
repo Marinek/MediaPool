@@ -9,11 +9,11 @@ import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
-import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
+import de.mediapool.core.business.entities.EntityMetaDataManager;
 import de.mediapool.core.business.entities.products.BOProduct;
 import de.mediapool.core.business.entities.relationship.BOProductMediaRelationship;
 import de.mediapool.core.business.search.entities.joined.BOProductMediaSearch;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.services.interfaces.IProductService;
 import de.mediapool.core.utils.AttributeCriteriaUtil;
 
@@ -35,17 +35,17 @@ public class ProductServiceImpl implements IProductService {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public ProductBean createNewProduct() throws MPExeption {
+	public ProductBean createNewProduct() throws MPException {
 		ProductBean lReturnNewMedia = new ProductBean();
 
 		lReturnNewMedia.setEntityType("product");
 
-		EntityAttributeTypeManager.getInstance().initialAttributes(lReturnNewMedia);
+		EntityMetaDataManager.getInstance().initialAttributes(lReturnNewMedia);
 
 		return lReturnNewMedia;
 	}
 
-	public void saveProduct(ProductBean createNewProduct) throws MPExeption {
+	public void saveProduct(ProductBean createNewProduct) throws MPException {
 		BOProduct boInstance = new BOProduct(null);
 
 		boInstance.setCurrentEntityBean(createNewProduct);
@@ -54,7 +54,7 @@ public class ProductServiceImpl implements IProductService {
 
 	}
 
-	public ProductMediaResultList getAllProductMedia(UserBean pUserBean) throws MPExeption {
+	public ProductMediaResultList getAllProductMedia(UserBean pUserBean) throws MPException {
 		ProductMediaSearchBean lSearchBean = new ProductMediaSearchBean();
 
 		BOProductMediaSearch productMediaSearch = new BOProductMediaSearch(pUserBean);
@@ -63,7 +63,7 @@ public class ProductServiceImpl implements IProductService {
 		return pmList;
 	}
 
-	public ProductMediaResultList getProductByEan(String ean, UserBean pUserBean) throws MPExeption {
+	public ProductMediaResultList getProductByEan(String ean, UserBean pUserBean) throws MPException {
 		ProductMediaSearchBean lSearchBean = new ProductMediaSearchBean();
 
 		lSearchBean.addProductCriteria(AttributeCriteriaUtil.eq("ean", ean));
@@ -74,7 +74,7 @@ public class ProductServiceImpl implements IProductService {
 		return pmList;
 	}
 
-	public ProductMediaResultList getProductByTitle(String title, UserBean pUserBean) throws MPExeption {
+	public ProductMediaResultList getProductByTitle(String title, UserBean pUserBean) throws MPException {
 		ProductMediaSearchBean lSearchBean = new ProductMediaSearchBean();
 
 		lSearchBean.addMediaCriteria(AttributeCriteriaUtil.like("title", title));
@@ -85,17 +85,17 @@ public class ProductServiceImpl implements IProductService {
 		return pmList;
 	}
 
-	public void addMediaToProduct(MediaBean pReferent, ProductBean pParent) throws MPExeption {
+	public void addMediaToProduct(MediaBean pReferent, ProductBean pParent) throws MPException {
 		new BOProductMediaRelationship(null, pReferent).addParent(pParent);
 	}
 
-	public void deleteProduct(ProductBean abstractProductBean, UserBean pUserBean) throws MPExeption {
+	public void deleteProduct(ProductBean abstractProductBean, UserBean pUserBean) throws MPException {
 		// TODO Auto-generated method stub
 
 	}
 
 	// TODO remove DUMMY Implementation
-	public ProductBean getProduct(UUID id, UserBean pUserBean) throws MPExeption {
+	public ProductBean getProduct(UUID id, UserBean pUserBean) throws MPException {
 
 		List<ProductBean> productList = new ArrayList<ProductBean>();
 		String product1[] = { "12345677", "Blue-ray", "cover.jpg", "english", "good", "uncut", "12", "90", "1", "10", "01.01.1980" };

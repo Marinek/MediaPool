@@ -4,7 +4,7 @@ import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.search.AbstractResultList;
 import de.mediapool.core.beans.search.AbstractSearchBean;
 import de.mediapool.core.business.BusinessObject;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 
 public abstract class BOAbstractSearch<S extends AbstractSearchBean, R extends AbstractResultList<?>> extends BusinessObject {
 
@@ -20,7 +20,7 @@ public abstract class BOAbstractSearch<S extends AbstractSearchBean, R extends A
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected BOAbstractSearch(UserBean pUserBean) throws MPExeption {
+	protected BOAbstractSearch(UserBean pUserBean) throws MPException {
 		super(pUserBean);
 	}
 
@@ -40,5 +40,5 @@ public abstract class BOAbstractSearch<S extends AbstractSearchBean, R extends A
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public abstract R executeSearch(S pSearchQuery) throws MPExeption;
+	public abstract R executeSearch(S pSearchQuery) throws MPException;
 }

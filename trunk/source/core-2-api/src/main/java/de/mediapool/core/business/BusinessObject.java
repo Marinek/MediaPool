@@ -6,7 +6,7 @@ import java.util.List;
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.core.PSTransaction;
@@ -19,22 +19,22 @@ public abstract class BusinessObject {
 	private IPSTransaction currentTransaction = null;
 	private boolean isOwnTransaction = true;
 
-	protected BusinessObject(UserBean pUserBean) throws MPExeption {
+	protected BusinessObject(UserBean pUserBean) throws MPException {
 		this.setCurrentUserBean(pUserBean);
 	}
 
-	public List<ValidationResultBean> validate() throws MPExeption {
+	public List<ValidationResultBean> validate() throws MPException {
 		List<ValidationResultBean> validatationResultList = new ArrayList<ValidationResultBean>();
 
 		return validatationResultList;
 	}
 
-	public void setTransaction(IPSTransaction pTransaction) throws MPExeption {
+	public void setTransaction(IPSTransaction pTransaction) throws MPException {
 		this.currentTransaction = pTransaction;
 		this.isOwnTransaction = false;
 	}
 
-	public IPSTransaction getTransaction() throws MPExeption {
+	public IPSTransaction getTransaction() throws MPException {
 		if (this.currentTransaction == null) {
 			isOwnTransaction = true;
 			this.currentTransaction = PSTransaction.createTransaction();
@@ -42,7 +42,7 @@ public abstract class BusinessObject {
 		return this.currentTransaction;
 	}
 
-	public void doCommit() throws MPExeption {
+	public void doCommit() throws MPException {
 		try {
 			if (this.isOwnTransaction) {
 				this.getTransaction().commit();
