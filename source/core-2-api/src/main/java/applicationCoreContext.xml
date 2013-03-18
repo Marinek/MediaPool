@@ -50,6 +50,7 @@
 	<bean id="installationService" class="de.mediapool.core.services.install.InstallationServiceImpl"/>
 	<bean id="authService" class="de.mediapool.core.services.authentication.AuthServiceImpl"/>
 	<bean id="searchService" class="de.mediapool.core.services.search.SearchServiceImpl"/>
+	<bean id="mediaMetaDataService" class="de.mediapool.core.services.media.MediaMetaDataServiceImpl"/>
 
 </beans>
 

@@ -1,7 +1,7 @@
 package de.mediapool.core.utils;
 
 import de.mediapool.core.exceptions.ExeptionErrorCode;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 
 public class NullValidationUtil {
@@ -22,13 +22,13 @@ public class NullValidationUtil {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public static void checkForNull(Object o, String pName) throws MPExeption {
+	public static void checkForNull(Object o, String pName) throws MPException {
 		if (o == null) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.T_NULL_REFERENCE, "Der übergebene Parameter '" + pName + "' darf nicht NULL sein!");
 		}
 	}
 
-	public static void checkForNull(Object[] o, String[] pName) throws MPExeption {
+	public static void checkForNull(Object[] o, String[] pName) throws MPException {
 		if (o.length != pName.length) {
 			throw new MPTechnicalExeption(ExeptionErrorCode.T_ARRAY_LENGTH, "Validierung auf unterschiediche Arraylängen nicht möglich!");
 		}

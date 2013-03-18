@@ -1,6 +1,6 @@
 package de.mediapool.core.exceptions;
 
-public class MPBusinessExeption extends MPExeption {
+public class MPBusinessExeption extends MPException {
 
 	private static final long serialVersionUID = 1L;
 

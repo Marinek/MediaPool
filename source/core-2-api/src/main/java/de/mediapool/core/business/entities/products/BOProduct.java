@@ -8,7 +8,7 @@ import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.business.entities.BOAbstractEntity;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 
 public class BOProduct extends BOAbstractEntity<ProductBean> {
 
@@ -24,17 +24,17 @@ public class BOProduct extends BOAbstractEntity<ProductBean> {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOProduct(ProductBean pMediaBean, UserBean pUserBean) throws MPExeption {
+	public BOProduct(ProductBean pMediaBean, UserBean pUserBean) throws MPException {
 		super(pUserBean, pMediaBean);
 
 	}
 
-	public BOProduct(UUID pMediaBean, UserBean pUserBean) throws MPExeption {
+	public BOProduct(UUID pMediaBean, UserBean pUserBean) throws MPException {
 		super(pMediaBean, pUserBean);
 
 	}
 
-	public BOProduct(UserBean pUserBean) throws MPExeption {
+	public BOProduct(UserBean pUserBean) throws MPException {
 		super(pUserBean);
 	}
 
@@ -42,7 +42,7 @@ public class BOProduct extends BOAbstractEntity<ProductBean> {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public List<MediaBean> getMedia() throws MPExeption {
+	public List<MediaBean> getMedia() throws MPException {
 		List<MediaBean> lReturnList = new ArrayList<MediaBean>();
 
 		return lReturnList;
@@ -56,15 +56,15 @@ public class BOProduct extends BOAbstractEntity<ProductBean> {
 	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected void protectedSave() throws MPExeption {
+	protected void protectedSave() throws MPException {
 
 	}
 
-	protected void protectedDelete() throws MPExeption {
+	protected void protectedDelete() throws MPException {
 
 	}
 
-	protected ProductBean getCurrentEntityBeanInstance() throws MPExeption {
+	protected ProductBean getCurrentEntityBeanInstance() throws MPException {
 		return new ProductBean();
 	}
 

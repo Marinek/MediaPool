@@ -10,7 +10,7 @@ import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.business.BusinessObject;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPBusinessExeption;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.relationship.RelationshipVO;
@@ -33,7 +33,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected BOAbstractRelation(UserBean pUserBean, UUID pReferentId, String pReferentType) throws MPExeption {
+	protected BOAbstractRelation(UserBean pUserBean, UUID pReferentId, String pReferentType) throws MPException {
 		super(pUserBean);
 
 		this.currentReferentId = pReferentId;
@@ -42,11 +42,11 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		this.init();
 	}
 
-	protected BOAbstractRelation(UserBean pUserBean, AbstractBean pReferent) throws MPExeption {
+	protected BOAbstractRelation(UserBean pUserBean, AbstractBean pReferent) throws MPException {
 		this(pUserBean, pReferent.getId(), pReferent.getClass().getSimpleName());
 	}
 
-	private void init() throws MPExeption {
+	private void init() throws MPException {
 		if (this.currentReferentId == null) {
 			throw new MPBusinessExeption(ExeptionErrorCode.BO_INIT, "Es wurde keine Referenz für die Beziehung übergeben!");
 		}
@@ -56,7 +56,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public void addChild(C pChild) throws MPExeption {
+	public void addChild(C pChild) throws MPException {
 		List<ValidationResultBean> lValidation = this.validateAddChild(pChild);
 
 		if (lValidation.size() > 0) {
@@ -81,7 +81,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 
 	}
 
-	public void addParent(P pParent) throws MPExeption {
+	public void addParent(P pParent) throws MPException {
 		List<ValidationResultBean> lValidation = this.validateAddParent(pParent);
 
 		if (lValidation.size() > 0) {
@@ -118,7 +118,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		return lValidation;
 	}
 
-	public List<C> getChildsList() throws MPExeption {
+	public List<C> getChildsList() throws MPException {
 		List<C> childList = new ArrayList<C>();
 
 		try {
@@ -135,7 +135,7 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 		return childList;
 	}
 
-	public List<P> getParentsList() throws MPExeption {
+	public List<P> getParentsList() throws MPException {
 		List<P> parentlist = new ArrayList<P>();
 
 		try {
@@ -164,10 +164,10 @@ public abstract class BOAbstractRelation<P extends AbstractBean, C extends Abstr
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected abstract Integer getRelationTypeId() throws MPExeption;
+	protected abstract Integer getRelationTypeId() throws MPException;
 
-	protected abstract P getParentEntity(RelationshipVO lRelationShipVO) throws MPExeption;
+	protected abstract P getParentEntity(RelationshipVO lRelationShipVO) throws MPException;
 
-	protected abstract C getChildEntity(RelationshipVO lRelationShipVO) throws MPExeption;
+	protected abstract C getChildEntity(RelationshipVO lRelationShipVO) throws MPException;
 
 }

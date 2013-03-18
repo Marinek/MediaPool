@@ -13,7 +13,7 @@ import de.mediapool.core.business.entities.media.BOMedia;
 import de.mediapool.core.business.entities.products.BOProduct;
 import de.mediapool.core.business.search.entities.BOAbstractEntitySearch;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.joined.relationship.ProductMediaJoinedVO;
@@ -32,7 +32,7 @@ public class BOProductMediaSearch extends BOAbstractEntitySearch<ProductMediaSea
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public BOProductMediaSearch(UserBean pUserBean) throws MPExeption {
+	public BOProductMediaSearch(UserBean pUserBean) throws MPException {
 		super(pUserBean);
 	}
 
@@ -40,7 +40,7 @@ public class BOProductMediaSearch extends BOAbstractEntitySearch<ProductMediaSea
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public ProductMediaResultList executeSearch(ProductMediaSearchBean pSearchQuery) throws MPExeption {
+	public ProductMediaResultList executeSearch(ProductMediaSearchBean pSearchQuery) throws MPException {
 		ProductMediaResultList lProductMediaResultList = new ProductMediaResultList();
 		try {
 			List<ProductMediaJoinedVO> search = ProductMediaJoinedVO.getProductMediaSearchDAO().search(pSearchQuery);
@@ -64,7 +64,7 @@ public class BOProductMediaSearch extends BOAbstractEntitySearch<ProductMediaSea
 	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private ProductMediaBean getProductMediaBean(ProductMediaJoinedVO lVO) throws MPExeption {
+	private ProductMediaBean getProductMediaBean(ProductMediaJoinedVO lVO) throws MPException {
 		ProductMediaBean lProductMediaBean = new ProductMediaBean();
 		// TODO: Das hier muss man noch in den Griff bekommen. KA wie.
 		MediaBean mediaBean = null;

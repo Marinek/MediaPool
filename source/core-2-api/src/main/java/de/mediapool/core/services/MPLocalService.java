@@ -4,6 +4,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import de.mediapool.core.services.interfaces.IAuthService;
 import de.mediapool.core.services.interfaces.IInstallationService;
+import de.mediapool.core.services.interfaces.IMediaMetaDataService;
 import de.mediapool.core.services.interfaces.IMediaService;
 import de.mediapool.core.services.interfaces.IProductService;
 import de.mediapool.core.services.interfaces.ISearchService;
@@ -40,6 +41,10 @@ public class MPLocalService {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	public IMediaMetaDataService getMediaMetaDataService() {
+		return (IMediaMetaDataService) beanFactory.getBean("mediaMetaDataService");
+	}
 
 	public IMediaService getMediaService() {
 		return (IMediaService) beanFactory.getBean("mediaService");

@@ -13,10 +13,9 @@ import de.mediapool.core.beans.utils.PersistenceUtils;
 import de.mediapool.core.beans.validation.ValidationErrorType;
 import de.mediapool.core.beans.validation.ValidationResultBean;
 import de.mediapool.core.business.BusinessObject;
-import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
 import de.mediapool.core.exceptions.ExeptionErrorCode;
 import de.mediapool.core.exceptions.MPBusinessExeption;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.exceptions.MPTechnicalExeption;
 import de.mediapool.core.persistence.core.PSException;
 import de.mediapool.core.persistence.vo.entities.EntityAttributeVO;
@@ -31,21 +30,21 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 
 	private List<EntityAttributeVO> currentAttributes = new ArrayList<EntityAttributeVO>();
 
-	protected BOAbstractEntity(UserBean pUserBean) throws MPExeption {
+	protected BOAbstractEntity(UserBean pUserBean) throws MPException {
 		super(pUserBean);
 	}
 
-	protected BOAbstractEntity(UUID entityID, UserBean pUserBean) throws MPExeption {
+	protected BOAbstractEntity(UUID entityID, UserBean pUserBean) throws MPException {
 		this(pUserBean);
 
 		this.init(entityID);
 	}
 
-	protected BOAbstractEntity(UserBean pUserBean, T pMediaBean) throws MPExeption {
+	protected BOAbstractEntity(UserBean pUserBean, T pMediaBean) throws MPException {
 		this(pMediaBean.getId(), pUserBean);
 	}
 
-	protected void init(UUID mediaID) throws MPExeption {
+	protected void init(UUID mediaID) throws MPException {
 		try {
 
 			if (mediaID == null) {
@@ -59,11 +58,11 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		}
 	}
 
-	public void setCurrentEntityBean(T abstractMediaBean) throws MPExeption {
+	public void setCurrentEntityBean(T abstractMediaBean) throws MPException {
 		this.currentEntity = abstractMediaBean;
 	}
 
-	public T getCurrentEntityBean() throws MPExeption {
+	public T getCurrentEntityBean() throws MPException {
 		if (this.currentEntity == null) {
 			this.currentEntity = this.getCurrentEntityBeanInstance();
 
@@ -76,7 +75,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 			for (EntityAttributeVO lVO : this.currentAttributes) {
 				EntityAttributeValueBean lAttributeBean = new EntityAttributeValueBean();
 
-				lAttributeBean = EntityAttributeTypeManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
+				lAttributeBean = EntityMetaDataManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
 
 				lAttributeBean.setAttributeValue(lVO.getAttributeValue());
 				lAttributeBean.setId(lVO.getId());
@@ -88,7 +87,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		return this.currentEntity;
 	}
 
-	public void delete() throws MPExeption {
+	public void delete() throws MPException {
 		EntityVO deleteMovie = this.getEntityVO();
 
 		try {
@@ -102,7 +101,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		}
 	}
 
-	public List<ValidationResultBean> save() throws MPExeption {
+	public List<ValidationResultBean> save() throws MPException {
 		List<ValidationResultBean> validationResult = this.validate();
 
 		if (!ValidationUtil.canProceed(validationResult)) {
@@ -142,7 +141,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		return validationResult;
 	}
 
-	public List<ValidationResultBean> validate() throws MPExeption {
+	public List<ValidationResultBean> validate() throws MPException {
 		List<ValidationResultBean> lValidation = super.validate();
 
 		AbstractSingleEntityBean currentMediaBean2 = this.getCurrentEntityBean();
@@ -151,7 +150,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 			lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Feld Name muss ist ein Pflichtfeld."));
 		}
 
-		Map<String, EntityAttributeValueBean> definedAttributes = EntityAttributeTypeManager.getInstance().getDefinedAttributes(currentMediaBean2);
+		Map<String, EntityAttributeValueBean> definedAttributes = EntityMetaDataManager.getInstance().getDefinedAttributes(currentMediaBean2);
 
 		for (EntityAttributeValueBean lAttributeBean : currentMediaBean2.getAttributes()) {
 			if (!definedAttributes.containsKey(lAttributeBean.getAttributeName())) {
@@ -162,7 +161,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		return lValidation;
 	}
 
-	private EntityVO getEntityVO() throws MPExeption {
+	private EntityVO getEntityVO() throws MPException {
 		AbstractSingleEntityBean lCurrentBean = this.getCurrentEntityBean();
 		EntityVO lEntityVO = new EntityVO();
 
@@ -173,14 +172,14 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		return lEntityVO;
 	}
 
-	protected T getMediaBean() throws MPExeption {
+	protected T getMediaBean() throws MPException {
 		return PersistenceUtils.<T> toBean(this.currentEntity, this.currentEntityVO);
 	}
 
-	protected abstract void protectedSave() throws MPExeption;
+	protected abstract void protectedSave() throws MPException;
 
-	protected abstract void protectedDelete() throws MPExeption;
+	protected abstract void protectedDelete() throws MPException;
 
-	protected abstract T getCurrentEntityBeanInstance() throws MPExeption;
+	protected abstract T getCurrentEntityBeanInstance() throws MPException;
 
 }

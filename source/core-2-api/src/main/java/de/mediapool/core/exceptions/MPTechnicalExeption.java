@@ -1,6 +1,6 @@
 package de.mediapool.core.exceptions;
 
-public class MPTechnicalExeption extends MPExeption {
+public class MPTechnicalExeption extends MPException {
 
 	private static final long serialVersionUID = 1L;
 

@@ -9,18 +9,18 @@ import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
-import de.mediapool.core.business.entities.attributes.EntityAttributeTypeManager;
+import de.mediapool.core.business.entities.EntityMetaDataManager;
 import de.mediapool.core.business.entities.media.BOMedia;
 import de.mediapool.core.business.entities.relationship.BOProductMediaRelationship;
 import de.mediapool.core.business.search.entities.joined.BOProductMediaSearch;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.services.interfaces.IMediaService;
 
 public class MediaServiceImpl implements IMediaService, Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
+	public MediaBean saveMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPException {
 		BOMedia boInstance = new BOMedia(pUserBean);
 
 		boInstance.setCurrentEntityBean(abstractMediaBean);
@@ -32,19 +32,19 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 		return boInstance.getCurrentEntityBean();
 	}
 
-	public void deleteMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPExeption {
+	public void deleteMedia(MediaBean abstractMediaBean, UserBean pUserBean) throws MPException {
 		BOMedia boInstance = new BOMedia(abstractMediaBean.getId(), pUserBean);
 
 		boInstance.delete();
 	}
 
-	public MediaBean getMedia(UUID id, UserBean pUserBean) throws MPExeption {
+	public MediaBean getMedia(UUID id, UserBean pUserBean) throws MPException {
 		BOMedia boInstance = new BOMedia(id, pUserBean);
 
 		return boInstance.getCurrentEntityBean();
 	}
 
-	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPExeption {
+	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPException {
 		ProductMediaSearchBean lSearchBean = new ProductMediaSearchBean();
 
 		// lSearchBean.addProductCriteria(new
@@ -60,25 +60,25 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 		return pmList;
 	}
 
-	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPExeption {
-		EntityAttributeValueBean lAttribute = EntityAttributeTypeManager.getInstance().getAttribute(pAttributeName, pMediaType);
+	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException {
+		EntityAttributeValueBean lAttribute = EntityMetaDataManager.getInstance().getAttribute(pAttributeName, pMediaType);
 
 		lAttribute.setAttributeValue(pValue);
 
 		return lAttribute;
 	}
 
-	public MediaBean createNewMedia(String pMediaType) throws MPExeption {
+	public MediaBean createNewMedia(String pMediaType) throws MPException {
 		MediaBean lReturnNewMedia = new MediaBean();
 
 		lReturnNewMedia.setEntityType(pMediaType);
 
-		EntityAttributeTypeManager.getInstance().initialAttributes(lReturnNewMedia);
+		EntityMetaDataManager.getInstance().initialAttributes(lReturnNewMedia);
 
 		return lReturnNewMedia;
 	}
 
-	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPExeption {
+	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPException {
 		new BOProductMediaRelationship(null, pReferent).addChild(pChild);
 	}
 

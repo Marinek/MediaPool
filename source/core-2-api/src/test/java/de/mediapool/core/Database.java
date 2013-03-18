@@ -18,7 +18,7 @@ import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
 import de.mediapool.core.beans.search.entity.media.MediaSearchBean;
 import de.mediapool.core.beans.search.profiles.SearchProfileBean;
-import de.mediapool.core.exceptions.MPExeption;
+import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.services.MPLocalService;
 import de.mediapool.core.services.interfaces.IAuthService;
 import de.mediapool.core.services.interfaces.IInstallationService;
@@ -43,7 +43,7 @@ public class Database {
 			installationService.installDB();
 			userBean = authService.auth("Test", "Test");
 
-		} catch (MPExeption e) {
+		} catch (MPException e) {
 			logger.error(e.getLocalizedMessage(), e);
 		}
 	}
@@ -72,7 +72,7 @@ public class Database {
 			List<SearchProfileBean> searchProfiles = lService.getSearchProfiles(userBean);
 
 			Assert.assertEquals(searchProfiles.size(), 10);
-		} catch (MPExeption e) {
+		} catch (MPException e) {
 			logger.error(e.getLocalizedMessage(), e);
 		}
 	}
@@ -120,7 +120,7 @@ public class Database {
 				}
 			}
 
-		} catch (MPExeption e) {
+		} catch (MPException e) {
 			logger.error(e.getLocalizedMessage(), e);
 		}
 	}
