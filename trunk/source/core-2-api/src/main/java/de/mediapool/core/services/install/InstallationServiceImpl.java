@@ -45,7 +45,8 @@ public class InstallationServiceImpl implements IInstallationService {
 		EntityTypeVO lMediaTypeVO = new EntityTypeVO();
 
 		lMediaTypeVO.setId(UUID.randomUUID().toString());
-		lMediaTypeVO.setEntityTypeName(MOVIE);
+		lMediaTypeVO.setEntityType(MOVIE);
+		lMediaTypeVO.setDisplayName("Filme und Serien");
 
 		try {
 			EntityTypeVO.getDAO().saveOrUpdate(lMediaTypeVO);
@@ -62,7 +63,8 @@ public class InstallationServiceImpl implements IInstallationService {
 		EntityTypeVO lMediaTypeVO = new EntityTypeVO();
 
 		lMediaTypeVO.setId(UUID.randomUUID().toString());
-		lMediaTypeVO.setEntityTypeName(PRODUCT);
+		lMediaTypeVO.setEntityType(PRODUCT);
+		lMediaTypeVO.setDisplayName("Produkte");
 
 		try {
 			EntityTypeVO.getDAO().saveOrUpdate(lMediaTypeVO);
