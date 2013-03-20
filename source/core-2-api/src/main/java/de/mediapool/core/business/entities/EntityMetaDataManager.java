@@ -71,7 +71,8 @@ public class EntityMetaDataManager {
 		EntityTypeBean lBean = new EntityTypeBean();
 
 		lBean.setId(pEntityTypeVO.getId());
-		lBean.setEntityTypeName(pEntityTypeVO.getEntityTypeName());
+		lBean.setEntityType(pEntityTypeVO.getEntityType());
+		lBean.setDisplayName(pEntityTypeVO.getDisplayName());
 
 		return lBean;
 	}

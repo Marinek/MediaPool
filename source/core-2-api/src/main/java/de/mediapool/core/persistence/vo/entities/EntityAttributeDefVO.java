@@ -61,7 +61,7 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 	private EntityTypeVO entityTypeVO = null;
 
 	public String getEntityTypeName() {
-		return this.getEntityTypeVO().getEntityTypeName();
+		return this.getEntityTypeVO().getEntityType();
 	}
 
 	public String getAttributeName() {

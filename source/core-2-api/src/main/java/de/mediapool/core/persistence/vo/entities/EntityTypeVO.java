@@ -14,15 +14,18 @@ public class EntityTypeVO extends AbstractIdVO {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "entitytypename")
-	private String entityTypeName;
+	@Column(name = "entitytype")
+	private String entityType;
 
-	public String getEntityTypeName() {
-		return entityTypeName;
+	@Column(name = "displayname")
+	private String displayName;
+
+	public String getEntityType() {
+		return entityType;
 	}
 
-	public void setEntityTypeName(String typeName) {
-		entityTypeName = typeName;
+	public void setEntityType(String typeName) {
+		entityType = typeName;
 	}
 
 	public static IEntityTypeDAO getDAO() {
@@ -30,7 +33,15 @@ public class EntityTypeVO extends AbstractIdVO {
 	}
 
 	public String toString() {
-		return "EntityTypeVO [entityTypeName=" + entityTypeName + "] " + super.toString();
+		return "EntityTypeVO [entityTypeName=" + entityType + "] " + super.toString();
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 }

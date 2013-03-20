@@ -14,7 +14,8 @@ public class EntityTypeBean extends AbstractBean {
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private String entityTypeName;
+	private String entityType;
+	private String displayName;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -24,12 +25,20 @@ public class EntityTypeBean extends AbstractBean {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public String getEntityTypeName() {
-		return entityTypeName;
+	public String getEntityType() {
+		return entityType;
 	}
 
-	public void setEntityTypeName(String entityTypeName) {
-		this.entityTypeName = entityTypeName;
+	public void setEntityType(String entityType) {
+		this.entityType = entityType;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
