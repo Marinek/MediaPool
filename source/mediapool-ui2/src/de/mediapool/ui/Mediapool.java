@@ -1,6 +1,7 @@
 package de.mediapool.ui;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
@@ -17,10 +18,18 @@ public class Mediapool extends UI {
 
 	private static final long serialVersionUID = 1L;
 
+	Navigator navigator;
+
 	@Override
 	protected void init(VaadinRequest request) {
-
 		installDB();
+
+		getPage().setTitle("Mediapool UI");
+
+		navigator = new Navigator(this, this);
+
+		navigator.addView("login", AuthenticationPanel.class);
+		navigator.addView("main", MainPanel.class);
 
 		UserBean lAuth = VaadinSession.getCurrent().getAttribute(UserBean.class);
 
@@ -30,15 +39,15 @@ public class Mediapool extends UI {
 				boolean valid = MPLocalService.getInstance().getAuthService().isValid(lAuth);
 
 				if (valid) {
-					getUI().setContent(new MainPanel());
+					navigator.navigateTo("main");
 				} else {
-					this.setContent(new AuthenticationPanel());
+					navigator.navigateTo("login");
 				}
 			} catch (MPException e) {
 				MPExceptionUtil.showMPExceptionDialog(e, getUI());
 			}
 		} else {
-			this.setContent(new AuthenticationPanel());
+			navigator.navigateTo("login");
 		}
 
 	}

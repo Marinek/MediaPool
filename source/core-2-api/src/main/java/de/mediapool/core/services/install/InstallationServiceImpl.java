@@ -32,7 +32,7 @@ public class InstallationServiceImpl implements IInstallationService {
 		try {
 			UserVO.getDAO().saveOrUpdate(lUserVO);
 		} catch (PSException e) {
-			throw new MPTechnicalExeption(ExeptionErrorCode.DB_INSERT, "Konnte in Bneutzer nicht anlegen.", e);
+			throw new MPTechnicalExeption(ExeptionErrorCode.DB_INSERT, "Konnte Benutzer nicht anlegen.", e);
 		}
 	}
 
