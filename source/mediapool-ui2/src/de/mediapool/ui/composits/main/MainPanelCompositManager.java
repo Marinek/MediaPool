@@ -1,14 +1,10 @@
-package de.mediapool.ui.datastore.container;
+package de.mediapool.ui.composits.main;
 
-import com.vaadin.data.util.HierarchicalContainer;
-
-public class MediaCategories extends HierarchicalContainer {
+public class MainPanelCompositManager {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	private static final long serialVersionUID = 1L;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
@@ -17,10 +13,6 @@ public class MediaCategories extends HierarchicalContainer {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	public MediaCategories() {
-		this.init();
-	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
@@ -34,9 +26,6 @@ public class MediaCategories extends HierarchicalContainer {
 	// private Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private void init() {
-
-	}
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

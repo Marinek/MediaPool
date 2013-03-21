@@ -95,8 +95,7 @@ public class MainPanel extends CustomComponent implements View {
 		Notification.show(event.getParameters());
 
 		// TODO: Hier kommt noch was hin, dass die Parameter ausweret und
-		// entsprechende
-		// Components im rechten Bereich anzeigt.
+		// entsprechende Components im rechten Bereich anzeigt.
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
