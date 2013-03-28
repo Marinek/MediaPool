@@ -8,7 +8,7 @@ public class EntityAttributeValueBean extends EntityAttributeDefinitionBean impl
 	private String attributeValue = null;
 
 	public String getAttributeValue() {
-		return attributeValue;
+		return attributeValue == null ? "" : attributeValue;
 	}
 
 	public void setAttributeValue(String attributeValue) {

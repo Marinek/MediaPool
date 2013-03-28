@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
@@ -53,6 +55,24 @@ public class JoinedEntityBean extends AbstractEntityBean {
 
 	public String toString() {
 		return "JoinedEntityBean [joinedEntitys=" + joinedEntitys + "]";
+	}
+
+	public EntityAttributeValueBean getAttribute(String pName) {
+		String[] split = pName.split("#");
+
+		String lEntiyType = split[0];
+
+		for (AbstractEntityBean lAbstractEntityBean : this.joinedEntitys) {
+			if (StringUtils.equals(lEntiyType, lAbstractEntityBean.getEntityType())) {
+				return lAbstractEntityBean.getAttribute(pName);
+			}
+		}
+
+		return null;
+	}
+
+	public String getEntityType() {
+		return "";
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

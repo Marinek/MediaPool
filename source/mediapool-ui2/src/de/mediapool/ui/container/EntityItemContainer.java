@@ -1,18 +1,19 @@
 package de.mediapool.ui.container;
 
+import java.util.Collection;
+
+import com.vaadin.data.Property;
 import com.vaadin.data.util.AbstractBeanContainer;
+import com.vaadin.data.util.ObjectProperty;
+import com.vaadin.data.util.VaadinPropertyDescriptor;
 
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 
-public class EntityItemContainer<IDTYPE, BEANTYPE extends AbstractEntityBean> extends AbstractBeanContainer<IDTYPE, BEANTYPE> {
+public class EntityItemContainer<BEAN extends AbstractEntityBean> extends AbstractBeanContainer<String, BEAN> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	protected EntityItemContainer(Class<? super BEANTYPE> type) {
-		super(type);
-	}
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,14 +25,31 @@ public class EntityItemContainer<IDTYPE, BEANTYPE extends AbstractEntityBean> ex
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	public EntityItemContainer(Class<? super BEAN> type, Collection<BEAN> pCollection) {
+		super(type);
+
+		this.setBeanIdResolver(new BeanIdResolver<String, BEAN>() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String getIdForBean(BEAN bean) {
+				return bean.getIdAsString();
+			}
+		});
+
+		this.addAll(pCollection);
+
+		this.getContainerPropertyIds().clear();
+
+	}
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	@Override
-	protected void setBeanIdResolver(com.vaadin.data.util.AbstractBeanContainer.BeanIdResolver<IDTYPE, BEANTYPE> beanIdResolver) {
-		// TODO Auto-generated method stub
-		super.setBeanIdResolver(beanIdResolver);
+	public void addAttributeProperty(String name, String displayName) {
+		this.addContainerProperty(name, new EntityAttributePropertyDescriptor(name, displayName));
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -45,4 +63,34 @@ public class EntityItemContainer<IDTYPE, BEANTYPE extends AbstractEntityBean> ex
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	public class EntityAttributePropertyDescriptor implements VaadinPropertyDescriptor<BEAN> {
+
+		private static final long serialVersionUID = 1L;
+
+		private String name;
+
+		private String displayName;
+
+		public EntityAttributePropertyDescriptor(String pName, String displayName) {
+			this.name = pName;
+			this.displayName = displayName;
+		}
+
+		@Override
+		public String getName() {
+			return this.displayName;
+		}
+
+		@Override
+		public Class<?> getPropertyType() {
+			return ObjectProperty.class;
+		}
+
+		@Override
+		public Property<?> createProperty(BEAN bean) {
+			return new ObjectProperty<String>(bean.getAttribute(this.name).getAttributeValue());
+		}
+
+	}
 }
