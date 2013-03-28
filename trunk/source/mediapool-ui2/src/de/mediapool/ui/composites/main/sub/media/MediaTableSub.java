@@ -1,19 +1,17 @@
-package de.mediapool.ui.composits.navigation.items;
+package de.mediapool.ui.composites.main.sub.media;
+
+import java.util.Map;
 
 import com.vaadin.ui.Component;
 
-import de.mediapool.ui.composits.navigation.NavigationItem;
-import de.mediapool.ui.composits.navigation.components.MediaNavigationTree;
+import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
+import de.mediapool.core.exceptions.MPException;
+import de.mediapool.core.services.MPLocalService;
+import de.mediapool.ui.components.ResultListComponent;
+import de.mediapool.ui.composites.main.sub.MainPanelSub;
 
-public class MediaNavigationItem implements NavigationItem {
+public class MediaTableSub implements MainPanelSub {
 
-	public String getName() {
-		return "Kategorien";
-	}
-
-	public Component getComponent() {
-		return new MediaNavigationTree();
-	}
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -29,6 +27,34 @@ public class MediaNavigationItem implements NavigationItem {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	@Override
+	public void setParameter(Map<String, String> pParameter) {
+
+	}
+
+	@Override
+	public Map<String, String> getParameter() {
+		return null;
+	}
+
+	@Override
+	public Component getComponent() {
+		ResultListComponent<ProductMediaBean> lResultList = new ResultListComponent<ProductMediaBean>();
+
+		try {
+			lResultList.setData(MPLocalService.getInstance().getProductService().getAllProductMedia(null));
+		} catch (MPException e) {
+			e.printStackTrace();
+		}
+
+		return lResultList;
+	}
+
+	@Override
+	public String getName() {
+		return "Liste aller Medien";
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden

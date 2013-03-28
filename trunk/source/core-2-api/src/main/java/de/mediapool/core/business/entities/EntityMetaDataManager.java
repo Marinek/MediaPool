@@ -57,7 +57,7 @@ public class EntityMetaDataManager {
 				lBean.setAttributeSize(lDefinition.getAttributeSize());
 				lBean.setPersistentStatus(PersistentStatus.PERSISTENT);
 				lBean.setAttributeName(lDefinition.getAttributeName());
-				lBean.setAttributeField(lDefinition.getAttributeField());
+				lBean.setAttributeDisplay(lDefinition.getAttributeDisplay());
 				lBean.setEntityType(lDefinition.getEntityTypeName());
 
 				this.registerAttribute(lBean);

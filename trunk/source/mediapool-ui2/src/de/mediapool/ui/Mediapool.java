@@ -9,8 +9,8 @@ import com.vaadin.ui.UI;
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.services.MPLocalService;
-import de.mediapool.ui.composits.authentification.AuthenticationPanel;
-import de.mediapool.ui.composits.main.MainPanel;
+import de.mediapool.ui.composites.authentification.AuthenticationPanel;
+import de.mediapool.ui.composites.main.MainPanel;
 import de.mediapool.ui.utils.MPExceptionUtil;
 
 @Theme("runo")

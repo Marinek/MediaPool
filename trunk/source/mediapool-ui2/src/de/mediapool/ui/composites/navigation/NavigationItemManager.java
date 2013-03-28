@@ -1,31 +1,48 @@
-package de.mediapool.core.beans.search.entity.joined;
+package de.mediapool.ui.composites.navigation;
 
-import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
-import de.mediapool.core.beans.search.entity.EntityResultList;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class ProductMediaResultList extends EntityResultList<ProductMediaBean> {
+public class NavigationItemManager {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private static final long serialVersionUID = 1L;
+	private static NavigationItemManager myInstance = null;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	private List<NavigationItem> navigationItems = new ArrayList<NavigationItem>();
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	private NavigationItemManager() {
+
+	}
+
+	public static final NavigationItemManager getInstance() {
+		if (myInstance == null) {
+			myInstance = new NavigationItemManager();
+		}
+		return myInstance;
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	@Override
-	public Class<ProductMediaBean> getEntityType() {
-		return ProductMediaBean.class;
+	public List<NavigationItem> getItems() {
+		return Collections.unmodifiableList(this.navigationItems);
+	}
+
+	public void addItem(NavigationItem pItem) {
+		this.navigationItems.add(pItem);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

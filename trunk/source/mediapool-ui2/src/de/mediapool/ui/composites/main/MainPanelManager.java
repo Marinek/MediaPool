@@ -1,15 +1,13 @@
-package de.mediapool.core.beans.search.entity.joined;
+package de.mediapool.ui.composites.main;
 
-import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
-import de.mediapool.core.beans.search.entity.EntityResultList;
 
-public class ProductMediaResultList extends EntityResultList<ProductMediaBean> {
+public class MainPanelManager {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private static final long serialVersionUID = 1L;
+	private static MainPanelManager myInstance = null;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
@@ -19,13 +17,25 @@ public class ProductMediaResultList extends EntityResultList<ProductMediaBean> {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	private MainPanelManager() {
+
+	}
+
+	public static final MainPanelManager getInstance() {
+		if (myInstance == null) {
+			myInstance = new MainPanelManager();
+			myInstance.init();
+		}
+
+		return myInstance;
+	}
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	@Override
-	public Class<ProductMediaBean> getEntityType() {
-		return ProductMediaBean.class;
+	private void init() {
+
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -3,13 +3,14 @@ package de.mediapool.core.persistence.vo.user;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.dao.interfaces.user.IUserDAO;
 import de.mediapool.core.persistence.vo.AbstractTrackingVO;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }) })
 public class UserVO extends AbstractTrackingVO {
 
 	private static final long serialVersionUID = 1L;

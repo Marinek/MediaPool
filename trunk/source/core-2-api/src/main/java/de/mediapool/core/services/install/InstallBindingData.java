@@ -22,10 +22,10 @@ public class InstallBindingData {
 			lVO.setAttributeName(attributes[0]);
 			lVO.setAttributeMandatory(resolveType(attributes[1]));
 			lVO.setAttributeOrder(Integer.parseInt(attributes[2]));
-			lVO.setAttributeType(attributes[3]);
+			lVO.setAttributeType("java.lang.String");
 			lVO.setAttributeSize(Integer.parseInt(attributes[4]));
 			lVO.setAttributeVisible("TRUE".equals(attributes[5]));
-			lVO.setAttributeField((attributes[6]));
+			lVO.setAttributeDisplay((attributes[6]));
 			lVO.setEntityTypeVO(lMediaTypeVO);
 			attributeMediaList.add(lVO);
 		}
@@ -45,10 +45,10 @@ public class InstallBindingData {
 			lVO.setAttributeName(attributes[0]);
 			lVO.setAttributeMandatory(resolveType(attributes[1]));
 			lVO.setAttributeOrder(Integer.parseInt(attributes[2]));
-			lVO.setAttributeType(attributes[3]);
+			lVO.setAttributeType("java.lang.String");
 			lVO.setAttributeSize(Integer.parseInt(attributes[4]));
 			lVO.setAttributeVisible("TRUE".equals(attributes[5]));
-			lVO.setAttributeField((attributes[6]));
+			lVO.setAttributeDisplay((attributes[6]));
 			lVO.setEntityTypeVO(lMediaTypeVO);
 			attributeProductList.add(lVO);
 		}

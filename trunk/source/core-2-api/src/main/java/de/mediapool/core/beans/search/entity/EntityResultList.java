@@ -7,9 +7,10 @@ import java.util.TreeMap;
 
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeDefinitionBean;
+import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
 import de.mediapool.core.beans.search.AbstractResultList;
 
-public class EntityResultList<E extends AbstractEntityBean> extends AbstractResultList<E> {
+public abstract class EntityResultList<E extends AbstractEntityBean> extends AbstractResultList<E> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -34,6 +35,16 @@ public class EntityResultList<E extends AbstractEntityBean> extends AbstractResu
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	public boolean add(E e) {
+		if (e != null) {
+			for (EntityAttributeValueBean lAttribute : e.getAttributes()) {
+				this.addHeaderInformation(lAttribute);
+			}
+		}
+
+		return super.add(e);
+	}
+
 	public void addHeaderInformation(EntityAttributeDefinitionBean pHeaderDefinition) {
 		if (!this.mapHeaderInformation.containsKey(pHeaderDefinition.getAttributeIdentifier())) {
 			this.mapHeaderInformation.put(pHeaderDefinition.getAttributeIdentifier(), pHeaderDefinition);
@@ -43,6 +54,8 @@ public class EntityResultList<E extends AbstractEntityBean> extends AbstractResu
 	public Collection<EntityAttributeDefinitionBean> getHeaderInformation() {
 		return Collections.unmodifiableCollection(this.mapHeaderInformation.values());
 	}
+
+	public abstract Class<E> getEntityType();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden

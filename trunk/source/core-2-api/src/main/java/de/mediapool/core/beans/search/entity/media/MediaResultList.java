@@ -23,6 +23,10 @@ public class MediaResultList extends EntityResultList<MediaBean> {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
+	public Class<MediaBean> getEntityType() {
+		return MediaBean.class;
+	}
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
