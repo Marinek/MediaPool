@@ -53,11 +53,11 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 		this.entityType = mediaType;
 	}
 
-	public String getAttribute(String pAttributeName) {
-		String lReturnString = "";
+	public EntityAttributeValueBean getAttribute(String pAttributeName) {
+		EntityAttributeValueBean lReturnString = null;
 
 		if (attributes.containsKey(pAttributeName)) {
-			lReturnString = attributes.get(this.getAttributeIdentifier(pAttributeName)).getAttributeValue();
+			lReturnString = attributes.get(pAttributeName);
 		}
 
 		return lReturnString;
