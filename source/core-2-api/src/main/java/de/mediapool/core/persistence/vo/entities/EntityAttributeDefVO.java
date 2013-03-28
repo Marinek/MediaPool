@@ -21,20 +21,6 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 	public EntityAttributeDefVO() {
 	}
 
-	public EntityAttributeDefVO(String id, String attributeName, String attributeType, Integer attributeOrder, AttributeMandatoryType attributeMandatory, Boolean attributeVisible,
-			Integer attributeSize, String attributeField, EntityTypeVO entityTypeVO) {
-		super();
-		this.setId(id);
-		this.attributeName = attributeName;
-		this.attributeType = attributeType;
-		this.attributeOrder = attributeOrder;
-		this.attributeMandatory = attributeMandatory;
-		this.attributeVisible = attributeVisible;
-		this.attributeSize = attributeSize;
-		this.attributeField = attributeField;
-		this.entityTypeVO = entityTypeVO;
-	}
-
 	@Column(name = "attributename")
 	private String attributeName = null;
 
@@ -50,8 +36,8 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 	@Column(name = "attributesize")
 	private Integer attributeSize = null;
 
-	@Column(name = "attributefield")
-	private String attributeField = null;
+	@Column(name = "attributeDisplay")
+	private String attributeDisplay = null;
 
 	@Column(name = "attributemandatory")
 	private AttributeMandatoryType attributeMandatory = AttributeMandatoryType.NOTHING;
@@ -124,18 +110,18 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 		this.attributeSize = attributeSize;
 	}
 
+	public String getAttributeDisplay() {
+		return attributeDisplay;
+	}
+
+	public void setAttributeDisplay(String attributeDisplay) {
+		this.attributeDisplay = attributeDisplay;
+	}
+
 	@Override
 	public String toString() {
 		return "EntityAttributeDefVO [attributeName=" + attributeName + ", attributeType=" + attributeType + ", attributeOrder=" + attributeOrder + ", attributeVisible=" + attributeVisible
 				+ ", attributeSize=" + attributeSize + ", attributeMandatory=" + attributeMandatory + ", entityTypeVO=" + entityTypeVO + "]";
-	}
-
-	public String getAttributeField() {
-		return attributeField;
-	}
-
-	public void setAttributeField(String attributeField) {
-		this.attributeField = attributeField;
 	}
 
 }

@@ -19,7 +19,7 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 
 	private String attributeType;
 	private String attributeName;
-	private String attributeField;
+	private String attributeDisplay;
 	private Integer attributeOrder;
 	private Boolean attributeVisible;
 	private Integer attributeSize;
@@ -102,12 +102,12 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 		this.attributeMandatory = attributeMandatory;
 	}
 
-	public String getAttributeField() {
-		return attributeField;
+	public String getAttributeDisplay() {
+		return attributeDisplay;
 	}
 
-	public void setAttributeField(String attributeField) {
-		this.attributeField = attributeField;
+	public void setAttributeDisplay(String attributeField) {
+		this.attributeDisplay = attributeField;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -1,10 +1,10 @@
-package de.mediapool.ui.composits.main;
+package de.mediapool.ui.composites.main.sub;
 
 import java.util.Map;
 
 import com.vaadin.ui.Component;
 
-public interface MainPanelComposit {
+public interface MainPanelSub {
 
 	public void setParameter(Map<String, String> pParameter);
 

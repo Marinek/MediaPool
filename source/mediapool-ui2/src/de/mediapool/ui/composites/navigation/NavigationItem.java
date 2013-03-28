@@ -1,4 +1,4 @@
-package de.mediapool.ui.composits.navigation;
+package de.mediapool.ui.composites.navigation;
 
 import com.vaadin.ui.Component;
 

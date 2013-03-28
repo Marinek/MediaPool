@@ -1,4 +1,4 @@
-package de.mediapool.ui.composits.navigation.components;
+package de.mediapool.ui.composites.navigation.components;
 
 import java.util.List;
 

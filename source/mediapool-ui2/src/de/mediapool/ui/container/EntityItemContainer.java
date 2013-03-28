@@ -1,48 +1,37 @@
-package de.mediapool.ui.composits.navigation;
+package de.mediapool.ui.container;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.vaadin.data.util.AbstractBeanContainer;
 
-public class NavigationItemManager {
+import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+
+public class EntityItemContainer<IDTYPE, BEANTYPE extends AbstractEntityBean> extends AbstractBeanContainer<IDTYPE, BEANTYPE> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private static NavigationItemManager myInstance = null;
+	protected EntityItemContainer(Class<? super BEANTYPE> type) {
+		super(type);
+	}
+
+	private static final long serialVersionUID = 1L;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private List<NavigationItem> navigationItems = new ArrayList<NavigationItem>();
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	private NavigationItemManager() {
-
-	}
-
-	public static final NavigationItemManager getInstance() {
-		if (myInstance == null) {
-			myInstance = new NavigationItemManager();
-		}
-		return myInstance;
-	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public List<NavigationItem> getItems() {
-		return Collections.unmodifiableList(this.navigationItems);
-	}
-
-	public void addItem(NavigationItem pItem) {
-		this.navigationItems.add(pItem);
+	@Override
+	protected void setBeanIdResolver(com.vaadin.data.util.AbstractBeanContainer.BeanIdResolver<IDTYPE, BEANTYPE> beanIdResolver) {
+		// TODO Auto-generated method stub
+		super.setBeanIdResolver(beanIdResolver);
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
