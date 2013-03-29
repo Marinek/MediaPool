@@ -7,7 +7,7 @@ import com.vaadin.ui.Component;
 import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
 import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.services.MPLocalService;
-import de.mediapool.ui.components.ResultListComponent;
+import de.mediapool.ui.composites.entity.EntityViewComposite;
 import de.mediapool.ui.composites.main.sub.MainPanelSub;
 
 public class MediaTableSub implements MainPanelSub {
@@ -40,10 +40,10 @@ public class MediaTableSub implements MainPanelSub {
 
 	@Override
 	public Component getComponent() {
-		ResultListComponent<ProductMediaBean> lResultList = new ResultListComponent<ProductMediaBean>();
+		EntityViewComposite<ProductMediaBean> lResultList = new EntityViewComposite<ProductMediaBean>();
 
 		try {
-			lResultList.setData(MPLocalService.getInstance().getProductService().getAllProductMedia(null));
+			lResultList.showResults(MPLocalService.getInstance().getProductService().getAllProductMedia(null));
 		} catch (MPException e) {
 			e.printStackTrace();
 		}
