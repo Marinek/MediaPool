@@ -1,7 +1,6 @@
 package de.mediapool.core.beans.business.entity.attributes;
 
 import de.mediapool.core.beans.AbstractBean;
-import de.mediapool.core.persistence.enums.AttributeMandatoryType;
 
 public class EntityAttributeDefinitionBean extends AbstractBean {
 
@@ -17,16 +16,18 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 
 	private String entityType;
 
-	private AttributeType attributeType;
-
 	private String attributeName;
 
 	private String attributeDisplay;
 
 	private Integer attributeOrder;
+
 	private Boolean attributeVisible;
+
 	private Integer attributeSize;
-	private AttributeMandatoryType attributeMandatory;
+
+	private AttributeType attributeType;
+
 	private BeanAttributeMandatoryType mandatoryType;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -74,7 +75,7 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 	}
 
 	public Integer getAttributeOrder() {
-		return attributeOrder;
+		return attributeOrder == null ? 1 : attributeOrder;
 	}
 
 	public void setAttributeOrder(Integer attributeOrder) {
@@ -95,14 +96,6 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 
 	public void setAttributeSize(Integer attributeSize) {
 		this.attributeSize = attributeSize;
-	}
-
-	public AttributeMandatoryType getAttributeMandatory() {
-		return attributeMandatory;
-	}
-
-	public void setAttributeMandatory(AttributeMandatoryType attributeMandatory) {
-		this.attributeMandatory = attributeMandatory;
 	}
 
 	public String getAttributeDisplay() {

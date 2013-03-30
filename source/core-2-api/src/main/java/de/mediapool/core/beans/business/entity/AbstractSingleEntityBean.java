@@ -3,6 +3,7 @@ package de.mediapool.core.beans.business.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,14 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 		for (String lKey : this.attributes.keySet()) {
 			lReturnList.add(this.attributes.get(lKey));
 		}
+
+		Collections.sort(lReturnList, new Comparator<EntityAttributeValueBean>() {
+
+			@Override
+			public int compare(EntityAttributeValueBean o1, EntityAttributeValueBean o2) {
+				return o1.getAttributeOrder().compareTo(o2.getAttributeOrder());
+			}
+		});
 
 		return Collections.unmodifiableCollection(lReturnList);
 	}
