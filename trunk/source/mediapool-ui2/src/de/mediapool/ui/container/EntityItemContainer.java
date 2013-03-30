@@ -89,7 +89,7 @@ public class EntityItemContainer<BEAN extends AbstractEntityBean> extends Abstra
 
 		@Override
 		public Property<?> createProperty(BEAN bean) {
-			return new ObjectProperty<String>(bean.getAttribute(this.name).getAttributeValue());
+			return new ObjectProperty<String>(bean.getAttribute(this.name).getAttributeDisplay());
 		}
 
 	}

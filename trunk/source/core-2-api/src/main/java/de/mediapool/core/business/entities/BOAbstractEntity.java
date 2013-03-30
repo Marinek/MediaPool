@@ -73,9 +73,8 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 
 		if (this.currentAttributes != null) {
 			for (EntityAttributeVO lVO : this.currentAttributes) {
-				EntityAttributeValueBean lAttributeBean = new EntityAttributeValueBean();
 
-				lAttributeBean = EntityMetaDataManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
+				EntityAttributeValueBean<?> lAttributeBean = EntityMetaDataManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
 
 				lAttributeBean.setAttributeValue(lVO.getAttributeValue());
 				lAttributeBean.setId(lVO.getId());
@@ -115,13 +114,13 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 
 			this.currentAttributes.clear();
 
-			for (EntityAttributeValueBean lAttribute : this.getCurrentEntityBean().getAttributes()) {
+			for (EntityAttributeValueBean<?> lAttribute : this.getCurrentEntityBean().getAttributes()) {
 				EntityAttributeVO lVO = new EntityAttributeVO();
 
 				lVO.setAttributeName(lAttribute.getIdAsString());
 				lVO.setAttributeName(lAttribute.getAttributeName());
 				lVO.setEntityId(currentEntityVO.getId());
-				lVO.setAttributeValue(lAttribute.getAttributeValue());
+				lVO.setAttributeValue(lAttribute.getAttributeDisplay());
 
 				EntityAttributeVO.getDAO().saveOrUpdate(lVO, this.getTransaction());
 
@@ -150,9 +149,9 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 			lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Feld Name muss ist ein Pflichtfeld."));
 		}
 
-		Map<String, EntityAttributeValueBean> definedAttributes = EntityMetaDataManager.getInstance().getDefinedAttributes(currentMediaBean2);
+		Map<String, EntityAttributeValueBean<?>> definedAttributes = EntityMetaDataManager.getInstance().getDefinedAttributes(currentMediaBean2);
 
-		for (EntityAttributeValueBean lAttributeBean : currentMediaBean2.getAttributes()) {
+		for (EntityAttributeValueBean<?> lAttributeBean : currentMediaBean2.getAttributes()) {
 			if (!definedAttributes.containsKey(lAttributeBean.getAttributeName())) {
 				lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Attribut 'lAttributeBean.getAttributeName()' ist nicht definiert."));
 			}

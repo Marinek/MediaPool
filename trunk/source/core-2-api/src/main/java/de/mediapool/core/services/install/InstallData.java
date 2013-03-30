@@ -7,31 +7,31 @@ public class InstallData {
 
 	// Attributeorder = "Name,Mandatory,Order,Type,Size,Visible,Field"
 
-	private static final String movieAttribute8[] = { "title", "RECOMMENDED", "1", "String", "20", "TRUE", "Titel" };
-	private static final String movieAttribute5[] = { "genre", "RECOMMENDED", "2", "String", "20", "TRUE", "Genre" };
+	private static final String movieAttribute8[] = { "title", "RECOMMENDED", "1", "STRING", "20", "TRUE", "Titel" };
+	private static final String movieAttribute5[] = { "genre", "RECOMMENDED", "2", "STRING", "20", "TRUE", "Genre" };
 
-	private static final String movieAttribute1[] = { "duration", "RECOMMENDED", "3", "String", "20", "FALSE", "Dauer" };
-	private static final String movieAttribute2[] = { "contenttype", "RECOMMENDED", "4", "String", "20", "FALSE", "Inhaltstyp" };
-	private static final String movieAttribute3[] = { "image", "RECOMMENDED", "5", "String", "20", "FALSE", "Bild" };
-	private static final String movieAttribute4[] = { "description", "RECOMMENDED", "6", "String", "20", "FALSE", "Beschreibung" };
-	private static final String movieAttribute6[] = { "mediatype", "RECOMMENDED", "7", "String", "20", "FALSE", "Medientyp" };
-	private static final String movieAttribute7[] = { "mlanguage", "RECOMMENDED", "8", "String", "20", "FALSE", "Sprache" };
-	private static final String movieAttribute9[] = { "orginaltitle", "RECOMMENDED", "9", "String", "20", "FALSE", "Orginal Titel" };
-	private static final String movieAttribute10[] = { "dtype", "RECOMMENDED", "10", "String", "20", "FALSE", "Typ" };
-	private static final String movieAttribute11[] = { "approvedage", "RECOMMENDED", "11", "String", "20", "FALSE", "FSK" };
-	private static final String movieAttribute12[] = { "launchyear", "RECOMMENDED", "12", "String", "20", "FALSE", "Veröffentlichungsdatum" };
+	private static final String movieAttribute1[] = { "duration", "RECOMMENDED", "3", "STRING", "20", "FALSE", "Dauer" };
+	private static final String movieAttribute2[] = { "contenttype", "RECOMMENDED", "4", "STRING", "20", "FALSE", "Inhaltstyp" };
+	private static final String movieAttribute3[] = { "image", "RECOMMENDED", "5", "STRING", "20", "FALSE", "Bild" };
+	private static final String movieAttribute4[] = { "description", "RECOMMENDED", "6", "STRING", "20", "FALSE", "Beschreibung" };
+	private static final String movieAttribute6[] = { "mediatype", "RECOMMENDED", "7", "STRING", "20", "FALSE", "Medientyp" };
+	private static final String movieAttribute7[] = { "mlanguage", "RECOMMENDED", "8", "STRING", "20", "FALSE", "Sprache" };
+	private static final String movieAttribute9[] = { "orginaltitle", "RECOMMENDED", "9", "STRING", "20", "FALSE", "Orginal Titel" };
+	private static final String movieAttribute10[] = { "dtype", "RECOMMENDED", "10", "DATE", "20", "FALSE", "Typ" };
+	private static final String movieAttribute11[] = { "approvedage", "RECOMMENDED", "11", "STRING", "20", "FALSE", "FSK" };
+	private static final String movieAttribute12[] = { "launchyear", "RECOMMENDED", "12", "STRING", "20", "FALSE", "Veröffentlichungsdatum" };
 
-	private static final String productAttribute1[] = { "ean", "RECOMMENDED", "3", "String", "20", "FALSE", "EAN" };
-	private static final String productAttribute2[] = { "carrier", "RECOMMENDED", "1", "String", "20", "TRUE", "Träger" };
-	private static final String productAttribute3[] = { "cover", "RECOMMENDED", "4", "String", "20", "FALSE", "Umschlag" };
-	private static final String productAttribute4[] = { "mlanguage", "RECOMMENDED", "5", "String", "20", "FALSE", "Sprache" };
-	private static final String productAttribute5[] = { "quality", "RECOMMENDED", "6", "String", "20", "FALSE", "Qualität" };
-	private static final String productAttribute6[] = { "launchdate", "RECOMMENDED", "7", "String", "20", "FALSE", "Veröffentlichungsdatum" };
-	private static final String productAttribute7[] = { "price", "RECOMMENDED", "2", "String", "20", "TRUE", "Preis" };
-	private static final String productAttribute8[] = { "numberdiscs", "RECOMMENDED", "8", "String", "20", "FALSE", "Anzahl Medien" };
-	private static final String productAttribute9[] = { "duration", "RECOMMENDED", "9", "String", "20", "FALSE", "Spieldauer" };
-	private static final String productAttribute10[] = { "approvedage", "RECOMMENDED", "10", "String", "20", "FALSE", "FSK" };
-	private static final String productAttribute11[] = { "special", "RECOMMENDED", "11", "String", "20", "FALSE", "Spezial" };
+	private static final String productAttribute1[] = { "ean", "RECOMMENDED", "3", "STRING", "20", "FALSE", "EAN" };
+	private static final String productAttribute2[] = { "carrier", "RECOMMENDED", "1", "STRING", "20", "TRUE", "Träger" };
+	private static final String productAttribute3[] = { "cover", "RECOMMENDED", "4", "STRING", "20", "FALSE", "Umschlag" };
+	private static final String productAttribute4[] = { "mlanguage", "RECOMMENDED", "5", "STRING", "20", "FALSE", "Sprache" };
+	private static final String productAttribute5[] = { "quality", "RECOMMENDED", "6", "STRING", "20", "FALSE", "Qualität" };
+	private static final String productAttribute6[] = { "launchdate", "RECOMMENDED", "7", "DATE", "20", "FALSE", "Veröffentlichungsdatum" };
+	private static final String productAttribute7[] = { "price", "RECOMMENDED", "2", "STRING", "20", "TRUE", "Preis" };
+	private static final String productAttribute8[] = { "numberdiscs", "RECOMMENDED", "8", "STRING", "20", "FALSE", "Anzahl Medien" };
+	private static final String productAttribute9[] = { "duration", "RECOMMENDED", "9", "STRING", "20", "FALSE", "Spieldauer" };
+	private static final String productAttribute10[] = { "approvedage", "RECOMMENDED", "10", "STRING", "20", "FALSE", "FSK" };
+	private static final String productAttribute11[] = { "special", "RECOMMENDED", "11", "STRING", "20", "FALSE", "Spezial" };
 
 	public static List<String[]> getProductAttributes() {
 		List<String[]> productAttributes = new ArrayList<String[]>();

@@ -1,18 +1,25 @@
 package de.mediapool.core.beans.business.entity.attributes;
 
+import java.util.Date;
+
 public enum AttributeType {
 
-	STRING("java.lang.String");
+	STRING(String.class, "com.vaadin.ui.TextField"), DATE(Date.class, "com.vaadin.ui.DateField");
 
-	private final String storeClassName;
+	private final Class<?> storeClassName;
+	private final String viewClassName;
 
-	private AttributeType(String pStoreClassName) {
+	private AttributeType(Class<?> pStoreClassName, String pViewClassName) {
 		storeClassName = pStoreClassName;
-
+		viewClassName = pViewClassName;
 	}
 
-	public String getStoreClassName() {
+	public Class<?> getStoreClass() {
 		return storeClassName;
+	}
+
+	public String getViewClassName() {
+		return viewClassName;
 	}
 
 }

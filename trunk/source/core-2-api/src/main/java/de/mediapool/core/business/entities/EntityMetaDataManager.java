@@ -24,7 +24,7 @@ public class EntityMetaDataManager {
 
 	private static EntityMetaDataManager instance = null;
 
-	private Map<String, Map<String, EntityAttributeValueBean>> attributeMap = new HashMap<String, Map<String, EntityAttributeValueBean>>();
+	private Map<String, Map<String, EntityAttributeValueBean<?>>> attributeMap = new HashMap<String, Map<String, EntityAttributeValueBean<?>>>();
 
 	private List<EntityTypeBean> entityTypes = new ArrayList<EntityTypeBean>();
 
@@ -47,9 +47,8 @@ public class EntityMetaDataManager {
 			List<EntityAttributeDefVO> listDefs = EntityAttributeDefVO.getDAO().findAll();
 
 			for (EntityAttributeDefVO lDefinition : listDefs) {
-				EntityAttributeValueBean lBean = new EntityAttributeValueBean();
+				EntityAttributeValueBean<?> lBean = EntityAttributeTypeFactory.getAttributeInstance(lDefinition.getAttributeType());
 
-				lBean.setAttributeDisplay(lDefinition.getAttributeName());
 				lBean.setAttributeType(lDefinition.getAttributeType());
 				lBean.setMandatoryType(BeanAttributeMandatoryType.valueOf(lDefinition.getAttributeMandatory().toString()));
 				lBean.setAttributeVisible(lDefinition.getAttributeVisible());
@@ -57,7 +56,7 @@ public class EntityMetaDataManager {
 				lBean.setAttributeSize(lDefinition.getAttributeSize());
 				lBean.setPersistentStatus(PersistentStatus.PERSISTENT);
 				lBean.setAttributeName(lDefinition.getAttributeName());
-				lBean.setAttributeDisplay(lDefinition.getAttributeDisplay());
+				lBean.setAttributeDisplayName(lDefinition.getAttributeDisplay());
 				lBean.setEntityType(lDefinition.getEntityTypeName());
 
 				this.registerAttribute(lBean);
@@ -77,8 +76,8 @@ public class EntityMetaDataManager {
 		return lBean;
 	}
 
-	public EntityAttributeValueBean getAttribute(String pAttributeName, String pEntityType) throws MPException {
-		EntityAttributeValueBean lAttributeType = null;
+	public EntityAttributeValueBean<?> getAttribute(String pAttributeName, String pEntityType) throws MPException {
+		EntityAttributeValueBean<?> lAttributeType = null;
 
 		if (this.attributeMap.containsKey(pEntityType)) {
 			lAttributeType = this.attributeMap.get(pEntityType).get(pAttributeName);
@@ -92,19 +91,19 @@ public class EntityMetaDataManager {
 			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
 		}
 
-		for (Entry<String, EntityAttributeValueBean> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getEntityType()).entrySet()) {
+		for (Entry<String, EntityAttributeValueBean<?>> lAttributeEntry : this.attributeMap.get(pReturnNewMedia.getEntityType()).entrySet()) {
 			pReturnNewMedia.addAttribute(lAttributeEntry.getValue());
 		}
 	}
 
-	private void registerAttribute(EntityAttributeValueBean lBean) {
+	private void registerAttribute(EntityAttributeValueBean<?> lBean) {
 		if (!this.attributeMap.containsKey(lBean.getMediaType())) {
-			this.attributeMap.put(lBean.getMediaType(), new HashMap<String, EntityAttributeValueBean>());
+			this.attributeMap.put(lBean.getMediaType(), new HashMap<String, EntityAttributeValueBean<?>>());
 		}
 		this.attributeMap.get(lBean.getMediaType()).put(lBean.getAttributeName(), lBean);
 	}
 
-	public Map<String, EntityAttributeValueBean> getDefinedAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPException {
+	public Map<String, EntityAttributeValueBean<?>> getDefinedAttributes(AbstractSingleEntityBean pReturnNewMedia) throws MPException {
 		if (!this.attributeMap.containsKey(pReturnNewMedia.getEntityType())) {
 			throw new MPBusinessExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der Entitytyp '" + pReturnNewMedia.getEntityType() + "' wurde nicht definiert.");
 		}

@@ -115,7 +115,7 @@ public class Database {
 
 			for (AbstractEntityBean lBean : pmList) {
 				logger.debug(lBean.toString());
-				for (EntityAttributeValueBean lValueBean : lBean.getAttributes()) {
+				for (EntityAttributeValueBean<?> lValueBean : lBean.getAttributes()) {
 					logger.debug(lValueBean.toString());
 				}
 			}
