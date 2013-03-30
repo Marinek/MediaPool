@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import de.mediapool.core.beans.business.entity.attributes.AttributeType;
 import de.mediapool.core.persistence.PersistenceContext;
 import de.mediapool.core.persistence.dao.interfaces.entities.IEntityAttributeDefsDAO;
 import de.mediapool.core.persistence.enums.AttributeMandatoryType;
@@ -25,7 +26,7 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 	private String attributeName = null;
 
 	@Column(name = "attributetype")
-	private String attributeType = null;
+	private AttributeType attributeType = null;
 
 	@Column(name = "attributeorder")
 	private Integer attributeOrder = null;
@@ -58,11 +59,11 @@ public class EntityAttributeDefVO extends AbstractIdVO {
 		this.attributeName = attributeName;
 	}
 
-	public String getAttributeType() {
+	public AttributeType getAttributeType() {
 		return attributeType;
 	}
 
-	public void setAttributeType(String attributeType) {
+	public void setAttributeType(AttributeType attributeType) {
 		this.attributeType = attributeType;
 	}
 
