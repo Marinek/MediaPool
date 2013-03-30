@@ -60,8 +60,8 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 		return pmList;
 	}
 
-	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException {
-		EntityAttributeValueBean lAttribute = EntityMetaDataManager.getInstance().getAttribute(pAttributeName, pMediaType);
+	public EntityAttributeValueBean<?> createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException {
+		EntityAttributeValueBean<?> lAttribute = EntityMetaDataManager.getInstance().getAttribute(pAttributeName, pMediaType);
 
 		lAttribute.setAttributeValue(pValue);
 

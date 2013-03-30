@@ -21,7 +21,7 @@ public interface IMediaService extends IService {
 
 	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPException;
 
-	public EntityAttributeValueBean createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException;
+	public EntityAttributeValueBean<?> createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException;
 
 	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPException;
 

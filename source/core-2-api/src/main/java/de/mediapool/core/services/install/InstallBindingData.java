@@ -23,7 +23,7 @@ public class InstallBindingData {
 			lVO.setAttributeName(attributes[0]);
 			lVO.setAttributeMandatory(resolveType(attributes[1]));
 			lVO.setAttributeOrder(Integer.parseInt(attributes[2]));
-			lVO.setAttributeType(AttributeType.STRING);
+			lVO.setAttributeType(AttributeType.valueOf(attributes[3]));
 			lVO.setAttributeSize(Integer.parseInt(attributes[4]));
 			lVO.setAttributeVisible("TRUE".equals(attributes[5]));
 			lVO.setAttributeDisplay((attributes[6]));
@@ -46,7 +46,7 @@ public class InstallBindingData {
 			lVO.setAttributeName(attributes[0]);
 			lVO.setAttributeMandatory(resolveType(attributes[1]));
 			lVO.setAttributeOrder(Integer.parseInt(attributes[2]));
-			lVO.setAttributeType(AttributeType.STRING);
+			lVO.setAttributeType(AttributeType.valueOf(attributes[3]));
 			lVO.setAttributeSize(Integer.parseInt(attributes[4]));
 			lVO.setAttributeVisible("TRUE".equals(attributes[5]));
 			lVO.setAttributeDisplay((attributes[6]));

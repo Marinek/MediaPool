@@ -25,7 +25,7 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 	private String name;
 	private String entityType;
 
-	private Map<String, EntityAttributeValueBean> attributes = new HashMap<String, EntityAttributeValueBean>();
+	private Map<String, EntityAttributeValueBean<?>> attributes = new HashMap<String, EntityAttributeValueBean<?>>();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -54,8 +54,8 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 		this.entityType = mediaType;
 	}
 
-	public EntityAttributeValueBean getAttribute(String pAttributeName) {
-		EntityAttributeValueBean lReturnString = null;
+	public EntityAttributeValueBean<?> getAttribute(String pAttributeName) {
+		EntityAttributeValueBean<?> lReturnString = null;
 
 		if (attributes.containsKey(pAttributeName)) {
 			lReturnString = attributes.get(pAttributeName);
@@ -71,21 +71,21 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 		this.attributes.get(this.getAttributeIdentifier(pAttributeName)).setAttributeValue(pValue);
 	}
 
-	public void addAttribute(EntityAttributeValueBean pAttributeBean) {
+	public void addAttribute(EntityAttributeValueBean<?> pAttributeBean) {
 		attributes.put(pAttributeBean.getAttributeIdentifier(), pAttributeBean);
 	}
 
-	public Collection<EntityAttributeValueBean> getAttributes() {
-		List<EntityAttributeValueBean> lReturnList = new ArrayList<EntityAttributeValueBean>();
+	public Collection<EntityAttributeValueBean<?>> getAttributes() {
+		List<EntityAttributeValueBean<?>> lReturnList = new ArrayList<EntityAttributeValueBean<?>>();
 
 		for (String lKey : this.attributes.keySet()) {
 			lReturnList.add(this.attributes.get(lKey));
 		}
 
-		Collections.sort(lReturnList, new Comparator<EntityAttributeValueBean>() {
+		Collections.sort(lReturnList, new Comparator<EntityAttributeValueBean<?>>() {
 
 			@Override
-			public int compare(EntityAttributeValueBean o1, EntityAttributeValueBean o2) {
+			public int compare(EntityAttributeValueBean<?> o1, EntityAttributeValueBean<?> o2) {
 				return o1.getAttributeOrder().compareTo(o2.getAttributeOrder());
 			}
 		});

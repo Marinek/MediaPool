@@ -41,11 +41,11 @@ public class JoinedEntityBean extends AbstractEntityBean {
 		this.joinedEntitys.add(pJoinedEntity);
 	}
 
-	public Collection<EntityAttributeValueBean> getAttributes() {
-		List<EntityAttributeValueBean> lReturnList = new ArrayList<EntityAttributeValueBean>();
+	public Collection<EntityAttributeValueBean<?>> getAttributes() {
+		List<EntityAttributeValueBean<?>> lReturnList = new ArrayList<EntityAttributeValueBean<?>>();
 
 		for (AbstractEntityBean lAbstractEntityBean : this.joinedEntitys) {
-			for (EntityAttributeValueBean lEntityAttributeBean : lAbstractEntityBean.getAttributes()) {
+			for (EntityAttributeValueBean<?> lEntityAttributeBean : lAbstractEntityBean.getAttributes()) {
 				lReturnList.add(lEntityAttributeBean);
 			}
 		}
@@ -57,7 +57,7 @@ public class JoinedEntityBean extends AbstractEntityBean {
 		return "JoinedEntityBean [joinedEntitys=" + joinedEntitys + "]";
 	}
 
-	public EntityAttributeValueBean getAttribute(String pName) {
+	public EntityAttributeValueBean<?> getAttribute(String pName) {
 		String[] split = pName.split("#");
 
 		String lEntiyType = split[0];

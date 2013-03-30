@@ -1,31 +1,23 @@
 package de.mediapool.core.beans.business.entity.attributes;
 
-public class EntityAttributeValueBean extends EntityAttributeDefinitionBean implements Cloneable {
+public abstract class EntityAttributeValueBean<T> extends EntityAttributeDefinitionBean implements Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String attributeDisplay;
-	private String attributeValue = null;
+	protected T attributeValue = null;
 
-	public String getAttributeValue() {
-		return attributeValue == null ? "" : attributeValue;
+	public T getAttributeValue() {
+		return attributeValue == null ? this.getNullValue() : attributeValue;
 	}
 
 	public void setAttributeValue(String attributeValue) {
-		this.attributeValue = attributeValue;
+		this.attributeValue = convertTo(attributeValue);
 	}
 
-	public String getAttributeDisplay() {
-		return attributeDisplay;
-	}
-
-	public void setAttributeDisplay(String attributeDisplay) {
-		this.attributeDisplay = attributeDisplay;
-	}
-
-	public EntityAttributeValueBean clone() {
+	@SuppressWarnings("unchecked")
+	public EntityAttributeValueBean<T> clone() {
 		try {
-			return (EntityAttributeValueBean) super.clone();
+			return (EntityAttributeValueBean<T>) super.clone();
 		} catch (CloneNotSupportedException e) {
 			// NOOP
 		}
@@ -33,7 +25,13 @@ public class EntityAttributeValueBean extends EntityAttributeDefinitionBean impl
 		return null;
 	}
 
+	public abstract String getAttributeDisplay();
+
+	protected abstract T getNullValue();
+
+	protected abstract T convertTo(String attributeValue2);
+
 	public String toString() {
-		return "EntityAttributeValueBean [attributeDisplay=" + attributeDisplay + ", attributeValue=" + attributeValue + "]";
+		return "EntityAttributeValueBean [attributeDisplay=" + String.valueOf(this.getAttributeDisplay()) + ", attributeValue=" + attributeValue + "]";
 	}
 }

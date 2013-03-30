@@ -18,7 +18,7 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 
 	private String attributeName;
 
-	private String attributeDisplay;
+	private String attributeDisplayName;
 
 	private Integer attributeOrder;
 
@@ -98,12 +98,12 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 		this.attributeSize = attributeSize;
 	}
 
-	public String getAttributeDisplay() {
-		return attributeDisplay;
+	public String getAttributeDisplayName() {
+		return attributeDisplayName;
 	}
 
-	public void setAttributeDisplay(String attributeField) {
-		this.attributeDisplay = attributeField;
+	public void setAttributeDisplayName(String attributeField) {
+		this.attributeDisplayName = attributeField;
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

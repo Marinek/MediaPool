@@ -62,7 +62,7 @@ public class EntityViewComposite<E extends AbstractEntityBean> extends CustomCom
 
 		VerticalLayout lVerticalLayout = new VerticalLayout();
 
-		for (EntityAttributeValueBean lAttribute : item.getAttributes()) {
+		for (EntityAttributeValueBean<?> lAttribute : item.getAttributes()) {
 			lVerticalLayout.addComponent(new AttributeComponent(lAttribute));
 		}
 

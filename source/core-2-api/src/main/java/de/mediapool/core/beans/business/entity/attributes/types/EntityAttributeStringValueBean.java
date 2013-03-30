@@ -1,16 +1,10 @@
-package de.mediapool.core.beans.search.entity;
+package de.mediapool.core.beans.business.entity.attributes.types;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
+import org.apache.commons.lang.StringUtils;
 
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeDefinitionBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
-import de.mediapool.core.beans.search.AbstractResultList;
 
-public abstract class EntityResultList<E extends AbstractEntityBean> extends AbstractResultList<E> {
+public class EntityAttributeStringValueBean extends EntityAttributeValueBean<String> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -22,40 +16,25 @@ public abstract class EntityResultList<E extends AbstractEntityBean> extends Abs
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private Map<String, EntityAttributeDefinitionBean> mapHeaderInformation = new TreeMap<String, EntityAttributeDefinitionBean>();
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	public EntityResultList() {
-	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public boolean add(E e) {
-		if (e != null) {
-			for (EntityAttributeValueBean<?> lAttribute : e.getAttributes()) {
-				this.addHeaderInformation(lAttribute);
-			}
-		}
-
-		return super.add(e);
+	public String getAttributeDisplay() {
+		return this.getAttributeValue();
 	}
 
-	public void addHeaderInformation(EntityAttributeDefinitionBean pHeaderDefinition) {
-		if (!this.mapHeaderInformation.containsKey(pHeaderDefinition.getAttributeIdentifier())) {
-			this.mapHeaderInformation.put(pHeaderDefinition.getAttributeIdentifier(), pHeaderDefinition);
-		}
+	protected String getNullValue() {
+		return StringUtils.EMPTY;
 	}
 
-	public Collection<EntityAttributeDefinitionBean> getHeaderInformation() {
-		return Collections.unmodifiableCollection(this.mapHeaderInformation.values());
+	protected String convertTo(String attributeValue) {
+		return attributeValue;
 	}
-
-	public abstract Class<E> getEntityType();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden

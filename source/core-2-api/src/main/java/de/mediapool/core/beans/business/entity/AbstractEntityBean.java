@@ -9,9 +9,9 @@ public abstract class AbstractEntityBean extends AbstractBean {
 
 	private static final long serialVersionUID = 1L;
 
-	public abstract Collection<EntityAttributeValueBean> getAttributes();
+	public abstract Collection<EntityAttributeValueBean<?>> getAttributes();
 
-	public abstract EntityAttributeValueBean getAttribute(String pName);
+	public abstract EntityAttributeValueBean<?> getAttribute(String pName);
 
 	public abstract String getEntityType();
 }

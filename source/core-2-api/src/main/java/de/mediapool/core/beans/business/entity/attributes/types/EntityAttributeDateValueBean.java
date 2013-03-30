@@ -1,16 +1,13 @@
-package de.mediapool.core.beans.search.entity;
+package de.mediapool.core.beans.business.entity.attributes.types;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeDefinitionBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
-import de.mediapool.core.beans.search.AbstractResultList;
 
-public abstract class EntityResultList<E extends AbstractEntityBean> extends AbstractResultList<E> {
+public class EntityAttributeDateValueBean extends EntityAttributeValueBean<Date> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -22,44 +19,34 @@ public abstract class EntityResultList<E extends AbstractEntityBean> extends Abs
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private Map<String, EntityAttributeDefinitionBean> mapHeaderInformation = new TreeMap<String, EntityAttributeDefinitionBean>();
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	public EntityResultList() {
-	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public boolean add(E e) {
-		if (e != null) {
-			for (EntityAttributeValueBean<?> lAttribute : e.getAttributes()) {
-				this.addHeaderInformation(lAttribute);
-			}
-		}
-
-		return super.add(e);
+	public String getAttributeDisplay() {
+		return new SimpleDateFormat().format(this.getAttributeValue());
 	}
-
-	public void addHeaderInformation(EntityAttributeDefinitionBean pHeaderDefinition) {
-		if (!this.mapHeaderInformation.containsKey(pHeaderDefinition.getAttributeIdentifier())) {
-			this.mapHeaderInformation.put(pHeaderDefinition.getAttributeIdentifier(), pHeaderDefinition);
-		}
-	}
-
-	public Collection<EntityAttributeDefinitionBean> getHeaderInformation() {
-		return Collections.unmodifiableCollection(this.mapHeaderInformation.values());
-	}
-
-	public abstract Class<E> getEntityType();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	protected Date getNullValue() {
+		return new Date();
+	}
+
+	protected Date convertTo(String attributeValue) {
+		try {
+			return DateFormat.getInstance().parse(attributeValue);
+		} catch (ParseException e) {
+			// noop
+		}
+		return this.getNullValue();
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden

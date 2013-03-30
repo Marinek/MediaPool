@@ -12,7 +12,6 @@ import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.EntityAttributeDefinitionBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
 import de.mediapool.ui.container.EntityItemContainer;
-import de.mediapool.ui.utils.MPExceptionUtil;
 
 public class ResultListComponent<B extends AbstractEntityBean> extends CustomComponent {
 
@@ -25,8 +24,6 @@ public class ResultListComponent<B extends AbstractEntityBean> extends CustomCom
 	private Table myTable;
 
 	private static final long serialVersionUID = 1L;
-
-	private EntityResultList<B> data;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -62,8 +59,6 @@ public class ResultListComponent<B extends AbstractEntityBean> extends CustomCom
 	}
 
 	public void setData(EntityResultList<B> pData) {
-		this.data = pData;
-
 		EntityItemContainer<B> entityItemContainer = new EntityItemContainer<B>(pData.getEntityType(), pData);
 
 		this.setHeader(pData.getHeaderInformation(), entityItemContainer);
@@ -107,21 +102,16 @@ public class ResultListComponent<B extends AbstractEntityBean> extends CustomCom
 		this.myTable.setColumnCollapsingAllowed(true);
 
 		for (EntityAttributeDefinitionBean lAttributeDef : headerInformation) {
-			entityItemContainer.addAttributeProperty(lAttributeDef.getAttributeIdentifier(), lAttributeDef.getAttributeDisplay());
+			entityItemContainer.addAttributeProperty(lAttributeDef.getAttributeIdentifier(), lAttributeDef.getAttributeDisplayName());
 
-			this.myTable.setColumnHeader(lAttributeDef.getAttributeIdentifier(), lAttributeDef.getAttributeDisplay());
+			// this.myTable.setColumnWidth(lAttributeDef.getAttributeIdentifier(),
+			// 75);
+			this.myTable.setColumnCollapsed(lAttributeDef.getAttributeIdentifier(), !lAttributeDef.getAttributeVisible());
+			this.myTable.setColumnHeader(lAttributeDef.getAttributeIdentifier(), lAttributeDef.getAttributeDisplayName());
+
 		}
 	}
 
-	private Class<?> getClassForType(String attributeType) {
-		try {
-			return Class.forName(attributeType);
-		} catch (ClassNotFoundException e) {
-			MPExceptionUtil.showMPExceptionDialog(e, this.getUI());
-		}
-
-		return String.class;
-	}
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// abstrakte Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
