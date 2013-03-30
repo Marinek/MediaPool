@@ -47,7 +47,7 @@ public class AttributeComponent extends CustomComponent {
 		this.attributeLabel.setValue(attribute.getAttributeDisplay());
 
 		this.setWidth(100, Unit.PERCENTAGE);
-		this.setHeight(35, Unit.PIXELS);
+		this.setHeight(34, Unit.PIXELS);
 	}
 
 	private void addViewComponentFor(EntityAttributeValueBean attribute) {

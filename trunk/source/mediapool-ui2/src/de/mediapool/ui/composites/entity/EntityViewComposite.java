@@ -51,6 +51,8 @@ public class EntityViewComposite<E extends AbstractEntityBean> extends CustomCom
 			}
 		});
 
+		this.mySplitView.setSplitPosition(75, Unit.PERCENTAGE);
+
 		this.mySplitView.setFirstComponent(lResultList);
 	}
 
