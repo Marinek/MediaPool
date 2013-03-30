@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import de.mediapool.core.beans.business.entity.attributes.AttributeType;
 import de.mediapool.core.persistence.enums.AttributeMandatoryType;
 import de.mediapool.core.persistence.vo.entities.EntityAttributeDefVO;
 import de.mediapool.core.persistence.vo.entities.EntityTypeVO;
@@ -22,7 +23,7 @@ public class InstallBindingData {
 			lVO.setAttributeName(attributes[0]);
 			lVO.setAttributeMandatory(resolveType(attributes[1]));
 			lVO.setAttributeOrder(Integer.parseInt(attributes[2]));
-			lVO.setAttributeType("java.lang.String");
+			lVO.setAttributeType(AttributeType.STRING);
 			lVO.setAttributeSize(Integer.parseInt(attributes[4]));
 			lVO.setAttributeVisible("TRUE".equals(attributes[5]));
 			lVO.setAttributeDisplay((attributes[6]));
@@ -45,7 +46,7 @@ public class InstallBindingData {
 			lVO.setAttributeName(attributes[0]);
 			lVO.setAttributeMandatory(resolveType(attributes[1]));
 			lVO.setAttributeOrder(Integer.parseInt(attributes[2]));
-			lVO.setAttributeType("java.lang.String");
+			lVO.setAttributeType(AttributeType.STRING);
 			lVO.setAttributeSize(Integer.parseInt(attributes[4]));
 			lVO.setAttributeVisible("TRUE".equals(attributes[5]));
 			lVO.setAttributeDisplay((attributes[6]));

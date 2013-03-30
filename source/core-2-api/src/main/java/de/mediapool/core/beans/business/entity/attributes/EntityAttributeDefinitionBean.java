@@ -17,9 +17,12 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 
 	private String entityType;
 
-	private String attributeType;
+	private AttributeType attributeType;
+
 	private String attributeName;
+
 	private String attributeDisplay;
+
 	private Integer attributeOrder;
 	private Boolean attributeVisible;
 	private Integer attributeSize;
@@ -42,11 +45,11 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 		this.entityType = mediaType;
 	}
 
-	public String getAttributeType() {
+	public AttributeType getAttributeType() {
 		return attributeType;
 	}
 
-	public void setAttributeType(String attributeType) {
+	public void setAttributeType(AttributeType attributeType) {
 		this.attributeType = attributeType;
 	}
 
