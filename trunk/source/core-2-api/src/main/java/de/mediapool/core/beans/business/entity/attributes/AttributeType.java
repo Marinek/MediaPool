@@ -4,7 +4,7 @@ import java.util.Date;
 
 public enum AttributeType {
 
-	STRING(String.class, "com.vaadin.ui.TextField"), DATE(Date.class, "com.vaadin.ui.DateField");
+	STRING(String.class, "com.vaadin.ui.TextField"), DATE(Date.class, "com.vaadin.ui.DateField"), INTEGER(Integer.class, "com.vaadin.ui.TextField");
 
 	private final Class<?> storeClassName;
 	private final String viewClassName;

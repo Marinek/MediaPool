@@ -3,7 +3,7 @@ package de.mediapool.core.services.interfaces;
 import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
@@ -21,7 +21,7 @@ public interface IMediaService extends IService {
 
 	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPException;
 
-	public EntityAttributeValueBean<?> createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException;
+	public AttributeValueBean<?> createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException;
 
 	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPException;
 

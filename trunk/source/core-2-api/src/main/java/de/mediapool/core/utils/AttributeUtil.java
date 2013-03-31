@@ -1,19 +1,15 @@
-package de.mediapool.core.beans.business.entity.attributes.types;
+package de.mediapool.core.utils;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeDefinitionBean;
 
-public class EntityAttributeDateValueBean extends EntityAttributeValueBean<Date> {
-
+public class AttributeUtil {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	private static final long serialVersionUID = 1L;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
@@ -27,26 +23,19 @@ public class EntityAttributeDateValueBean extends EntityAttributeValueBean<Date>
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public String getAttributeDisplay() {
-		return new SimpleDateFormat().format(this.getAttributeValue());
+	public static void sort(List<? extends AttributeDefinitionBean> lReturnList) {
+		Collections.sort(lReturnList, new Comparator<AttributeDefinitionBean>() {
+
+			@Override
+			public int compare(AttributeDefinitionBean o1, AttributeDefinitionBean o2) {
+				return o1.getAttributeOrder().compareTo(o2.getAttributeOrder());
+			}
+		});
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-
-	protected Date getNullValue() {
-		return new Date();
-	}
-
-	protected Date convertTo(String attributeValue) {
-		try {
-			return DateFormat.getInstance().parse(attributeValue);
-		} catch (ParseException e) {
-			// noop
-		}
-		return this.getNullValue();
-	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden

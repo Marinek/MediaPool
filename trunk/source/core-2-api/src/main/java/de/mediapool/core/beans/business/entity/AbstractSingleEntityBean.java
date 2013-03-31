@@ -3,12 +3,12 @@ package de.mediapool.core.beans.business.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
+import de.mediapool.core.utils.AttributeUtil;
 
 public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 
@@ -25,7 +25,7 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 	private String name;
 	private String entityType;
 
-	private Map<String, EntityAttributeValueBean<?>> attributes = new HashMap<String, EntityAttributeValueBean<?>>();
+	private Map<String, AttributeValueBean<?>> attributes = new HashMap<String, AttributeValueBean<?>>();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -54,8 +54,8 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 		this.entityType = mediaType;
 	}
 
-	public EntityAttributeValueBean<?> getAttribute(String pAttributeName) {
-		EntityAttributeValueBean<?> lReturnString = null;
+	public AttributeValueBean<?> getAttribute(String pAttributeName) {
+		AttributeValueBean<?> lReturnString = null;
 
 		if (attributes.containsKey(pAttributeName)) {
 			lReturnString = attributes.get(pAttributeName);
@@ -71,24 +71,18 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 		this.attributes.get(this.getAttributeIdentifier(pAttributeName)).setAttributeValue(pValue);
 	}
 
-	public void addAttribute(EntityAttributeValueBean<?> pAttributeBean) {
+	public void addAttribute(AttributeValueBean<?> pAttributeBean) {
 		attributes.put(pAttributeBean.getAttributeIdentifier(), pAttributeBean);
 	}
 
-	public Collection<EntityAttributeValueBean<?>> getAttributes() {
-		List<EntityAttributeValueBean<?>> lReturnList = new ArrayList<EntityAttributeValueBean<?>>();
+	public Collection<AttributeValueBean<?>> getAttributes() {
+		List<AttributeValueBean<?>> lReturnList = new ArrayList<AttributeValueBean<?>>();
 
 		for (String lKey : this.attributes.keySet()) {
 			lReturnList.add(this.attributes.get(lKey));
 		}
 
-		Collections.sort(lReturnList, new Comparator<EntityAttributeValueBean<?>>() {
-
-			@Override
-			public int compare(EntityAttributeValueBean<?> o1, EntityAttributeValueBean<?> o2) {
-				return o1.getAttributeOrder().compareTo(o2.getAttributeOrder());
-			}
-		});
+		AttributeUtil.sort(lReturnList);
 
 		return Collections.unmodifiableCollection(lReturnList);
 	}
