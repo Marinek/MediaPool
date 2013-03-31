@@ -1,14 +1,16 @@
 package de.mediapool.core.beans.search.entity;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeDefinitionBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeDefinitionBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.search.AbstractResultList;
+import de.mediapool.core.utils.AttributeUtil;
 
 public abstract class EntityResultList<E extends AbstractEntityBean> extends AbstractResultList<E> {
 
@@ -22,7 +24,7 @@ public abstract class EntityResultList<E extends AbstractEntityBean> extends Abs
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private Map<String, EntityAttributeDefinitionBean> mapHeaderInformation = new TreeMap<String, EntityAttributeDefinitionBean>();
+	private Map<String, AttributeDefinitionBean> mapHeaderInformation = new TreeMap<String, AttributeDefinitionBean>();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -37,7 +39,7 @@ public abstract class EntityResultList<E extends AbstractEntityBean> extends Abs
 
 	public boolean add(E e) {
 		if (e != null) {
-			for (EntityAttributeValueBean<?> lAttribute : e.getAttributes()) {
+			for (AttributeValueBean<?> lAttribute : e.getAttributes()) {
 				this.addHeaderInformation(lAttribute);
 			}
 		}
@@ -45,14 +47,20 @@ public abstract class EntityResultList<E extends AbstractEntityBean> extends Abs
 		return super.add(e);
 	}
 
-	public void addHeaderInformation(EntityAttributeDefinitionBean pHeaderDefinition) {
+	public void addHeaderInformation(AttributeDefinitionBean pHeaderDefinition) {
 		if (!this.mapHeaderInformation.containsKey(pHeaderDefinition.getAttributeIdentifier())) {
 			this.mapHeaderInformation.put(pHeaderDefinition.getAttributeIdentifier(), pHeaderDefinition);
 		}
 	}
 
-	public Collection<EntityAttributeDefinitionBean> getHeaderInformation() {
-		return Collections.unmodifiableCollection(this.mapHeaderInformation.values());
+	public List<AttributeDefinitionBean> getHeaderInformation() {
+		List<AttributeDefinitionBean> lReturnList = new ArrayList<AttributeDefinitionBean>();
+
+		lReturnList.addAll(this.mapHeaderInformation.values());
+
+		AttributeUtil.sort(lReturnList);
+
+		return Collections.unmodifiableList(lReturnList);
 	}
 
 	public abstract Class<E> getEntityType();

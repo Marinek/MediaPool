@@ -1,19 +1,16 @@
-package de.mediapool.core.business.entities;
+package de.mediapool.core.beans.business.entity.attributes.types;
 
-import de.mediapool.core.beans.business.entity.attributes.AttributeType;
+import org.apache.commons.lang.StringUtils;
+
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
-import de.mediapool.core.beans.business.entity.attributes.types.AttributeDateValueBean;
-import de.mediapool.core.beans.business.entity.attributes.types.AttributeIntegerValueBean;
-import de.mediapool.core.beans.business.entity.attributes.types.AttributeStringValueBean;
-import de.mediapool.core.exceptions.ExeptionErrorCode;
-import de.mediapool.core.exceptions.MPException;
-import de.mediapool.core.exceptions.MPTechnicalExeption;
 
-public class EntityAttributeTypeFactory {
+public class AttributeStringValueBean extends AttributeValueBean<String> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	private static final long serialVersionUID = 1L;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
@@ -27,18 +24,18 @@ public class EntityAttributeTypeFactory {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public static AttributeValueBean<?> getAttributeInstance(AttributeType pType) throws MPException {
-		switch (pType) {
-		case DATE:
-			return new AttributeDateValueBean();
-		case STRING:
-			return new AttributeStringValueBean();
-		case INTEGER:
-			return new AttributeIntegerValueBean();
-		default:
-			throw new MPTechnicalExeption(ExeptionErrorCode.ENTITY_TYPE_NO_TYPE_DEF, "Der AttributeTyp '" + pType + "' ist nicht vorhanden.");
-		}
+	public String getAttributeDisplay() {
+		return this.getAttributeValue();
 	}
+
+	protected String getNullValue() {
+		return StringUtils.EMPTY;
+	}
+
+	protected String convertTo(String attributeValue) {
+		return attributeValue;
+	}
+
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

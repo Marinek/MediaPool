@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
@@ -60,8 +60,8 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 		return pmList;
 	}
 
-	public EntityAttributeValueBean<?> createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException {
-		EntityAttributeValueBean<?> lAttribute = EntityMetaDataManager.getInstance().getAttribute(pAttributeName, pMediaType);
+	public AttributeValueBean<?> createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException {
+		AttributeValueBean<?> lAttribute = EntityMetaDataManager.getInstance().getAttribute(pAttributeName, pMediaType);
 
 		lAttribute.setAttributeValue(pValue);
 

@@ -1,6 +1,6 @@
 package de.mediapool.core.beans.business.entity.attributes;
 
-public abstract class EntityAttributeValueBean<T> extends EntityAttributeDefinitionBean implements Cloneable {
+public abstract class AttributeValueBean<T> extends AttributeDefinitionBean implements Cloneable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -15,9 +15,9 @@ public abstract class EntityAttributeValueBean<T> extends EntityAttributeDefinit
 	}
 
 	@SuppressWarnings("unchecked")
-	public EntityAttributeValueBean<T> clone() {
+	public AttributeValueBean<T> clone() {
 		try {
-			return (EntityAttributeValueBean<T>) super.clone();
+			return (AttributeValueBean<T>) super.clone();
 		} catch (CloneNotSupportedException e) {
 			// NOOP
 		}

@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
@@ -115,7 +115,7 @@ public class Database {
 
 			for (AbstractEntityBean lBean : pmList) {
 				logger.debug(lBean.toString());
-				for (EntityAttributeValueBean<?> lValueBean : lBean.getAttributes()) {
+				for (AttributeValueBean<?> lValueBean : lBean.getAttributes()) {
 					logger.debug(lValueBean.toString());
 				}
 			}

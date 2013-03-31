@@ -1,10 +1,8 @@
 package de.mediapool.core.beans.business.entity.attributes.types;
 
-import org.apache.commons.lang.StringUtils;
+import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
-
-public class EntityAttributeStringValueBean extends EntityAttributeValueBean<String> {
+public class AttributeIntegerValueBean extends AttributeValueBean<Integer> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -25,20 +23,20 @@ public class EntityAttributeStringValueBean extends EntityAttributeValueBean<Str
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	public String getAttributeDisplay() {
-		return this.getAttributeValue();
-	}
-
-	protected String getNullValue() {
-		return StringUtils.EMPTY;
-	}
-
-	protected String convertTo(String attributeValue) {
-		return attributeValue;
+		return String.valueOf(this.getAttributeValue());
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+	protected Integer getNullValue() {
+		return 0;
+	}
+
+	protected Integer convertTo(String attributeValue) {
+		return Integer.parseInt(attributeValue);
+	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// private Methoden

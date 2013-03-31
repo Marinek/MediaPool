@@ -8,7 +8,7 @@ import java.util.UUID;
 import de.mediapool.core.beans.PersistentStatus;
 import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.utils.PersistenceUtils;
 import de.mediapool.core.beans.validation.ValidationErrorType;
 import de.mediapool.core.beans.validation.ValidationResultBean;
@@ -74,7 +74,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 		if (this.currentAttributes != null) {
 			for (EntityAttributeVO lVO : this.currentAttributes) {
 
-				EntityAttributeValueBean<?> lAttributeBean = EntityMetaDataManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
+				AttributeValueBean<?> lAttributeBean = EntityMetaDataManager.getInstance().getAttribute(lVO.getAttributeName(), this.currentEntity.getEntityType());
 
 				lAttributeBean.setAttributeValue(lVO.getAttributeValue());
 				lAttributeBean.setId(lVO.getId());
@@ -114,7 +114,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 
 			this.currentAttributes.clear();
 
-			for (EntityAttributeValueBean<?> lAttribute : this.getCurrentEntityBean().getAttributes()) {
+			for (AttributeValueBean<?> lAttribute : this.getCurrentEntityBean().getAttributes()) {
 				EntityAttributeVO lVO = new EntityAttributeVO();
 
 				lVO.setAttributeName(lAttribute.getIdAsString());
@@ -149,9 +149,9 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 			lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Feld Name muss ist ein Pflichtfeld."));
 		}
 
-		Map<String, EntityAttributeValueBean<?>> definedAttributes = EntityMetaDataManager.getInstance().getDefinedAttributes(currentMediaBean2);
+		Map<String, AttributeValueBean<?>> definedAttributes = EntityMetaDataManager.getInstance().getDefinedAttributes(currentMediaBean2);
 
-		for (EntityAttributeValueBean<?> lAttributeBean : currentMediaBean2.getAttributes()) {
+		for (AttributeValueBean<?> lAttributeBean : currentMediaBean2.getAttributes()) {
 			if (!definedAttributes.containsKey(lAttributeBean.getAttributeName())) {
 				lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Attribut 'lAttributeBean.getAttributeName()' ist nicht definiert."));
 			}

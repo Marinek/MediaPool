@@ -9,7 +9,8 @@ import org.apache.commons.lang.StringUtils;
 
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
 import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
+import de.mediapool.core.utils.AttributeUtil;
 
 public class JoinedEntityBean extends AbstractEntityBean {
 
@@ -41,14 +42,16 @@ public class JoinedEntityBean extends AbstractEntityBean {
 		this.joinedEntitys.add(pJoinedEntity);
 	}
 
-	public Collection<EntityAttributeValueBean<?>> getAttributes() {
-		List<EntityAttributeValueBean<?>> lReturnList = new ArrayList<EntityAttributeValueBean<?>>();
+	public Collection<AttributeValueBean<?>> getAttributes() {
+		List<AttributeValueBean<?>> lReturnList = new ArrayList<AttributeValueBean<?>>();
 
 		for (AbstractEntityBean lAbstractEntityBean : this.joinedEntitys) {
-			for (EntityAttributeValueBean<?> lEntityAttributeBean : lAbstractEntityBean.getAttributes()) {
+			for (AttributeValueBean<?> lEntityAttributeBean : lAbstractEntityBean.getAttributes()) {
 				lReturnList.add(lEntityAttributeBean);
 			}
 		}
+
+		AttributeUtil.sort(lReturnList);
 
 		return Collections.unmodifiableCollection(lReturnList);
 	}
@@ -57,7 +60,7 @@ public class JoinedEntityBean extends AbstractEntityBean {
 		return "JoinedEntityBean [joinedEntitys=" + joinedEntitys + "]";
 	}
 
-	public EntityAttributeValueBean<?> getAttribute(String pName) {
+	public AttributeValueBean<?> getAttribute(String pName) {
 		String[] split = pName.split("#");
 
 		String lEntiyType = split[0];

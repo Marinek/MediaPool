@@ -2,7 +2,7 @@ package de.mediapool.core.beans.business.entity.attributes;
 
 import de.mediapool.core.beans.AbstractBean;
 
-public class EntityAttributeDefinitionBean extends AbstractBean {
+public class AttributeDefinitionBean extends AbstractBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -28,7 +28,7 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 
 	private AttributeType attributeType;
 
-	private BeanAttributeMandatoryType mandatoryType;
+	private AttributeMandatoryType mandatoryType;
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -62,11 +62,11 @@ public class EntityAttributeDefinitionBean extends AbstractBean {
 		this.attributeName = attributeName;
 	}
 
-	public BeanAttributeMandatoryType getMandatoryType() {
+	public AttributeMandatoryType getMandatoryType() {
 		return mandatoryType;
 	}
 
-	public void setMandatoryType(BeanAttributeMandatoryType mandatoryType) {
+	public void setMandatoryType(AttributeMandatoryType mandatoryType) {
 		this.mandatoryType = mandatoryType;
 	}
 

@@ -10,7 +10,7 @@ import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.VerticalLayout;
 
 import de.mediapool.core.beans.business.entity.AbstractEntityBean;
-import de.mediapool.core.beans.business.entity.attributes.EntityAttributeValueBean;
+import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
 import de.mediapool.ui.components.ResultListComponent;
 import de.mediapool.ui.components.entity.attributes.AttributeComponent;
@@ -62,7 +62,7 @@ public class EntityViewComposite<E extends AbstractEntityBean> extends CustomCom
 
 		VerticalLayout lVerticalLayout = new VerticalLayout();
 
-		for (EntityAttributeValueBean<?> lAttribute : item.getAttributes()) {
+		for (AttributeValueBean<?> lAttribute : item.getAttributes()) {
 			lVerticalLayout.addComponent(new AttributeComponent(lAttribute));
 		}
 
