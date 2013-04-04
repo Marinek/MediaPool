@@ -8,12 +8,12 @@ import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Table;
 
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.EntityBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeDefinitionBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
 import de.mediapool.ui.container.EntityItemContainer;
 
-public class ResultListComponent<B extends AbstractEntityBean> extends CustomComponent {
+public class ResultListComponent<B extends EntityBean> extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 

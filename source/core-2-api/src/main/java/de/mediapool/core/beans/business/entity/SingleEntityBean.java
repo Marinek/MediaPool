@@ -10,7 +10,7 @@ import java.util.Map;
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.utils.AttributeUtil;
 
-public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
+public abstract class SingleEntityBean extends EntityBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -31,7 +31,7 @@ public abstract class AbstractSingleEntityBean extends AbstractEntityBean {
 	// Konstruktoren
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public AbstractSingleEntityBean() {
+	public SingleEntityBean() {
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

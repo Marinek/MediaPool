@@ -7,12 +7,12 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
-import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
+import de.mediapool.core.beans.business.entity.EntityBean;
+import de.mediapool.core.beans.business.entity.SingleEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.utils.AttributeUtil;
 
-public class JoinedEntityBean extends AbstractEntityBean {
+public class JoinedEntityBean extends EntityBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -24,7 +24,7 @@ public class JoinedEntityBean extends AbstractEntityBean {
 	// Member Variablen
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	private List<AbstractSingleEntityBean> joinedEntitys = new ArrayList<AbstractSingleEntityBean>();
+	private List<SingleEntityBean> joinedEntitys = new ArrayList<SingleEntityBean>();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Konstruktoren
@@ -38,14 +38,14 @@ public class JoinedEntityBean extends AbstractEntityBean {
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	public void join(AbstractSingleEntityBean pJoinedEntity) {
+	public void join(SingleEntityBean pJoinedEntity) {
 		this.joinedEntitys.add(pJoinedEntity);
 	}
 
 	public Collection<AttributeValueBean<?>> getAttributes() {
 		List<AttributeValueBean<?>> lReturnList = new ArrayList<AttributeValueBean<?>>();
 
-		for (AbstractEntityBean lAbstractEntityBean : this.joinedEntitys) {
+		for (EntityBean lAbstractEntityBean : this.joinedEntitys) {
 			for (AttributeValueBean<?> lEntityAttributeBean : lAbstractEntityBean.getAttributes()) {
 				lReturnList.add(lEntityAttributeBean);
 			}
@@ -65,7 +65,7 @@ public class JoinedEntityBean extends AbstractEntityBean {
 
 		String lEntiyType = split[0];
 
-		for (AbstractEntityBean lAbstractEntityBean : this.joinedEntitys) {
+		for (EntityBean lAbstractEntityBean : this.joinedEntitys) {
 			if (StringUtils.equals(lEntiyType, lAbstractEntityBean.getEntityType())) {
 				return lAbstractEntityBean.getAttribute(pName);
 			}

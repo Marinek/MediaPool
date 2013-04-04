@@ -1,8 +1,8 @@
 package de.mediapool.core.beans.business.entity.product;
 
-import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
+import de.mediapool.core.beans.business.entity.SingleEntityBean;
 
-public class ProductBean extends AbstractSingleEntityBean {
+public class ProductBean extends SingleEntityBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen

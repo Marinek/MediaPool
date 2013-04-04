@@ -5,7 +5,7 @@ import java.util.Collection;
 import de.mediapool.core.beans.AbstractBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 
-public abstract class AbstractEntityBean extends AbstractBean {
+public abstract class EntityBean extends AbstractBean {
 
 	private static final long serialVersionUID = 1L;
 
