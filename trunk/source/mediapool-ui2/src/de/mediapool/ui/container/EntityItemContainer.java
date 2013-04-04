@@ -7,10 +7,10 @@ import com.vaadin.data.util.AbstractBeanContainer;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.data.util.VaadinPropertyDescriptor;
 
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.EntityBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeDefinitionBean;
 
-public class EntityItemContainer<BEAN extends AbstractEntityBean> extends AbstractBeanContainer<String, BEAN> {
+public class EntityItemContainer<BEAN extends EntityBean> extends AbstractBeanContainer<String, BEAN> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -44,7 +44,7 @@ public class EntityItemContainer<BEAN extends AbstractEntityBean> extends Abstra
 		this.getContainerPropertyIds().clear();
 
 		for (AttributeDefinitionBean lAttributeDef : headerInformation) {
-			this.addAttributeProperty(lAttributeDef.getAttributeIdentifier(), lAttributeDef.getAttributeDisplayName());
+			this.addAttributeProperty(lAttributeDef.getAttributeIdentifier());
 		}
 
 	}
@@ -53,8 +53,8 @@ public class EntityItemContainer<BEAN extends AbstractEntityBean> extends Abstra
 	// public Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-	protected void addAttributeProperty(String name, String displayName) {
-		this.addContainerProperty(name, new EntityAttributePropertyDescriptor(name, displayName));
+	protected void addAttributeProperty(String name) {
+		this.addContainerProperty(name, new EntityAttributePropertyDescriptor(name));
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -75,16 +75,13 @@ public class EntityItemContainer<BEAN extends AbstractEntityBean> extends Abstra
 
 		private String name;
 
-		private String displayName;
-
-		public EntityAttributePropertyDescriptor(String pName, String displayName) {
+		public EntityAttributePropertyDescriptor(String pName) {
 			this.name = pName;
-			this.displayName = displayName;
 		}
 
 		@Override
 		public String getName() {
-			return this.displayName;
+			return this.name;
 		}
 
 		@Override

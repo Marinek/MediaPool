@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import de.mediapool.core.beans.PersistentStatus;
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
+import de.mediapool.core.beans.business.entity.SingleEntityBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.utils.PersistenceUtils;
 import de.mediapool.core.beans.validation.ValidationErrorType;
@@ -22,7 +22,7 @@ import de.mediapool.core.persistence.vo.entities.EntityAttributeVO;
 import de.mediapool.core.persistence.vo.entities.EntityVO;
 import de.mediapool.core.utils.ValidationUtil;
 
-public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> extends BusinessObject {
+public abstract class BOAbstractEntity<T extends SingleEntityBean> extends BusinessObject {
 
 	protected T currentEntity = null;
 
@@ -143,7 +143,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 	public List<ValidationResultBean> validate() throws MPException {
 		List<ValidationResultBean> lValidation = super.validate();
 
-		AbstractSingleEntityBean currentMediaBean2 = this.getCurrentEntityBean();
+		SingleEntityBean currentMediaBean2 = this.getCurrentEntityBean();
 
 		if (currentMediaBean2.getName() == null) {
 			lValidation.add(new ValidationResultBean(ValidationErrorType.ERROR, "name", "Das Feld Name muss ist ein Pflichtfeld."));
@@ -161,7 +161,7 @@ public abstract class BOAbstractEntity<T extends AbstractSingleEntityBean> exten
 	}
 
 	private EntityVO getEntityVO() throws MPException {
-		AbstractSingleEntityBean lCurrentBean = this.getCurrentEntityBean();
+		SingleEntityBean lCurrentBean = this.getCurrentEntityBean();
 		EntityVO lEntityVO = new EntityVO();
 
 		lEntityVO.setId(lCurrentBean.getIdAsString());

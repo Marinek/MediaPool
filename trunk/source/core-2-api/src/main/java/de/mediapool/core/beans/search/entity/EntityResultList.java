@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.EntityBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeDefinitionBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.search.AbstractResultList;
 import de.mediapool.core.utils.AttributeUtil;
 
-public abstract class EntityResultList<E extends AbstractEntityBean> extends AbstractResultList<E> {
+public abstract class EntityResultList<E extends EntityBean> extends AbstractResultList<E> {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen

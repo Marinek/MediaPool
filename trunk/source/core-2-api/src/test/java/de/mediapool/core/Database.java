@@ -11,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.mediapool.core.beans.business.authentication.UserBean;
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.EntityBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
@@ -110,10 +110,10 @@ public class Database {
 				}
 			}
 
-			EntityResultList<? extends AbstractEntityBean> pmList = productService.getAllProductMedia(null);
+			EntityResultList<? extends EntityBean> pmList = productService.getAllProductMedia(null);
 			Assert.assertTrue("size bigger one", pmList.size() > 0);
 
-			for (AbstractEntityBean lBean : pmList) {
+			for (EntityBean lBean : pmList) {
 				logger.debug(lBean.toString());
 				for (AttributeValueBean<?> lValueBean : lBean.getAttributes()) {
 					logger.debug(lValueBean.toString());

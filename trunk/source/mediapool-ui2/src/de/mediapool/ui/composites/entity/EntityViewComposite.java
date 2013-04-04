@@ -9,13 +9,13 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalSplitPanel;
 import com.vaadin.ui.VerticalLayout;
 
-import de.mediapool.core.beans.business.entity.AbstractEntityBean;
+import de.mediapool.core.beans.business.entity.EntityBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
 import de.mediapool.ui.components.ResultListComponent;
 import de.mediapool.ui.components.entity.attributes.AttributeComponent;
 
-public class EntityViewComposite<E extends AbstractEntityBean> extends CustomComponent {
+public class EntityViewComposite<E extends EntityBean> extends CustomComponent {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 

@@ -1,8 +1,8 @@
 package de.mediapool.core.beans.business.entity.holding;
 
-import de.mediapool.core.beans.business.entity.AbstractSingleEntityBean;
+import de.mediapool.core.beans.business.entity.SingleEntityBean;
 
-public class HoldingBean extends AbstractSingleEntityBean {
+public class HoldingBean extends SingleEntityBean {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
