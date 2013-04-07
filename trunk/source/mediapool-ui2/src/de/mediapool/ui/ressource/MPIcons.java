@@ -1005,5 +1005,4 @@ public interface MPIcons {
 	public static final Resource ZOOM_ICO = new ThemeResource("icons/zoom.png");
 	public static final Resource ZOOM_IN_ICO = new ThemeResource("icons/zoom_in.png");
 	public static final Resource ZOOM_OUT_ICO = new ThemeResource("icons/zoom_out.png");
-
 }

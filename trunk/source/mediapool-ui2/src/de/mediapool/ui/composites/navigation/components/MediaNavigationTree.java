@@ -13,6 +13,7 @@ import com.vaadin.ui.UI;
 import de.mediapool.core.beans.business.entity.EntityTypeBean;
 import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.services.MPLocalService;
+import de.mediapool.ui.ressource.MPIcons;
 import de.mediapool.ui.utils.MPExceptionUtil;
 
 public class MediaNavigationTree extends CustomComponent {
@@ -47,6 +48,7 @@ public class MediaNavigationTree extends CustomComponent {
 			for (EntityTypeBean entityTypeBean : mediaTypes) {
 				treeNavigation.addItem(entityTypeBean.getEntityType());
 				treeNavigation.setItemCaption(entityTypeBean.getEntityType(), entityTypeBean.getDisplayName());
+				treeNavigation.setItemIcon(entityTypeBean.getEntityType(), MPIcons.FOLDER_ICO);
 			}
 		} catch (MPException e) {
 			MPExceptionUtil.showMPExceptionDialog(e, this.getUI());
