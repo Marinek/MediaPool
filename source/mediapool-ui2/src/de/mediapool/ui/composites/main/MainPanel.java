@@ -111,15 +111,16 @@ public class MainPanel extends CustomComponent implements View {
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");
 		mainLayout.setHeight("100%");
-
+		
 		// top-level component properties
 		setWidth("100.0%");
 		setHeight("100.0%");
-
+		
 		// verticalLayout_1
 		verticalLayout_1 = buildVerticalLayout_1();
-		mainLayout.addComponent(verticalLayout_1, "top:0.0px;right:0.0px;bottom:0.0px;left:0.0px;");
-
+		mainLayout.addComponent(verticalLayout_1,
+				"top:0.0px;right:0.0px;bottom:0.0px;left:0.0px;");
+		
 		return mainLayout;
 	}
 
@@ -131,7 +132,7 @@ public class MainPanel extends CustomComponent implements View {
 		verticalLayout_1.setWidth("100.0%");
 		verticalLayout_1.setHeight("100.0%");
 		verticalLayout_1.setMargin(false);
-
+		
 		// titleImg
 		titleImg = new Embedded();
 		titleImg.setImmediate(false);
@@ -142,11 +143,11 @@ public class MainPanel extends CustomComponent implements View {
 		titleImg.setMimeType("image/png");
 		verticalLayout_1.addComponent(titleImg);
 		verticalLayout_1.setComponentAlignment(titleImg, new Alignment(33));
-
+		
 		// mainSplitPanel
 		mainSplitPanel = buildMainSplitPanel();
 		verticalLayout_1.addComponent(mainSplitPanel);
-
+		
 		return verticalLayout_1;
 	}
 
@@ -157,14 +158,14 @@ public class MainPanel extends CustomComponent implements View {
 		mainSplitPanel.setImmediate(false);
 		mainSplitPanel.setWidth("100.0%");
 		mainSplitPanel.setHeight("100.0%");
-
+		
 		// menueAccordion
 		menueAccordion = new Accordion();
 		menueAccordion.setImmediate(false);
 		menueAccordion.setWidth("-1px");
 		menueAccordion.setHeight("-1px");
 		mainSplitPanel.addComponent(menueAccordion);
-
+		
 		return mainSplitPanel;
 	}
 
