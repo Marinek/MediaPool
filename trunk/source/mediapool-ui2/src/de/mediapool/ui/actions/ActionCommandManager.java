@@ -10,7 +10,7 @@ import de.mediapool.ui.actions.commands.SaveActionCommand;
 public class ActionCommandManager{
 
 	private static ActionCommandManager manager = null;
-	private Map<String,IActionCommand> actionCommands = null;
+	private Map<String,ActionCommand> actionCommands = null;
 	
 	private ActionCommandManager(){
 		this.init();
@@ -25,11 +25,11 @@ public class ActionCommandManager{
 	 * Funktion zum initialen Hinzufügen von Actionsklassen
 	 */
 	private void init() {
-		this.actionCommands= new HashMap<String,IActionCommand>();
+		this.actionCommands= new HashMap<String,ActionCommand>();
 		this.actionCommands.put(SaveActionCommand.ACTION_COMMAND,new SaveActionCommand());
 	}
 	
-	public IActionCommand getActionCommandFor(String pActionCommand){
+	public ActionCommand getActionCommandFor(String pActionCommand){
 		if(this.actionCommands.keySet().contains(pActionCommand)){
 		 return this.actionCommands.get(pActionCommand);
 		}
