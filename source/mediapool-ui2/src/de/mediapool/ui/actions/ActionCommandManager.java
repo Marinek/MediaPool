@@ -25,7 +25,7 @@ public class ActionCommandManager{
 	 */
 	private void init() {
 		this.actionCommands= new HashMap<String,IActionCommand>();
-		this.actionCommands.put("save",new SaveActionCommand());
+		this.actionCommands.put(SaveActionCommand.ACTION_COMMAND,new SaveActionCommand());
 	}
 	
 	public IActionCommand getActionCommandFor(String pActionCommand){

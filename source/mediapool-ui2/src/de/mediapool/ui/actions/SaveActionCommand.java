@@ -8,7 +8,7 @@ import de.mediapool.ui.actions.interfaces.IActionCommand;
 
 public class SaveActionCommand implements IActionCommand {
 	
-	private static String ACTION_COMMAND = "save";
+	public static String ACTION_COMMAND = "save";
 	
 	public boolean isActionCommandFor(String pActionCommand) {
 		return StringUtils.equals(ACTION_COMMAND, pActionCommand);
