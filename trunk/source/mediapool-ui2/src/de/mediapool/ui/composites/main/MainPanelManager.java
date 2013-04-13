@@ -1,5 +1,10 @@
 package de.mediapool.ui.composites.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import de.mediapool.ui.composites.main.sub.MainPanelSub;
+import de.mediapool.ui.composites.main.sub.media.MediaTableSub;
 
 public class MainPanelManager {
 
@@ -8,6 +13,8 @@ public class MainPanelManager {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	private static MainPanelManager myInstance = null;
+
+	private Map<String, Class<? extends MainPanelSub>> mainPanelMap = new HashMap<String, Class<? extends MainPanelSub>>();
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Member Variablen
@@ -35,9 +42,8 @@ public class MainPanelManager {
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
 	private void init() {
-
+		this.mainPanelMap.put("", MediaTableSub.class);
 	}
-
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// protected Methoden
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
