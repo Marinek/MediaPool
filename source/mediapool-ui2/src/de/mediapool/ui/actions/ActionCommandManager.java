@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.mediapool.ui.actions.interfaces.IActionCommand;
+import de.mediapool.ui.actions.commands.SaveActionCommand;
+
 
 public class ActionCommandManager{
 

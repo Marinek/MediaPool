@@ -1,4 +1,4 @@
-package de.mediapool.ui.actions.interfaces;
+package de.mediapool.ui.actions;
 
 import com.vaadin.data.util.BeanItem;
 
