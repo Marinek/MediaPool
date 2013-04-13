@@ -9,15 +9,18 @@ public class ActionBean implements IBean {
 	private String icon = null;
 	
 	private String command = null;
+	
+	private String displayedtext = null;
 
 	
 	public ActionBean () {
 		
 	}
 	
-	public ActionBean (String command, String icon) {
+	public ActionBean (String command, String icon,String displayedtext) {
 		this.command = command;
 		this.icon = icon;
+		this.displayedtext = displayedtext;
 	}
 
 	public String getIcon() {
@@ -34,6 +37,14 @@ public class ActionBean implements IBean {
 
 	public void setCommand(String command) {
 		this.command = command;
+	}
+
+	public String getDisplayedtext() {
+		return displayedtext;
+	}
+
+	public void setDisplayedtext(String displayedtext) {
+		this.displayedtext = displayedtext;
 	}
 
 }

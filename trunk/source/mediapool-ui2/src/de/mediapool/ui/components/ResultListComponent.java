@@ -1,6 +1,5 @@
 package de.mediapool.ui.components;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,8 +16,8 @@ import de.mediapool.core.beans.business.entity.EntityBean;
 import de.mediapool.core.beans.business.entity.action.ActionBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeDefinitionBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
+import de.mediapool.ui.actions.ActionCommand;
 import de.mediapool.ui.container.EntityItemContainer;
-import de.mediapool.ui.ressource.MPIcons;
 import de.mediapool.ui.utils.RessourceUtil;
 
 public class ResultListComponent<B extends EntityBean> extends CustomComponent {
@@ -96,16 +95,17 @@ public class ResultListComponent<B extends EntityBean> extends CustomComponent {
 				
 				List<ActionBean> actionBeans = lBeanItem.getBean().getActionBeans();
 				
-				Action[] myActions = new Action[actionBeans.size()];
+				Action[] itemActions = new ActionCommand[actionBeans.size()];
 				for(int i =0 ; i < actionBeans.size(); i++){
 					ActionBean lBean = actionBeans.get(i);
-					myActions[i]= new Action(lBean.getCommand(),RessourceUtil.getRessouceFromString(lBean.getIcon()));
+					itemActions[i]= new ActionCommand(lBean.getDisplayedtext(),RessourceUtil.getRessouceFromString(lBean.getIcon()),lBean.getCommand());
 				}
-				return  myActions;
+				return  itemActions;
 			}
 
 			
 			public void handleAction(Action action, Object sender, Object target) {
+				BeanItem<B> lBeanItem = (BeanItem<B>) myTable.getItem(target);
 				// markedRows.remove(target);
 				// EntityActionManager, der Aktionen verwaltet.
 				// (ActionName, Bean) => Aktion.

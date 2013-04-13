@@ -3,6 +3,7 @@ package de.mediapool.core.beans.business.entity.joined;
 import java.util.List;
 
 import de.mediapool.core.beans.business.entity.action.ActionBean;
+import de.mediapool.core.beans.interfaces.IActions;
 
 public class ProductMediaBean extends JoinedEntityBean {
 
@@ -30,9 +31,9 @@ public class ProductMediaBean extends JoinedEntityBean {
 	@Override
 	public List<ActionBean> getActionBeans() {
 		List<ActionBean> actionBeans = super.getActionBeans();
-		
-		actionBeans.add(new ActionBean("OPEN", "ACCEPT"));
-		actionBeans.add(new ActionBean("ADD_HOLDING", "ADD"));
+
+		actionBeans.add(new ActionBean(IActions.ACTION_OPEN, "ACCEPT",IActions.DISPLAYED_TEXT_OPEN));
+		actionBeans.add(new ActionBean(IActions.ACTION_ADD, "ADD",IActions.DISPLAYED_TEXT_ADD));
 		
 		return actionBeans;
 	}
