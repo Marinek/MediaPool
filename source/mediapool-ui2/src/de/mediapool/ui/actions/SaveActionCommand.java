@@ -6,7 +6,7 @@ import com.vaadin.data.util.BeanItem;
 
 import de.mediapool.ui.actions.interfaces.IActionCommand;
 
-public class ActionCommand implements IActionCommand {
+public class SaveActionCommand implements IActionCommand {
 	
 	private static String ACTION_COMMAND = "save";
 	
@@ -19,7 +19,9 @@ public class ActionCommand implements IActionCommand {
 	}
 
 	public void execute(BeanItem<?> lBeanItem) {
-		
+		//TODO: SaveMethode in der Bean implementieren
+		//lBeanItem.save( irgendwas );
+		System.out.print("Bean save");
 	}
 
 }
