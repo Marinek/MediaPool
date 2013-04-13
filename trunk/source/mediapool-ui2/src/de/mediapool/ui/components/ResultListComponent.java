@@ -18,8 +18,8 @@ import de.mediapool.core.beans.business.entity.action.ActionBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeDefinitionBean;
 import de.mediapool.core.beans.search.entity.EntityResultList;
 import de.mediapool.ui.actions.ActionCommandManager;
+import de.mediapool.ui.actions.IActionCommand;
 import de.mediapool.ui.actions.MPAction;
-import de.mediapool.ui.actions.interfaces.IActionCommand;
 import de.mediapool.ui.container.EntityItemContainer;
 import de.mediapool.ui.utils.RessourceUtil;
 

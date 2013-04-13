@@ -1,10 +1,11 @@
-package de.mediapool.ui.actions;
+package de.mediapool.ui.actions.commands;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.vaadin.data.util.BeanItem;
 
-import de.mediapool.ui.actions.interfaces.IActionCommand;
+import de.mediapool.ui.actions.IActionCommand;
+
 
 public class SaveActionCommand implements IActionCommand {
 	
