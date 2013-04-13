@@ -72,14 +72,13 @@ public class ResultListComponent<B extends EntityBean> extends CustomComponent {
 
 		this.setHeader(pData.getHeaderInformation(), entityItemContainer);
 
-		this.actionMenu();
+		this.setContextMenu();
 
 		this.myTable.setSelectable(true);
 
 	}
 
-	private void actionMenu() {
-		// Actions (a.k.a context menu)
+	private void setContextMenu() {
 		this.myTable.addActionHandler( new Action.Handler() {	
 
 			private static final long serialVersionUID = 1L;
@@ -93,8 +92,7 @@ public class ResultListComponent<B extends EntityBean> extends CustomComponent {
 					return new Action[0];
 				}
 				
-				List<ActionBean> actionBeans = lBeanItem.getBean().getActionBeans();
-				
+				List<ActionBean> actionBeans = lBeanItem.getBean().getActionBeans();			
 				Action[] itemActions = new ActionCommand[actionBeans.size()];
 				for(int i =0 ; i < actionBeans.size(); i++){
 					ActionBean lBean = actionBeans.get(i);
