@@ -4,10 +4,10 @@ import org.apache.commons.lang.StringUtils;
 
 import com.vaadin.data.util.BeanItem;
 
-import de.mediapool.ui.actions.IActionCommand;
+import de.mediapool.ui.actions.ActionCommand;
 
 
-public class SaveActionCommand implements IActionCommand {
+public class SaveActionCommand implements ActionCommand {
 	
 	public static String ACTION_COMMAND = "save";
 	
