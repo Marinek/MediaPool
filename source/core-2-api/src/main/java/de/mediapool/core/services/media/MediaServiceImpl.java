@@ -7,12 +7,11 @@ import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
-import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
-import de.mediapool.core.beans.search.entity.joined.ProductMediaSearchBean;
+import de.mediapool.core.beans.search.entity.media.MediaResultList;
 import de.mediapool.core.business.entities.EntityMetaDataManager;
 import de.mediapool.core.business.entities.media.BOMedia;
 import de.mediapool.core.business.entities.relationship.BOProductMediaRelationship;
-import de.mediapool.core.business.search.entities.joined.BOProductMediaSearch;
+import de.mediapool.core.business.search.entities.media.BOMediaSearch;
 import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.services.interfaces.IMediaService;
 
@@ -44,22 +43,6 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 		return boInstance.getCurrentEntityBean();
 	}
 
-	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPException {
-		ProductMediaSearchBean lSearchBean = new ProductMediaSearchBean();
-
-		// lSearchBean.addProductCriteria(new
-		// EntityCriteriaBean(SearchOperation.EQ, new KeyValueBean("ean",
-		// "12345678")));
-		// lSearchBean.addMediaCriteria(new
-		// EntityCriteriaBean(SearchOperation.GT, new KeyValueBean("duration",
-		// "120")));
-
-		BOProductMediaSearch productMediaSearch = new BOProductMediaSearch(pUserBean);
-
-		ProductMediaResultList pmList = productMediaSearch.executeSearch(lSearchBean);
-		return pmList;
-	}
-
 	public AttributeValueBean<?> createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException {
 		AttributeValueBean<?> lAttribute = EntityMetaDataManager.getInstance().getAttribute(pAttributeName, pMediaType);
 
@@ -80,6 +63,10 @@ public class MediaServiceImpl implements IMediaService, Serializable {
 
 	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPException {
 		new BOProductMediaRelationship(null, pReferent).addChild(pChild);
+	}
+
+	public MediaResultList getMediaByType(String pType, UserBean pUserBean) throws MPException {
+		return new BOMediaSearch(pUserBean).executeSearch(null);
 	}
 
 }

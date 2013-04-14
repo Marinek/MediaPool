@@ -18,10 +18,6 @@ public class EntityDAOImpl extends PSAbstractDAOImpl<EntityVO> implements IEntit
 		return EntityVO.class;
 	}
 
-	public List<EntityVO> getAll() {
-		return null;
-	}
-
 	public EntityVO getByPrimaryKey(String pPrimaryKey) throws PSException {
 		PSCriteria criteria = this.createCriteria();
 
@@ -33,6 +29,15 @@ public class EntityDAOImpl extends PSAbstractDAOImpl<EntityVO> implements IEntit
 			return results.get(0);
 		}
 		return null;
+	}
+
+	@Override
+	public List<EntityVO> getAllMedia() throws PSException {
+		PSCriteria lCriteria = this.createCriteria();
+
+		lCriteria.add(Restrictions.eq("entityType", "movie"));
+
+		return this.findByCriteria(lCriteria);
 	}
 
 }

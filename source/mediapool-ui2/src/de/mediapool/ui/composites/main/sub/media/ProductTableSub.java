@@ -2,13 +2,13 @@ package de.mediapool.ui.composites.main.sub.media;
 
 import com.vaadin.ui.Component;
 
-import de.mediapool.core.beans.business.entity.media.MediaBean;
+import de.mediapool.core.beans.business.entity.joined.ProductMediaBean;
 import de.mediapool.core.exceptions.MPException;
 import de.mediapool.core.services.MPLocalService;
 import de.mediapool.ui.composites.entity.EntityViewComposite;
 import de.mediapool.ui.composites.main.sub.MainPanelSub;
 
-public class MediaTableSub extends MainPanelSub {
+public class ProductTableSub extends MainPanelSub {
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 	// Statische Deklarationen
@@ -28,10 +28,10 @@ public class MediaTableSub extends MainPanelSub {
 
 	@Override
 	public Component getComponent() {
-		EntityViewComposite<MediaBean> lResultList = new EntityViewComposite<MediaBean>();
+		EntityViewComposite<ProductMediaBean> lResultList = new EntityViewComposite<ProductMediaBean>();
 
 		try {
-			lResultList.showResults(MPLocalService.getInstance().getMediaService().getMediaByType("movie", null));
+			lResultList.showResults(MPLocalService.getInstance().getProductService().getAllProductMedia(null));
 		} catch (MPException e) {
 			e.printStackTrace();
 		}

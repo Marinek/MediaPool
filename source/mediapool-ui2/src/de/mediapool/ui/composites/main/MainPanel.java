@@ -11,7 +11,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.Notification;
 
-import de.mediapool.ui.composites.main.sub.media.MediaTableSub;
+import de.mediapool.ui.composites.main.sub.MainPanelSub;
 import de.mediapool.ui.composites.navigation.items.MediaNavigationTree;
 
 public class MainPanel extends CustomComponent implements View {
@@ -76,10 +76,9 @@ public class MainPanel extends CustomComponent implements View {
 	public void enter(ViewChangeEvent event) {
 		Notification.show(event.getParameters());
 
-		// TODO: Hier kommt noch was hin, dass die Parameter ausweret und
-		// entsprechende Components im rechten Bereich anzeigt.
+		MainPanelSub subPanel = MainPanelManager.getInstance().getSubPanel(event.getParameters());
 
-		this.mainSplitPanel.setSecondComponent(new MediaTableSub().getComponent());
+		this.mainSplitPanel.setSecondComponent(subPanel.getComponent());
 	}
 
 	// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

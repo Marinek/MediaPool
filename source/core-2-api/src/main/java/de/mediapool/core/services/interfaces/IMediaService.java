@@ -6,7 +6,7 @@ import de.mediapool.core.beans.business.authentication.UserBean;
 import de.mediapool.core.beans.business.entity.attributes.AttributeValueBean;
 import de.mediapool.core.beans.business.entity.media.MediaBean;
 import de.mediapool.core.beans.business.entity.product.ProductBean;
-import de.mediapool.core.beans.search.entity.joined.ProductMediaResultList;
+import de.mediapool.core.beans.search.entity.media.MediaResultList;
 import de.mediapool.core.exceptions.MPException;
 
 public interface IMediaService extends IService {
@@ -19,10 +19,10 @@ public interface IMediaService extends IService {
 
 	public MediaBean createNewMedia(String pMediaType) throws MPException;
 
-	public ProductMediaResultList getAllMedia(UserBean pUserBean) throws MPException;
-
 	public AttributeValueBean<?> createAttribute(String pMediaType, String pAttributeName, String pValue) throws MPException;
 
 	public void setProductForMedia(ProductBean pReferent, MediaBean pChild) throws MPException;
+
+	public MediaResultList getMediaByType(String pType, UserBean pUserBean) throws MPException;
 
 }

@@ -8,7 +8,7 @@ import de.mediapool.core.persistence.vo.entities.EntityVO;
 
 public interface IEntityDAO extends IPSDataAccessObject<EntityVO> {
 
-	public abstract List<EntityVO> getAll();
+	public abstract EntityVO getByPrimaryKey(String pPrimaryKey) throws PSException;
 
-	public EntityVO getByPrimaryKey(String pPrimaryKey) throws PSException;
+	public abstract List<EntityVO> getAllMedia() throws PSException;
 }
