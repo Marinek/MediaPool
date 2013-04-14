@@ -33,7 +33,7 @@ public class ActionCommandManager {
 		if (this.actionCommands.keySet().contains(pActionCommand)) {
 			return this.activate(this.actionCommands.get(pActionCommand));
 		}
-		return new EmptyActionCommand();
+		return new EmptyActionCommand(pActionCommand);
 	}
 
 	private ActionCommand activate(Class<? extends ActionCommand> actionCommandClass) {
