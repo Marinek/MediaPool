@@ -4,13 +4,19 @@ import java.util.Map;
 
 import com.vaadin.ui.Component;
 
-public interface MainPanelSub {
+public abstract class MainPanelSub {
 
-	public void setParameter(Map<String, String> pParameter);
+	private Map<String, String> parameter;
 
-	public Map<String, String> getParameter();
+	public void setParameter(Map<String, String> pParameter) {
+		this.parameter = pParameter;
+	}
 
-	public Component getComponent();
+	public String getParameter(String pName) {
+		return parameter.get(pName);
+	}
 
-	public String getName();
+	public abstract Component getComponent();
+
+	public abstract String getName();
 }
