@@ -2,6 +2,7 @@ package com.example.testhtc.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Log;
 
 public class GpioCode {
 
@@ -33,7 +34,8 @@ public class GpioCode {
 	}
 
 	public void setAllPins(String code) {
-		if (code.length() == 15) {
+		Log.w("codelength", code.length() + "");
+		if (code.length() < 17) {
 			int i = 0;
 			for (GpioPin pin : allPins) {
 				pin.setValue(code.charAt(i));
