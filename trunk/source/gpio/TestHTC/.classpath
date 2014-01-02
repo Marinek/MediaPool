@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/Android/android-sdk/platforms/android-10/android.jar">
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Android/android-sdk/platforms/android-10/android.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/C:/Program Files (x86)/Android/android-sdk/docs/reference"/>
 		</attributes>
