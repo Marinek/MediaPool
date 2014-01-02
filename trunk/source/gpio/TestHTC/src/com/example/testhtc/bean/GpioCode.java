@@ -39,8 +39,8 @@ public class GpioCode {
 			int i = 0;
 			for (GpioPin pin : allPins) {
 				pin.setValue(code.charAt(i));
+				i++;
 			}
-			i++;
 		}
 
 	}
@@ -75,7 +75,7 @@ public class GpioCode {
 
 	}
 
-	public GpioPin isPin1() {
+	public GpioPin getPin1() {
 		return pin1;
 	}
 
@@ -83,7 +83,7 @@ public class GpioCode {
 		this.pin1 = pin1;
 	}
 
-	public GpioPin isPin2() {
+	public GpioPin getPin2() {
 		return pin2;
 	}
 
@@ -91,7 +91,7 @@ public class GpioCode {
 		this.pin2 = pin2;
 	}
 
-	public GpioPin isPin3() {
+	public GpioPin getPin3() {
 		return pin3;
 	}
 
@@ -99,7 +99,7 @@ public class GpioCode {
 		this.pin3 = pin3;
 	}
 
-	public GpioPin isPin4() {
+	public GpioPin getPin4() {
 		return pin4;
 	}
 
@@ -107,7 +107,7 @@ public class GpioCode {
 		this.pin4 = pin4;
 	}
 
-	public GpioPin isPin5() {
+	public GpioPin getPin5() {
 		return pin5;
 	}
 
@@ -115,7 +115,7 @@ public class GpioCode {
 		this.pin5 = pin5;
 	}
 
-	public GpioPin isPin6() {
+	public GpioPin getPin6() {
 		return pin6;
 	}
 
@@ -123,7 +123,7 @@ public class GpioCode {
 		this.pin6 = pin6;
 	}
 
-	public GpioPin isPin7() {
+	public GpioPin getPin7() {
 		return pin7;
 	}
 
@@ -131,7 +131,7 @@ public class GpioCode {
 		this.pin7 = pin7;
 	}
 
-	public GpioPin isPin8() {
+	public GpioPin getPin8() {
 		return pin8;
 	}
 
@@ -139,7 +139,7 @@ public class GpioCode {
 		this.pin8 = pin8;
 	}
 
-	public GpioPin isPin9() {
+	public GpioPin getPin9() {
 		return pin9;
 	}
 
@@ -147,7 +147,7 @@ public class GpioCode {
 		this.pin9 = pin9;
 	}
 
-	public GpioPin isPin10() {
+	public GpioPin getPin10() {
 		return pin10;
 	}
 
@@ -155,7 +155,7 @@ public class GpioCode {
 		this.pin10 = pin10;
 	}
 
-	public GpioPin isPin11() {
+	public GpioPin getPin11() {
 		return pin11;
 	}
 
@@ -163,7 +163,7 @@ public class GpioCode {
 		this.pin11 = pin11;
 	}
 
-	public GpioPin isPin12() {
+	public GpioPin getPin12() {
 		return pin12;
 	}
 
@@ -171,7 +171,7 @@ public class GpioCode {
 		this.pin12 = pin12;
 	}
 
-	public GpioPin isPin13() {
+	public GpioPin getPin13() {
 		return pin13;
 	}
 
@@ -179,7 +179,7 @@ public class GpioCode {
 		this.pin13 = pin13;
 	}
 
-	public GpioPin isPin14() {
+	public GpioPin getPin14() {
 		return pin14;
 	}
 
@@ -187,7 +187,7 @@ public class GpioCode {
 		this.pin14 = pin14;
 	}
 
-	public GpioPin isPin15() {
+	public GpioPin getPin15() {
 		return pin15;
 	}
 
@@ -195,7 +195,7 @@ public class GpioCode {
 		this.pin15 = pin15;
 	}
 
-	public GpioPin isPin16() {
+	public GpioPin getPin16() {
 		return pin16;
 	}
 
