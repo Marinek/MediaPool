@@ -16,4 +16,13 @@ public class GpioPin {
 		return String.valueOf(value);
 	}
 
+	public GpioPin switchOutput() {
+		this.value = this.value == '0' ? '1' : '0';
+		return this;
+	}
+
+	public boolean isOn() {
+		return this.value == '1';
+	}
+
 }
