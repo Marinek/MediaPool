@@ -26,7 +26,15 @@ public class GpioCode {
 	private GpioPin pin15 = new GpioPin();
 	private GpioPin pin16 = new GpioPin();
 
+	private boolean allPinsChecked = false;
+	private boolean egPinsChecked = false;
+	private boolean ogPinsChecked = false;
+	private boolean dgPinsChecked = false;
+
 	private List<GpioPin> allPins = new ArrayList<GpioPin>();
+	private List<GpioPin> egPins = new ArrayList<GpioPin>();
+	private List<GpioPin> ogPins = new ArrayList<GpioPin>();
+	private List<GpioPin> dgPins = new ArrayList<GpioPin>();
 
 	public GpioCode(String code) {
 		addPinsToList();
@@ -52,6 +60,36 @@ public class GpioCode {
 				+ pin14.toString() + pin15.toString() + pin16.toString();
 	}
 
+	private void setPinGroup(boolean status, List<GpioPin> pinList) {
+		for (GpioPin pin : pinList) {
+			pin.switchTo(status);
+		}
+	}
+
+	public void setEGGroup(boolean status) {
+		setPinGroup(status, egPins);
+		egPinsChecked = status;
+	}
+
+	public void setOgPinsChecked(boolean ogPinsChecked) {
+		this.ogPinsChecked = ogPinsChecked;
+	}
+
+	public void setOGGroup(boolean status) {
+		setPinGroup(status, ogPins);
+		ogPinsChecked = status;
+	}
+
+	public void setDGGroup(boolean status) {
+		setPinGroup(status, dgPins);
+		dgPinsChecked = status;
+	}
+
+	public void setAllGroup(boolean status) {
+		setPinGroup(status, allPins);
+		allPinsChecked = status;
+	}
+
 	private void addPinsToList() {
 		allPins.add(pin1);
 		allPins.add(pin2);
@@ -73,6 +111,36 @@ public class GpioCode {
 		allPins.add(pin15);
 		allPins.add(pin16);
 
+		egPins.add(pin2);
+		egPins.add(pin3);
+		egPins.add(pin4);
+		egPins.add(pin5);
+
+		ogPins.add(pin7);
+		ogPins.add(pin8);
+		ogPins.add(pin9);
+		ogPins.add(pin10);
+
+		dgPins.add(pin12);
+		dgPins.add(pin13);
+		dgPins.add(pin14);
+
+	}
+
+	public boolean isAllPinsChecked() {
+		return allPinsChecked;
+	}
+
+	public boolean isOgPinsChecked() {
+		return ogPinsChecked;
+	}
+
+	public boolean isEgPinsChecked() {
+		return egPinsChecked;
+	}
+
+	public boolean isDgPinsChecked() {
+		return dgPinsChecked;
 	}
 
 	public GpioPin getPin1() {

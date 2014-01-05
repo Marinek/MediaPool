@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.63" >
+
+        
+    <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+                <TableLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_weight="0.63" >
+			
+			         <TableRow
+			            android:id="@+id/tableRow3"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content" >
+			
+						    <ToggleButton
+						        android:id="@+id/toggleTest"
+						        android:layout_width="wrap_content"
+						        android:layout_height="wrap_content"/>
+						      <!--  android:textOn="turn_on"
+						        android:textOff="turn_off"
+						        android:checked="true" />-->
+			
+			        </TableRow>
+			     </TableLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+                <TableLayout
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_weight="0.63" >
+			
+			         <TableRow
+			            android:id="@+id/tableRow3"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content" >
+			
+			            <Button
+			                android:id="@+id/status_button"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:minWidth="112px"
+			                android:text="Status" />
+			
+			            <Button
+			                android:id="@+id/off_button"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:minWidth="112px"
+			                android:text="OFF" />
+			
+			            <Button
+			                android:id="@+id/on_button"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:minWidth="112px"
+			                android:text="ON" />
+			
+			        </TableRow>
+			     </TableLayout>
+
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+		     
+		     <TableLayout
+		         android:layout_width="match_parent"
+		         android:layout_height="wrap_content"
+		         android:layout_weight="0.63" >
+
+		         <TableRow
+		             android:id="@+id/tableRow4"
+		             android:layout_width="wrap_content"
+		             android:layout_height="wrap_content" >
+
+		             <Button
+		                 android:id="@+id/pin1_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="1" />
+
+		             <Button
+		                 android:id="@+id/pin2_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="2" />
+
+		             <Button
+		                 android:id="@+id/pin3_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="3" />
+
+		             <Button
+		                 android:id="@+id/pin4_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="4" />
+		         </TableRow>
+
+		         <TableRow
+		             android:id="@+id/tableRow5"
+		             android:layout_width="wrap_content"
+		             android:layout_height="wrap_content" >
+
+		             <Button
+		                 android:id="@+id/pin5_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="5" />
+
+		             <Button
+		                 android:id="@+id/pin6_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="6" />
+
+		             <Button
+		                 android:id="@+id/pin7_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="7" />
+
+		             <Button
+		                 android:id="@+id/pin8_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="8" />
+		         </TableRow>
+
+		         <TableRow
+		             android:id="@+id/tableRow6"
+		             android:layout_width="wrap_content"
+		             android:layout_height="wrap_content" >
+
+		             <Button
+		                 android:id="@+id/pin9_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="9" />
+
+		             <Button
+		                 android:id="@+id/pin10_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="10" />
+
+		             <Button
+		                 android:id="@+id/pin11_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="11" />
+
+		             <Button
+		                 android:id="@+id/pin12_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="12" />
+		         </TableRow>
+
+		         <TableRow
+		             android:id="@+id/tableRow7"
+		             android:layout_width="wrap_content"
+		             android:layout_height="wrap_content" >
+
+		             <Button
+		                 android:id="@+id/pin13_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="13" />
+
+		             <Button
+		                 android:id="@+id/pin14_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="14" />
+
+		             <Button
+		                 android:id="@+id/pin15_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="15" />
+
+		             <Button
+		                 android:id="@+id/pin16_button"
+		                 android:layout_width="wrap_content"
+		                 android:layout_height="wrap_content"
+		                 android:minHeight="112px"
+		                 android:minWidth="112px"
+		                 android:text="16" />
+		         </TableRow>
+
+		         <EditText
+		             android:id="@+id/my_edit"
+		             android:layout_width="fill_parent"
+		             android:layout_height="74dp"
+		             android:layout_margin="20dip"
+		             android:editable="false"
+		             android:ems="10"
+		             android:maxLines="15"
+		             android:minLines="15"
+		             android:textSize="12sp" >
+
+		             <requestFocus />
+		         </EditText>
+		     </TableLayout>
+
+        </TableRow>
+        
+     </TableLayout>
+    
+    
+
+      
+
+
+</ScrollView>
