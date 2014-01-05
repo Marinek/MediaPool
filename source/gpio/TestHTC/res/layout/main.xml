@@ -1,247 +1,355 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-    
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.63" >
-
-        
-        
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-
-                <TableLayout
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:layout_weight="0.63" >
-			
-			         <TableRow
-			            android:id="@+id/tableRow3"
-			            android:layout_width="wrap_content"
-			            android:layout_height="wrap_content" >
-			
-			            <Button
-			                android:id="@+id/status_button"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:minWidth="112px"
-			                android:text="Status" />
-			
-			            <Button
-			                android:id="@+id/off_button"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:minWidth="112px"
-			                android:text="OFF" />
-			
-			            <Button
-			                android:id="@+id/on_button"
-			                android:layout_width="wrap_content"
-			                android:layout_height="wrap_content"
-			                android:minWidth="112px"
-			                android:text="ON" />
-			
-			        </TableRow>
-			     </TableLayout>
-
-        </TableRow>
-        
-        <TableRow
-            android:id="@+id/tableRow2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
-		     
-		     <TableLayout
-		        android:layout_width="match_parent"
+	<TableLayout
+	 android:layout_width="match_parent"
+	 android:layout_height="wrap_content">
+	
+		<TableRow
+		    android:id="@+id/tableRow1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@color/gray"
+		    android:paddingTop="5dp" >
+	
+		    <TextView
+		        android:id="@+id/textView1"
+		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_weight="0.63" >
-		
-		        <TableRow
-		            android:id="@+id/tableRow4"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content" >
-		
-		            <Button
-		                android:id="@+id/pin1_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="1" />
-		
-		            <Button
-		                android:id="@+id/pin2_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="2" />
-		
-		            <Button
-		                android:id="@+id/pin3_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="3" />
-		
-		            <Button
-		                android:id="@+id/pin4_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="4" />
-		
-		        </TableRow>
-		
-		        <TableRow
-		            android:id="@+id/tableRow5"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content" >
-		
-		            <Button
-		                android:id="@+id/pin5_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="5" />
-		
-		            <Button
-		                android:id="@+id/pin6_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="6" />
-		
-		            <Button
-		                android:id="@+id/pin7_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="7" />
-		
-		            <Button
-		                android:id="@+id/pin8_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="8" />
-		
-		        </TableRow>
-		
-		        <TableRow
-		            android:id="@+id/tableRow6"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content" >
-		
-		            <Button
-		                android:id="@+id/pin9_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="9" />
-		
-		            <Button
-		                android:id="@+id/pin10_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="10" />
-		
-		            <Button
-		                android:id="@+id/pin11_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="11" />
-		
-		            <Button
-		                android:id="@+id/pin12_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="12" />
-		
-		        </TableRow>
-		
-		        <TableRow
-		            android:id="@+id/tableRow7"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content" >
-		
-		            <Button
-		                android:id="@+id/pin13_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="13" />
-		
-		            <Button
-		                android:id="@+id/pin14_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="14" />
-		
-		            <Button
-		                android:id="@+id/pin15_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="15" />
-		
-		            <Button
-		                android:id="@+id/pin16_button"
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:minHeight="112px"
-		                android:minWidth="112px"
-		                android:text="16" />
-		
-		        </TableRow>
-		
-		        <EditText
-		            android:id="@+id/my_edit"
-		            android:layout_width="fill_parent"
-		            android:layout_height="74dp"
-		            android:layout_margin="20dip"
-		            android:editable="false"
-		            android:ems="10"
-		            android:maxLines="15"
-		            android:minLines="15"
-		            android:textSize="12sp" >
-		
-		            <requestFocus />
-		        </EditText>
+		        android:paddingLeft="10dp"
+		        android:paddingRight="170dp"
+		        android:text="@string/buttonlabel1"
+		        android:textAppearance="?android:attr/textAppearanceMedium"/>
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
 
-    		</TableLayout>
 
-        </TableRow>
-        
-     </TableLayout>
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow2"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel2"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow3"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView3"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel3"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton3"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow4"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView4"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel4"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton4"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow5"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView5"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel5"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton5"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow6"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:background="@color/gray"
+		    android:paddingTop="5dp" >
+	
+		    <TextView
+		        android:id="@+id/textView6"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:paddingRight="170dp"
+		        android:text="@string/buttonlabel6"
+		        android:textAppearance="?android:attr/textAppearanceMedium"/>
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton6"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow7"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView7"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel7"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton7"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow8"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView8"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel8"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton8"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow9"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView9"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel9"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton9"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow10"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView10"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel10"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton10"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow11"
+		    android:background="@color/gray"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView11"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel11"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton11"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow12"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:paddingTop="5dp" >
+	
+		    <TextView
+		        android:id="@+id/textView12"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel12"
+		        android:textAppearance="?android:attr/textAppearanceMedium"/>
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton12"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow13"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView13"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel13"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton13"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow14"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView14"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel14"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton14"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+		<TableRow
+		    android:id="@+id/tableRow15"
+		    android:background="@color/gray"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" >
+	
+		    <TextView
+		        android:id="@+id/textView15"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:paddingLeft="10dp"
+		        android:text="@string/buttonlabel15"
+		        android:textAppearance="?android:attr/textAppearanceMedium" />
+		    
+		    <ToggleButton
+		        android:id="@+id/toggleButton15"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"/>
+
+
+		
+		</TableRow>
+		
+
+	</TableLayout>
+
     
-    
-
-      
 
 
 </ScrollView>

@@ -16,5 +16,12 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
-
+    
+ 
+ <style name="TestTheme" parent="@android:Theme.Black">
+    <!-- Tell Android to use a custom style when creating a ToggleButton -->
+    <item name="android:buttonStyleToggle">@style/Widget.Button.Toggle</item>
+    <!-- Perhaps more theme items here...? -->
+</style>
+ 
 </resources>

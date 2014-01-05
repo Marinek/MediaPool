@@ -21,6 +21,11 @@ public class GpioPin {
 		return this;
 	}
 
+	public GpioPin switchTo(boolean status) {
+		this.value = status ? '1' : '0';
+		return this;
+	}
+
 	public boolean isOn() {
 		return this.value == '1';
 	}
