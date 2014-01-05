@@ -88,6 +88,9 @@ public class GpioCode {
 	public void setAllGroup(boolean status) {
 		setPinGroup(status, allPins);
 		allPinsChecked = status;
+		egPinsChecked = status;
+		ogPinsChecked = status;
+		dgPinsChecked = status;
 	}
 
 	private void addPinsToList() {
