@@ -12,15 +12,14 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.testhtc.bean.GpioCode;
@@ -54,6 +53,7 @@ public class Main extends Activity implements OnClickListener {
 	private final String CHANGE = "change/";
 	private final String STATUS = "status";
 	private final String BASE_URL = "http://192.168.0.170/gpio/";
+	private final String SERVER_ERROR = "Der Server ist nicht aktuell nicht erreichbar";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,8 +62,18 @@ public class Main extends Activity implements OnClickListener {
 		setContentView(R.layout.main);
 
 		initButtons();
-		new LongRunningGetIO(R.id.status_button, STATUS).execute();
 
+		new LongRunningGetIO(R.id.toggleButton15, STATUS).execute();
+
+	}
+
+	private void printAsToast(String message) {
+
+		Context context = getApplicationContext();
+		int duration = Toast.LENGTH_SHORT;
+		Log.w("Toast", message.toString());
+		Toast toast = Toast.makeText(context, message, duration);
+		toast.show();
 	}
 
 	private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
@@ -122,24 +132,21 @@ public class Main extends Activity implements OnClickListener {
 
 		protected void onPostExecute(String results) {
 			if ((results != null) && (!results.equals("No route to host"))) {
-				String output = results;
 
 				if (button_id == R.id.status_button) {
 					gpioCode = new GpioCode(results);
-					output = gpioCode.toString();
 				}
 
 				Log.w("results", results);
 				Log.w("gpio", gpioCode.toString());
 
-				// EditText et = (EditText) findViewById(R.id.my_edit);
-				//
-				// et.setText(output);
-
+			} else {
+				printAsToast(SERVER_ERROR);
 			}
 
-			// Button b = (Button) findViewById(button_id);
-			// b.setClickable(true);
+			Log.w("button_id", button_id + "");
+			Button b = (Button) findViewById(button_id);
+			b.setClickable(true);
 
 		}
 	}
@@ -209,8 +216,6 @@ public class Main extends Activity implements OnClickListener {
 				gpioCode.setAllGroup(toggleButton15.isChecked());
 				break;
 			default:
-				// button_id = R.id.status_button;
-				// param = "status";
 				;
 			}
 			param = CHANGE + gpioCode.toString();
@@ -218,11 +223,10 @@ public class Main extends Activity implements OnClickListener {
 
 		refreshButtons();
 
-		// paintButtons();
-		// Button b = (Button) findViewById(button_id);
-		// b.setClickable(false);
+		Button b = (Button) findViewById(button_id);
+		b.setClickable(false);
 
-		// new LongRunningGetIO(button_id, param).execute();
+		new LongRunningGetIO(button_id, param).execute();
 
 	}
 
@@ -246,8 +250,6 @@ public class Main extends Activity implements OnClickListener {
 	}
 
 	private void initButtons() {
-
-		// status_button = (Button) findViewById(R.id.status_button);
 
 		toggleButton1 = (ToggleButton) findViewById(R.id.toggleButton1);
 		toggleButton2 = (ToggleButton) findViewById(R.id.toggleButton2);
