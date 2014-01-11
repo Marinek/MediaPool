@@ -256,6 +256,8 @@ public class Main extends Activity implements OnClickListener {
 				Log.w("results", results);
 				Log.w("gpio", gpioCode.toString());
 
+				refreshButtons();
+
 			} else {
 				printAsToast(SERVER_ERROR);
 			}
