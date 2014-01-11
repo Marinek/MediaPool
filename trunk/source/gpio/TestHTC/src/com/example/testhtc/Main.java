@@ -13,9 +13,13 @@ import org.apache.http.protocol.HttpContext;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,9 +31,9 @@ import com.example.testhtc.bean.GpioPin;
 
 public class Main extends Activity implements OnClickListener {
 
-	private GpioCode gpioCode = new GpioCode("0000000000000000");
+	private GpioCode gpioCode;
 
-	private Button status_button;
+	private SharedPreferences prefs;
 
 	private ToggleButton toggleButton1;
 	private ToggleButton toggleButton2;
@@ -50,30 +54,87 @@ public class Main extends Activity implements OnClickListener {
 	private ToggleButton toggleButton14;
 	private ToggleButton toggleButton15;
 
+	private Context context;
+
 	private final String CHANGE = "change/";
 	private final String STATUS = "status";
-	private final String BASE_URL = "http://192.168.0.170/gpio/";
-	private final String SERVER_ERROR = "Der Server ist nicht aktuell nicht erreichbar";
+	private final String BASE_URL_START = "http://";
+	private final String BASE_URL_END = "/gpio/";
+
+	private final String SERVER_ERROR = "Der Server ist nicht nicht erreichbar";
+
+	private String urlString = "com.example.testhtc.url";
+
+	// private String refreshString = "com.example.testhtc.refresh";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
+		context = getApplicationContext();
+
+		prefs = context.getSharedPreferences("com.example.testhtc", Context.MODE_PRIVATE);
+
+		gpioCode = new GpioCode();
 
 		initButtons();
 
-		new LongRunningGetIO(R.id.toggleButton15, STATUS).execute();
+		refreshStatusFromServer();
 
 	}
 
-	private void printAsToast(String message) {
+	private String createConnectionString(String param) {
+		String newParam = param == null ? "" : param;
+		String CUSTOM_URL = prefs.getString(urlString, context.getResources().getString(R.string.settings_url_text));
+		return BASE_URL_START + CUSTOM_URL + BASE_URL_END + newParam;
 
-		Context context = getApplicationContext();
+	}
+
+	private void showSettingsDialog() {
+		// custom dialog
+		final SettingsDialog dialog = new SettingsDialog(this);
+
+		dialog.show();
+	}
+
+	private void printAsToast(String message) {
 		int duration = Toast.LENGTH_SHORT;
 		Log.w("Toast", message.toString());
 		Toast toast = Toast.makeText(context, message, duration);
 		toast.show();
+	}
+
+	// Initiating Menu XML file (menu.xml)
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater menuInflater = getMenuInflater();
+		menuInflater.inflate(R.layout.menu, menu);
+		return true;
+	}
+
+	/**
+	 * Event Handling for Individual menu item selected Identify single menu
+	 * item by it's id
+	 * */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.menu_refresh:
+			refreshStatusFromServer();
+			return true;
+		case R.id.menu_preferences:
+			showSettingsDialog();
+			return true;
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	private void refreshStatusFromServer() {
+		new LongRunningGetIO(R.id.menu_refresh, STATUS).execute();
 	}
 
 	private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
@@ -111,7 +172,8 @@ public class Main extends Activity implements OnClickListener {
 		protected String doInBackground(Void... params) {
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpContext localContext = new BasicHttpContext();
-			HttpGet httpGet = new HttpGet(BASE_URL + param);
+			HttpGet httpGet = new HttpGet(createConnectionString(param));
+			Log.w("url", createConnectionString(param));
 			String text = null;
 			try {
 
@@ -131,9 +193,9 @@ public class Main extends Activity implements OnClickListener {
 		}
 
 		protected void onPostExecute(String results) {
-			if ((results != null) && (!results.equals("No route to host"))) {
+			if ((results != null) && (!results.equals("No route to host")) && (!results.equals("http"))) {
 
-				if (button_id == R.id.status_button) {
+				if (button_id == R.id.menu_refresh) {
 					gpioCode = new GpioCode(results);
 				}
 
@@ -144,10 +206,10 @@ public class Main extends Activity implements OnClickListener {
 				printAsToast(SERVER_ERROR);
 			}
 
-			Log.w("button_id", button_id + "");
 			Button b = (Button) findViewById(button_id);
-			b.setClickable(true);
-
+			if (b != null) {
+				b.setClickable(true);
+			}
 		}
 	}
 

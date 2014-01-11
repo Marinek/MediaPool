@@ -23,6 +23,26 @@
     <string name="buttonlabel14">Waschraum</string>
 
     <string name="buttonlabel15">Alles</string>
+
+    <string name="menu_preferences">Einstellungen</string>
+    <string name="menu_refresh">Aktualisieren</string>
+    
+    <string name="title_settings">Einstellungen</string>
+    <string name="settings_close">Beenden</string>
+
+    <string name="settings_url_text">192.168.0.170</string>
+    <string name="settings_url_label">Verbindungsurl :</string>
+
+    <string name="settings_refreshtime_text">10</string>
+    <string name="settings_refreshtime_label">Aktualisierungsrate :</string>
+
+    <string name="settings_save_button">Speichern</string>
+    <string name="settings_cancel_button">Abbrechen</string>
+    <string name="settings_backup_button">Zurücksetzen</string>
+
+
+    
+    
     
     <color name="white">#FFFFFF</color>
     <color name="gray">#878787</color>

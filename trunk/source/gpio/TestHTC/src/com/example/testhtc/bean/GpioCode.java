@@ -2,6 +2,7 @@ package com.example.testhtc.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.util.Log;
 
 public class GpioCode {
@@ -31,26 +32,36 @@ public class GpioCode {
 	private boolean ogPinsChecked = false;
 	private boolean dgPinsChecked = false;
 
+	private boolean pinsOK = false;
+
 	private List<GpioPin> allPins = new ArrayList<GpioPin>();
 	private List<GpioPin> egPins = new ArrayList<GpioPin>();
 	private List<GpioPin> ogPins = new ArrayList<GpioPin>();
 	private List<GpioPin> dgPins = new ArrayList<GpioPin>();
+
+	private static final String DEFAULT = "0000000000000000";
 
 	public GpioCode(String code) {
 		addPinsToList();
 		setAllPins(code);
 	}
 
+	public GpioCode() {
+		this(DEFAULT);
+	}
+
 	public void setAllPins(String code) {
+		pinsOK = false;
 		Log.w("codelength", code.length() + "");
-		if (code.length() < 17) {
+		Log.w("listlength", allPins.size() + "");
+		if (code.length() == allPins.size()) {
 			int i = 0;
 			for (GpioPin pin : allPins) {
 				pin.setValue(code.charAt(i));
 				i++;
 			}
+			pinsOK = true;
 		}
-
 	}
 
 	@Override
@@ -128,6 +139,14 @@ public class GpioCode {
 		dgPins.add(pin13);
 		dgPins.add(pin14);
 
+	}
+
+	public boolean isPinsOK() {
+		return pinsOK;
+	}
+
+	public void setPinsOK(boolean pinsOK) {
+		this.pinsOK = pinsOK;
 	}
 
 	public boolean isAllPinsChecked() {

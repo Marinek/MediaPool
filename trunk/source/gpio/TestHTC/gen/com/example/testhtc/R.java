@@ -32,29 +32,20 @@ public final class R {
         public static final int btn_toggle_on=0x7f020003;
         public static final int ic_launcher=0x7f020004;
         public static final int on=0x7f020005;
+        public static final int preferences=0x7f020006;
+        public static final int refresh=0x7f020007;
     }
     public static final class id {
-        public static final int action_settings=0x7f090042;
-        public static final int my_edit=0x7f090041;
-        public static final int off_button=0x7f09002f;
-        public static final int on_button=0x7f090030;
-        public static final int pin10_button=0x7f09003a;
-        public static final int pin11_button=0x7f09003b;
-        public static final int pin12_button=0x7f09003c;
-        public static final int pin13_button=0x7f09003d;
-        public static final int pin14_button=0x7f09003e;
-        public static final int pin15_button=0x7f09003f;
-        public static final int pin16_button=0x7f090040;
-        public static final int pin1_button=0x7f090031;
-        public static final int pin2_button=0x7f090032;
-        public static final int pin3_button=0x7f090033;
-        public static final int pin4_button=0x7f090034;
-        public static final int pin5_button=0x7f090035;
-        public static final int pin6_button=0x7f090036;
-        public static final int pin7_button=0x7f090037;
-        public static final int pin8_button=0x7f090038;
-        public static final int pin9_button=0x7f090039;
-        public static final int status_button=0x7f09002e;
+        public static final int action_settings=0x7f090036;
+        public static final int menu_preferences=0x7f09002e;
+        public static final int menu_refresh=0x7f09002d;
+        public static final int settings_backup_button=0x7f090033;
+        public static final int settings_cancel_button=0x7f090034;
+        public static final int settings_refreshtime_label=0x7f090031;
+        public static final int settings_refreshtime_text=0x7f090032;
+        public static final int settings_save_button=0x7f090035;
+        public static final int settings_url_label=0x7f09002f;
+        public static final int settings_url_text=0x7f090030;
         public static final int tableRow1=0x7f090000;
         public static final int tableRow10=0x7f09001b;
         public static final int tableRow11=0x7f09001e;
@@ -100,12 +91,12 @@ public final class R {
         public static final int toggleButton7=0x7f090014;
         public static final int toggleButton8=0x7f090017;
         public static final int toggleButton9=0x7f09001a;
-        public static final int toggleTest=0x7f09002d;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int main=0x7f030001;
-        public static final int main_old=0x7f030002;
+        public static final int main=0x7f030000;
+        public static final int main_old=0x7f030001;
+        public static final int menu=0x7f030002;
+        public static final int settings=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f080000;
@@ -129,6 +120,17 @@ public final class R {
         public static final int buttonlabel8=0x7f05000a;
         public static final int buttonlabel9=0x7f05000b;
         public static final int hello_world=0x7f050002;
+        public static final int menu_preferences=0x7f050012;
+        public static final int menu_refresh=0x7f050013;
+        public static final int settings_backup_button=0x7f05001c;
+        public static final int settings_cancel_button=0x7f05001b;
+        public static final int settings_close=0x7f050015;
+        public static final int settings_refreshtime_label=0x7f050019;
+        public static final int settings_refreshtime_text=0x7f050018;
+        public static final int settings_save_button=0x7f05001a;
+        public static final int settings_url_label=0x7f050017;
+        public static final int settings_url_text=0x7f050016;
+        public static final int title_settings=0x7f050014;
     }
     public static final class style {
         /** 
@@ -149,6 +151,7 @@ public final class R {
         /**  Perhaps more theme items here...? 
          */
         public static final int TestTheme=0x7f070002;
-        public static final int Widget_Button_Toggle=0x7f070003;
+        public static final int Widget_Button_Toggle=0x7f070004;
+        public static final int full_screen_dialog=0x7f070003;
     }
 }
