@@ -1,4 +1,4 @@
-package com.example.testhtc;
+package de.juma.home;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,10 +28,12 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.testhtc.bean.GpioCode;
-import com.example.testhtc.bean.GpioPin;
+import com.example.testhtc.R;
 
-public class Main extends Activity implements OnClickListener {
+import de.juma.home.beans.GpioCode;
+import de.juma.home.beans.GpioPin;
+
+public class Roomspeaker extends Activity implements OnClickListener {
 
 	private GpioCode gpioCode;
 
