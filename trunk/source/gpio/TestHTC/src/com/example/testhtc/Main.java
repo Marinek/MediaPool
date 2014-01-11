@@ -2,6 +2,8 @@ package com.example.testhtc;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -56,6 +58,8 @@ public class Main extends Activity implements OnClickListener {
 
 	private Context context;
 
+	Timer t;
+
 	private final String CHANGE = "change/";
 	private final String STATUS = "status";
 	private final String BASE_URL_START = "http://";
@@ -65,7 +69,7 @@ public class Main extends Activity implements OnClickListener {
 
 	private String urlString = "com.example.testhtc.url";
 
-	// private String refreshString = "com.example.testhtc.refresh";
+	private String refreshString = "com.example.testhtc.refresh";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -82,12 +86,62 @@ public class Main extends Activity implements OnClickListener {
 
 		refreshStatusFromServer();
 
+		startTimer();
+
+	}
+
+	private void startTimer() {
+		t = new Timer();
+
+		TimerTask task = new TimerTask() {
+
+			@Override
+			public void run() {
+				runOnUiThread(new Runnable() {
+
+					@Override
+					public void run() {
+						long millis = System.currentTimeMillis();
+						int seconds = (int) (millis / 1000);
+						int minutes = seconds / 60;
+						seconds = seconds % 60;
+						Log.w("Timer", String.format("%d:%02d", minutes, seconds));
+						Log.w("delay", getRefreshTime() + "");
+						refreshStatusFromServer();
+
+					}
+				});
+			}
+		};
+
+		t.scheduleAtFixedRate(task, 0, getRefreshTime());
+		Log.w("newdelay", getRefreshTime() + "");
+	};
+
+	public void restartTimer() {
+		t.cancel();
+		startTimer();
 	}
 
 	private String createConnectionString(String param) {
 		String newParam = param == null ? "" : param;
 		String CUSTOM_URL = prefs.getString(urlString, context.getResources().getString(R.string.settings_url_text));
 		return BASE_URL_START + CUSTOM_URL + BASE_URL_END + newParam;
+
+	}
+
+	private long getRefreshTime() {
+		String default_value = context.getResources().getString(R.string.settings_refreshtime_text);
+		String refresh_time = prefs.getString(refreshString, default_value);
+		long timerDelay = Long.parseLong(default_value);
+		try {
+			timerDelay = Long.parseLong(refresh_time);
+		} catch (NumberFormatException e) {
+			Log.w("RefreshTimmer", e.getLocalizedMessage());
+
+		}
+		long timerDelayMS = timerDelay * 1000;
+		return timerDelayMS;
 
 	}
 

@@ -16,14 +16,14 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 	private Button cancel_Button;
 	private Button backup_Button;
 	private Button save_Button;
-	private Context context;
+	private Main context;
 	private SharedPreferences prefs;
 	private String urlString = "com.example.testhtc.url";
 	private String refreshString = "com.example.testhtc.refresh";
 
-	public SettingsDialog(Context context) {
-		super(context);
-		this.context = context;
+	public SettingsDialog(Main mainDialog) {
+		super(mainDialog);
+		this.context = mainDialog;
 		setContentView(R.layout.settings);
 		prefs = context.getSharedPreferences("com.example.testhtc", Context.MODE_PRIVATE);
 		getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
@@ -55,6 +55,7 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 		changeSettings(new_refreshTime, new_url);
 
 		printAsToast("Einstellungen gespeichert");
+		context.restartTimer();
 
 		this.cancel();
 	}
