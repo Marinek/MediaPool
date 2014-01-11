@@ -91,35 +91,40 @@ public class Main extends Activity implements OnClickListener {
 	}
 
 	private void startTimer() {
-		t = new Timer();
+		long custom_delay = getRefreshTime();
+		if (custom_delay != 0) {
+			t = new Timer();
 
-		TimerTask task = new TimerTask() {
+			TimerTask task = new TimerTask() {
 
-			@Override
-			public void run() {
-				runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					runOnUiThread(new Runnable() {
 
-					@Override
-					public void run() {
-						long millis = System.currentTimeMillis();
-						int seconds = (int) (millis / 1000);
-						int minutes = seconds / 60;
-						seconds = seconds % 60;
-						Log.w("Timer", String.format("%d:%02d", minutes, seconds));
-						Log.w("delay", getRefreshTime() + "");
-						refreshStatusFromServer();
+						@Override
+						public void run() {
+							long millis = System.currentTimeMillis();
+							int seconds = (int) (millis / 1000);
+							int minutes = seconds / 60;
+							seconds = seconds % 60;
+							Log.w("Timer", String.format("%d:%02d", minutes, seconds));
+							Log.w("delay", getRefreshTime() + "");
+							refreshStatusFromServer();
 
-					}
-				});
-			}
-		};
+						}
+					});
+				}
+			};
 
-		t.scheduleAtFixedRate(task, 0, getRefreshTime());
-		Log.w("newdelay", getRefreshTime() + "");
+			t.scheduleAtFixedRate(task, 0, custom_delay);
+			Log.w("newdelay", custom_delay + "");
+		}
 	};
 
 	public void restartTimer() {
-		t.cancel();
+		if (t != null) {
+			t.cancel();
+		}
 		startTimer();
 	}
 
