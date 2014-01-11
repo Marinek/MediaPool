@@ -33,8 +33,8 @@
     <string name="settings_url_text">192.168.0.170</string>
     <string name="settings_url_label">Verbindungsurl :</string>
 
-    <string name="settings_refreshtime_text">10</string>
-    <string name="settings_refreshtime_label">Aktualisierungsrate :</string>
+    <string name="settings_refreshtime_text">30</string>
+    <string name="settings_refreshtime_label">Aktualisierungsrate (Sek) :</string>
 
     <string name="settings_save_button">Speichern</string>
     <string name="settings_cancel_button">Abbrechen</string>
