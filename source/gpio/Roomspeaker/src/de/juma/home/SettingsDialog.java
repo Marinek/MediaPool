@@ -1,4 +1,6 @@
-package com.example.testhtc;
+package de.juma.home;
+
+import com.example.testhtc.R;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -16,12 +18,12 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 	private Button cancel_Button;
 	private Button backup_Button;
 	private Button save_Button;
-	private Main context;
+	private Roomspeaker context;
 	private SharedPreferences prefs;
 	private String urlString = "com.example.testhtc.url";
 	private String refreshString = "com.example.testhtc.refresh";
 
-	public SettingsDialog(Main mainDialog) {
+	public SettingsDialog(Roomspeaker mainDialog) {
 		super(mainDialog);
 		this.context = mainDialog;
 		setContentView(R.layout.settings);

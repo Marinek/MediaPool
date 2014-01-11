@@ -1,4 +1,4 @@
-package com.example.testhtc.bean;
+package de.juma.home.beans;
 
 import java.util.ArrayList;
 import java.util.List;
