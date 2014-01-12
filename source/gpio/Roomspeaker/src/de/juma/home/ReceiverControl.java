@@ -49,4 +49,9 @@ public class ReceiverControl extends Activity implements OnClickListener, JumaRe
 
 	}
 
+	@Override
+	public void refreshWithTimer() {
+
+	}
+
 }
