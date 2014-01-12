@@ -1,21 +1,10 @@
 package de.juma.home;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -29,9 +18,11 @@ import android.widget.ToggleButton;
 import de.juma.home.beans.GpioCode;
 import de.juma.home.beans.GpioPin;
 import de.juma.home.utils.ActivitySwipeDetector;
+import de.juma.home.utils.JumaRestService;
 import de.juma.home.utils.LittleHelper;
+import de.juma.home.utils.LongRunningGetIO;
 
-public class Roomspeaker extends Activity implements OnClickListener {
+public class Roomspeaker extends Activity implements OnClickListener, JumaRestService {
 
 	private GpioCode gpioCode;
 
@@ -57,8 +48,6 @@ public class Roomspeaker extends Activity implements OnClickListener {
 	private LittleHelper lh;
 
 	private Timer t;
-
-	private float downXValue;
 
 	private final String CHANGE = "change/";
 	private final String STATUS = "status";
@@ -88,6 +77,12 @@ public class Roomspeaker extends Activity implements OnClickListener {
 		startActivity(i);
 	}
 
+	@Override
+	public void setResultFromServer(String result) {
+		gpioCode = new GpioCode(result);
+		refreshButtons();
+	}
+
 	private void startTimer() {
 		long custom_delay = lh.getRefreshTime();
 		if (custom_delay != 0) {
@@ -101,12 +96,6 @@ public class Roomspeaker extends Activity implements OnClickListener {
 
 						@Override
 						public void run() {
-							// long millis = System.currentTimeMillis();
-							// int seconds = (int) (millis / 1000);
-							// int minutes = seconds / 60;
-							// seconds = seconds % 60;
-							// Log.w("Timer", String.format("%d:%02d", minutes,
-							// seconds));
 							Log.w("delay", lh.getRefreshTime() + "");
 							refreshStatusFromServer();
 						}
@@ -160,85 +149,7 @@ public class Roomspeaker extends Activity implements OnClickListener {
 	}
 
 	private void refreshStatusFromServer() {
-		new LongRunningGetIO(R.id.menu_refresh, STATUS).execute();
-	}
-
-	private class LongRunningGetIO extends AsyncTask<Void, Void, String> {
-
-		int button_id;
-		String param;
-
-		public LongRunningGetIO(int button_id, String param) {
-			super();
-			this.button_id = button_id;
-			this.param = param;
-		}
-
-		protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
-
-			InputStream in = entity.getContent();
-
-			StringBuffer out = new StringBuffer();
-			int n = 1;
-			while (n > 0) {
-				byte[] b = new byte[4096];
-
-				n = in.read(b);
-
-				if (n > 0)
-					out.append(new String(b, 0, n));
-
-			}
-
-			return out.toString();
-
-		}
-
-		@Override
-		protected String doInBackground(Void... params) {
-			HttpClient httpClient = new DefaultHttpClient();
-			HttpContext localContext = new BasicHttpContext();
-			HttpGet httpGet = new HttpGet(lh.createConnectionString(param));
-			Log.w("url", lh.createConnectionString(param));
-			String text = null;
-			try {
-
-				HttpResponse response = httpClient.execute(httpGet, localContext);
-
-				HttpEntity entity = response.getEntity();
-
-				text = getASCIIContentFromEntity(entity);
-
-			} catch (Exception e) {
-				return e.getLocalizedMessage();
-
-			}
-
-			return text;
-
-		}
-
-		protected void onPostExecute(String results) {
-			if ((results != null) && (!results.equals("No route to host")) && (!results.equals("http"))) {
-
-				if (button_id == R.id.menu_refresh) {
-					gpioCode = new GpioCode(results);
-				}
-
-				Log.w("results", results);
-				Log.w("gpio", gpioCode.toString());
-
-				refreshButtons();
-
-			} else {
-				lh.printAsToast(lh.getStringConstant(R.string.server_error));
-			}
-
-			Button b = (Button) findViewById(button_id);
-			if (b != null) {
-				b.setClickable(true);
-			}
-		}
+		new LongRunningGetIO(R.id.menu_refresh, STATUS, this).execute();
 	}
 
 	@Override
@@ -314,11 +225,19 @@ public class Roomspeaker extends Activity implements OnClickListener {
 
 		refreshButtons();
 
-		// Button b = (Button) findViewById(button_id);
-		// b.setClickable(false);
-		//
-		// new LongRunningGetIO(button_id, param).execute();
+		unlockButton(button_id, false);
 
+		new LongRunningGetIO(button_id, param, this).execute();
+
+	}
+
+	@Override
+	public void unlockButton(int id, boolean unlock) {
+		Button b = (Button) findViewById(id);
+		if (b != null) {
+			b.setClickable(unlock);
+		}
+		refreshButtons();
 	}
 
 	private void refreshButtons() {
