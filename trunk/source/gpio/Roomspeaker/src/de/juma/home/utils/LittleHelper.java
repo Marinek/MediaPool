@@ -1,5 +1,8 @@
 package de.juma.home.utils;
 
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,8 +74,35 @@ public class LittleHelper {
 		int seconds = (int) (millis / 1000);
 		int minutes = seconds / 60;
 		seconds = seconds % 60;
-		return String.format("%d:%02d", minutes, seconds);
+		return String.format(Locale.GERMANY, "%d:%02d", minutes, seconds);
 	}
+
+	public Timer startTimer() {
+		long custom_delay = getRefreshTime();
+		Timer t = null;
+		if (custom_delay != 0) {
+			t = new Timer();
+
+			TimerTask task = new TimerTask() {
+
+				@Override
+				public void run() {
+					context.runOnUiThread(new Runnable() {
+
+						@Override
+						public void run() {
+							Log.w("delay", getRefreshTime() + "");
+							((JumaRestService) context).refreshWithTimer();
+						}
+					});
+				}
+			};
+
+			t.scheduleAtFixedRate(task, 0, custom_delay);
+			Log.w("newdelay", custom_delay + "");
+		}
+		return t;
+	};
 
 	public String getStringConstant(int stringID) {
 		return context.getResources().getString(stringID);

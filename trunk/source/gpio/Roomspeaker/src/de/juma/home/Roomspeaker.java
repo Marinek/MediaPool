@@ -1,7 +1,6 @@
 package de.juma.home;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -65,7 +64,7 @@ public class Roomspeaker extends Activity implements OnClickListener, JumaRestSe
 
 		refreshStatusFromServer();
 
-		startTimer();
+		t = lh.startTimer();
 
 		ScrollView layMain = (ScrollView) findViewById(R.id.layout_main);
 		layMain.setOnTouchListener(new ActivitySwipeDetector(this, true));
@@ -83,36 +82,11 @@ public class Roomspeaker extends Activity implements OnClickListener, JumaRestSe
 		refreshButtons();
 	}
 
-	private void startTimer() {
-		long custom_delay = lh.getRefreshTime();
-		if (custom_delay != 0) {
-			t = new Timer();
-
-			TimerTask task = new TimerTask() {
-
-				@Override
-				public void run() {
-					runOnUiThread(new Runnable() {
-
-						@Override
-						public void run() {
-							Log.w("delay", lh.getRefreshTime() + "");
-							refreshStatusFromServer();
-						}
-					});
-				}
-			};
-
-			t.scheduleAtFixedRate(task, 0, custom_delay);
-			Log.w("newdelay", custom_delay + "");
-		}
-	};
-
 	public void restartTimer() {
 		if (t != null) {
 			t.cancel();
 		}
-		startTimer();
+		t = lh.startTimer();
 	}
 
 	private void showSettingsDialog() {
@@ -126,6 +100,11 @@ public class Roomspeaker extends Activity implements OnClickListener, JumaRestSe
 		MenuInflater menuInflater = getMenuInflater();
 		menuInflater.inflate(R.layout.menu, menu);
 		return true;
+	}
+
+	@Override
+	public void refreshWithTimer() {
+		refreshStatusFromServer();
 	}
 
 	/**

@@ -4,4 +4,6 @@ public interface JumaRestService {
 	public void setResultFromServer(String result);
 
 	public void unlockButton(int id, boolean lock);
+
+	public void refreshWithTimer();
 }
