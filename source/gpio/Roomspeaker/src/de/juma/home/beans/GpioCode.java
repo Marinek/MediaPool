@@ -145,6 +145,34 @@ public class GpioCode {
 		return pinsOK;
 	}
 
+	// prüft ob die vollständige Gruppe mit dem letzen Pin aktiviert oder
+	// deaktiviert wurde
+	private boolean checkGroupIsChecked(GpioPin pin, List<GpioPin> pinGroup, boolean groupCheck) {
+		boolean goon = true;
+		if (pinGroup.contains(pin)) {
+			for (GpioPin other : pinGroup) {
+				if (goon && other.isOn() == pin.isOn()) {
+					goon = true;
+				} else {
+					goon = false;
+				}
+			}
+			if (goon) {
+				return pin.isOn();
+			} else {
+				return false;
+			}
+		}
+		return groupCheck;
+	}
+
+	private void checkAllGroupAreChecked(GpioPin pin) {
+		egPinsChecked = checkGroupIsChecked(pin, egPins, egPinsChecked);
+		ogPinsChecked = checkGroupIsChecked(pin, ogPins, ogPinsChecked);
+		dgPinsChecked = checkGroupIsChecked(pin, dgPins, dgPinsChecked);
+		allPinsChecked = checkGroupIsChecked(pin, allPins, allPinsChecked);
+	}
+
 	public void setPinsOK(boolean pinsOK) {
 		this.pinsOK = pinsOK;
 	}
@@ -171,6 +199,7 @@ public class GpioCode {
 
 	public void setPin1(GpioPin pin1) {
 		this.pin1 = pin1;
+		checkAllGroupAreChecked(pin1);
 	}
 
 	public GpioPin getPin2() {
@@ -179,6 +208,7 @@ public class GpioCode {
 
 	public void setPin2(GpioPin pin2) {
 		this.pin2 = pin2;
+		checkAllGroupAreChecked(pin2);
 	}
 
 	public GpioPin getPin3() {
@@ -187,6 +217,7 @@ public class GpioCode {
 
 	public void setPin3(GpioPin pin3) {
 		this.pin3 = pin3;
+		checkAllGroupAreChecked(pin3);
 	}
 
 	public GpioPin getPin4() {
@@ -195,6 +226,7 @@ public class GpioCode {
 
 	public void setPin4(GpioPin pin4) {
 		this.pin4 = pin4;
+		checkAllGroupAreChecked(pin4);
 	}
 
 	public GpioPin getPin5() {
@@ -203,6 +235,7 @@ public class GpioCode {
 
 	public void setPin5(GpioPin pin5) {
 		this.pin5 = pin5;
+		checkAllGroupAreChecked(pin5);
 	}
 
 	public GpioPin getPin6() {
@@ -211,6 +244,7 @@ public class GpioCode {
 
 	public void setPin6(GpioPin pin6) {
 		this.pin6 = pin6;
+		checkAllGroupAreChecked(pin6);
 	}
 
 	public GpioPin getPin7() {
@@ -219,6 +253,7 @@ public class GpioCode {
 
 	public void setPin7(GpioPin pin7) {
 		this.pin7 = pin7;
+		checkAllGroupAreChecked(pin7);
 	}
 
 	public GpioPin getPin8() {
@@ -227,6 +262,7 @@ public class GpioCode {
 
 	public void setPin8(GpioPin pin8) {
 		this.pin8 = pin8;
+		checkAllGroupAreChecked(pin8);
 	}
 
 	public GpioPin getPin9() {
@@ -235,6 +271,7 @@ public class GpioCode {
 
 	public void setPin9(GpioPin pin9) {
 		this.pin9 = pin9;
+		checkAllGroupAreChecked(pin9);
 	}
 
 	public GpioPin getPin10() {
@@ -243,6 +280,7 @@ public class GpioCode {
 
 	public void setPin10(GpioPin pin10) {
 		this.pin10 = pin10;
+		checkAllGroupAreChecked(pin10);
 	}
 
 	public GpioPin getPin11() {
@@ -251,6 +289,7 @@ public class GpioCode {
 
 	public void setPin11(GpioPin pin11) {
 		this.pin11 = pin11;
+		checkAllGroupAreChecked(pin11);
 	}
 
 	public GpioPin getPin12() {
@@ -259,6 +298,7 @@ public class GpioCode {
 
 	public void setPin12(GpioPin pin12) {
 		this.pin12 = pin12;
+		checkAllGroupAreChecked(pin12);
 	}
 
 	public GpioPin getPin13() {
@@ -267,6 +307,7 @@ public class GpioCode {
 
 	public void setPin13(GpioPin pin13) {
 		this.pin13 = pin13;
+		checkAllGroupAreChecked(pin13);
 	}
 
 	public GpioPin getPin14() {
@@ -275,6 +316,7 @@ public class GpioCode {
 
 	public void setPin14(GpioPin pin14) {
 		this.pin14 = pin14;
+		checkAllGroupAreChecked(pin14);
 	}
 
 	public GpioPin getPin15() {
@@ -283,6 +325,7 @@ public class GpioCode {
 
 	public void setPin15(GpioPin pin15) {
 		this.pin15 = pin15;
+		checkAllGroupAreChecked(pin15);
 	}
 
 	public GpioPin getPin16() {
@@ -291,6 +334,7 @@ public class GpioCode {
 
 	public void setPin16(GpioPin pin16) {
 		this.pin16 = pin16;
+		checkAllGroupAreChecked(pin16);
 	}
 
 }
