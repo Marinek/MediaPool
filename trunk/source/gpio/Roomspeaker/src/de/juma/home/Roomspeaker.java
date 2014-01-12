@@ -14,8 +14,6 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,19 +23,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.testhtc.R;
 
 import de.juma.home.beans.GpioCode;
 import de.juma.home.beans.GpioPin;
+import de.juma.home.utils.LittleHelper;
 
 public class Roomspeaker extends Activity implements OnClickListener {
 
 	private GpioCode gpioCode;
-
-	private SharedPreferences prefs;
 
 	private ToggleButton toggleButton1;
 	private ToggleButton toggleButton2;
@@ -58,29 +54,19 @@ public class Roomspeaker extends Activity implements OnClickListener {
 	private ToggleButton toggleButton14;
 	private ToggleButton toggleButton15;
 
-	private Context context;
+	private LittleHelper lh;
 
-	Timer t;
+	private Timer t;
 
 	private final String CHANGE = "change/";
 	private final String STATUS = "status";
-	private final String BASE_URL_START = "http://";
-	private final String BASE_URL_END = "/gpio/";
-
-	private final String SERVER_ERROR = "Der Server ist nicht nicht erreichbar";
-
-	private String urlString = "com.example.testhtc.url";
-
-	private String refreshString = "com.example.testhtc.refresh";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
-		context = getApplicationContext();
-
-		prefs = context.getSharedPreferences("com.example.testhtc", Context.MODE_PRIVATE);
+		lh = new LittleHelper(this);
 
 		gpioCode = new GpioCode();
 
@@ -93,7 +79,7 @@ public class Roomspeaker extends Activity implements OnClickListener {
 	}
 
 	private void startTimer() {
-		long custom_delay = getRefreshTime();
+		long custom_delay = lh.getRefreshTime();
 		if (custom_delay != 0) {
 			t = new Timer();
 
@@ -105,14 +91,14 @@ public class Roomspeaker extends Activity implements OnClickListener {
 
 						@Override
 						public void run() {
-							long millis = System.currentTimeMillis();
-							int seconds = (int) (millis / 1000);
-							int minutes = seconds / 60;
-							seconds = seconds % 60;
-							Log.w("Timer", String.format("%d:%02d", minutes, seconds));
-							Log.w("delay", getRefreshTime() + "");
+							// long millis = System.currentTimeMillis();
+							// int seconds = (int) (millis / 1000);
+							// int minutes = seconds / 60;
+							// seconds = seconds % 60;
+							// Log.w("Timer", String.format("%d:%02d", minutes,
+							// seconds));
+							Log.w("delay", lh.getRefreshTime() + "");
 							refreshStatusFromServer();
-
 						}
 					});
 				}
@@ -130,40 +116,9 @@ public class Roomspeaker extends Activity implements OnClickListener {
 		startTimer();
 	}
 
-	private String createConnectionString(String param) {
-		String newParam = param == null ? "" : param;
-		String CUSTOM_URL = prefs.getString(urlString, context.getResources().getString(R.string.settings_url_text));
-		return BASE_URL_START + CUSTOM_URL + BASE_URL_END + newParam;
-
-	}
-
-	private long getRefreshTime() {
-		String default_value = context.getResources().getString(R.string.settings_refreshtime_text);
-		String refresh_time = prefs.getString(refreshString, default_value);
-		long timerDelay = Long.parseLong(default_value);
-		try {
-			timerDelay = Long.parseLong(refresh_time);
-		} catch (NumberFormatException e) {
-			Log.w("RefreshTimmer", e.getLocalizedMessage());
-
-		}
-		long timerDelayMS = timerDelay * 1000;
-		return timerDelayMS;
-
-	}
-
 	private void showSettingsDialog() {
-		// custom dialog
 		final SettingsDialog dialog = new SettingsDialog(this);
-
 		dialog.show();
-	}
-
-	private void printAsToast(String message) {
-		int duration = Toast.LENGTH_SHORT;
-		Log.w("Toast", message.toString());
-		Toast toast = Toast.makeText(context, message, duration);
-		toast.show();
 	}
 
 	// Initiating Menu XML file (menu.xml)
@@ -233,8 +188,8 @@ public class Roomspeaker extends Activity implements OnClickListener {
 		protected String doInBackground(Void... params) {
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpContext localContext = new BasicHttpContext();
-			HttpGet httpGet = new HttpGet(createConnectionString(param));
-			Log.w("url", createConnectionString(param));
+			HttpGet httpGet = new HttpGet(lh.createConnectionString(param));
+			Log.w("url", lh.createConnectionString(param));
 			String text = null;
 			try {
 
@@ -266,7 +221,7 @@ public class Roomspeaker extends Activity implements OnClickListener {
 				refreshButtons();
 
 			} else {
-				printAsToast(SERVER_ERROR);
+				lh.printAsToast(lh.getStringConstant(R.string.server_error));
 			}
 
 			Button b = (Button) findViewById(button_id);

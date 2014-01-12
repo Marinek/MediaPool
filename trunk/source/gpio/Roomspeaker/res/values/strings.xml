@@ -32,14 +32,21 @@
 
     <string name="settings_url_text">192.168.0.170</string>
     <string name="settings_url_label">Verbindungsurl :</string>
+    <string name="settings_url_error">Ungültige IP</string>
 
-    <string name="settings_refreshtime_text">30</string>
+    <string name="server_error">Der Server ist nicht erreichbar</string>
+
+    <string name="settings_refreshtime_text">0</string>
     <string name="settings_refreshtime_label">Aktualisierungsrate (Sek) :</string>
 
     <string name="settings_save_button">Speichern</string>
     <string name="settings_cancel_button">Abbrechen</string>
-    <string name="settings_backup_button">Zurücksetzen</string>
+    <string name="settings_reset_button">Zurücksetzen</string>
 
+    <string name="settings_save_toast">Einstellungen gespeichert</string>
+    <string name="settings_cancel_toast">Einstellungen abgebrochen</string>
+    <string name="settings_reset_toast">Einstellungen zurückgesetzt</string>
+    
     <color name="white">#FFFFFF</color>
     <color name="gray">#878787</color>
     <color name="black">#000000</color>

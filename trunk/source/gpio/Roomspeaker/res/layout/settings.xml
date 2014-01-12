@@ -21,6 +21,7 @@
             android:id="@+id/settings_url_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textUri"
             android:ems="10" >
         </EditText>
 
@@ -46,20 +47,16 @@
             android:inputType="number"
             android:ems="10" />
 
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <TableRow
-                android:id="@+id/tableRow1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
                 <Button
-                    android:id="@+id/settings_backup_button"
+                    android:id="@+id/settings_reset_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@+string/settings_backup_button" />
+                    android:text="@+string/settings_reset_button" />
 
                 <Button
                     android:id="@+id/settings_cancel_button"
@@ -73,8 +70,7 @@
                     android:layout_height="wrap_content"
                     android:text="@+string/settings_save_button" />
 
-            </TableRow>
-        </TableLayout>
+        </LinearLayout>
 
     </LinearLayout>
  
