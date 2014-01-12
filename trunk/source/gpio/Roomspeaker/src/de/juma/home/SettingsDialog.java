@@ -7,9 +7,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.example.testhtc.R;
-
 import de.juma.home.utils.LittleHelper;
 
 public class SettingsDialog extends Dialog implements OnClickListener {

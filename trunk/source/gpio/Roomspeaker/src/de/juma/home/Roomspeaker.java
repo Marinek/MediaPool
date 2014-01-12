@@ -14,6 +14,7 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,12 +24,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.ToggleButton;
-
-import com.example.testhtc.R;
-
 import de.juma.home.beans.GpioCode;
 import de.juma.home.beans.GpioPin;
+import de.juma.home.utils.ActivitySwipeDetector;
 import de.juma.home.utils.LittleHelper;
 
 public class Roomspeaker extends Activity implements OnClickListener {
@@ -58,6 +58,8 @@ public class Roomspeaker extends Activity implements OnClickListener {
 
 	private Timer t;
 
+	private float downXValue;
+
 	private final String CHANGE = "change/";
 	private final String STATUS = "status";
 
@@ -76,6 +78,14 @@ public class Roomspeaker extends Activity implements OnClickListener {
 
 		startTimer();
 
+		ScrollView layMain = (ScrollView) findViewById(R.id.layout_main);
+		layMain.setOnTouchListener(new ActivitySwipeDetector(this, true));
+
+	}
+
+	public void switchView() {
+		Intent i = new Intent(this, ReceiverControl.class);
+		startActivity(i);
 	}
 
 	private void startTimer() {
@@ -240,6 +250,7 @@ public class Roomspeaker extends Activity implements OnClickListener {
 		if (gpioCode != null) {
 			switch (button_id) {
 			case (R.id.toggleButton1):
+				Log.w("intent", "switch");
 				gpioCode.setEGGroup(toggleButton1.isChecked());
 				break;
 			case (R.id.toggleButton2):
@@ -303,10 +314,10 @@ public class Roomspeaker extends Activity implements OnClickListener {
 
 		refreshButtons();
 
-		Button b = (Button) findViewById(button_id);
-		b.setClickable(false);
-
-		new LongRunningGetIO(button_id, param).execute();
+		// Button b = (Button) findViewById(button_id);
+		// b.setClickable(false);
+		//
+		// new LongRunningGetIO(button_id, param).execute();
 
 	}
 

@@ -4,6 +4,9 @@
     <string name="app_name">Roomspeaker</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <string name="receiverControl_title">Fernsteuerung</string>
+    
 
     <string name="buttonlabel1">EG</string>
     <string name="buttonlabel2">Gäste-WC</string>
