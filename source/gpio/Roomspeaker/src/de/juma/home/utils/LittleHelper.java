@@ -8,8 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.example.testhtc.R;
+import de.juma.home.R;
 
 public class LittleHelper {
 	private Activity context;
