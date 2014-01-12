@@ -16,17 +16,17 @@ import android.os.AsyncTask;
 import android.util.Log;
 import de.juma.home.R;
 
-public class LongRunningGetIO extends AsyncTask<Void, Void, String> {
+public class RS_RestConnection extends AsyncTask<Void, Void, String> {
 
 	private int button_id;
 	private String param;
-	private LittleHelper lh;
+	private RS_LittleHelper lh;
 
-	public LongRunningGetIO(int button_id, String param, Activity context) {
+	public RS_RestConnection(int button_id, String param, Activity context) {
 		super();
 		this.button_id = button_id;
 		this.param = param;
-		this.lh = new LittleHelper(context);
+		this.lh = new RS_LittleHelper(context);
 	}
 
 	protected String getASCIIContentFromEntity(HttpEntity entity) throws IllegalStateException, IOException {
@@ -72,7 +72,7 @@ public class LongRunningGetIO extends AsyncTask<Void, Void, String> {
 	}
 
 	protected void onPostExecute(String results) {
-		JumaRestService jmr = ((JumaRestService) (lh.getContext()));
+		RS_Interface jmr = ((RS_Interface) (lh.getContext()));
 		if ((results != null) && (!results.equals("No route to host")) && (!results.equals("http"))) {
 
 			if (button_id == R.id.menu_refresh) {

@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.Toast;
 import de.juma.home.R;
 
-public class LittleHelper {
+public class RS_LittleHelper {
 	private Activity context;
 	private SharedPreferences prefs;
 	private final String urlString = "de.juma.home.url";
@@ -24,7 +24,7 @@ public class LittleHelper {
 	private final String BASE_URL_START = "http://";
 	private final String BASE_URL_END = "/gpio/";
 
-	public LittleHelper(Activity context) {
+	public RS_LittleHelper(Activity context) {
 		super();
 		this.context = context;
 		this.prefs = context.getSharedPreferences("de.juma.home", Context.MODE_PRIVATE);
@@ -92,7 +92,7 @@ public class LittleHelper {
 						@Override
 						public void run() {
 							Log.w("delay", getRefreshTime() + "");
-							((JumaRestService) context).refreshWithTimer();
+							((RS_Interface) context).refreshWithTimer();
 						}
 					});
 				}
