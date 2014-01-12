@@ -25,6 +25,13 @@
         </EditText>
 
         <TextView
+            android:id="@+id/settings_urlError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/red" />
+
+        <TextView
             android:id="@+id/settings_refreshtime_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,6 +43,7 @@
             android:id="@+id/settings_refreshtime_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:ems="10" />
 
         <TableLayout

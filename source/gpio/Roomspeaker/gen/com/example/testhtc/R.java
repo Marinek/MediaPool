@@ -13,6 +13,7 @@ public final class R {
     public static final class color {
         public static final int black=0x7f060002;
         public static final int gray=0x7f060001;
+        public static final int red=0x7f060003;
         public static final int white=0x7f060000;
     }
     public static final class dimen {
@@ -36,14 +37,15 @@ public final class R {
         public static final int refresh=0x7f020007;
     }
     public static final class id {
-        public static final int action_settings=0x7f090036;
+        public static final int action_settings=0x7f090037;
         public static final int menu_preferences=0x7f09002e;
         public static final int menu_refresh=0x7f09002d;
-        public static final int settings_backup_button=0x7f090033;
-        public static final int settings_cancel_button=0x7f090034;
-        public static final int settings_refreshtime_label=0x7f090031;
-        public static final int settings_refreshtime_text=0x7f090032;
-        public static final int settings_save_button=0x7f090035;
+        public static final int settings_backup_button=0x7f090034;
+        public static final int settings_cancel_button=0x7f090035;
+        public static final int settings_refreshtime_label=0x7f090032;
+        public static final int settings_refreshtime_text=0x7f090033;
+        public static final int settings_save_button=0x7f090036;
+        public static final int settings_urlError=0x7f090031;
         public static final int settings_url_label=0x7f09002f;
         public static final int settings_url_text=0x7f090030;
         public static final int tableRow1=0x7f090000;

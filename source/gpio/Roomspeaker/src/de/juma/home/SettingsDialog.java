@@ -1,6 +1,7 @@
 package de.juma.home;
 
-import com.example.testhtc.R;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -13,6 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.testhtc.R;
+
 public class SettingsDialog extends Dialog implements OnClickListener {
 
 	private Button cancel_Button;
@@ -22,6 +25,8 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 	private SharedPreferences prefs;
 	private String urlString = "com.example.testhtc.url";
 	private String refreshString = "com.example.testhtc.refresh";
+
+	private static final String IP_REGEX = "\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b";
 
 	public SettingsDialog(Roomspeaker mainDialog) {
 		super(mainDialog);
@@ -50,16 +55,41 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 
 	}
 
+	private boolean validateFields() {
+
+		TextView url_text = (TextView) findViewById(R.id.settings_url_text);
+		String new_url = url_text.getText().toString();
+		TextView url_error = (TextView) findViewById(R.id.settings_urlError);
+		String fehlertext = "";
+		boolean valid = true;
+		if (!IsMatch(new_url, IP_REGEX)) {
+			fehlertext = "Ungültige IP";
+			valid = false;
+		}
+		url_error.setText(fehlertext);
+		return valid;
+	}
+
+	private static boolean IsMatch(String s, String pattern) {
+		try {
+			Pattern patt = Pattern.compile(pattern);
+			Matcher matcher = patt.matcher(s);
+			return matcher.matches();
+		} catch (RuntimeException e) {
+			return false;
+		}
+	}
+
 	private void saveSettings() {
 
-		String new_url = ((TextView) findViewById(R.id.settings_url_text)).getText().toString();
-		String new_refreshTime = ((TextView) findViewById(R.id.settings_refreshtime_text)).getText().toString();
-		changeSettings(new_refreshTime, new_url);
-
-		printAsToast("Einstellungen gespeichert");
-		context.restartTimer();
-
-		this.cancel();
+		if (validateFields()) {
+			String new_url = ((TextView) findViewById(R.id.settings_url_text)).getText().toString();
+			String new_refreshTime = ((TextView) findViewById(R.id.settings_refreshtime_text)).getText().toString();
+			changeSettings(new_refreshTime, new_url);
+			printAsToast("Einstellungen gespeichert");
+			context.restartTimer();
+			this.cancel();
+		}
 	}
 
 	private void resetSettings() {
