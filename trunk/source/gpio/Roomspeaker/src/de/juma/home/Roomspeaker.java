@@ -16,12 +16,12 @@ import android.widget.ScrollView;
 import android.widget.ToggleButton;
 import de.juma.home.beans.GpioCode;
 import de.juma.home.beans.GpioPin;
-import de.juma.home.utils.ActivitySwipeDetector;
-import de.juma.home.utils.JumaRestService;
-import de.juma.home.utils.LittleHelper;
-import de.juma.home.utils.LongRunningGetIO;
+import de.juma.home.utils.RS_OntouchListener;
+import de.juma.home.utils.RS_LittleHelper;
+import de.juma.home.utils.RS_RestConnection;
+import de.juma.home.utils.RS_Interface;
 
-public class Roomspeaker extends Activity implements OnClickListener, JumaRestService {
+public class Roomspeaker extends Activity implements OnClickListener, RS_Interface {
 
 	private GpioCode gpioCode;
 
@@ -44,7 +44,7 @@ public class Roomspeaker extends Activity implements OnClickListener, JumaRestSe
 	private ToggleButton toggleButton14;
 	private ToggleButton toggleButton15;
 
-	private LittleHelper lh;
+	private RS_LittleHelper lh;
 
 	private Timer t;
 
@@ -56,7 +56,7 @@ public class Roomspeaker extends Activity implements OnClickListener, JumaRestSe
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
-		lh = new LittleHelper(this);
+		lh = new RS_LittleHelper(this);
 
 		gpioCode = new GpioCode();
 
@@ -67,10 +67,11 @@ public class Roomspeaker extends Activity implements OnClickListener, JumaRestSe
 		t = lh.startTimer();
 
 		ScrollView layMain = (ScrollView) findViewById(R.id.layout_main);
-		layMain.setOnTouchListener(new ActivitySwipeDetector(this, true));
+		layMain.setOnTouchListener(new RS_OntouchListener(this, true));
 
 	}
 
+	@Override
 	public void switchView() {
 		Intent i = new Intent(this, ReceiverControl.class);
 		startActivity(i);
@@ -128,7 +129,7 @@ public class Roomspeaker extends Activity implements OnClickListener, JumaRestSe
 	}
 
 	private void refreshStatusFromServer() {
-		new LongRunningGetIO(R.id.menu_refresh, STATUS, this).execute();
+		new RS_RestConnection(R.id.menu_refresh, STATUS, this).execute();
 	}
 
 	@Override
@@ -206,7 +207,7 @@ public class Roomspeaker extends Activity implements OnClickListener, JumaRestSe
 
 		unlockButton(button_id, false);
 
-		new LongRunningGetIO(button_id, param, this).execute();
+		new RS_RestConnection(button_id, param, this).execute();
 
 	}
 

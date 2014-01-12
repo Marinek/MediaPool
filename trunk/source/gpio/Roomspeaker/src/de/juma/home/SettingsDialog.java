@@ -7,18 +7,18 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.TextView;
-import de.juma.home.utils.LittleHelper;
+import de.juma.home.utils.RS_LittleHelper;
 
 public class SettingsDialog extends Dialog implements OnClickListener {
 
 	private Button cancel_Button;
 	private Button reset_Button;
 	private Button save_Button;
-	private LittleHelper lh;
+	private RS_LittleHelper lh;
 
 	public SettingsDialog(Roomspeaker mainDialog) {
 		super(mainDialog);
-		lh = new LittleHelper(mainDialog);
+		lh = new RS_LittleHelper(mainDialog);
 		setContentView(R.layout.settings);
 		getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
 

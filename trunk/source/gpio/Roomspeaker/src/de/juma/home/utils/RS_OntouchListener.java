@@ -4,27 +4,21 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import de.juma.home.ReceiverControl;
-import de.juma.home.Roomspeaker;
 
-public class ActivitySwipeDetector implements View.OnTouchListener {
+public class RS_OntouchListener implements View.OnTouchListener {
 
 	private Activity activity;
 	static final int MIN_DISTANCE = 100;
 	private float downX, upX;
 	boolean main;
 
-	public ActivitySwipeDetector(final Activity activity, boolean main) {
+	public RS_OntouchListener(final Activity activity, boolean main) {
 		this.main = main;
 		this.activity = activity;
 	}
 
 	private void toggleViews() {
-		if (main) {
-			((Roomspeaker) activity).switchView();
-		} else {
-			((ReceiverControl) activity).switchView();
-		}
+		((RS_Interface) activity).switchView();
 	}
 
 	public final void onRightToLeftSwipe() {
@@ -62,7 +56,7 @@ public class ActivitySwipeDetector implements View.OnTouchListener {
 				Log.w("Swipe was only ", Math.abs(deltaX) + " long, need at least " + MIN_DISTANCE);
 			}
 
-			return true;
+			return false;
 		}
 		}
 		return false;
