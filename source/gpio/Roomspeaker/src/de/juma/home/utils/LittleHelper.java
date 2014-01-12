@@ -66,6 +66,14 @@ public class LittleHelper {
 
 	}
 
+	public String getCurrentTimeAsString() {
+		long millis = System.currentTimeMillis();
+		int seconds = (int) (millis / 1000);
+		int minutes = seconds / 60;
+		seconds = seconds % 60;
+		return String.format("%d:%02d", minutes, seconds);
+	}
+
 	public String getStringConstant(int stringID) {
 		return context.getResources().getString(stringID);
 	}
