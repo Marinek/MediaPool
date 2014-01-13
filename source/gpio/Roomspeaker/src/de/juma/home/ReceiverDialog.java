@@ -23,7 +23,7 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 
 		setContentView(R.layout.receiver);
 
-		layMain = (ScrollView) findViewById(R.id.layout_control);
+		layMain = (ScrollView) findViewById(R.id.layout_receiver);
 		layMain.setOnTouchListener(new RS_OntouchListener(this, false));
 	}
 
@@ -38,8 +38,38 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 	}
 
 	@Override
-	public void onClick(View arg0) {
-		// TODO Auto-generated method stub
+	public void onClick(View view) {
+		int button_id = view.getId();
+		switch (button_id) {
+		case (R.string.rc_fm_button1):
+			break;
+		case (R.string.rc_fm_button2):
+			break;
+		case (R.string.rc_fm_button3):
+			break;
+		case (R.string.rc_fm_button4):
+			break;
+		case (R.string.rc_fm_button5):
+			break;
+		case (R.string.rc_main_button1):
+			break;
+		case (R.string.rc_main_button2):
+			break;
+		case (R.string.rc_main_button3):
+			break;
+		case (R.string.rc_main_button4):
+			break;
+		case (R.string.rc_main_button5):
+			break;
+		case (R.string.rc_vol_button1):
+			break;
+		case (R.string.rc_vol_button2):
+			break;
+		case (R.string.rc_vol_button3):
+			break;
+		default:
+			break;
+		}
 
 	}
 

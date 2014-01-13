@@ -8,25 +8,41 @@
     <string name="receiverControl_title">Fernsteuerung</string>
     
 
-    <string name="buttonlabel1">EG</string>
-    <string name="buttonlabel2">Gäste-WC</string>
-    <string name="buttonlabel3">Küche</string>
-    <string name="buttonlabel4">Wohnzimmer</string>
-    <string name="buttonlabel5">Terrasse</string>
+    <string name="sp_toggle_b1">EG</string>
+    <string name="sp_toggle_b2">Gäste-WC</string>
+    <string name="sp_toggle_b3">Küche</string>
+    <string name="sp_toggle_b4">Wohnzimmer</string>
+    <string name="sp_toggle_b5">Terrasse</string>
 
-    <string name="buttonlabel6">OG</string>
-    <string name="buttonlabel7">Schlafzimmer</string>
-    <string name="buttonlabel8">Bad</string>
-    <string name="buttonlabel9">Kinderzimmer</string>
-    <string name="buttonlabel10">Büro</string>
+    <string name="sp_toggle_b6">OG</string>
+    <string name="sp_toggle_b7">Schlafzimmer</string>
+    <string name="sp_toggle_b8">Bad</string>
+    <string name="sp_toggle_b9">Kinderzimmer</string>
+    <string name="sp_toggle_b10">Büro</string>
 
-    <string name="buttonlabel11">DG</string>
-    <string name="buttonlabel12">Treppenhaus</string>
-    <string name="buttonlabel13">Studio</string>
-    <string name="buttonlabel14">Waschraum</string>
+    <string name="sp_toggle_b11">DG</string>
+    <string name="sp_toggle_b12">Treppenhaus</string>
+    <string name="sp_toggle_b13">Studio</string>
+    <string name="sp_toggle_b14">Waschraum</string>
 
-    <string name="buttonlabel15">Alles</string>
+    <string name="sp_toggle_b15">Alles</string>
 
+    <string name="rc_fm_button1">1</string>
+    <string name="rc_fm_button2">2</string>
+    <string name="rc_fm_button3">3</string>
+    <string name="rc_fm_button4">4</string>
+    <string name="rc_fm_button5">5</string>
+
+    <string name="rc_main_button1">Radio</string>
+    <string name="rc_main_button2">Mediaserver</string>
+    <string name="rc_main_button3">Studio</string>
+    <string name="rc_main_button4">LineIN</string>
+    <string name="rc_main_button5">TV</string>
+
+    <string name="rc_vol_button1">-</string>
+    <string name="rc_vol_button2">x</string>
+    <string name="rc_vol_button3">+</string>
+    
     <string name="menu_preferences">Einstellungen</string>
     <string name="menu_refresh">Aktualisieren</string>
     
