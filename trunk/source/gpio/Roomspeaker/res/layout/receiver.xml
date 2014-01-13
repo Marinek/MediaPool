@@ -12,7 +12,7 @@
 
         <Button
             android:id="@+id/rc_main_button1"
-            style="@style/btnStyleOrange"
+            style="@style/btnStyleSeagull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button1" />
@@ -23,7 +23,7 @@
 
             <Button
                 android:id="@+id/rc_fm_button1"
-	            style="@style/btnStyleOrange"
+	            style="@style/btnStyleSeagull"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button1" />
