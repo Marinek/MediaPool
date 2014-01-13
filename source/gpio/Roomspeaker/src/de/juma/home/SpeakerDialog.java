@@ -11,15 +11,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.ToggleButton;
 import de.juma.home.beans.GpioCode;
 import de.juma.home.beans.GpioPin;
-import de.juma.home.utils.RS_OntouchListener;
-import de.juma.home.utils.RS_LittleHelper;
-import de.juma.home.utils.RS_RestConnection;
 import de.juma.home.utils.RS_Interface;
+import de.juma.home.utils.RS_LittleHelper;
+import de.juma.home.utils.RS_OntouchListener;
+import de.juma.home.utils.RS_RestConnection;
 
 public class SpeakerDialog extends Activity implements OnClickListener, RS_Interface {
 
@@ -51,6 +52,8 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 	private final String CHANGE = "change/";
 	private final String STATUS = "status";
 
+	private ScrollView layMain;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,14 +69,15 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 
 		t = lh.startTimer();
 
-		ScrollView layMain = (ScrollView) findViewById(R.id.layout_main);
+		layMain = (ScrollView) findViewById(R.id.layout_main);
 		layMain.setOnTouchListener(new RS_OntouchListener(this, true));
-
 	}
 
 	@Override
-	public void switchView() {
+	public void switchView(boolean right) {
 		Intent i = new Intent(this, ReceiverDialog.class);
+		int anim_id = right ? R.anim.slide_out_right : R.anim.slide_out_left;
+		layMain.setAnimation(AnimationUtils.loadAnimation(this, anim_id));
 		startActivity(i);
 	}
 

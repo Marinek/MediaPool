@@ -27,6 +27,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="de.juma.home.ReceiverDialog"
+            android:label="@string/receiverControl_title" >
+        </activity>
     </application>
 
 </manifest>

@@ -17,16 +17,16 @@ public class RS_OntouchListener implements View.OnTouchListener {
 		this.activity = activity;
 	}
 
-	private void toggleViews() {
-		((RS_Interface) activity).switchView();
+	private void toggleViews(boolean right) {
+		((RS_Interface) activity).switchView(right);
 	}
 
 	public final void onRightToLeftSwipe() {
-		toggleViews();
+		toggleViews(false);
 	}
 
 	public void onLeftToRightSwipe() {
-		toggleViews();
+		toggleViews(true);
 	}
 
 	public boolean onTouch(View v, MotionEvent event) {

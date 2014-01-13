@@ -9,7 +9,7 @@ public interface RS_Interface {
 
 	public void refreshWithTimer();
 
-	public void switchView();
+	public void switchView(boolean right);
 
 	public boolean onCreateOptionsMenu(Menu menu);
 }

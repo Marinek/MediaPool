@@ -7,12 +7,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ScrollView;
-import de.juma.home.utils.RS_OntouchListener;
 import de.juma.home.utils.RS_Interface;
+import de.juma.home.utils.RS_OntouchListener;
 
 public class ReceiverDialog extends Activity implements OnClickListener, RS_Interface {
+
+	private ScrollView layMain;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -20,14 +23,16 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 
 		setContentView(R.layout.control);
 
-		ScrollView layMain = (ScrollView) findViewById(R.id.layout_control);
+		layMain = (ScrollView) findViewById(R.id.layout_control);
 		layMain.setOnTouchListener(new RS_OntouchListener(this, false));
 	}
 
 	@Override
-	public void switchView() {
+	public void switchView(boolean right) {
 		Intent returnIntent = new Intent();
 		setResult(RESULT_CANCELED, returnIntent);
+		int anim_id = right ? R.anim.slide_out_right : R.anim.slide_out_left;
+		layMain.setAnimation(AnimationUtils.loadAnimation(this, anim_id));
 		finish();
 
 	}
