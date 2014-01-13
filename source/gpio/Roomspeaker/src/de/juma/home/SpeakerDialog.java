@@ -21,7 +21,7 @@ import de.juma.home.utils.RS_LittleHelper;
 import de.juma.home.utils.RS_RestConnection;
 import de.juma.home.utils.RS_Interface;
 
-public class Roomspeaker extends Activity implements OnClickListener, RS_Interface {
+public class SpeakerDialog extends Activity implements OnClickListener, RS_Interface {
 
 	private GpioCode gpioCode;
 
@@ -73,7 +73,7 @@ public class Roomspeaker extends Activity implements OnClickListener, RS_Interfa
 
 	@Override
 	public void switchView() {
-		Intent i = new Intent(this, ReceiverControl.class);
+		Intent i = new Intent(this, ReceiverDialog.class);
 		startActivity(i);
 	}
 

@@ -16,7 +16,7 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 	private Button save_Button;
 	private RS_LittleHelper lh;
 
-	public SettingsDialog(Roomspeaker mainDialog) {
+	public SettingsDialog(SpeakerDialog mainDialog) {
 		super(mainDialog);
 		lh = new RS_LittleHelper(mainDialog);
 		setContentView(R.layout.settings);
@@ -63,7 +63,7 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 			String new_refreshTime = ((TextView) findViewById(R.id.settings_refreshtime_text)).getText().toString();
 			changeSettings(new_refreshTime, new_url);
 			lh.printAsToast(lh.getStringConstant(R.string.settings_save_toast));
-			((Roomspeaker) lh.getContext()).restartTimer();
+			((SpeakerDialog) lh.getContext()).restartTimer();
 			this.cancel();
 		}
 	}
