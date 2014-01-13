@@ -21,7 +21,7 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.control);
+		setContentView(R.layout.receiver);
 
 		layMain = (ScrollView) findViewById(R.id.layout_control);
 		layMain.setOnTouchListener(new RS_OntouchListener(this, false));
