@@ -82,8 +82,11 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 	}
 
 	@Override
-	public void setResultFromServer(String result) {
-		gpioCode = new GpioCode(result);
+	public void setResultFromServer(String result, int button_id) {
+		if (button_id == R.id.menu_refresh) {
+			gpioCode = new GpioCode(result);
+		}
+
 		refreshButtons();
 	}
 

@@ -16,13 +16,6 @@ import de.juma.home.R;
 public class RS_LittleHelper {
 	private Activity context;
 	private SharedPreferences prefs;
-	private final String urlString = "de.juma.home.url";
-	private final String refreshString = "de.juma.home.refresh";
-
-	private final String IP_REGEX = "\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b";
-
-	private final String BASE_URL_START = "http://";
-	private final String BASE_URL_END = "/gpio/";
 
 	public RS_LittleHelper(Activity context) {
 		super();
@@ -37,6 +30,10 @@ public class RS_LittleHelper {
 		toast.show();
 	}
 
+	public void printAsToast(int id) {
+		printAsToast(getStringConstant(id));
+	}
+
 	public boolean isMatch(String s, String pattern) {
 		try {
 			Pattern patt = Pattern.compile(pattern);
@@ -49,7 +46,9 @@ public class RS_LittleHelper {
 
 	public String createConnectionString(String param) {
 		String newParam = param == null ? "" : param;
-		String CUSTOM_URL = prefs.getString(urlString, context.getResources().getString(R.string.settings_url_text));
+		String BASE_URL_START = getStringConstant(R.string.lh_BASE_URL_START);
+		String BASE_URL_END = getStringConstant(R.string.lh_BASE_URL_END);
+		String CUSTOM_URL = prefs.getString(getUrlString(), context.getResources().getString(R.string.settings_url_text));
 		return BASE_URL_START + CUSTOM_URL + BASE_URL_END + newParam;
 
 	}
@@ -121,15 +120,15 @@ public class RS_LittleHelper {
 	}
 
 	public String getRefreshString() {
-		return refreshString;
+		return getStringConstant(R.string.lh_refresh_pers);
 	}
 
 	public String getUrlString() {
-		return urlString;
+		return getStringConstant(R.string.lh_url_pers);
 	}
 
 	public String getIP_REGEX() {
-		return IP_REGEX;
+		return getStringConstant(R.string.lh_IP_REGEX);
 	}
 
 }

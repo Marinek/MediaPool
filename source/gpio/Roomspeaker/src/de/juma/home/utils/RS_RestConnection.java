@@ -52,22 +52,22 @@ public class RS_RestConnection extends AsyncTask<Void, Void, String> {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpContext localContext = new BasicHttpContext();
 		HttpGet httpGet = new HttpGet(lh.createConnectionString(param));
-		// Log.w("url", lh.createConnectionString(param));
-		String text = null;
+		Log.w("url", lh.createConnectionString(param));
+		String result = null;
 		try {
 
 			HttpResponse response = httpClient.execute(httpGet, localContext);
 
 			HttpEntity entity = response.getEntity();
 
-			text = getASCIIContentFromEntity(entity);
+			result = getASCIIContentFromEntity(entity);
 
 		} catch (Exception e) {
 			return e.getLocalizedMessage();
 
 		}
 
-		return text;
+		return result;
 
 	}
 
@@ -75,14 +75,12 @@ public class RS_RestConnection extends AsyncTask<Void, Void, String> {
 		RS_Interface jmr = ((RS_Interface) (lh.getContext()));
 		if ((results != null) && (!results.equals("No route to host")) && (!results.equals("http"))) {
 
-			if (button_id == R.id.menu_refresh) {
-				jmr.setResultFromServer(results);
-			}
+			jmr.setResultFromServer(results, button_id);
 
 			Log.w("results", results);
 
 		} else {
-			lh.printAsToast(lh.getStringConstant(R.string.server_error));
+			lh.printAsToast(R.string.server_error);
 		}
 		jmr.unlockButton(button_id, true);
 

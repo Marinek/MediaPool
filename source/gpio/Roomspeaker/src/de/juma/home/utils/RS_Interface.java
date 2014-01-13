@@ -3,7 +3,7 @@ package de.juma.home.utils;
 import android.view.Menu;
 
 public interface RS_Interface {
-	public void setResultFromServer(String result);
+	public void setResultFromServer(String result, int button_id);
 
 	public void unlockButton(int id, boolean lock);
 
