@@ -58,7 +58,7 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.main);
+		setContentView(R.layout.speaker);
 		lh = new RS_LittleHelper(this);
 
 		gpioCode = new GpioCode();
