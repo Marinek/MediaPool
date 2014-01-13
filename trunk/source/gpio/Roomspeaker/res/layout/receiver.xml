@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_receiver"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:id="@+id/layout_receiver"
     android:fillViewport="true" >
 
     <LinearLayout
@@ -12,6 +12,7 @@
 
         <Button
             android:id="@+id/rc_main_button1"
+            style="@style/btnStyleOrange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button1" />
@@ -22,30 +23,35 @@
 
             <Button
                 android:id="@+id/rc_fm_button1"
+	            style="@style/btnStyleOrange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button1" />
 
             <Button
                 android:id="@+id/rc_fm_button2"
+        	    style="@style/btnStyleSeagull"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button2" />
 
             <Button
                 android:id="@+id/rc_fm_button3"
+    	        style="@style/btnStyleSeagull"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button3" />
 
             <Button
                 android:id="@+id/rc_fm_button4"
+            style="@style/btnStyleSeagull"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button4" />
             
             <Button
                 android:id="@+id/rc_fm_button5"
+	            style="@style/btnStyleSeagull"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button5" />
@@ -54,24 +60,28 @@
 
         <Button
             android:id="@+id/rc_main_button2"
+            style="@style/btnStyleSeagull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button2" />
 
         <Button
             android:id="@+id/rc_main_button3"
+            style="@style/btnStyleSeagull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button3" />
 
         <Button
             android:id="@+id/rc_main_button4"
+            style="@style/btnStyleSeagull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button4" />
 
         <Button
             android:id="@+id/rc_main_button5"
+            style="@style/btnStyleSeagull"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button5" />
@@ -83,18 +93,21 @@
 
             <Button
                 android:id="@+id/rc_vol_button1"
+        	    style="@style/btnStyleSandrift"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_vol_button1" />
 
             <Button
                 android:id="@+id/rc_vol_button2"
+    	        style="@style/btnStyleBeige"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_vol_button2" />
 
             <Button
                 android:id="@+id/rc_vol_button3"
+	            style="@style/btnStyleSandrift"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_vol_button3" />

@@ -27,11 +27,11 @@
 
     <string name="sp_toggle_b15">Alles</string>
 
-    <string name="rc_fm_button1">1</string>
-    <string name="rc_fm_button2">2</string>
-    <string name="rc_fm_button3">3</string>
-    <string name="rc_fm_button4">4</string>
-    <string name="rc_fm_button5">5</string>
+    <string name="rc_fm_button1">1Live</string>
+    <string name="rc_fm_button2">WDR2</string>
+    <string name="rc_fm_button3">91.2</string>
+    <string name="rc_fm_button4">RTL</string>
+    <string name="rc_fm_button5">Unna</string>
 
     <string name="rc_main_button1">Radio</string>
     <string name="rc_main_button2">Mediaserver</string>
