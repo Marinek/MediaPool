@@ -20,7 +20,7 @@ public class RS_LittleHelper {
 	public RS_LittleHelper(Activity context) {
 		super();
 		this.context = context;
-		this.prefs = context.getSharedPreferences("de.juma.home", Context.MODE_PRIVATE);
+		this.prefs = context.getSharedPreferences(getStringConstant(R.string.lh_pers_base), Context.MODE_PRIVATE);
 	}
 
 	public void printAsToast(String message) {
@@ -120,11 +120,11 @@ public class RS_LittleHelper {
 	}
 
 	public String getRefreshString() {
-		return getStringConstant(R.string.lh_refresh_pers);
+		return getStringConstant(R.string.lh_pers_refresh);
 	}
 
 	public String getUrlString() {
-		return getStringConstant(R.string.lh_url_pers);
+		return getStringConstant(R.string.lh_pers_url);
 	}
 
 	public String getIP_REGEX() {

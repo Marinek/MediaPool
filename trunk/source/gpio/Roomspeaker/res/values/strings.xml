@@ -50,8 +50,11 @@
     <string name="settings_cancel_toast">Einstellungen abgebrochen</string>
     <string name="settings_reset_toast">Einstellungen zurückgesetzt</string>
     
-    <string name="lh_url_pers">de.juma.home.url</string>
-    <string name="lh_refresh_pers">de.juma.home.refresh</string>
+    <string name="lh_pers_url">de.juma.home.url</string>
+    <string name="lh_pers_refresh">de.juma.home.refresh</string>
+    <string name="lh_pers_base">de.juma.home</string>
+    
+    
     <string name="lh_IP_REGEX">\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b</string>
     <string name="lh_BASE_URL_END">/gpio/</string>
     <string name="lh_BASE_URL_START">http://</string>
