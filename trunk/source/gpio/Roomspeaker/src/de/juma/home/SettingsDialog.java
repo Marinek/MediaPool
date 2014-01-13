@@ -36,7 +36,7 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 			resetSettings();
 			break;
 		default:
-			lh.printAsToast(lh.getStringConstant(R.string.settings_cancel_toast));
+			lh.printAsToast(R.string.settings_cancel_toast);
 			this.cancel();
 		}
 	}
@@ -62,7 +62,7 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 			String new_url = ((TextView) findViewById(R.id.settings_url_text)).getText().toString();
 			String new_refreshTime = ((TextView) findViewById(R.id.settings_refreshtime_text)).getText().toString();
 			changeSettings(new_refreshTime, new_url);
-			lh.printAsToast(lh.getStringConstant(R.string.settings_save_toast));
+			lh.printAsToast(R.string.settings_save_toast);
 			((SpeakerDialog) lh.getContext()).restartTimer();
 			this.cancel();
 		}
@@ -74,7 +74,7 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 		String default_refreshTime = lh.getStringConstant(R.string.settings_refreshtime_text);
 		changeSettings(default_refreshTime, default_url);
 
-		lh.printAsToast(lh.getStringConstant(R.string.settings_reset_toast));
+		lh.printAsToast(R.string.settings_reset_toast);
 		this.cancel();
 	}
 

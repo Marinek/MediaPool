@@ -51,7 +51,7 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 	}
 
 	@Override
-	public void setResultFromServer(String result) {
+	public void setResultFromServer(String result, int button_id) {
 
 	}
 
