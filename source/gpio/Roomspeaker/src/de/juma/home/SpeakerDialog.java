@@ -75,10 +75,11 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 
 	@Override
 	public void switchView(boolean right) {
-		Intent i = new Intent(this, ReceiverDialog.class);
+		Intent returnIntent = new Intent();
+		setResult(RESULT_CANCELED, returnIntent);
 		int anim_id = right ? R.anim.slide_out_right : R.anim.slide_out_left;
 		layMain.setAnimation(AnimationUtils.loadAnimation(this, anim_id));
-		startActivity(i);
+		finish();
 	}
 
 	@Override
