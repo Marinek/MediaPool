@@ -12,7 +12,7 @@ import android.widget.ScrollView;
 import de.juma.home.utils.RS_OntouchListener;
 import de.juma.home.utils.RS_Interface;
 
-public class ReceiverControl extends Activity implements OnClickListener, RS_Interface {
+public class ReceiverDialog extends Activity implements OnClickListener, RS_Interface {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
