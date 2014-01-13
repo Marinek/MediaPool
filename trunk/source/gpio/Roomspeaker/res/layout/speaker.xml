@@ -23,7 +23,7 @@
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
 			        android:paddingRight="170dp"
-			        android:text="@string/buttonlabel1"
+			        android:text="@string/sp_toggle_b1"
 			        android:textAppearance="?android:attr/textAppearanceMedium"/>
 			    
 			    <ToggleButton
@@ -45,7 +45,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel2"
+			        android:text="@string/sp_toggle_b2"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -67,7 +67,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel3"
+			        android:text="@string/sp_toggle_b3"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -89,7 +89,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel4"
+			        android:text="@string/sp_toggle_b4"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -111,7 +111,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel5"
+			        android:text="@string/sp_toggle_b5"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -136,7 +136,7 @@
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
 			        android:paddingRight="170dp"
-			        android:text="@string/buttonlabel6"
+			        android:text="@string/sp_toggle_b6"
 			        android:textAppearance="?android:attr/textAppearanceMedium"/>
 			    
 			    <ToggleButton
@@ -158,7 +158,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel7"
+			        android:text="@string/sp_toggle_b7"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -180,7 +180,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel8"
+			        android:text="@string/sp_toggle_b8"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -202,7 +202,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel9"
+			        android:text="@string/sp_toggle_b9"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -224,7 +224,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel10"
+			        android:text="@string/sp_toggle_b10"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -247,7 +247,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel11"
+			        android:text="@string/sp_toggle_b11"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -270,7 +270,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel12"
+			        android:text="@string/sp_toggle_b12"
 			        android:textAppearance="?android:attr/textAppearanceMedium"/>
 			    
 			    <ToggleButton
@@ -292,7 +292,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel13"
+			        android:text="@string/sp_toggle_b13"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -314,7 +314,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel14"
+			        android:text="@string/sp_toggle_b14"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
@@ -337,7 +337,7 @@
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:paddingLeft="10dp"
-			        android:text="@string/buttonlabel15"
+			        android:text="@string/sp_toggle_b15"
 			        android:textAppearance="?android:attr/textAppearanceMedium" />
 			    
 			    <ToggleButton
