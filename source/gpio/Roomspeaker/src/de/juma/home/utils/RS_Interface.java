@@ -12,4 +12,5 @@ public interface RS_Interface {
 	public void switchView(boolean right);
 
 	public boolean onCreateOptionsMenu(Menu menu);
+
 }
