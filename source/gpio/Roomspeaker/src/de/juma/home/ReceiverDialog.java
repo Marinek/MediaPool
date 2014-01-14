@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import de.juma.home.utils.RS_Interface;
 import de.juma.home.utils.RS_OntouchListener;
+import de.juma.home.utils.RS_RestConnection;
 
 public class ReceiverDialog extends Activity implements OnClickListener, RS_Interface {
 
@@ -31,9 +33,9 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 	private Button rc_main_button3;
 	private Button rc_main_button4;
 	private Button rc_main_button5;
-	private Button rc_vol_button1;
-	private Button rc_vol_button2;
-	private Button rc_vol_button3;
+	private ImageButton rc_vol_button1;
+	private ImageButton rc_vol_button2;
+	private ImageButton rc_vol_button3;
 
 	private List<Button> main_toggleList;
 	private List<Button> fm_toggleList;
@@ -108,7 +110,7 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 		if (toggleList != null) {
 			resetList(toggleList);
 			Button bt = (Button) findViewById(button_id);
-			bt.setBackgroundResource(R.drawable.custom_btn_orange);
+			bt.setBackgroundResource(R.drawable.custom_btn_red);
 			bt.refreshDrawableState();
 		}
 
@@ -142,7 +144,7 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 
 	private void resetList(List<Button> resetList) {
 		for (Button b : resetList) {
-			b.setBackgroundResource(R.drawable.custom_btn_seagull);
+			b.setBackgroundResource(R.drawable.custom_btn_green);
 			b.refreshDrawableState();
 		}
 	}
@@ -151,6 +153,12 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 		for (Button b : fm_toggleList) {
 			b.setClickable(lock);
 		}
+	}
+
+	@Override
+	public void startRestRequest(int button_id, String param, Activity context) {
+		new RS_RestConnection(button_id, param, context).execute();
+
 	}
 
 	private void intiButtons() {
@@ -167,9 +175,9 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 		rc_main_button3 = (Button) findViewById(R.id.rc_main_button3);
 		rc_main_button4 = (Button) findViewById(R.id.rc_main_button4);
 		rc_main_button5 = (Button) findViewById(R.id.rc_main_button5);
-		rc_vol_button1 = (Button) findViewById(R.id.rc_vol_button1);
-		rc_vol_button2 = (Button) findViewById(R.id.rc_vol_button2);
-		rc_vol_button3 = (Button) findViewById(R.id.rc_vol_button3);
+		rc_vol_button1 = (ImageButton) findViewById(R.id.rc_vol_button1);
+		rc_vol_button2 = (ImageButton) findViewById(R.id.rc_vol_button2);
+		rc_vol_button3 = (ImageButton) findViewById(R.id.rc_vol_button3);
 		rc_fm_button1.setOnClickListener(this);
 		rc_fm_button2.setOnClickListener(this);
 		rc_fm_button3.setOnClickListener(this);

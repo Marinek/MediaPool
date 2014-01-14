@@ -1,5 +1,6 @@
 package de.juma.home.utils;
 
+import android.app.Activity;
 import android.view.Menu;
 
 public interface RS_Interface {
@@ -12,5 +13,7 @@ public interface RS_Interface {
 	public void switchView(boolean right);
 
 	public boolean onCreateOptionsMenu(Menu menu);
+
+	public void startRestRequest(int button_id, String param, Activity context);
 
 }

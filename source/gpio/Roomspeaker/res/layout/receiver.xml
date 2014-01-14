@@ -12,7 +12,7 @@
 
         <Button
             android:id="@+id/rc_main_button1"
-            style="@style/btnStyleSeagull"
+            style="@style/btnStyleGreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button1" />
@@ -23,35 +23,35 @@
 
             <Button
                 android:id="@+id/rc_fm_button1"
-	            style="@style/btnStyleSeagull"
+	            style="@style/btnStyleGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button1" />
 
             <Button
                 android:id="@+id/rc_fm_button2"
-        	    style="@style/btnStyleSeagull"
+        	    style="@style/btnStyleGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button2" />
 
             <Button
                 android:id="@+id/rc_fm_button3"
-    	        style="@style/btnStyleSeagull"
+    	        style="@style/btnStyleGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button3" />
 
             <Button
                 android:id="@+id/rc_fm_button4"
-            style="@style/btnStyleSeagull"
+            style="@style/btnStyleGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button4" />
             
             <Button
                 android:id="@+id/rc_fm_button5"
-	            style="@style/btnStyleSeagull"
+	            style="@style/btnStyleGreen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@+string/rc_fm_button5" />
@@ -60,58 +60,57 @@
 
         <Button
             android:id="@+id/rc_main_button2"
-            style="@style/btnStyleSeagull"
+            style="@style/btnStyleGreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button2" />
 
         <Button
             android:id="@+id/rc_main_button3"
-            style="@style/btnStyleSeagull"
+            style="@style/btnStyleGreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button3" />
 
         <Button
             android:id="@+id/rc_main_button4"
-            style="@style/btnStyleSeagull"
+            style="@style/btnStyleGreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button4" />
 
         <Button
             android:id="@+id/rc_main_button5"
-            style="@style/btnStyleSeagull"
+            style="@style/btnStyleGreen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@+string/rc_main_button5" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.38" >
+        <RelativeLayout 
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content">
 
-            <Button
+            <ImageButton
                 android:id="@+id/rc_vol_button1"
-        	    style="@style/btnStyleSandrift"
+                android:background="@drawable/btn_voldown"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@+string/rc_vol_button1" />
+	            android:layout_alignParentLeft="true"
+                android:layout_height="wrap_content" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/rc_vol_button2"
-    	        style="@style/btnStyleBeige"
+                android:background="@drawable/btn_volmute"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@+string/rc_vol_button2" />
+	            android:layout_toRightOf="@+id/rc_vol_button1"
+                android:layout_height="wrap_content" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/rc_vol_button3"
-	            style="@style/btnStyleSandrift"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@+string/rc_vol_button3" />
-        </LinearLayout>
+                android:background="@drawable/btn_volup"
+	            android:layout_width="wrap_content"
+	            android:layout_toRightOf="@+id/rc_vol_button2"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
