@@ -138,7 +138,7 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 	}
 
 	private void refreshStatusFromServer() {
-		new RS_RestConnection(R.id.menu_refresh, STATUS, this).execute();
+		startRestRequest(R.id.menu_refresh, STATUS, this);
 	}
 
 	@Override
@@ -216,7 +216,7 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 
 		unlockButton(button_id, false);
 
-		new RS_RestConnection(button_id, param, this).execute();
+		startRestRequest(button_id, param, this);
 
 	}
 
@@ -227,6 +227,12 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 			b.setClickable(unlock);
 		}
 		refreshButtons();
+	}
+
+	@Override
+	public void startRestRequest(int button_id, String param, Activity context) {
+		new RS_RestConnection(button_id, param, context).execute();
+
 	}
 
 	private void refreshButtons() {
