@@ -57,7 +57,6 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.speaker);
 		lh = new RS_LittleHelper(this);
 
@@ -66,6 +65,8 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 		initButtons();
 
 		refreshStatusFromServer();
+
+		refreshButtons();
 
 		t = lh.startTimer();
 
