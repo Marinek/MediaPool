@@ -3,23 +3,18 @@ package de.juma.home;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import de.juma.home.utils.RS_Interface;
 import de.juma.home.utils.RS_OntouchListener;
-import de.juma.home.utils.RS_RestConnection;
 
-public class ReceiverDialog extends Activity implements OnClickListener, RS_Interface {
+public class ReceiverDialog extends RS_Dialog {
 
 	private ScrollView layMain;
 
@@ -45,6 +40,8 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.receiver);
 		intiButtons();
+		lockFMList(true);
+
 		layMain = (ScrollView) findViewById(R.id.layout_receiver);
 		layMain.setOnTouchListener(new RS_OntouchListener(this, false));
 	}
@@ -59,8 +56,10 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 
 	@Override
 	public void onClick(View view) {
+		String message = null;
 		int button_id = view.getId();
 		List<Button> toggleList = null;
+		boolean lockFMList = false;
 		Log.w("onclick", button_id + "");
 		switch (button_id) {
 		case (R.id.rc_fm_button1):
@@ -80,47 +79,46 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 			break;
 		case (R.id.rc_main_button1):
 			toggleList = main_toggleList;
-			lockFMList(true);
+			lockFMList = false;
 			break;
 		case (R.id.rc_main_button2):
 			toggleList = main_toggleList;
-			lockFMList(false);
+			lockFMList = true;
 			break;
 		case (R.id.rc_main_button3):
 			toggleList = main_toggleList;
-			lockFMList(false);
+			lockFMList = true;
 			break;
 		case (R.id.rc_main_button4):
 			toggleList = main_toggleList;
-			lockFMList(false);
+			lockFMList = true;
 			break;
 		case (R.id.rc_main_button5):
 			toggleList = main_toggleList;
-			lockFMList(false);
+			lockFMList = true;
 			break;
 		case (R.id.rc_vol_button1):
+			message = lh.getStringConstant(R.string.server_request_voldown);
 			break;
 		case (R.id.rc_vol_button2):
+			message = lh.getStringConstant(R.string.server_request_volmute);
 			break;
 		case (R.id.rc_vol_button3):
+			message = lh.getStringConstant(R.string.server_request_volup);
 			break;
 		default:
 			break;
 		}
 		if (toggleList != null) {
+			lockFMList(lockFMList);
 			resetList(toggleList);
 			Button bt = (Button) findViewById(button_id);
 			bt.setBackgroundResource(R.drawable.custom_btn_red);
 			bt.refreshDrawableState();
 		}
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.layout.menu, menu);
-		return true;
+		if (message != null) {
+			lh.printAsToast(message);
+		}
 	}
 
 	@Override
@@ -150,15 +148,12 @@ public class ReceiverDialog extends Activity implements OnClickListener, RS_Inte
 	}
 
 	private void lockFMList(boolean lock) {
+		LinearLayout ll = (LinearLayout) findViewById(R.id.layout_fm_buttons);
+		int visibility = lock ? View.GONE : View.VISIBLE;
+		ll.setVisibility(visibility);
 		for (Button b : fm_toggleList) {
-			b.setClickable(lock);
+			b.setClickable(!lock);
 		}
-	}
-
-	@Override
-	public void startRestRequest(int button_id, String param, Activity context) {
-		new RS_RestConnection(button_id, param, context).execute();
-
 	}
 
 	private void intiButtons() {

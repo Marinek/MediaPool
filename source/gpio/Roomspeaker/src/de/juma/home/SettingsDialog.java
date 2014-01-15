@@ -1,5 +1,6 @@
 package de.juma.home;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.view.View;
@@ -16,7 +17,7 @@ public class SettingsDialog extends Dialog implements OnClickListener {
 	private Button save_Button;
 	private RS_LittleHelper lh;
 
-	public SettingsDialog(SpeakerDialog mainDialog) {
+	public SettingsDialog(Activity mainDialog) {
 		super(mainDialog);
 		lh = new RS_LittleHelper(mainDialog);
 		setContentView(R.layout.settings);

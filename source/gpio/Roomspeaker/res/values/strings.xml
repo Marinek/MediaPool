@@ -45,6 +45,7 @@
     
     <string name="menu_preferences">Einstellungen</string>
     <string name="menu_refresh">Aktualisieren</string>
+    <string name="menu_exit">Beenden</string>
     
     <string name="title_settings">Einstellungen</string>
     <string name="settings_close">Beenden</string>
@@ -69,11 +70,18 @@
     <string name="lh_pers_url">de.juma.home.url</string>
     <string name="lh_pers_refresh">de.juma.home.refresh</string>
     <string name="lh_pers_base">de.juma.home</string>
+
+    <string name="server_request_volup">Lauter</string>
+    <string name="server_request_voldown">Leiser</string>
+    <string name="server_request_volmute">Stumm</string>
     
     
     <string name="lh_IP_REGEX">\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b</string>
     <string name="lh_BASE_URL_END">/gpio/</string>
     <string name="lh_BASE_URL_START">http://</string>
+    
+    <string name="lh_URL_CHANGE">change</string>
+	<string name="lh_URL_STATUS">status</string>
   
     <color name="white">#FFFFFF</color>
     <color name="gray">#878787</color>

@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 import de.juma.home.R;
+import de.juma.home.SettingsDialog;
 
 public class RS_LittleHelper {
 	private Activity context;
@@ -102,6 +103,15 @@ public class RS_LittleHelper {
 		}
 		return t;
 	};
+
+	public void showSettingsDialog() {
+		final SettingsDialog dialog = new SettingsDialog(context);
+		dialog.show();
+	}
+
+	public void refreshStatusFromServer() {
+		new RS_RestConnection(R.id.menu_refresh, getStringConstant(R.string.lh_URL_STATUS), context).execute();
+	}
 
 	public String getStringConstant(int stringID) {
 		return context.getResources().getString(stringID);

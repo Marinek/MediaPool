@@ -2,27 +2,19 @@ package de.juma.home;
 
 import java.util.Timer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.ToggleButton;
 import de.juma.home.beans.GpioCode;
 import de.juma.home.beans.GpioPin;
-import de.juma.home.utils.RS_Interface;
-import de.juma.home.utils.RS_LittleHelper;
 import de.juma.home.utils.RS_OntouchListener;
-import de.juma.home.utils.RS_RestConnection;
 
-public class SpeakerDialog extends Activity implements OnClickListener, RS_Interface {
+public class SpeakerDialog extends RS_Dialog {
 
 	private GpioCode gpioCode;
 
@@ -45,12 +37,7 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 	private ToggleButton toggleButton14;
 	private ToggleButton toggleButton15;
 
-	private RS_LittleHelper lh;
-
 	private Timer t;
-
-	private final String CHANGE = "change/";
-	private final String STATUS = "status";
 
 	private ScrollView layMain;
 
@@ -58,13 +45,12 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.speaker);
-		lh = new RS_LittleHelper(this);
 
 		gpioCode = new GpioCode();
 
 		initButtons();
 
-		refreshStatusFromServer();
+		lh.refreshStatusFromServer();
 
 		refreshButtons();
 
@@ -99,52 +85,15 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 		t = lh.startTimer();
 	}
 
-	private void showSettingsDialog() {
-		final SettingsDialog dialog = new SettingsDialog(this);
-		dialog.show();
-	}
-
-	// Initiating Menu XML file (menu.xml)
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater menuInflater = getMenuInflater();
-		menuInflater.inflate(R.layout.menu, menu);
-		return true;
-	}
-
 	@Override
 	public void refreshWithTimer() {
-		refreshStatusFromServer();
-	}
-
-	/**
-	 * Event Handling for Individual menu item selected Identify single menu
-	 * item by it's id
-	 * */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
-		case R.id.menu_refresh:
-			refreshStatusFromServer();
-			return true;
-		case R.id.menu_preferences:
-			showSettingsDialog();
-			return true;
-
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
-
-	private void refreshStatusFromServer() {
-		startRestRequest(R.id.menu_refresh, STATUS, this);
+		lh.refreshStatusFromServer();
 	}
 
 	@Override
 	public void onClick(View active_button) {
 		int button_id = active_button.getId();
-		String param = STATUS;
+		String param = lh.getStringConstant(R.string.lh_URL_STATUS);
 
 		GpioPin pin = null;
 		if (gpioCode != null) {
@@ -209,7 +158,7 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 			default:
 				;
 			}
-			param = CHANGE + gpioCode.toString();
+			param = lh.getStringConstant(R.string.lh_URL_CHANGE) + gpioCode.toString();
 		}
 
 		refreshButtons();
@@ -227,12 +176,6 @@ public class SpeakerDialog extends Activity implements OnClickListener, RS_Inter
 			b.setClickable(unlock);
 		}
 		refreshButtons();
-	}
-
-	@Override
-	public void startRestRequest(int button_id, String param, Activity context) {
-		new RS_RestConnection(button_id, param, context).execute();
-
 	}
 
 	private void refreshButtons() {
