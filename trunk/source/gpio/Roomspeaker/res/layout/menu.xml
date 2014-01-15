@@ -13,4 +13,8 @@
     <item android:id="@+id/menu_preferences"
           android:icon="@drawable/preferences"
           android:title="@string/menu_preferences" />
+
+    <item android:id="@+id/menu_exit"
+          android:icon="@drawable/exit"
+          android:title="@string/menu_exit" />
 </menu>

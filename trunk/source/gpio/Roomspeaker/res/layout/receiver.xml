@@ -18,42 +18,48 @@
             android:text="@+string/rc_main_button1" />
 
         <LinearLayout
+    		android:id="@+id/layout_fm_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <Button
                 android:id="@+id/rc_fm_button1"
 	            style="@style/btnStyleGreen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+	            android:layout_width="0dp" 
+        		android:layout_height="wrap_content" 
+        		android:layout_weight="20"
                 android:text="@+string/rc_fm_button1" />
 
             <Button
                 android:id="@+id/rc_fm_button2"
         	    style="@style/btnStyleGreen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+	            android:layout_width="0dp" 
+        		android:layout_height="wrap_content" 
+        		android:layout_weight="21"
                 android:text="@+string/rc_fm_button2" />
 
             <Button
                 android:id="@+id/rc_fm_button3"
     	        style="@style/btnStyleGreen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+	            android:layout_width="0dp" 
+        		android:layout_height="wrap_content" 
+        		android:layout_weight="19"
                 android:text="@+string/rc_fm_button3" />
 
             <Button
                 android:id="@+id/rc_fm_button4"
-            style="@style/btnStyleGreen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            	style="@style/btnStyleGreen"
+	            android:layout_width="0dp" 
+        		android:layout_height="wrap_content" 
+        		android:layout_weight="20"
                 android:text="@+string/rc_fm_button4" />
             
             <Button
                 android:id="@+id/rc_fm_button5"
 	            style="@style/btnStyleGreen"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+	            android:layout_width="0dp" 
+        		android:layout_height="wrap_content" 
+        		android:layout_weight="20"
                 android:text="@+string/rc_fm_button5" />
 
         </LinearLayout>
@@ -93,21 +99,24 @@
             <ImageButton
                 android:id="@+id/rc_vol_button1"
                 android:background="@drawable/btn_voldown"
+                android:layout_marginTop="15dip"
+	            android:layout_toLeftOf="@+id/rc_vol_button2"
                 android:layout_width="wrap_content"
-	            android:layout_alignParentLeft="true"
                 android:layout_height="wrap_content" />
 
             <ImageButton
                 android:id="@+id/rc_vol_button2"
                 android:background="@drawable/btn_volmute"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dip"
                 android:layout_width="wrap_content"
-	            android:layout_toRightOf="@+id/rc_vol_button1"
                 android:layout_height="wrap_content" />
 
             <ImageButton
                 android:id="@+id/rc_vol_button3"
                 android:background="@drawable/btn_volup"
 	            android:layout_width="wrap_content"
+                android:layout_marginTop="15dip"
 	            android:layout_toRightOf="@+id/rc_vol_button2"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
