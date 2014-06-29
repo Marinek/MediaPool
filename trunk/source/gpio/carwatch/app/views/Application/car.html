@@ -1,0 +1,30 @@
+#{extends 'main.html' /}
+#{set title:'Car' /}
+
+#{form @Application.car()}
+<input type="hidden" name="car.id" value="${car?.id}">
+
+Number: <input type="text" name="car.platenumber" value="${car?.platenumber}"></br>
+location: <input type="text" name="car.location" value="${car?.location}"></br>
+color: <input type="text" name="car.color" value="${car?.color}"></br>
+type: <input type="text" name="car.type" value="${car?.type}"></br>
+special: <input type="text" name="car.special" value="${car?.special}"></br>
+
+#{form @Application.save(), enctype:'multipart/form-data'}
+<img src="@{Application.image(car?.id)}"></br>
+image: <input type="file" name="image"></br>
+#{/form}
+
+
+
+
+
+
+<input type="submit" value="Speichern">
+
+#{/form}
+
+#{errors}
+	-${error} <br>
+#{/errors}
+
